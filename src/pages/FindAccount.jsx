@@ -18,35 +18,6 @@ const Form = styled.form`
   }
 `;
 
-const InputGroup = styled.div`
-  margin-bottom: 50px;
-  position: relative;
-  .phone-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    .button {
-      width: 46.6%;
-      margin-bottom: 15px;
-      background-color: #989898;
-      border-radius: 10px;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-  ${(props) => props.theme.window.mobile} {
-    margin-bottom: 55px;
-    .phone-wrap {
-      .button {
-        margin-bottom: 10px;
-        height: 50px;
-      }
-    }
-  }
-`;
-
 const ButtonWrap = styled.div`
   ${(props) => props.theme.window.mobile} {
     padding-top: 0;
@@ -91,6 +62,43 @@ const SmsCheckIcon = styled.div`
   }
 `;
 
+const SmsCheckBox = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+  > div {
+    width: 75%;
+    height: 50px;
+    border-bottom: 1px solid #989898;
+    position: relative;
+    input {
+      width: 100%;
+    }
+  }
+  .confirmButton {
+    width: 20%;
+    height: 50px;
+    background-color: #989898;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const ErrorText = styled.p`
+  font-size: 13px;
+  line-height: 13px;
+  padding-top: 5px;
+  color: ${(props) => props.theme.color.WARNING_MESSAGE};
+  position: absolute;
+  bottom: -20px;
+
+  ${(props) => props.theme.window.mobile} {
+    padding-top: 0px;
+    line-height: 20px;
+  }
+`;
+
 function FindAccount() {
   const { handleSubmit, watch, setFocus, reset, setValue } = useFormContext();
   const { width } = useWindowSize();
@@ -100,6 +108,7 @@ function FindAccount() {
   const [email, setEmail] = useState([]);
 
   const openSmsSend = async () => {
+    setIsActiveTimer(false);
     await axios({
       url: "http://localhost:8080/api/public/sms_send",
       method: "post",

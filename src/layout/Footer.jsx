@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Section from '../components/Content';
-import { Text } from '../components/Font'; 
+import { Text } from '../components/Font';
 import cs from '../assets/img/customer_service_center_icon.png';
 import useWindowSize from '../hooks/useWindowSize';
+import { Link } from 'react-router-dom';
 
 
 const FooterWrap = styled.footer`
@@ -25,7 +26,7 @@ const LeftContent = styled.div`
 const Menu = styled.ul`
   display: flex;
 
-  > li {
+  > li, a {
     color: #FFFFFF;
     font-size: 0.75rem;
     font-weight: 400;
@@ -52,7 +53,12 @@ const Menu = styled.ul`
 
 const Info = styled.div`
   margin-bottom: 9.5%;
-  > p {
+  > div {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  p {
     color: #FFFFFF;
     font-size: 0.75rem;
     font-weight: 400;
@@ -63,7 +69,10 @@ const Info = styled.div`
 
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 11%;
-    > p {
+    > div {
+      width: 80%;
+    }
+    p {
       font-size: 0.8666666666666667rem;
     }
 
@@ -106,21 +115,27 @@ const Icon = styled.div`
 function Footer() {
   const {width} = useWindowSize();
   return (
-    <Section 
-      color='BG_BLACK' 
-      top={width > 768 ? '5%' : '6.2%'} 
+    <Section
+      color='BG_BLACK'
+      top={width > 768 ? '5%' : '6.2%'}
       bottom={width > 768 ? '2%' : '15.451%'}
     >
       <FooterWrap>
         <LeftContent>
           <Menu>
-            <li>이용안내</li>
-            <li>개인정보처리방침</li>
+            <li><Link to='https://insurobo.com/policy/service'>이용안내</Link></li>
+            <li><Link ti='https://insurobo.com/policy/privacy'>개인정보처리방침</Link></li>
           </Menu>
           <Info>
-            <p>대&nbsp;&nbsp;표 | 서 민</p>
-            <p>이 메 일 | info@insurobo.com</p>
-            <p>06247 ) <br />서울특별시 강남구 역삼동 746-18 4층</p>
+            <div>
+              <p>상 호 명 | (주)인슈로보</p>
+              <p>대&nbsp;&nbsp;표 | 서 민</p>
+            </div>
+            <div>
+              <p>이 메 일 | info@insurobo.com</p>
+            </div>
+            
+            <p>06247 ) <br />서울특별시 강남구 논현로75길 10 4층</p>
             <p>사업자등록번호 690-87-01268</p>
           </Info>
         </LeftContent>

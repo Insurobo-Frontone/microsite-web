@@ -127,7 +127,7 @@ const MyPageNav = styled.ul`
   width: 450px;
   height: 360px;
   background-color: #FFFFFF;
-  top: calc(100% - -41px);
+  top: 100%;
   left: 0%;
   z-index: 9999;
   display: flex;
@@ -178,6 +178,7 @@ function Header() {
     localStorage.removeItem("@access-Token");
     localStorage.removeItem("@user");
     navigate('/')
+    window.location.reload()
   }
   const auth = localStorage.getItem("@access-Token");
   const user = localStorage.getItem("@user");
