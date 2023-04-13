@@ -1,3 +1,14 @@
+import React, { useState } from "react";
+import styled from "styled-components";
+import Input from "../components/Input";
+import AuthLayout from "../components/Auth/AuthLayout";
+import { Text } from "../components/Font";
+import { useFormContext } from "react-hook-form";
+import CustomButton from "../components/Button/CustomButton";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Timer from "../components/Timer";
+
 const Form = styled.form`
   padding-top: 80px;
   ${(props) => props.theme.window.mobile} {
