@@ -1,18 +1,5 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Input from "../components/Input";
-import AuthLayout from "../components/Auth/AuthLayout";
-import { Text } from "../components/Font";
-import { useFormContext } from "react-hook-form";
-import CustomButton from "../components/Button/CustomButton";
-import useWindowSize from "../hooks/useWindowSize";
-import { Link, useLocation } from "react-router-dom";
-import axios from "axios";
-import checkIcon from "../assets/icon/smsCheckIcon.png";
-
 const Form = styled.form`
   padding-top: 80px;
-
   ${(props) => props.theme.window.mobile} {
     padding-top: 20px;
   }
@@ -26,7 +13,6 @@ const ButtonWrap = styled.div`
 
 const ResultWrap = styled.div`
   padding-top: 127px;
-
   > input {
     width: 100%;
     border: 1px solid #2f2f2f;
@@ -37,7 +23,6 @@ const ResultWrap = styled.div`
       color: #2f2f2f;
     }
   }
-
   ${(props) => props.theme.window.mobile} {
     > input {
       height: 50px;
@@ -45,20 +30,37 @@ const ResultWrap = styled.div`
   }
 `;
 
-const SmsCheckIcon = styled.div`
-  width: 21.65px;
-  height: 80px;
-  background-image: url(${checkIcon});
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: absolute;
-  bottom: 0;
-  right: 5%;
-
+const PhoneGroup = styled.div`
+  position: relative;
+  margin-bottom: 100px;
+  > div {
+    display: flex;
+    justify-content: space-between;
+    > .button {
+      width: 40%;
+      height: 80px;
+      margin-left: 27px;
+      background-color: #989898;
+      border-radius: 10px;
+      align-self: flex-end;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    > .button.disabled {
+      opacity: 0.2;
+    }
+  }
   ${(props) => props.theme.window.mobile} {
-    height: 50px;
-    width: 15px;
+    > div {
+      > .button {
+        height: 50px;
+        margin-bottom: 20px;
+        margin-left: 5px;
+      }
+    }
   }
 `;
 
@@ -92,7 +94,6 @@ const ErrorText = styled.p`
   color: ${(props) => props.theme.color.WARNING_MESSAGE};
   position: absolute;
   bottom: -20px;
-
   ${(props) => props.theme.window.mobile} {
     padding-top: 0px;
     line-height: 20px;
@@ -100,12 +101,23 @@ const ErrorText = styled.p`
 `;
 
 function FindAccount() {
-  const { handleSubmit, watch, setFocus, reset, setValue } = useFormContext();
-  const { width } = useWindowSize();
+  const {
+    handleSubmit,
+    watch,
+    setError,
+    setFocus,
+    setValue,
+    register,
+    formState: { errors },
+  } = useFormContext();
+  const [button, setButton] = useState(true);
   const [messageId, setMessageId] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(0);
-  const [email, setEmail] = useState([]);
+  const [email, setEmail] = useState("");
+  const [smsCheckOpen, setSmsCheckOpen] = useState(false);
+  const [isActiveTimer, setIsActiveTimer] = useState(false);
+  const [codeValidate, setCodeValidate] = useState(false);
 
   const openSmsSend = async () => {
     setIsActiveTimer(false);
@@ -118,6 +130,9 @@ function FindAccount() {
     })
       .then(function (response) {
         setMessageId(response.data.data.messageId);
+        setSmsCheckOpen(true);
+        setFocus("confirmCode");
+        setIsActiveTimer(true);
       })
       .catch(function (error) {
         console.log(error);
@@ -135,12 +150,32 @@ function FindAccount() {
     })
       .then(function (response) {
         setMessage(response.data.message);
+        if (response.data.status === 200) {
+          alert("인증이 완료되었습니다.");
+          setCodeValidate(true);
+          setSmsCheckOpen(false);
+          setButton(false);
+        }
       })
       .catch(function (error) {
         setMessage(error.response.data.message);
+        setCodeValidate(false);
+        if (error.response.data.message === "인증번호가 일치하지 않습니다.") {
+          setError("confirmCode", {
+            type: "custom",
+            message: "인증번호가 일치하지 않습니다.",
+          });
+        }
+        if (
+          error.response.data.message === "인증번호 시간이 만료 되었습니다."
+        ) {
+          setError("confirmCode", {
+            type: "custom",
+            message: "인증번호 시간이 만료 되었습니다.",
+          });
+        }
       });
   };
-
   const onSubmit = async () => {
     await axios({
       url: "http://localhost:8080/api/public/findEmail",
@@ -192,39 +227,52 @@ function FindAccount() {
         </ResultWrap>
       ) : (
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
-          <InputGroup>
-            <Input
-              label="휴대폰번호"
-              type="phone"
-              name="phoneRole"
-              placeholder="‘-’없이 번호만 입력해주세요"
-              require="*필수 입력 사항입니다."
-              pattern={{
-                value: /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/,
-                message: "규칙에 맞는 휴대폰 번호를 입력해 주세요.",
-              }}
-            />
-            <div className="phone-wrap">
-              <div className="button" onClick={openSmsSend}>
-                <Text color="WHITE">인증번호받기</Text>
-              </div>
-              <div className="button">
-                <Text color="WHITE">인증번호재전송</Text>
+          <PhoneGroup>
+            <div>
+              <Input
+                label="휴대폰번호"
+                type="phone"
+                name="phoneRole"
+                placeholder="‘-’없이 번호만 입력해주세요"
+                require="*필수 입력 사항입니다."
+                pattern={{
+                  value:
+                    /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/,
+                  message: "규칙에 맞는 휴대폰 번호를 입력해 주세요.",
+                }}
+              />
+              <div
+                className={button ? "button" : "button disabled"}
+                onClick={button ? openSmsSend : null}
+              >
+                <Text color="WHITE" bold="200">
+                  인증번호받기
+                </Text>
               </div>
             </div>
-            <Input
-              type="number"
-              name="confirmCode"
-              placeholder="인증번호를 입력해주세요"
-              validate={{ check: () => openSmsCheck() }}
-            />
-            {message === "인증이 완료 되었습니다." ? (
-              <SmsCheckIcon check={message} />
-            ) : null}
-            {/* <Text size={width > 768 ? '0.9rem' : '0.86rem'} color='WARNING_MESSAGE'>
-                {`인증번호가 요청되었습니다. 유효시간 ${`04:00`} 입니다.`}
-              </Text> */}
-          </InputGroup>
+            {smsCheckOpen && (
+              <SmsCheckBox>
+                <div>
+                  <input
+                    type="number"
+                    placeholder="인증번호를 입력해주세요"
+                    {...register("confirmCode", {
+                      required: "*필수 입력 사항입니다.",
+                    })}
+                  />
+                  {isActiveTimer && <Timer active={isActiveTimer} />}
+                </div>
+                {errors.confirmCode?.message && (
+                  <ErrorText>{errors.confirmCode?.message}</ErrorText>
+                )}
+                <div className="confirmButton" onClick={openSmsCheck}>
+                  <Text color="WHITE" bold="200">
+                    확인
+                  </Text>
+                </div>
+              </SmsCheckBox>
+            )}
+          </PhoneGroup>
           <ButtonWrap>
             <CustomButton bgColor="GRAY" width="100%" type="submit">
               <Text color="WHITE" bold="200">
