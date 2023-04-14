@@ -67,7 +67,7 @@ const ErrorText = styled.p`
 `;
 
 const Input = ({
-  name, placeholder, onChange, label, type,
+  name, placeholder, onChange, label, type, defaultValue,
   readOnly, width, require, validate, pattern, maxLength, minLength
 }) =>  {
   const { register, formState: { errors } } = useFormContext({
@@ -84,6 +84,7 @@ const Input = ({
         onChange={onChange}
         placeholder={placeholder}
         readOnly={readOnly}
+        defaultValue={defaultValue}
         {...register(name, {
           required: require,
           validate: validate,

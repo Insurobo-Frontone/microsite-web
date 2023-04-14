@@ -202,11 +202,12 @@ function WindStormModal({onClick}) {
       bizNum = watch('WindstormBussiness')
     }
     await axios({
-      url: 'http://insrb.com/apis/windstorm/join/check',
+      url: 'https://insrb.com/apis/windstorm/join/check',
       method: 'get',
       headers: {
         'X-insr-servicekey' : 'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg=='
       },
+      withCredentials:true,
       params: {
         name: watch('WindstormName'),
         bussiness: bizNum
@@ -222,7 +223,7 @@ function WindStormModal({onClick}) {
     })
     .catch(function (error) {
       console.log(error)
-    }) 
+    })
   }
 
 
@@ -269,21 +270,21 @@ function WindStormModal({onClick}) {
           <div>
             <input
               placeholder='사업자등록번호'
-              {...register('WindstormBussiness', { 
+              {...register('WindstormBussiness', {
                 required: '*필수 입력 사항입니다.',
-                
+
               })}
             />
             {errors.WindstormBussiness?.message && <ErrorText>{errors.WindstormBussiness?.message}</ErrorText>}
           </div>
-          
+
         </InputGroup>
         <div className='button' onClick={openWindstormCheck}>확인</div>
       </Form>
       )}
-        
-      
-      
+
+
+
     </Modal>
   )
 }

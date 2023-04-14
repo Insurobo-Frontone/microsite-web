@@ -63,7 +63,7 @@ const Card = styled.li`
   transform: translate(0, 50px);
   transition: transform 1.5s ease, opacity 1s ease;
   flex-shrink: 1;
-  
+  cursor: pointer;
   &.delay1 {
     transform: translate(0, 0);
     opacity: 1;

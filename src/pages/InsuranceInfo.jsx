@@ -16,9 +16,11 @@ import d_icon5 from '../assets/icon/dutyIcon5.png';
 import m_icon1 from '../assets/icon/mustIcon1.png';
 import m_icon2 from '../assets/icon/mustIcon2.png';
 import CustomButton from '../components/Button/CustomButton';
-import { Text } from '../components/Font';
+import { Text, Title } from '../components/Font';
 import ApplyModal from '../components/Modal/ApplyModal';
 
+import i_icon1 from '../assets/icon/invest_icon1.png'
+import i_icon4 from '../assets/icon/invest_icon4.png'
 const list_duty = [
   {
     id: 1,
@@ -79,7 +81,7 @@ const list_invest = [
     id: 1,
     title: '국산 자동차 구매가격 평균',
     money: '3079만원',
-    icon: '',
+    icon: i_icon1,
     source: '<컨슈머인사이트 2017>'
   },
   {
@@ -100,7 +102,7 @@ const list_invest = [
     id: 4,
     title: '4년제 대학 1학기 등록금 평균',
     money: '671만원',
-    icon: '',
+    icon: i_icon4,
     source: '<교육부 2018>'
   },
 ]
@@ -110,37 +112,23 @@ const Banner = styled.div`
   box-shadow: ${props => props.shadow && '0 0 10px 0 rgba(26,26,26,0.1)'};
   padding: 50px 25px;
   border-radius: 13px;
-  display: flex;
-  align-items: center;
-	justify-content: space-between;
+
   margin-bottom: 20px;
   
   > div {
-    :first-child {
-      width: 60%;
-    }
-    :last-child {
-      width: 40%;
-    }
-    > p {
-      color: #0C1F6F;
-      font-size: 15px;
-      font-weight: 700;
-      padding-top: 20px;
-		
-    }
-    > h2 {
-      color: #FFFFFF;
-      font-size: 1.25rem;
-      > span {
-        font-size: 1.5rem;
+    &.invest-banner {
+      position: absolute;
+      span {
+        color: #FF9243;
         font-weight: 700;
-        color: #FFFFFF;
       }
     }
-    > img {
-
+    .invest {
+      width: 65%;
+      margin-left: 35%;
     }
+
+    
   }
   > .sub-banner {
       display: flex;
@@ -196,6 +184,9 @@ const ItemList = styled.ul`
 
 const InvestList = styled.div`
   width: 100%;
+  span {
+    color: #FF9243;
+  }
   > ul {
     display: flex;
     justify-content: space-between;
@@ -210,9 +201,10 @@ const InvestList = styled.div`
       > h2 {
         font-size: 1rem;
         text-align: center;
-        span {
+        > span {
           display: block;
           font-size: 0.65rem;
+          
         }
       }
       > p {
@@ -242,7 +234,7 @@ const StyledLink = styled(Link)`
 function InsuranceInfo() {
   
   return (
-    <Layout>
+    <Layout color='BG_WHITE'>
       <Item />
     </Layout>
   )
@@ -259,11 +251,12 @@ function Item() {
       <InfoContent>
         <Banner color='#2EA5FF' shadow> 
           <div>
-            <h2>
-              사장님!!<br />
-              운영하시는 사업장 마다<br />
-              의무적으로 가입하실 보험입니다.
-            </h2>
+            <Text size='1.5rem'>
+              사장님!!!<br />
+              사업장 안정을 위해
+              <Text>필수</Text>
+              가입하실 보험입니다.
+            </Text>
             <p>**미가입시 과태로 부과 대상입니다.</p>
           </div>
           <div>
@@ -294,11 +287,10 @@ function Item() {
       <InfoContent>
         <Banner color='#FFFFFF' shadow>
           <div>
-            <h2>
-              사장님!!<br />
-              사업장 안전을 위해<br />
-              필수 가입하실 보험입니다.
-            </h2>
+            <Text>
+              사장님!!!<br />
+              목돈 마련을 위해 적합한 보험입니다.
+            </Text>
           </div>
           <div>
             <img src={must_main} alt='필수 보험'/>
@@ -342,17 +334,15 @@ function Item() {
   if (location.search === '?item=invest') {
     return (
       <InfoContent>
-        <Banner color='#6F85E3' shadow>
-          <div>
-            <h2>
-              <span>사장님!!</span><br />
-              목돈 마련을 위해
-              적합한 보험입니다.
-            </h2>
-
+        <Banner color='#FFFFFF' shadow>
+          <div className='invest-banner'>
+            <Title size='2rem' bold='700' color='ORANGE'>
+              사장님!!!
+            </Title>
+            <Text size='1.5rem' bold='700' color='ORANGE'><span>목돈 마련</span>을 위해 적합한 보험입니다.</Text>
           </div>
           <div>
-            <img src={invest_main} alt='재태크보험' />
+            <img src={invest_main} alt='재태크보험' className='invest'/>
           </div>
         </Banner>
         <Banner color='#FFFFFF' shadow>
@@ -392,7 +382,7 @@ function Item() {
         <CustomButton 
           onClick={() => setShowPopup(true)} 
           width='100%'
-          bgColor='BLUE3'
+          bgColor='ORANGE'
         >
           <Text color='WHITE'>목돈마련 상담신청</Text>
         </CustomButton>
