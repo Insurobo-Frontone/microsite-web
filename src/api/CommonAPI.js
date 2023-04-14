@@ -32,7 +32,7 @@ CommonAPI.interceptors.response.use(
         function (error) {
 
             if(error.response.status === 401 || error.response.status === 403){
-                if(!alert("로그인이 필요합니다.")){
+                if(!alert("세션이 만료되어 재로그인이 필요합니다.")){
                     localStorage.removeItem("@access-Token");
                     localStorage.removeItem("@user");
                     window.location.href = process.env.REACT_APP_LOGIN_URL;
