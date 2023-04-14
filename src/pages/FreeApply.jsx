@@ -352,7 +352,7 @@ function FreeApply() {
         </Discription>
         <ButtonWrap>
           <Link to='https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo'>
-            <Text color='WHITE' size='16px'>무료가입 신청</Text>
+            <Text color='WHITE' size='16px'>가입 신청</Text>
           </Link>
         </ButtonWrap>
       </Wrap>

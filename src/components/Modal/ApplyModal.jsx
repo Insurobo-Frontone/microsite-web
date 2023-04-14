@@ -4,6 +4,7 @@ import Modal from '.';
 import { useFormContext } from 'react-hook-form';
 import checkIcon from '../../assets/img/checkboxIcon.png';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Form = styled.form`
   background-color: #FFFFFF;
@@ -11,7 +12,7 @@ const Form = styled.form`
   width: 500px;
   border-radius: 10px;
 
-  > button {
+  .button {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -35,28 +36,27 @@ const Form = styled.form`
 const InputGroup = styled.div`
   padding-bottom: 30px;
   > div {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     display: flex;
-    flex-flow: row wrap;
+    justify-content: space-between;
     position: relative;
     align-items: center;
   }
   label {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     width: 10%;
   }
   input {
-    width: 80%;
+    width: 88%;
     border-bottom: 1px solid #EBEBEB;
-    /* border-radius: 5px; */
-    height: 50px;
-    margin-bottom: 20px;
-    padding: 10px 15px; 
+    height: 30px;
+    padding: 10px 0; 
     :last-child {
       margin-bottom: 0;
     }
     ::placeholder {
       color: #989898;
+      font-size: 0.6rem;
     }
   }
 `;
@@ -66,7 +66,8 @@ const ErrorText = styled.p`
   line-height: 13px;
   color: ${(props) => props.theme.color.WARNING_MESSAGE};
   position: absolute;
-  bottom: 0;
+  bottom: -20px;
+  left: 10%;
   ${props => props.theme.window.mobile} {
     padding-top: 0px;
     line-height: 20px;
@@ -74,11 +75,12 @@ const ErrorText = styled.p`
 `;
 
 const CheckBoxGroup = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  
   padding-bottom: 20px;
   > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     input[type='checkbox'] {
       position: absolute;
       left: -1000%;
@@ -112,12 +114,28 @@ const CheckBoxGroup = styled.div`
     padding: 5px;
     font-size: 0.6rem;
   }
- 
 `;
 
+const MoreBox = styled.div`
+  font-size: 0.65rem;
+  padding: 20px 10px;
+`;
+
+
 function ApplyModal({onClick}) {
-  const { register, formState: { errors } } = useFormContext();
+  const { register, handleSubmit, reset, formState: { errors } } = useFormContext();
   const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+   reset()
+  }, [])
+  const onSubmit = (data) => {
+    console.log(data)
+  }
+
+  const onError = (error) => {
+    console.log(error)
+  }
     return (
       <Modal onClick={onClick}>
         <Form>
@@ -125,12 +143,13 @@ function ApplyModal({onClick}) {
             <div>
               <label>성명</label>
               <input
+                type='text'
                 placeholder='회사명을 입력하세요'
                 {...register('bizName', {
                   required: '*필수 입력 사항입니다.',
                 })}
               />
-              {errors.WindstormName?.message && <ErrorText>{errors.WindstormName?.message}</ErrorText>}
+              {errors.bizName?.message && <ErrorText>{errors.bizName?.message}</ErrorText>}
             </div>
             <div>
               <label>연락처</label>
@@ -140,7 +159,7 @@ function ApplyModal({onClick}) {
                   required: '*필수 입력 사항입니다.',
                 })}
               />
-              {errors.WindstormBussiness?.message && <ErrorText>{errors.WindstormBussiness?.message}</ErrorText>}
+              {errors.bizPhone?.message && <ErrorText>{errors.bizPhone?.message}</ErrorText>}
             </div>
             <div>
               <label>업종</label>
@@ -150,21 +169,36 @@ function ApplyModal({onClick}) {
                   required: '*필수 입력 사항입니다.',
                 })}
               />
-              {errors.WindstormBussiness?.message && <ErrorText>{errors.WindstormBussiness?.message}</ErrorText>}
+              {errors.bizSectors?.message && <ErrorText>{errors.bizSectors?.message}</ErrorText>}
             </div>
           </InputGroup>
           <CheckBoxGroup>
             <div>
-              <input type='checkbox' id='agree' />
-              <label for='agree'>개인정보수집 및 활용동의</label>
+              <div>
+                <input type='checkbox' id='agree' />
+                <label for='agree'>개인정보수집 및 활용동의</label>
+              </div>
+              <div className='agree-btn' onClick={() => setShowPopup(!showPopup)}>{showPopup ? '닫기' : '보기'}</div>
             </div>
-            <div className='agree-btn' onClick={() => setShowPopup(true)}>보기</div>
+            {showPopup && (
+              <MoreBox>
+                ▣ 개인정보 수집ㆍ이용 동의
+                당사는 「개인정보보호법」, 「정보통신망 이용촉진 및 정보 보호 등에 관한 법률」에 따라 귀하의 개인정보를 다음과 같이 수집·이용하고자 합니다.<br />
+                1. 개인정보 수집 및 이용 목적
+                - 보험 상담 및 상품소개, 보험 리모델링 및 가입 권유를 위한 안내 및 서비스 제공<br />
+                2. 개인정보 수집 및 이용 항목
+                - 이름, 연락처, 업종<br />
+                3. 개인정보 보유 및 이용기간
+                - 동의일로부터 3년<br />
+                4. 동의를 거부할 권리 및 동의를 거부할 경우의 불이익
+                - 귀하는 개인정보 수집, 이용에 대한 동의를 거부할 권리가 있습니다.
+                - 동의거부시 목돈마련 상담 등의 서비스를 받으실 수 없습니다.
+              </MoreBox>
+            )}
           </CheckBoxGroup>
-          <button type='submit'>상담신청</button>
+          <div className='button' onClick={handleSubmit(onSubmit, onError)}>상담신청</div>
         </Form>
-        {showPopup && (
-          <div>dsdsdsd</div>
-        )}
+        
       </Modal>
     )
 }

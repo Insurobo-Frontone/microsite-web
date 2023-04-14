@@ -5,6 +5,9 @@ import InfoContent from '../components/Content/InfoContent';
 import styled from 'styled-components';
 import hyd from '../assets/img/insurance/hyd.png';
 import imgPlace from '../assets/img/insurance/imagePlace.png';
+import duty_main from '../assets/img/insurance/dutyMain.png';
+import must_main from '../assets/img/insurance/mustMain.png';
+import invest_main from '../assets/img/insurance/investMain.png';
 import d_icon1 from '../assets/icon/dutyIcon1.png';
 import d_icon2 from '../assets/icon/dutyIcon2.png';
 import d_icon3 from '../assets/icon/dutyIcon3.png';
@@ -105,7 +108,7 @@ const list_invest = [
 const Banner = styled.div`
   background-color: ${props => props.color};
   box-shadow: ${props => props.shadow && '0 0 10px 0 rgba(26,26,26,0.1)'};
-  padding: 20px 25px;
+  padding: 50px 25px;
   border-radius: 13px;
   display: flex;
   align-items: center;
@@ -113,6 +116,12 @@ const Banner = styled.div`
   margin-bottom: 20px;
   
   > div {
+    :first-child {
+      width: 60%;
+    }
+    :last-child {
+      width: 40%;
+    }
     > p {
       color: #0C1F6F;
       font-size: 15px;
@@ -121,7 +130,16 @@ const Banner = styled.div`
 		
     }
     > h2 {
-      color: #1A1A1A;
+      color: #FFFFFF;
+      font-size: 1.25rem;
+      > span {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #FFFFFF;
+      }
+    }
+    > img {
+
     }
   }
   > .sub-banner {
@@ -184,6 +202,7 @@ const InvestList = styled.div`
     
     width: 100%;
     margin-top: 20px;
+    
     > li {
       display: flex;
       flex-direction: column;
@@ -200,6 +219,10 @@ const InvestList = styled.div`
         font-size: 0.6rem;
       }
     }
+  }
+  .text-box {
+    flex-flow: column;
+    align-items: flex-start;
   }
 `;
 
@@ -234,7 +257,7 @@ function Item() {
   if (location.search === '?item=duty') {
     return (
       <InfoContent>
-        <Banner color='#FFFFFF' shadow> 
+        <Banner color='#2EA5FF' shadow> 
           <div>
             <h2>
               사장님!!<br />
@@ -244,7 +267,7 @@ function Item() {
             <p>**미가입시 과태로 부과 대상입니다.</p>
           </div>
           <div>
-            <img src={imgPlace} alt='의무보험'/>
+            <img src={duty_main} alt='의무보험'/>
           </div>
         </Banner>
         <ItemListWrap>
@@ -278,7 +301,7 @@ function Item() {
             </h2>
           </div>
           <div>
-            <img src={imgPlace} alt='필수 보험'/>
+            <img src={must_main} alt='필수 보험'/>
           </div>
         </Banner>
         <ItemListWrap>
@@ -292,12 +315,12 @@ function Item() {
                     <span>{dt.text}</span>
                   </div>
                 </div>
-                <StyledLink to={dt.link}>알아보기</StyledLink>
+                {dt.link && (<StyledLink to={dt.link}>알아보기</StyledLink>)}
               </li>
             ))}
           </ItemList>
         </ItemListWrap>
-        <Banner color='#FFFFFF' shadow>
+        {/* <Banner color='#FFFFFF' shadow>
           <div className='sub-banner'>
             <h3>
               뜻하지 않게 발생하는 재산손해와 배상책임!<br />
@@ -312,24 +335,24 @@ function Item() {
             <img src={hyd} alt='필수 보험' style={{width: '200px'}}/>
           </div>
           <StyledLink>알아보기</StyledLink>
-        </Banner>
+        </Banner> */}
       </InfoContent>
     )
   }
   if (location.search === '?item=invest') {
     return (
       <InfoContent>
-        <Banner color='#FFFFFF' shadow>
+        <Banner color='#6F85E3' shadow>
           <div>
             <h2>
-              사장님!!<br />
-              운영하시는 사업장 마다<br />
-              의무적으로 가입하실 보험입니다.
+              <span>사장님!!</span><br />
+              목돈 마련을 위해
+              적합한 보험입니다.
             </h2>
-            <p>**미가입시 과태로 부과 대상입니다.</p>
+
           </div>
           <div>
-            <img src={imgPlace} alt='의무보험'/>
+            <img src={invest_main} alt='재태크보험' />
           </div>
         </Banner>
         <Banner color='#FFFFFF' shadow>

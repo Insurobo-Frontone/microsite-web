@@ -23,7 +23,7 @@ const data = [
     id: 1,
     t_line1: '소상공인',
     t_line2: '풍수해보험',
-    t_line3: '무료지원 사업',
+    t_line3: 'EVENT',
     link: '/freeApply',
     bg_img: slider1,
     mb_bg_img: mb_slider1,
@@ -221,12 +221,12 @@ function MainSlider() {
   
   const settings = {
     dots: false,
-    speed: 2500,
+    speed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     infinite: true,
-    autoplaySpeed: 1500,
+    autoplaySpeed: 4000,
     pauseOnHover: false,
   }
 

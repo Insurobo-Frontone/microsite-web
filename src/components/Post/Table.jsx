@@ -246,7 +246,7 @@ export default function Table() {
     const response = await axios.get(
       `http://localhost:8080/api/public/communityList${categoryValue}`
     );
-    console.log(response.data.data)
+
     return response.data.data.slice(0).reverse();
   }
   
@@ -310,7 +310,7 @@ export default function Table() {
       
       {limit === 8 && (
         <>
-          <WriteButton>글쓰기</WriteButton>
+          {/* <WriteButton>글쓰기</WriteButton> */}
           <Pagination
             total={data.length}
             limit={limit}
