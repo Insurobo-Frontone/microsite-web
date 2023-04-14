@@ -6,6 +6,8 @@ import { Text } from '../components/Font';
 import { useFormContext } from "react-hook-form";
 import CustomButton from '../components/Button/CustomButton';
 import useWindowSize from '../hooks/useWindowSize';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Form = styled.form`
   padding-top: 80px;
@@ -26,8 +28,25 @@ const ButtonWrap = styled.div`
 
 
 function EditPassword() {
-  const onSubmit = async () => {
-    
+  const auth = localStorage.getItem("@access-Token");
+  let navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    axios({
+      url: 'http://localhost:8080/api/private/pwdUpdate',
+      method: 'put',
+      headers: { 
+        "Content-Type": `application/json`,
+          Authorization : `Bearer ${auth}`
+      },
+      data: JSON.stringify(data)
+    }).then(function (response) {
+      console.log(response)
+      alert('비밀번호 변경이 완료되었습니다.')
+      navigate('/')
+    }).catch(function (error) {
+      console.log(error)
+    })
   }
 
   const onError = (error) => {
@@ -37,7 +56,7 @@ function EditPassword() {
   const { handleSubmit, watch } = useFormContext();
   const { width } = useWindowSize();
   const passwordCheck = () => {
-    if (watch('userPw') === watch('userPwCheck')) {
+    if (watch('newUserPw') === watch('newUserPwCheck')) {
       return true;
     } else {
       return false;
@@ -51,6 +70,17 @@ function EditPassword() {
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
           <Input
             name='userPw'
+            label='기존 비밀번호'
+            type='password'
+            placeholder='변경할 비밀번호를 입력해주세요'
+            require='*필수 입력 사항입니다.'
+            pattern={{
+              value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/,
+              message: '규칙에 맞는 비밀번호를 입력해주세요.'
+            }}
+          />
+          <Input
+            name='newUserPw'
             label='비밀번호'
             type='password'
             placeholder='변경할 비밀번호를 입력해주세요'
@@ -61,7 +91,7 @@ function EditPassword() {
             }}
           />
           <Input
-            name='userPwCheck'
+            name='newUserPwCheck'
             type='password'
             placeholder='비밀번호를 다시 한번 입력해주세요'
             require='*필수 입력 사항입니다.'

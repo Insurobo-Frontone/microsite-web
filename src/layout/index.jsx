@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Footer from "./Footer";
 import theme from '../style/Theme';
 import ScrollToTop from "./ScrollToTop";
+import PageScrollToTop from "./pageScrollToTop";
+
 
 const Wrap = styled.div`
   width: 100%;
@@ -16,6 +18,7 @@ const Layout = ({children, color}) => {
   return (
     <>
       <ScrollToTop />
+      <PageScrollToTop />
       <Wrap color={color}>
         <Header />
           {children}

@@ -7,6 +7,7 @@ import CustomButton from '../components/Button/CustomButton';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const Form = styled.form`
   padding: 54px 0 147px;
@@ -49,6 +50,7 @@ const InputGroup = styled.div`
 const PasswordGroup = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 20px 0;
   label {
     display: block;
     width: 100%;
@@ -75,6 +77,7 @@ const ButtonWrap = styled.div`
 
 function EditProfile() {
   const auth = localStorage.getItem("@access-Token");
+  const [user, setUser] = useState();
 
   useEffect(() => {
     axios({
@@ -85,7 +88,7 @@ function EditProfile() {
       }
     }).then(function (response) {
       console.log(response)
-
+      setUser(response.data.data)
     })
   }, [])
   return (
@@ -95,7 +98,7 @@ function EditProfile() {
           <Input
             label='이름'
             name='userName'
-            placeholder='이름을 입력해주세요'
+            // placeholder={user.userName}
             require='*필수 입력 사항입니다.'
           />
         </InputGroup>
@@ -110,7 +113,7 @@ function EditProfile() {
             label='연락처'
             type='phone'
             name='phoneRole' 
-            placeholder='‘-’없이 번호만 입력해주세요'
+            // placeholder={user.phoneRole}
             require='*필수 입력 사항입니다.'
             pattern={{
               value: /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/,

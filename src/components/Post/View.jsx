@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useSearchParams, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
 const ViewContainer = styled.div`
   width: 100%;
@@ -77,8 +80,23 @@ const Button = styled.button`
 `;
 
 
-function View({data}) {
+function View() {
   let navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const id = searchParams.get('id');
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios({
+      url: 'http://localhost:8080/api/public/communityDetail',
+      params: {
+        id: id
+      }
+    }).then(function (response){
+      console.log(response)
+      setData(response.data.data)
+    })
+  }, [id]);
 
   function handleClick(link) {
     navigate(link);
@@ -108,7 +126,7 @@ function View({data}) {
           </ViewBody>
            
           <ButtonWrap>
-            <Button onClick={() => handleClick(-1)}>목록</Button>
+            <Button onClick={() => handleClick(-1)}>이전</Button>
           </ButtonWrap>
         </>
       )}
