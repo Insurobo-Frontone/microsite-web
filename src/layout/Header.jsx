@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect,  } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import styled, { css } from 'styled-components';
 import logo from '../assets/img/mainLogo.png';
@@ -6,6 +6,8 @@ import myPageIcon from '../assets/img/myPageIcon.png';
 import toggleBtn from '../assets/img/toggleBtn.png';
 import closeBtn from '../assets/img/closeBtn.png';
 import WindStormModal from '../components/Modal/WindStormModal';
+import Context from '../container/userContext';
+import { CommonAPI } from '../api/CommonAPI';
 
 const Wrap = styled.header`
   display: flex;
@@ -32,16 +34,12 @@ const Nav = styled.nav`
 `;
 
 const LogoBox = styled.button`
-  width: 15.9%;
+  width: 230px;
   display: flex;
   align-items: center;
   
-  > p {
-    white-space: nowrap;
-    letter-spacing: -2px;
-  }
   ${(props) => props.theme.window.mobile} {
-      width: 35.3125%;
+    width: 113px;
 
   }
 `;
@@ -173,6 +171,7 @@ function Header() {
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [myPageOpne, setMyPageOpen] = useState(false);
+  const { loggedUser, loggedIn, setLoggedUser, setLoggedIn } = useContext(Context);
 
   const logout = () => {
     localStorage.removeItem("@access-Token");
@@ -182,10 +181,22 @@ function Header() {
   }
   const auth = localStorage.getItem("@access-Token");
   const user = localStorage.getItem("@user");
+  // useEffect(async ()  => {
+  //   if (auth) {
+  //     const res = await CommonAPI.get("/api/private/profile", {
+  //       Authorization: `Bearer ${auth}`,
+  //    })
+  //    if(res.status === 200){
+  //      setLoggedUser(res.data.data)
+  //     }
+  //     console.log(loggedUser)
+  //   }
+  // }, []);
 
   let navigate = useNavigate();
   function goToMainPage(link) {
     navigate(link);
+    window.location.reload()
   }
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -197,7 +208,7 @@ function Header() {
         <Wrap>
           <Nav>
             <LogoBox onClick={() => goToMainPage('/')}>
-              <img src={logo} alt='소상공인 도우미' />
+              <img src={logo} alt='비즈로보' />
             </LogoBox>
             <Menu isOpen={isOpen}>
               <li onClick={() => setShowPopup(true)}>

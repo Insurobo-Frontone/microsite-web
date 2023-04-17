@@ -16,6 +16,7 @@ export const setUser = (user) => {
   localStorage.setItem('@user', user);
 }
 
+
 export const setAccessToken = (token) => {
   localStorage.setItem('@access-Token', token);
 }

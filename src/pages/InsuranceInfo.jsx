@@ -20,7 +20,10 @@ import { Text, Title } from '../components/Font';
 import ApplyModal from '../components/Modal/ApplyModal';
 
 import i_icon1 from '../assets/icon/invest_icon1.png'
+import i_icon2 from '../assets/icon/invest_icon2.png'
+import i_icon3 from '../assets/icon/invest_icon3.png'
 import i_icon4 from '../assets/icon/invest_icon4.png'
+import useWindowSize from '../hooks/useWindowSize';
 const list_duty = [
   {
     id: 1,
@@ -88,14 +91,14 @@ const list_invest = [
     id: 2,
     title: '해외여행 경비 평균',
     money: '143.5만원',
-    icon: '',
+    icon: i_icon2,
     source: '<컨슈머인사이트 2017>'
   },
   {
     id: 3,
     title: '결혼자금 평균',
     money: '2억 3천만원',
-    icon: '',
+    icon: i_icon3,
     source: '<듀오웨드 2018>'
   },
   {
@@ -112,29 +115,70 @@ const Banner = styled.div`
   box-shadow: ${props => props.shadow && '0 0 10px 0 rgba(26,26,26,0.1)'};
   padding: 50px 25px;
   border-radius: 13px;
-
   margin-bottom: 20px;
   
   > div {
-    &.invest-banner {
+
+    &.banner-text-box {
       position: absolute;
       span {
-        color: #FF9243;
+        color: #212A5D;
         font-weight: 700;
       }
     }
-    .invest {
-      width: 65%;
-      margin-left: 35%;
+    .duty {
+      width: 53%;
+      margin-left: 47%;
     }
-
-    
+    .must {
+      width: 47%;
+      margin-left: 53%;
+    }
+    .invest {
+      width: 45%;
+      margin-left: 55%;
+    }
   }
   > .sub-banner {
       display: flex;
       > img {
         
       }
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    padding: 25px 16px;
+    > div {
+
+    &.banner-text-box {
+      position: static;
+      > br {
+        display: none;
+      }
+      > p {
+        margin-bottom: 10px;
+      }
+    }
+    .duty {
+      width: 53%;
+      margin-left: 47%;
+      margin-top: 10px;
+    }
+    .must {
+      width: 47%;
+      margin-left: 53%;
+    }
+    .invest {
+      width: 45%;
+      margin-left: 55%;
+    }
+    }
+    > .sub-banner {
+      display: flex;
+      > img {
+        
+      }
+    }
   }
 `; 
 
@@ -143,9 +187,11 @@ const ItemListWrap = styled.div`
   background-color: #FFF;
   box-shadow: 0 0 10px 0 rgba(26,26,26,0.1);
   border-radius: 10px;
- 
   margin-bottom: 20px;
   /* margin: 20px auto 0; */
+  ${(props) => props.theme.window.mobile} {
+    padding: 10px;
+  }
 `;
 
 
@@ -157,6 +203,18 @@ const ItemList = styled.ul`
     border-bottom: 1px solid #E5E5E5;
     :last-child {
       border-bottom: 0;
+    }
+    .preparing {
+      font-size: 12px;
+      font-weight: 700;
+      color: #808080;
+      background-color: #F0F0F0;
+      border-radius: 15px;
+      width: 61px;
+      height: 26px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .left-wrap {
       display: flex;
@@ -180,17 +238,39 @@ const ItemList = styled.ul`
       }
     }
   }
+  ${(props) => props.theme.window.mobile} {
+    > li {
+        .left-wrap {
+        > img {
+          margin-right: 5px;
+        }
+        > div {
+          > p {
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
 `;
 
 const InvestList = styled.div`
   width: 100%;
-  span {
-    color: #FF9243;
+  .title {
+    display: flex;
+    align-items: flex-start;
+    color: #2F2F2F;
+    font-size: 1.25rem;
+    > :first-child {
+      margin-right: 10px;
+      color: #4575F5;
+      line-height: 45px;
+    }
   }
   > ul {
     display: flex;
     justify-content: space-between;
-    
+    padding: 20px 0;
     width: 100%;
     margin-top: 20px;
     
@@ -198,23 +278,40 @@ const InvestList = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 30%;
+      
       > h2 {
-        font-size: 1rem;
+        font-size: 0.9rem;
         text-align: center;
+        padding-bottom: 20px;
+        color: #212A5D;
         > span {
           display: block;
           font-size: 0.65rem;
-          
+          font-weight: 400;
         }
       }
       > p {
-        font-size: 0.6rem;
+        font-size: 0.5rem;
+        color: #808080;
+        padding-top: 20px;
       }
     }
   }
   .text-box {
     flex-flow: column;
-    align-items: flex-start;
+    border-radius: 20px;
+    background-color: #F8F8F8;
+    margin-top: 50px;
+    padding: 20px;
+    > li {
+      font-size: 0.95rem;
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+      padding-bottom: 10px;
+      font-weight: 300;
+    }
   }
 `;
 
@@ -245,22 +342,23 @@ export default InsuranceInfo
 function Item() {
   const location = useLocation();
   const [showPopup, setShowPopup] = useState(false);
+  const { width } = useWindowSize();
 
   if (location.search === '?item=duty') {
     return (
       <InfoContent>
         <Banner color='#2EA5FF' shadow> 
-          <div>
-            <Text size='1.5rem'>
+          <div className='banner-text-box'>
+            <Text size={width > 768 ? '1.5rem' : '1.25rem'} color='WHITE' bold='700'>
               사장님!!!<br />
-              사업장 안정을 위해
-              <Text>필수</Text>
-              가입하실 보험입니다.
+              사업장 안정을 위해<br />
+              필수 가입하실 보험입니다.
             </Text>
-            <p>**미가입시 과태로 부과 대상입니다.</p>
+            <br />
+            <Text size='0.7rem' color='BLACK2' bold='700'>**미가입시 과태로 부과 대상입니다.</Text>
           </div>
           <div>
-            <img src={duty_main} alt='의무보험'/>
+            <img src={duty_main} alt='의무보험' className='duty'/>
           </div>
         </Banner>
         <ItemListWrap>
@@ -285,15 +383,16 @@ function Item() {
   if (location.search === '?item=must') {
     return (
       <InfoContent>
-        <Banner color='#FFFFFF' shadow>
-          <div>
-            <Text>
+        <Banner color='#176FFF' shadow>
+          <div className='banner-text-box'>
+            <Text size='1.5rem' color='WHITE' bold='700'>
               사장님!!!<br />
-              목돈 마련을 위해 적합한 보험입니다.
+              사업장 <span>안전</span>을 위해<br />
+              필수 가입하실 보험입니다.
             </Text>
           </div>
           <div>
-            <img src={must_main} alt='필수 보험'/>
+            <img src={must_main} alt='필수 보험' className='must'/>
           </div>
         </Banner>
         <ItemListWrap>
@@ -307,7 +406,9 @@ function Item() {
                     <span>{dt.text}</span>
                   </div>
                 </div>
-                {dt.link && (<StyledLink to={dt.link}>알아보기</StyledLink>)}
+                {dt.link ? ((<StyledLink to={dt.link}>알아보기</StyledLink>)) :(
+                  <div className='preparing'>준비중</div>
+                )}
               </li>
             ))}
           </ItemList>
@@ -334,21 +435,21 @@ function Item() {
   if (location.search === '?item=invest') {
     return (
       <InfoContent>
-        <Banner color='#FFFFFF' shadow>
-          <div className='invest-banner'>
-            <Title size='2rem' bold='700' color='ORANGE'>
-              사장님!!!
-            </Title>
-            <Text size='1.5rem' bold='700' color='ORANGE'><span>목돈 마련</span>을 위해 적합한 보험입니다.</Text>
+        <Banner color='#4575F5' shadow>
+          <div className='banner-text-box'>
+            <Text size='1.5rem' bold='700' color="WHITE">
+              사장님!!!<br />
+              <span>목돈 마련</span>을 위해 적합한 보험입니다.
+            </Text>
           </div>
           <div>
             <img src={invest_main} alt='재태크보험' className='invest'/>
           </div>
         </Banner>
-        <Banner color='#FFFFFF' shadow>
+        <Banner color='#FFFFFF' shadow> 
           <InvestList>
-            <h2>
-              <span>01</span>목적자금!!<br />
+            <h2 className='title'> 
+              <h2>01</h2>목적자금!!<br />
               자금 준비계획이 꼭 필요합니다.
             </h2>
             <ul>
@@ -367,8 +468,8 @@ function Item() {
         </Banner>
         <Banner color='#FFFFFF' shadow>
           <InvestList>
-            <h2>
-              <span>02</span>목적자금!!<br />
+            <h2 className='title'>
+            <h2>02</h2>목적자금!!<br />
               마련시 꼭 체크하실 내용입니다.
             </h2>
             <ul className='text-box'>
@@ -382,7 +483,7 @@ function Item() {
         <CustomButton 
           onClick={() => setShowPopup(true)} 
           width='100%'
-          bgColor='ORANGE'
+          bgColor='PRIMARY'
         >
           <Text color='WHITE'>목돈마련 상담신청</Text>
         </CustomButton>

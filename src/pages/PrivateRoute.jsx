@@ -1,11 +1,14 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
-const PrivateRoute = ({ auth, component: Component }) => {
+
+const PrivateRoute = ({ auth }) => {
+  // state={{ from: history.location }}
   return (
-    auth ? Component : 
-    <Navigate to='/login' {...alert('로그인이 필요한 페이지입니다.')} />
+    auth ? <Outlet /> : 
+    <Navigate to='/login'  {...alert('로그인이 필요한 페이지입니다.')} />
   );
+
 };
 
 export default PrivateRoute;

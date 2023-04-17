@@ -8,9 +8,9 @@ const Wrap = styled.div`
   margin: 10% auto;
   background-color: ${props => theme.color[props.color]};
   ${(props) => props.theme.window.mobile} {
-    /* padding-left: 6.5%;
-    padding-right: 6.5%;
-    min-width: auto; */
+    max-width: none;
+    width: 100%;
+    padding: 0 20px;
   }
 `;
 

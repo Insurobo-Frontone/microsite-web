@@ -27,6 +27,7 @@ const theme = {
     BLUE2: '#0C1F6F',
     BLUE3: '#2EA5FF',
     BLUE4: '#2B3350',
+    NAVY: '#212A5D',
     BG_WHITE: '#FAFAFA',
     BG_WHITE2: '#F5F5F5',
     BG_GRAY: '#F9F9F9',

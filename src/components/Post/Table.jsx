@@ -38,7 +38,7 @@ const categories = [
   {
     name: 'promotion',
     print: '홍보',
-    color: 'POINT_SUB'
+    color: 'WARNING'
   }
 ]
 

@@ -7,11 +7,17 @@ import right from '../../assets/img/right_bg.png';
 import { useScroll } from '../../hooks/useScroll';
 import useWindowSize from '../../hooks/useWindowSize';
 import Passage from './Passage';
+import bannerImg from '../../assets/img/infomationBanner.png';
 
 const InfoBanner = styled.div`
   height: 400px;
   background-color: #EEE;
   margin-top: 9%;
+  background-image: url(${bannerImg});
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* background-position: contain; */
+  background-color: #AEB5EC;
 
   ${(props) => props.theme.window.mobile} {
     margin-top: 11%;
@@ -85,9 +91,7 @@ function Infomation({scrollY1, scrollY2}) {
         row={width > 768 ? true : false}
       />
        <Passage link='/board' title='지원사업 더 보러가기' circle='POINT'>
-          <InfoBanner>
-
-          </InfoBanner>
+          <InfoBanner />
        </Passage> 
         
     </Content>

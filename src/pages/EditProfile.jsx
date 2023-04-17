@@ -5,10 +5,9 @@ import { useFormContext } from "react-hook-form";
 import Input from "../components/Input";
 import { Text } from "../components/Font";
 import CustomButton from "../components/Button/CustomButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DaumPostcode from 'react-daum-postcode';
 import { CommonAPI } from "../api/CommonAPI";
-import Modal from "../components/Modal";
 import useWindowSize from "../hooks/useWindowSize";
 
 const Form = styled.form`
@@ -87,8 +86,9 @@ const AddressModalWrap = styled.div`
 
 
 function EditProfile() {
-  const {register ,setValue, formState: { errors },} = useFormContext();
+  const {handleSubmit ,setValue, formState: { errors },} = useFormContext();
   const auth = localStorage.getItem("@access-Token");
+  const navigate = useNavigate();
 
   const { width } = useWindowSize();
 
@@ -99,28 +99,32 @@ function EditProfile() {
   // const [addressDetail, setAddressDetail] = useState(''); // 상세주소
   
  useEffect(async ()  => {
-    const res = await CommonAPI.get("/api/private/profile", {
+   const res = await CommonAPI.get("/api/private/profile", {
       Authorization: `Bearer ${auth}`,
    })
    if(res.status === 200){
       setUser(res.data.data)
-      
+      console.log(user)
     }
-   console.log(res)
-   console.log(user)
-   // axios({
-   //   url: "http://localhost:8080/api/private/profile",
-   //   method: "get",
-   //   headers: {
-   //     Authorization: `Bearer ${auth}`,
-   //   },
-   // }).then(function (response) {
-   //   console.log(response.data)
-     
-   // });
  }, []);
   
+ const onSubmit = async (data) => {
+  const res = await CommonAPI.put("/api/private/profileUpdate", 
+    { 
+      "address": data.address+data.addressDetail,
+      "userName": data.userName,
+    }
+  )
+ if(res.status === 200){
+    console.log(res)
+    alert('프로필 수정이 완료되었습니다');
+    navigate('/');
+  }
+ }
 
+ const onError = (error) => {
+  console.log(error)
+ }
   const onChangeOpenPost = () => {
     setIsOpenPost(true);
     
@@ -145,7 +149,7 @@ function EditProfile() {
       fullAddr += extraAddr !== '' ? ` (${extraAddr})` : '';
     }
 
-    setValue('userAddr', fullAddr)
+    setValue('address', fullAddr)
     closePostCode();
   };
   const mbPostStyle = {
@@ -167,16 +171,17 @@ function EditProfile() {
   // setValue("address",address);
   // setValue("addressDetail",addressDetail);
 
+
+
   return (
     <>
       <AuthLayout title="프로필 수정">
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit, onError)}>
           <InputGroup>
             <Input
               label="이름"
               name="userName"
               placeholder="이름을 입력해주세요"
-              require="*필수 입력 사항입니다."
               defaultValue={user.userName}
             />
           </InputGroup>
@@ -189,10 +194,10 @@ function EditProfile() {
           <InputGroup>
             <Input
               label="연락처"
+              readOnly
               type="phone"
               name="phoneRole"
               placeholder="‘-’없이 번호만 입력해주세요"
-              require="*필수 입력 사항입니다."
               pattern={{
                 value: /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/,
                 message: "규칙에 맞는 휴대폰 번호를 입력해 주세요.",
@@ -202,14 +207,18 @@ function EditProfile() {
           </InputGroup>
           <InputGroup>
               <div className="address">
-                <Input label="주소" name="userAddr" readOnly />
+                <Input 
+                  label="주소" 
+                  name="address" 
+                  readOnly
+                />
                 <div className="button" onClick={onChangeOpenPost}>
                   <Text color="WHITE" bold="200">
                     주소찾기
                   </Text>
                 </div>
               </div>
-            <Input name="userAddrDetail" placeholder="상세주소 입력해주세요" />
+            <Input name="addressDetail" placeholder="상세주소 입력해주세요" />
           </InputGroup>
           <ButtonWrap>
             <CustomButton bgColor="GRAY" width="100%" type="submit">

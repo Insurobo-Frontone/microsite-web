@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import theme from '../style/Theme';
 import ScrollToTop from "./ScrollToTop";
 import PageScrollToTop from "./pageScrollToTop";
-
+import { Outlet } from 'react-router-dom';
 
 const Wrap = styled.div`
   width: 100%;
@@ -21,6 +21,7 @@ const Layout = ({children, color}) => {
       <PageScrollToTop />
       <Wrap color={color}>
         <Header />
+          <Outlet />
           {children}
         <Footer />
       </Wrap>

@@ -205,9 +205,10 @@ function WindStormModal({onClick}) {
       url: 'https://insrb.com/apis/windstorm/join/check',
       method: 'get',
       headers: {
-        'X-insr-servicekey' : 'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg=='
+        'X-insr-servicekey' : 'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg==',
+        withCredentials:true,
       },
-      withCredentials:true,
+      
       params: {
         name: watch('WindstormName'),
         bussiness: bizNum

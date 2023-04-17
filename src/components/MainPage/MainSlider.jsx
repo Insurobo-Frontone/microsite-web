@@ -31,7 +31,7 @@ const data = [
   },
   {
     id: 2,
-    t_line1: '소상공인',
+    t_line1: '비즈로보',
     t_line2: '지원센터',
     t_line3: '오픈 EVENT',
     link: '/event',
