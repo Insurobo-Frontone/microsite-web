@@ -313,6 +313,47 @@ const InvestList = styled.div`
       font-weight: 300;
     }
   }
+
+  ${(props) => props.theme.window.mobile} {
+    .title {
+      font-size: 1rem;
+      > :first-child {
+        margin-right: 5px;
+        line-height: 26px;
+      }
+    }
+    > ul {
+      flex-flow: row wrap;
+      padding: 20px 0 0 0;
+      margin-top: 0;
+      > li {
+        width: 50%;
+        > p {
+          padding-top: 10px;
+          margin-bottom: 20px;
+        }
+        > h2 {
+          padding-bottom: 5px;
+        }
+        > img {
+          transform: scale(0.8);
+        }
+      }
+    }
+    .text-box {
+      margin-top: 25px;
+      padding: 16px;
+      border-radius: 5px;
+      > li {
+        font-size: 0.95rem;
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        padding-bottom: 10px;
+        font-weight: 300;
+      }
+    }
+  }
 `;
 
 const StyledLink = styled(Link)`
