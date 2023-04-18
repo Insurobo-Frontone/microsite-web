@@ -8,6 +8,10 @@ import CustomButton from "../components/Button/CustomButton";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Timer from "../components/Timer";
+import insurobo from '../assets/icon/email-svg.svg';
+import kakao from '../assets/img/kakaoIcon.png';
+import naver from '../assets/icon/naver-icon.png';
+import {CommonAPI} from "../api/CommonAPI";
 
 const Form = styled.form`
   padding-top: 80px;
@@ -23,7 +27,7 @@ const ButtonWrap = styled.div`
 `;
 
 const ResultWrap = styled.div`
-  padding-top: 127px;
+  padding-top: 60px;
   > input {
     width: 100%;
     border: 1px solid #2f2f2f;
@@ -111,6 +115,66 @@ const ErrorText = styled.p`
   }
 `;
 
+const DataWarp = styled.div`
+  margin-top: 32px;
+  margin-bottom: 32px;
+  width: 100%;
+`
+
+const DataContent = styled.div`
+
+`
+
+const DataValue = styled.div`
+  &:not(first-child){
+    margin-top: 16px;
+  }
+  width: 100%;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  gap: 12px;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(229, 229, 229);
+  padding: 15px 12px;
+`
+
+const AccountIcon = styled.div`
+  width: 32px;
+  height: 32px;
+  /* border: 1px solid rgb(235, 235, 235); */
+  /* border-radius: 24px; */
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-shrink: 0;
+`
+
+const AccTextWarp = styled.div`
+  overflow: hidden; 
+`
+
+const EmailText = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 600;
+  //font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  color: rgb(33, 35, 34);
+`
+
+const RegDate = styled.div`
+  font-size: 12px;
+  line-height: 19px;
+  font-weight: 400;
+  //font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  color: rgb(100, 100, 100);
+`
+
 function FindAccount() {
   const {
     handleSubmit,
@@ -188,28 +252,38 @@ function FindAccount() {
       });
   };
   const onSubmit = async () => {
-    await axios({
-      url: "http://localhost:8080/api/public/findEmail",
-      method: "get",
-      params: {
-        mobile: watch("phoneRole"),
-        messageId: messageId,
-      },
-    })
-      .then(function (response) {
-        setMessage(response.data.message);
-        setStatus(response.status);
-        console.log(response.data.data);
-        console.log(response);
-        setEmail(response.data.data);
-      })
-      .catch(function (error) {
-        setMessage(error.response.data.message);
-      });
+    try{
+      const res = await CommonAPI.get(`/api/public/findEmail?mobile=${watch("phoneRole")}&messageId=0418105731HGUSWCWXF5BJ4JT`);
+        console.log(res);
+        console.log("?????????");
+
+    }catch (error){
+      console.log("에러임")
+      console.log(error.response.data.message);
+    }
+
+    // await axios({
+    //   url: "http://localhost:8080/api/public/findEmail",
+    //   method: "get",
+    //   params: {
+    //     mobile: watch("phoneRole"),
+    //     messageId: messageId,
+    //   },
+    // })
+    //   .then(function (response) {
+    //     setMessage(response.data.message);
+    //     setStatus(response.status);
+    //     console.log(response.data.data);
+    //     console.log(response);
+    //     setEmail(response.data.data);
+    //   })
+    //   .catch(function (error) {
+    //     setMessage(error.response.data.message);
+    //   });
   };
 
   const onError = (error) => {
-    console.log(error);
+    // console.log(error);
   };
 
   return (
@@ -223,9 +297,25 @@ function FindAccount() {
     >
       {status === 200 ? (
         <ResultWrap>
+          <DataWarp>
+           <DataContent>
+
           {email.map((data, index) => (
-            <input value={data.userId} readOnly key={index} />
+              <DataValue>
+                <AccountIcon>
+                  {data.loginType === 'insurobo' ? <img src={insurobo}/> : null}
+                  {data.loginType === 'naver' ? <img src={naver}/> : null}
+                  {data.loginType === 'kakao' ? <img src={kakao}/> : null}
+                </AccountIcon>
+                <AccTextWarp>
+                  <EmailText>{data.userId}</EmailText>
+                  <RegDate>{data.createdDate} 가입</RegDate>
+                </AccTextWarp>
+              </DataValue>
+            // <input value={data.userId} readOnly key={index} />
           ))}
+           </DataContent>
+          </DataWarp>
           <ButtonWrap>
             <CustomButton bgColor="GRAY" width="100%">
               <Link to="/">

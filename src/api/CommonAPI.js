@@ -4,8 +4,8 @@ export const CommonAPI = axios.create({
         baseURL: process.env.REACT_APP_SERVER_HOST,
         headers: {
             "Content-Type": "application/json;charset=UTF-8",
-        },
-        withCredentials: true
+            withCredentials: true
+        }
      });
 
 
@@ -38,6 +38,6 @@ CommonAPI.interceptors.response.use(
                     window.location.href = process.env.REACT_APP_LOGIN_URL;
                 }
             }
-            return error;
+            return Promise.reject(error);
         }
         );
