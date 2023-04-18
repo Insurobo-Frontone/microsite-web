@@ -4,6 +4,7 @@ import { useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
+import {CommonAPI} from "../../api/CommonAPI";
 
 const ViewContainer = styled.div`
   width: 100%;
@@ -87,16 +88,13 @@ function View() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios({
-      url: 'http://localhost:8080/api/public/communityDetail',
-      params: {
-        id: id
-      }
-    }).then(function (response){
-      console.log(response)
-      setData(response.data.data)
-    })
+    handleCommunityDetail();
   }, [id]);
+
+  const handleCommunityDetail = async () =>{
+      const res = await CommonAPI.get(`/api/public/communityDetail?id=${id}`);
+      setData(res.data.data);
+  }
 
   function handleClick(link) {
     navigate(link);
@@ -110,7 +108,7 @@ function View() {
               <span style={{
                 backgroundColor: data.category === '풍수해' ? '#4575F5' :
                   data.category === '이벤트' ? '#F58839' :
-                  data.category === '지원정책' ? '#336BFF' : 
+                  data.category === '지원정책' ? '#336BFF' :
                   data.category === '대출' ? '#6F85E3' :
                   data.category === '홍보' ? '#FFCAB2' : null
               }}>
@@ -118,13 +116,12 @@ function View() {
               </span>
               {data.title}
             </h2>
-            <p>{data.createdDate}</p>
+            <p style={{marginRight:"10px"}}>{data.createdDate}</p>
           </ViewHeader>
           <ViewBody>
-            <p>{data.content}</p>
-            
+            <div dangerouslySetInnerHTML={{__html: data.content}}></div>
           </ViewBody>
-           
+
           <ButtonWrap>
             <Button onClick={() => handleClick(-1)}>이전</Button>
           </ButtonWrap>

@@ -163,7 +163,6 @@ const EmailText = styled.div`
   font-size: 16px;
   line-height: 26px;
   font-weight: 600;
-  //font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   color: rgb(33, 35, 34);
 `
 
@@ -171,7 +170,6 @@ const RegDate = styled.div`
   font-size: 12px;
   line-height: 19px;
   font-weight: 400;
-  //font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   color: rgb(100, 100, 100);
 `
 
@@ -195,95 +193,68 @@ function FindAccount() {
   const [codeValidate, setCodeValidate] = useState(false);
 
   const openSmsSend = async () => {
+    const data = {
+      mobile:watch("phoneRole")
+    }
     setIsActiveTimer(false);
-    await axios({
-      url: "http://localhost:8080/api/public/sms_send",
-      method: "post",
-      data: {
-        mobile: watch("phoneRole"),
-      },
-    })
-      .then(function (response) {
-        setMessageId(response.data.data.messageId);
-        setSmsCheckOpen(true);
-        setFocus("confirmCode");
-        setIsActiveTimer(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+
+    try{
+      const res = await CommonAPI.post("/api/public/sms_send",data);
+      setMessageId(res.data.data.messageId);
+      setSmsCheckOpen(true);
+      setFocus("confirmCode");
+      setIsActiveTimer(true);
+    }catch (error){
+
+    }
+
   };
 
   const openSmsCheck = async () => {
-    await axios({
-      url: "http://localhost:8080/api/public/sms_check",
-      method: "get",
-      params: {
-        messageId: messageId,
-        authKey: watch("confirmCode"),
-      },
-    })
-      .then(function (response) {
-        setMessage(response.data.message);
-        if (response.data.status === 200) {
-          alert("인증이 완료되었습니다.");
-          setCodeValidate(true);
-          setSmsCheckOpen(false);
-          setButton(false);
-        }
-      })
-      .catch(function (error) {
-        setMessage(error.response.data.message);
-        setCodeValidate(false);
-        if (error.response.data.message === "인증번호가 일치하지 않습니다.") {
-          setError("confirmCode", {
-            type: "custom",
-            message: "인증번호가 일치하지 않습니다.",
-          });
-        }
-        if (
+    try{
+        const res = await CommonAPI.get(`/api/public/sms_check?messageId=${messageId}&authKey=${watch("confirmCode")}`);
+        setMessage(res.data.message);
+        alert("인증이 완료되었습니다.");
+        setCodeValidate(true);
+        setSmsCheckOpen(false);
+        setButton(false);
+
+    }catch (error){
+      console.log(error);
+      setMessage(error.response.data.message);
+      setCodeValidate(false);
+      if (error.response.data.message === "인증번호가 일치하지 않습니다.") {
+        setError("confirmCode", {
+          type: "custom",
+          message: "인증번호가 일치하지 않습니다.",
+        });
+      }
+      if (
           error.response.data.message === "인증번호 시간이 만료 되었습니다."
-        ) {
-          setError("confirmCode", {
-            type: "custom",
-            message: "인증번호 시간이 만료 되었습니다.",
-          });
-        }
-      });
+      ) {
+        setError("confirmCode", {
+          type: "custom",
+          message: "인증번호 시간이 만료 되었습니다.",
+        });
+      }
+    }
+
+
   };
   const onSubmit = async () => {
     try{
-      const res = await CommonAPI.get(`/api/public/findEmail?mobile=${watch("phoneRole")}&messageId=0418105731HGUSWCWXF5BJ4JT`);
-        console.log(res);
-        console.log("?????????");
-
+        const res = await CommonAPI.get(`/api/public/findEmail?mobile=${watch("phoneRole")}&messageId=${messageId}`);
+          setStatus(res.data.status);
+          setMessage(res.data.message);
+          setEmail(res.data.data)
     }catch (error){
-      console.log("에러임")
-      console.log(error.response.data.message);
+          setMessage(error.response.data.message);
     }
 
-    // await axios({
-    //   url: "http://localhost:8080/api/public/findEmail",
-    //   method: "get",
-    //   params: {
-    //     mobile: watch("phoneRole"),
-    //     messageId: messageId,
-    //   },
-    // })
-    //   .then(function (response) {
-    //     setMessage(response.data.message);
-    //     setStatus(response.status);
-    //     console.log(response.data.data);
-    //     console.log(response);
-    //     setEmail(response.data.data);
-    //   })
-    //   .catch(function (error) {
-    //     setMessage(error.response.data.message);
-    //   });
   };
 
   const onError = (error) => {
-    // console.log(error);
+    console.log(error);
   };
 
   return (

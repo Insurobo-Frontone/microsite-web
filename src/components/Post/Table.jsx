@@ -11,7 +11,7 @@ import { CommonAPI } from '../../api/CommonAPI';
 
 const categories = [
   {
-    name: 'all', 
+    name: 'all',
     print: '전체',
     color: ''
   },
@@ -231,29 +231,17 @@ export default function Table() {
   if (error) return <div>에러가 발생했습니다</div>;
   if (!data) return null;
 
-  // useEffect(async() => {
-  
-    
-  //   const response =  await CommonAPI.get(
-  //       `/api/public/communityList${categoryValue}`
-  //     )
-        
-  //     return setData(response.data.data.slice(0).reverse())
-    
-  
-  // }, [categoryValue])
-  async function getData() {
-    const response = await axios.get(
-      `http://localhost:8080/api/public/communityList${categoryValue}`
-    );
 
-    return response.data.data.slice(0).reverse();
+  async function getData() {
+
+    const res = await CommonAPI.get(`/api/public/communityList${categoryValue}`)
+
+    return res.data.data.slice(0).reverse();
   }
-  
+
   const onSelect = (category) => {
     setPage(1);
     setCategory(category);
-    
   }
 
   return (
@@ -277,11 +265,11 @@ export default function Table() {
             active={category === dt.name}
           >
             {dt.print}
-          </Category> 
+          </Category>
          </li>
         ))}
       </Categories>
-  
+
       <ListWrap className={limit === 10 ? 'open' : null}>
         {data.slice(offset, offset + limit).map((dt) => (
           <ItemBlock key={dt.id}>
@@ -307,7 +295,7 @@ export default function Table() {
           </button>
         </ButtonWrap>
       )}
-      
+
       {limit === 8 && (
         <>
           {/* <WriteButton>글쓰기</WriteButton> */}
@@ -316,13 +304,13 @@ export default function Table() {
             limit={limit}
             page={page}
             setPage={setPage}
-          />  
+          />
         </>
       )}
     </TableWrap>
-    
+
     )
   }
 
-  
+
 
