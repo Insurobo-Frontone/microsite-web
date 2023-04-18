@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AuthLayout from "../components/Auth/AuthLayout";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DaumPostcode from 'react-daum-postcode';
 import { CommonAPI } from "../api/CommonAPI";
 import useWindowSize from "../hooks/useWindowSize";
+import Modal from "../components/Modal";
 
 const Form = styled.form`
   padding: 54px 0 147px;
@@ -94,6 +95,7 @@ function EditProfile() {
 
   const [isOpenPost, setIsOpenPost] = useState(false);
   const [user, setUser] = useState([]);
+  const el = useRef();
   // const [phoneNum, setPhoneNum] = useState(); //폰번호
   // const [address, setAddress] = useState(''); // 주소
   // const [addressDetail, setAddressDetail] = useState(''); // 상세주소
@@ -105,7 +107,15 @@ function EditProfile() {
    if(res.status === 200){
       setUser(res.data.data)
       console.log(user)
-    }
+   }
+   
+   window.addEventListener("click", modalOutSideClick);
+    return ()=>{
+   window.removeEventListener("click", modalOutSideClick);
+   }
+
+
+
  }, []);
   
  const onSubmit = async (data) => {
@@ -152,6 +162,13 @@ function EditProfile() {
     setValue('address', fullAddr)
     closePostCode();
   };
+
+  //모달 바깥 클릭
+  const modalOutSideClick = (e) =>{
+    if (isOpenPost && (!el.current || !el.current.contains(e.target))) setIsOpenPost(false);
+  }
+
+
   const mbPostStyle = {
     width: '100%',
     height: '100%',
@@ -166,7 +183,7 @@ function EditProfile() {
     top: '15%'
   };
   
-  // setValue("userName", name);
+  setValue("userName", user.userName);
   // setValue("phoneRole",phoneNum);
   // setValue("address",address);
   // setValue("addressDetail",addressDetail);
@@ -230,7 +247,7 @@ function EditProfile() {
         </Form>
       </AuthLayout>
       {isOpenPost  ? (
-        <AddressModalWrap>
+        <AddressModalWrap onClick={modalOutSideClick}>
           <DaumPostcode 
             style={width > 768 ? postCodeStyle : mbPostStyle} 
             autoClose 
