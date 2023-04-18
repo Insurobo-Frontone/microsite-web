@@ -27,6 +27,7 @@ const Form = styled.form`
 
   ${(props) => props.theme.window.mobile} {
     width: 100%;
+    padding: 50px 16px;
     > h2 {
       font-size: 20px;
       margin-bottom: 30px;
@@ -58,6 +59,14 @@ const InputGroup = styled.div`
     ::placeholder {
       color: #989898;
       font-size: 0.6rem;
+    }
+  }
+  ${(props) => props.theme.window.mobile} {
+    input {
+      width: 85%;
+    }
+    label {
+      width: 15%;
     }
   }
 `;

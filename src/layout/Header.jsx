@@ -8,6 +8,7 @@ import closeBtn from '../assets/img/closeBtn.png';
 import WindStormModal from '../components/Modal/WindStormModal';
 import Context from '../container/userContext';
 import { CommonAPI } from '../api/CommonAPI';
+import useWindowSize from '../hooks/useWindowSize';
 
 const Wrap = styled.header`
   display: flex;
@@ -168,9 +169,10 @@ const MyPageNav = styled.ul`
 `;
 
 function Header() {
+  const { width } = useWindowSize();
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [myPageOpne, setMyPageOpen] = useState(false);
+  const [myPageOpne, setMyPageOpen] = useState(width > 768 ? false : true);
   const { loggedUser, loggedIn, setLoggedUser, setLoggedIn } = useContext(Context);
 
   const logout = () => {

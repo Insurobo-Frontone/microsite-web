@@ -34,6 +34,7 @@ const Form = styled.form`
 
   ${(props) => props.theme.window.mobile} {
     width: 100%;
+    
     > h2 {
       font-size: 20px;
       margin-bottom: 30px;
@@ -72,9 +73,10 @@ const InsuranceCertificate = styled.div`
   padding: 150px 50px;
   
   ${(props) => props.theme.window.mobile} {
-    width: 100%;
+    width: 320px;
     height: 450px;
     padding: 70px 20px;
+    margin: 0 auto;
   }
 `;
 

@@ -33,11 +33,11 @@ const GoToMoreButton = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  top: 70%;
+  top: 80%;
   right: -35%;
 
   > h3 {
-    height: 69px;
+    height: 100px;
     display: flex;
     align-items: center;
     font-size: 1.5rem;
@@ -46,6 +46,7 @@ const GoToMoreButton = styled.div`
     position: relative;
     padding-left: 6.5%;
     white-space: nowrap;
+   
     :hover::before {
       animation: ${mouseAnimation} 2s infinite;
     }

@@ -21,6 +21,9 @@ const InfoBanner = styled.div`
 
   ${(props) => props.theme.window.mobile} {
     margin-top: 11%;
+    height: 200px;
+    width: 100%;
+    min-width: 320px;
   }
 `;
 

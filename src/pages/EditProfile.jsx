@@ -42,7 +42,7 @@ const InputGroup = styled.div`
       .button {
         margin-left: 5px;
         height: 50px;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
       }
     }
   }
