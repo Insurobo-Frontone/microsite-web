@@ -95,13 +95,22 @@ const GlobalStyle = createGlobalStyle`
   button:focus {
     outline: none !important;
   }
-  input {
-    border: none;
-    ::-webkit-outer-spin-button,
-    ::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+  input.primary {
+    width: 100%;
+    padding: 25px 26px;
+    height: 80px;
+    border: 1px solid #989898;
+    border-radius: 10px;
+    font-size: 13px;
+    box-sizing: border-box;
+    background: none;
+    font-size: 1rem;
+    color: #989898;
+    ::placeholder {
+      color: #989898;
+      font-size: 1rem;
     }
+    
     :disabled {
       background-color: #f2f2f2;
       color: #777;
@@ -109,6 +118,12 @@ const GlobalStyle = createGlobalStyle`
     &:focus {
       outline: none;
     }
+
+    ${props => props.theme.window.mobile} {
+      padding: 14px 13px;
+      height: 50px;
+    /* margin-bottom: 10px; */
+  }
   }
 
   /* List page */
@@ -278,5 +293,6 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 `;
+
 
 export default GlobalStyle;

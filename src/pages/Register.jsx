@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useFormContext } from "react-hook-form";
 import styled from 'styled-components';
+import { useNavigate, useLocation } from "react-router-dom";
 import AuthLayout from '../components/Auth/AuthLayout';
 import { Text } from '../components/Font';
 import CustomButton from '../components/Button/CustomButton';
-import useWindowSize from '../hooks/useWindowSize';
 import Input from '../components/Input';
-import axios from 'axios';
-import { useNavigate, useLocation } from "react-router-dom";
 import HookFormCheckbox from '../components/Input/HookFormCheckbox';
+import useWindowSize from '../hooks/useWindowSize';
 import Timer from '../components/Timer';
+import { CommonAPI } from '../api/CommonAPI';
+import { useFormContext } from "react-hook-form";
 
 const ButtonWrap = styled.div`
   padding-top: 50px;
 
   ${(props) => props.theme.window.mobile} {
     padding-top: 30px;
-
   }
 `;
 
@@ -31,6 +30,12 @@ const Form = styled.form`
 const InputGroup = styled.div`
   margin-bottom: 30px;
 
+  .label {
+    display: block;
+    margin-bottom: 15px;
+    color: #2f2f2f;
+  }
+  position: relative;
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 20px;
   }
@@ -78,9 +83,8 @@ const SmsCheckBox = styled.div`
     height: 50px;
     border-bottom: 1px solid #989898;
     position: relative;
-      input {
-        width: 100%;
-      
+    input {
+      width: 100%;
     }
   }
   .confirmButton {
@@ -130,26 +134,24 @@ function Register() {
   let navigate = useNavigate();
 
   const onSubmit = async (data) => {
-   
     if (codeValidate) {
-      await axios({
-        url: 'http://localhost:8080/api/public/join',
-        method: 'post',
-        data: {
+      try {
+        const res = await CommonAPI.post('/api/public/join', {
           userId: data.userId,
           userPw: data.userPw,
           userName: data.userName,
           phoneRole: data.phoneRole,
           marketing_yn: data.marketing_yn === true ? 'Y' : 'N'
+        })
+        if (res.status === 200) {
+          alert('회원가입이 완료되었습니다')
+          navigate('/')
         }
-      }).then(function (response) {
-        console.log(response)
-        alert('회원가입이 완료되었습니다')
-        navigate('/')
-      })
-    } else {
-      alert('본인인증이 완료되지 않았습니다.')
-      setFocus('confirmCode')
+      } catch (error) {
+        console.log('에러', error)
+        alert('본인인증이 완료되지 않았습니다.')
+        setFocus('confirmCode')
+      }
     }
   }
 
@@ -157,23 +159,19 @@ function Register() {
     console.log(error)
   }
 
-
-  const openEmailCheck =  () => {
-     axios({
-      url: 'http://localhost:8080/api/public/email',
-      method: 'get',
-      params: {
-        email: watch('userId')
-      }
-    })
-    .then(function (response) {
-    })
-    .catch(function (error) {
-      console.log(error.response.status)
-      setError('userId', { type: 'custom', message: '이미 등록된 이메일입니다'});
-      return false;
-    });
-    return true;
+  const openEmailCheck = async () => {
+    try {
+      await CommonAPI.get('/api/public/email', {
+        params: {
+          email: watch('userId')
+        }
+      })
+    } catch (error) {
+      setError('userId', { 
+        type: 'custom', 
+        message: '이미 등록된 이메일입니다'
+      });
+    }
   }
 
   const passwordCheck = () => {
@@ -187,45 +185,38 @@ function Register() {
  // 본인인증 문자 전송
   const openSmsSend = async () => {
     setIsActiveTimer(false);
-    await axios({
-      url: 'http://localhost:8080/api/public/sms_send',
-      method: 'post',
-      data: {
+    try {
+      const res = await CommonAPI.post('/api/public/sms_send', {
         mobile: watch('phoneRole')
+      })
+      if (res.status === 200) {
+        console.log(res)
+        setSmsCheckOpen(true);
+        setMessageId(res.data.data.messageId);
+        setFocus('confirmCode')
+        setIsActiveTimer(true);
       }
-    })
-
-    .then(function (response) {
-      console.log(response)
-      setSmsCheckOpen(true);
-      setMessageId(response.data.data.messageId);
-      setFocus('confirmCode')
-      setIsActiveTimer(true);
-      
-    })
-    
+    } catch (error) {
+      console.log('에러', error)
+    }
   }
 
   
   const openSmsCheck = async () => {
-    await axios({
-      url: 'http://localhost:8080/api/public/sms_check',
-      method: 'get',
-      params: {
-        messageId: messageId,
-        authKey: watch('confirmCode')
-      }
-    }).then(function (response) {
-      console.log(response)
-
-      if (response.data.status === 200) {
+    try {
+      const res = await CommonAPI.get('/api/public/sms_check', {
+        params: {
+          messageId: messageId,
+          authKey: watch('confirmCode')
+        }
+      })
+      if (res.data.status === 200) {
         alert('인증이 완료되었습니다.')
         setCodeValidate(true)
         setSmsCheckOpen(false)
         setButton(false)
       }
-    }).catch(function (error) {
-      console.log(error)
+    } catch (error) {
       setCodeValidate(false)
       if (error.response.data.message === '인증번호가 일치하지 않습니다.') {
         setError('confirmCode', {
@@ -239,28 +230,29 @@ function Register() {
           message: '인증번호 시간이 만료 되었습니다.'
         })
       }
-    })
+    }
   }
- 
   
   return (
     <AuthLayout title='회원가입'>
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <InputGroup>
-          <Input
-            label='이메일'
-            name="userId"
+          <label className='label'>이메일</label>
+          <input
+            className='primary'
             placeholder='AAA.@HJJJJ.COM'
-            require='*필수 입력 사항입니다.'
-            pattern={{
-              value: /^[a-zA-Z0-9+-.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-              message: '규칙에 맞는 이메일 주소를 입력해주세요.'
-            }}
-            validate={{
-              value: () => openEmailCheck()
-            }}
+            {...register('userId', {
+              required: '*필수 입력 사항입니다.',
+              pattern: {
+                value: /^[a-zA-Z0-9+-.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                message: '규칙에 맞는 이메일 주소를 입력해주세요.'
+              },
+              validate: {
+                check:  () => openEmailCheck() ? true : false
+              }
+            })}
           />
-
+          {errors.userId?.message && (<ErrorText>{errors.userId?.message}</ErrorText>)}
         </InputGroup>
         <InputGroup>
           <Input 
@@ -350,5 +342,4 @@ function Register() {
     </AuthLayout>
   )
 }
-
-export default Register
+export default Register;

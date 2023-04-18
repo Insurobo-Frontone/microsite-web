@@ -210,7 +210,6 @@ function WindStormModal({onClick}) {
         'X-insr-servicekey' : 'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg==',
         withCredentials:true,
       },
-      
       params: {
         name: watch('WindstormName'),
         bussiness: bizNum

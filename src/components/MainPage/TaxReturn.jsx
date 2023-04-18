@@ -5,7 +5,6 @@ import useWindowSize from '../../hooks/useWindowSize';
 import Passage from './Passage';
 import styled from 'styled-components';
 import taxRefund from '../../assets/img/tax_refund.png';
-import { useNavigate } from 'react-router-dom';
 
 const TaxReturnBanner = styled.div`
   background-color: #FFF;
@@ -42,9 +41,9 @@ const TaxReturnBanner = styled.div`
 
 function TaxReturn() {
   const { width } = useWindowSize();
-  let navigate = useNavigate();
-  function goToMainPage(link) {
-    navigate(link);
+  function goToUrl() {
+    window.open('https://bznav.com/tax/refund/?utm_source=partner&utm_medium=affillates&utm_campaign=insurobo_landingPage&utm_content=promotion&utm_term=2pro', '_blank')
+
   }
   return (
     <Content
@@ -58,13 +57,13 @@ function TaxReturn() {
         big_title2='세금환급'
         row={width > 768 ? true : false}
       />
-       <Passage link='/board' title='세금환급하러 가기' circle='SECONDARY' none>
+       <Passage link='https://bznav.com/tax/refund/?utm_source=partner&utm_medium=affillates&utm_campaign=insurobo_landingPage&utm_content=promotion&utm_term=2pro' title='세금환급하러 가기' circle='SECONDARY' none>
           <TaxReturnBanner>
             <h2>
               지금 바로! 소상공인 세금환급<br />
               확인해 보세요
             </h2>
-            <img src={taxRefund} alt='소상공인 세금환급' onClick={width > 768 ? null : () => goToMainPage('/login')} />
+            <img src={taxRefund} alt='소상공인 세금환급' onClick={width > 768 ? null : () => goToUrl()} />
           </TaxReturnBanner>
        </Passage> 
         

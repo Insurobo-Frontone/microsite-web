@@ -85,7 +85,6 @@ const ErrorText = styled.p`
 `;
 
 const CheckBoxGroup = styled.div`
-  
   padding-bottom: 20px;
   > div {
     display: flex;
@@ -133,7 +132,9 @@ const MoreBox = styled.div`
 
 
 function ApplyModal({onClick}) {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    mode: "onBlur"
+  });
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
@@ -141,9 +142,13 @@ function ApplyModal({onClick}) {
   }, [])
 
   const onSubmit = async (data) => {
- 
-    const res = await CommonAPI.post('/api/public/consulting',
-      JSON.stringify(data)  
+
+   const res = await CommonAPI.post('/api/public/consulting',
+      {
+        "name": data.name,
+        "business": data.business,
+        "phoneRole": data.phoneRole
+      }
     )
     if (res.status === 200) {
       alert('상담신청이 완료 되었습니다.')
@@ -169,7 +174,7 @@ function ApplyModal({onClick}) {
                   required: '*필수 입력 사항입니다.',
                 })}
               />
-              {errors.bizName?.message && <ErrorText>{errors.bizName?.message}</ErrorText>}
+              {errors.name?.message && <ErrorText>{errors.name?.message}</ErrorText>}
             </div>
             <div>
               <label>연락처</label>
@@ -179,7 +184,7 @@ function ApplyModal({onClick}) {
                   required: '*필수 입력 사항입니다.',
                 })}
               />
-              {errors.bizPhone?.message && <ErrorText>{errors.bizPhone?.message}</ErrorText>}
+              {errors.phoneRole?.message && <ErrorText>{errors.phoneRole?.message}</ErrorText>}
             </div>
             <div>
               <label>업종</label>
@@ -189,18 +194,21 @@ function ApplyModal({onClick}) {
                   required: '*필수 입력 사항입니다.',
                 })}
               />
-              {errors.bizSectors?.message && <ErrorText>{errors.bizSectors?.message}</ErrorText>}
+              {errors.business?.message && <ErrorText>{errors.business?.message}</ErrorText>}
             </div>
           </InputGroup>
           <CheckBoxGroup>
             <div>
-              <div>
+              <div style={{ position: 'relative'}}>
                 <input 
                   type='checkbox' 
                   id='agree' 
-                  
+                  {...register('agreeCheck', { 
+                    required: '*필수 입력 사항입니다.',
+                  })}
                 />
                 <label for='agree'>개인정보수집 및 활용동의</label>
+                {errors.agreeCheck?.message && <ErrorText>{errors.agreeCheck?.message}</ErrorText>}
               </div>
               <div className='agree-btn' onClick={() => setShowPopup(!showPopup)}>{showPopup ? '닫기' : '보기'}</div>
             </div>
@@ -220,6 +228,7 @@ function ApplyModal({onClick}) {
               </MoreBox>
             )}
           </CheckBoxGroup>
+          
           <button className='button' type='submit'>상담신청</button>
         </Form>
         

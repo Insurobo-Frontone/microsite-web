@@ -1,20 +1,18 @@
-import React, { useState} from 'react'
-import AuthLayout from '../components/Auth/AuthLayout';
-import naverIcon from '../assets/img/naverIcon.png';
-import kakaoIcon from '../assets/img/kakaoIcon.png';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import AuthLayout from '../components/Auth/AuthLayout';
+import LoginFailModal from "../components/Modal/LoginFailModal";
 import Input from '../components/Input';
 import { Text } from '../components/Font';
-import { Link } from 'react-router-dom';
+import { useFormContext } from 'react-hook-form';
 import CustomButton from '../components/Button/CustomButton';
 import useWindowSize from '../hooks/useWindowSize';
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import axios from 'axios';
-import { useFormContext } from 'react-hook-form';
 import { setAccessToken, setUser } from '../container/Auth';
-import { useEffect } from 'react';
-import LoginFailModal from "../components/Modal/LoginFailModal"
-import {CommonAPI} from "../api/CommonAPI";
+import { CommonAPI } from "../api/CommonAPI";
+
+import naverIcon from '../assets/img/naverIcon.png';
+import kakaoIcon from '../assets/img/kakaoIcon.png';
 
 const SocialLoginGroup = styled.div`
   display: flex;
@@ -97,8 +95,6 @@ const ButtonWrap = styled.div`
 
 const Form = styled.form`
   padding: 14px 0 18px;
-  
-
 `;
 
 
@@ -119,18 +115,16 @@ function Login() {
   const [showPopup, setShowPopup] = useState(false);
   const [type, setType] = useState(); //로그인 타입 (kakao, naver, email)
   const [type_kor, setType_kor] = useState(); //로그인 타입 한글 (kakao, naver, email)
-  const [loginCode, setLoginCode] = useState();
-  const { handleSubmit, reset } = useFormContext();
+  const { handleSubmit, reset, setError, setFocus } = useFormContext();
 
   useEffect(() => {
     reset();
     const loginCode = searchParams.get("loginCode");
 
-    if(loginCode !== null && loginCode === 'fail'){
+    if (loginCode !== null && loginCode === 'fail'){
       setShowPopup(true);
       setType(searchParams.get("type"));
-
-      switch (searchParams.get("type")){
+      switch (searchParams.get("type")) {
         case "kakao":
           setType_kor("카카오");
           break;
@@ -142,16 +136,13 @@ function Login() {
       }
     }
 
-    if(loginCode !== null && loginCode === 'success') {
+    if (loginCode !== null && loginCode === 'success') {
         const accessToken = searchParams.get("token");
         const name = searchParams.get("name");
-
         setAccessToken(accessToken);
-        setUser(name)
-
-      navigate('/')
+        setUser(name);
+        navigate('/');
     }
-
   }, []);
 
 
@@ -159,36 +150,24 @@ function Login() {
   const onError = (error) => {
     console.log(error)
   }
+
   const onSubmit = async (data) => {
-    // console.log(data)
-
-    // const res = await CommonAPI.post("/api/public/login",data);
-    //   if(res.status === 200){
-    //     setAccessToken(res.data.data.accessToken);
-    //     setUser(res.data.data.userName)
-    //     navigate('/')
-    //   }else{
-    //     alert(res.response.data.message);
-    //   }
-
-    await axios({
-      url: 'http://localhost:8080/api/public/login',
-      headers: { "Content-Type": `application/json`},
-      method: 'post',
-      data : JSON.stringify(data)
-    }).then(function (response) {
-        console.log(response.data.data);
-        setAccessToken(response.data.data.accessToken);
-        setUser(response.data.data.userName)
+    const req = JSON.stringify(data)
+    try {
+      const res = await CommonAPI.post('/api/public/login', req)
+      if(res.status === 200){
+        setAccessToken(res.data.data.accessToken);
+        setUser(res.data.data.userName)
         navigate('/')
-        reset();
-    })
-    .catch(function (error) {
-      console.log(error.response.data.message);
-
-      // setUserPwMessage(error.response.data.message);
-      alert(error.response.data.message)
-    })
+      }
+    } catch (error) {
+      console.log(error)
+      setFocus('userPw')
+      setError('userPw', {
+        type: 'custom',
+        message: '비밀번호가 일치하지 않습니다'
+      })
+    }
   }
 
   const onKakaoLogin = () => {
@@ -237,7 +216,6 @@ function Login() {
         placeholder='비밀번호를 입력하세요'
         require='*필수 입력 사항입니다.'
       />
-
       <ButtonWrap>
         <CustomButton bgColor='GRAY' width='100%' type='submit'>
           <Text color='WHITE' bold='200'>
@@ -247,12 +225,11 @@ function Login() {
       </ButtonWrap>
       <TextLink to='/login/findAccount'>계정정보를 잊으셨나요?</TextLink>
     </Form>
-      {
-        showPopup &&
-          <LoginFailModal type={type} kor_name={type_kor} onClick={()=> setShowPopup(false)}></LoginFailModal>
+      {showPopup &&
+        <LoginFailModal type={type} kor_name={type_kor} onClick={()=> setShowPopup(false)}></LoginFailModal>
       }
   </AuthLayout>
   )
 }
 
-export default Login
+export default Login;

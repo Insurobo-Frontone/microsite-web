@@ -172,7 +172,7 @@ function Header() {
   const { width } = useWindowSize();
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [myPageOpne, setMyPageOpen] = useState(width > 768 ? false : true);
+  const [myPageOpne, setMyPageOpen] = useState(false);
   const { loggedUser, loggedIn, setLoggedUser, setLoggedIn } = useContext(Context);
 
   const logout = () => {
@@ -220,20 +220,38 @@ function Header() {
                 <>
                   <li>
                     <MyPage onClick={() => setMyPageOpen(!myPageOpne)} />
-                    {myPageOpne && (
+                    {width > 768 ? (
+                       <>
+                        {myPageOpne && (
+                        <MyPageNav>
+                          <li>
+                            <img src={myPageIcon} alt='프로필'/>
+                            <p>{user}</p>
+                          </li>
+                          <li>
+                            <p><Link to='/myProfile'>프로필 수정</Link></p>
+                          </li>
+                          <li>
+                            <p onClick={logout}>로그아웃</p>
+                          </li>
+                        </MyPageNav>
+                      )}
+                       </>
+                    ) : (
                       <MyPageNav>
-                        <li>
-                          <img src={myPageIcon} alt='프로필'/>
-                          <p>{user}</p>
-                        </li>
-                        <li>
-                          <p><Link to='/myProfile'>프로필 수정</Link></p>
-                        </li>
-                        <li>
-                          <p onClick={logout}>로그아웃</p>
-                        </li>
-                      </MyPageNav>
+                          <li>
+                            <img src={myPageIcon} alt='프로필'/>
+                            <p>{user}</p>
+                          </li>
+                          <li>
+                            <p><Link to='/myProfile'>프로필 수정</Link></p>
+                          </li>
+                          <li>
+                            <p onClick={logout}>로그아웃</p>
+                          </li>
+                        </MyPageNav>
                     )}
+                   
                   </li>
                 </>
               :
