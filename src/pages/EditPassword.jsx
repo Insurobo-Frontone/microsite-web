@@ -44,6 +44,7 @@ function EditPassword() {
       console.log(response)
       alert('비밀번호 변경이 완료되었습니다.')
       navigate('/')
+      window.location.reload()
     }).catch(function (error) {
       console.log(error)
     })

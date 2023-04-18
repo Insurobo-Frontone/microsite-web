@@ -34,6 +34,7 @@ const Form = styled.form`
 
   ${(props) => props.theme.window.mobile} {
     width: 100%;
+    
     > h2 {
       font-size: 20px;
       margin-bottom: 30px;
@@ -72,9 +73,10 @@ const InsuranceCertificate = styled.div`
   padding: 150px 50px;
   
   ${(props) => props.theme.window.mobile} {
-    width: 100%;
+    width: 320px;
     height: 450px;
     padding: 70px 20px;
+    margin: 0 auto;
   }
 `;
 
@@ -205,9 +207,10 @@ function WindStormModal({onClick}) {
       url: 'https://insrb.com/apis/windstorm/join/check',
       method: 'get',
       headers: {
-        'X-insr-servicekey' : 'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg=='
+        'X-insr-servicekey' : 'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg==',
+        withCredentials:true,
       },
-      withCredentials:true,
+      
       params: {
         name: watch('WindstormName'),
         bussiness: bizNum

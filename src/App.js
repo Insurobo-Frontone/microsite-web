@@ -17,40 +17,45 @@ import InsuranceInfo from './pages/InsuranceInfo';
 import PrivateRoute from './pages/PrivateRoute';
 import PublicRoute from './pages/PublicRoute';
 import EditPassword from './pages/EditPassword';
-
+import ContextProvider from './container/userProvider';
 
 function App() {
   const methods = useForm({
     mode: 'onBlur'
   });
   const auth = localStorage.getItem("@access-Token");
-  
+
 
   return (
     <ThemeProvider theme={theme}>
-      <FormProvider {...methods}>
-        <GlobalStyle />
-        <Router>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='?:category'  element={<Home />} />
-            <Route path='/view?:id'  element={<Home />} />
-            <Route path='?:page'  element={<Home />} />
-            <Route path='/event' element={<Event />} />
-            <Route path='/bizsupport/*' element={<BizSupport />} />
-            <Route path='/bizsupport/:list' element={<List />} />
-            <Route path='/insuranceInfo' element={<InsuranceInfo />} />
-            <Route path='/freeApply' element={<FreeApply />} />
+      <ContextProvider>
+        <FormProvider {...methods}>
+          <GlobalStyle />
+          <Router>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='?:category'  element={<Home />} />
+              <Route path='/view?:id'  element={<Home />} />
+              <Route path='?:page'  element={<Home />} />
+              <Route path='/event' element={<Event />} />
+              <Route path='/bizsupport/*' element={<BizSupport />} />
+              <Route path='/bizsupport/:list' element={<List />} />
+              <Route path='/insuranceInfo' element={<InsuranceInfo />} />
+              <Route path='/freeApply' element={<FreeApply />} />
+              <Route path='/board' element={<Board />} />
+              
+              <Route path='/login' element={<PublicRoute auth={auth} restricted component={<Login />}/>} />
+              <Route path='/login/findAccount' element={<PublicRoute auth={auth} restricted component={<FindAccount />}/>} />
+              <Route path='/register' element={<PublicRoute auth={auth} restricted component={<Register />} />} />
 
-            <Route path='/myProfile' element={<PrivateRoute auth={auth} component={<EditProfile />} />} />
-            <Route path='/myProfile/password' element={<PrivateRoute auth={auth} component={<EditPassword />} />} />
-            <Route path='/board' element={<Board />} />
-            <Route path='/login' element={<PublicRoute auth={auth} restricted component={<Login />}/>} />
-            <Route path='/login/findAccount' element={<PublicRoute auth={auth} restricted component={<FindAccount />}/>} />
-            <Route path='/register' element={<PublicRoute auth={auth} restricted component={<Register />} />} />
-          </Routes>
-        </Router>       
-      </FormProvider>
+              <Route element={<PrivateRoute auth={auth} />}>
+                <Route path='/myProfile' element={<EditProfile  />} />
+                <Route path='/myProfile/password' element={<EditPassword />} />
+              </Route>
+            </Routes>
+          </Router>       
+        </FormProvider>
+      </ContextProvider>
     </ThemeProvider>
   );
 }

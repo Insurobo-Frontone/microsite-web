@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import Modal from '.';
-import { useFormContext } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import checkIcon from '../../assets/img/checkboxIcon.png';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { CommonAPI } from '../../api/CommonAPI';
 
 const Form = styled.form`
   background-color: #FFFFFF;
@@ -26,6 +27,7 @@ const Form = styled.form`
 
   ${(props) => props.theme.window.mobile} {
     width: 100%;
+    padding: 50px 16px;
     > h2 {
       font-size: 20px;
       margin-bottom: 30px;
@@ -57,6 +59,14 @@ const InputGroup = styled.div`
     ::placeholder {
       color: #989898;
       font-size: 0.6rem;
+    }
+  }
+  ${(props) => props.theme.window.mobile} {
+    input {
+      width: 85%;
+    }
+    label {
+      width: 15%;
     }
   }
 `;
@@ -123,14 +133,24 @@ const MoreBox = styled.div`
 
 
 function ApplyModal({onClick}) {
-  const { register, handleSubmit, reset, formState: { errors } } = useFormContext();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
    reset()
   }, [])
-  const onSubmit = (data) => {
-    console.log(data)
+
+  const onSubmit = async (data) => {
+ 
+    const res = await CommonAPI.post('/api/public/consulting',
+      JSON.stringify(data)  
+    )
+    if (res.status === 200) {
+      alert('상담신청이 완료 되었습니다.')
+      reset()
+      window.location.reload()
+    }
+    console.log(res)
   }
 
   const onError = (error) => {
@@ -138,14 +158,14 @@ function ApplyModal({onClick}) {
   }
     return (
       <Modal onClick={onClick}>
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit, onError)}>
           <InputGroup>
             <div>
               <label>성명</label>
               <input
                 type='text'
                 placeholder='회사명을 입력하세요'
-                {...register('bizName', {
+                {...register('name', {
                   required: '*필수 입력 사항입니다.',
                 })}
               />
@@ -155,7 +175,7 @@ function ApplyModal({onClick}) {
               <label>연락처</label>
               <input
                 placeholder='연락처'
-                {...register('bizPhone', { 
+                {...register('phoneRole', { 
                   required: '*필수 입력 사항입니다.',
                 })}
               />
@@ -165,7 +185,7 @@ function ApplyModal({onClick}) {
               <label>업종</label>
               <input
                 placeholder='영위하시는 업종을 입력해 주세요.'
-                {...register('bizSectors', { 
+                {...register('business', { 
                   required: '*필수 입력 사항입니다.',
                 })}
               />
@@ -175,7 +195,11 @@ function ApplyModal({onClick}) {
           <CheckBoxGroup>
             <div>
               <div>
-                <input type='checkbox' id='agree' />
+                <input 
+                  type='checkbox' 
+                  id='agree' 
+                  
+                />
                 <label for='agree'>개인정보수집 및 활용동의</label>
               </div>
               <div className='agree-btn' onClick={() => setShowPopup(!showPopup)}>{showPopup ? '닫기' : '보기'}</div>
@@ -196,7 +220,7 @@ function ApplyModal({onClick}) {
               </MoreBox>
             )}
           </CheckBoxGroup>
-          <div className='button' onClick={handleSubmit(onSubmit, onError)}>상담신청</div>
+          <button className='button' type='submit'>상담신청</button>
         </Form>
         
       </Modal>
