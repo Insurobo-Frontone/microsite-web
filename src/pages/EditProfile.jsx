@@ -87,39 +87,26 @@ const AddressModalWrap = styled.div`
 
 
 function EditProfile() {
-  const {handleSubmit ,setValue, formState: { errors },} = useFormContext();
-  const auth = localStorage.getItem("@access-Token");
+  const {handleSubmit ,setValue, watch, formState: { errors },} = useFormContext();
+  // const auth = localStorage.getItem("@access-Token");
   const navigate = useNavigate();
 
   const { width } = useWindowSize();
 
   const [isOpenPost, setIsOpenPost] = useState(false);
-  const [user, setUser] = useState([]);
+  // const [user, setUser] = useState([]);
+  const getUser = localStorage.getItem("@user");
+  const user = JSON.parse(getUser);
   const el = useRef();
   // const [phoneNum, setPhoneNum] = useState(); //폰번호
   // const [address, setAddress] = useState(''); // 주소
   // const [addressDetail, setAddressDetail] = useState(''); // 상세주소
   
- useEffect(async ()  => {
-   const res = await CommonAPI.get("/api/private/profile", {
-      Authorization: `Bearer ${auth}`,
-   })
-   if(res.status === 200){
-      setUser(res.data.data)
-      console.log(user)
-   }
-   
-   window.addEventListener("click", modalOutSideClick);
-    return ()=>{
-   window.removeEventListener("click", modalOutSideClick);
-   }
 
-
-
- }, []);
   
  const onSubmit = async (data) => {
-  const res = await CommonAPI.put("/api/private/profileUpdate", 
+  if (!watch() === '') {
+    const res = await CommonAPI.put("/api/private/profileUpdate", 
     { 
       "address": data.address+data.addressDetail,
       "userName": data.userName,
@@ -130,6 +117,10 @@ function EditProfile() {
     alert('프로필 수정이 완료되었습니다');
     navigate('/');
   }
+  } else {
+    alert('수정된 값이 없습니다')
+  }
+ 
  }
 
  const onError = (error) => {
@@ -158,9 +149,14 @@ function EditProfile() {
       }
       fullAddr += extraAddr !== '' ? ` (${extraAddr})` : '';
     }
-
     setValue('address', fullAddr)
     closePostCode();
+    
+    window.addEventListener("click", modalOutSideClick);
+      return () => {
+    window.removeEventListener("click", modalOutSideClick);
+   }
+    
   };
 
   //모달 바깥 클릭
@@ -183,7 +179,7 @@ function EditProfile() {
     top: '15%'
   };
   
-  setValue("userName", user.userName);
+  // setValue("userName", user.userName);
   // setValue("phoneRole",phoneNum);
   // setValue("address",address);
   // setValue("addressDetail",addressDetail);

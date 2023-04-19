@@ -6,9 +6,11 @@ import myPageIcon from '../assets/img/myPageIcon.png';
 import toggleBtn from '../assets/img/toggleBtn.png';
 import closeBtn from '../assets/img/closeBtn.png';
 import WindStormModal from '../components/Modal/WindStormModal';
-import Context from '../container/userContext';
 import { CommonAPI } from '../api/CommonAPI';
 import useWindowSize from '../hooks/useWindowSize';
+import Profile from '../components/Auth/Profile';
+import UserContext from '../container/user';
+
 
 const Wrap = styled.header`
   display: flex;
@@ -35,7 +37,7 @@ const Nav = styled.nav`
 `;
 
 const LogoBox = styled.button`
-  width: 230px;
+  width: 150px;
   display: flex;
   align-items: center;
   
@@ -65,6 +67,7 @@ const Menu = styled.ul`
     }
   }
   ${(props) => props.theme.window.mobile} {
+    position: relative;
     display: none;
     ${props => props.isOpen && css`
       display: flex;
@@ -121,81 +124,26 @@ const MyPage = styled.div`
   } 
 `;
 
-const MyPageNav = styled.ul`
-  position: absolute;
-  width: 450px;
-  height: 360px;
-  background-color: #FFFFFF;
-  top: 100%;
-  left: 0%;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  > li {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 120px;
-    position: relative;
-    margin: 0 25px;
-    border-bottom: 1px solid #F5F5F5;
-    :last-child {
-      border: none;
-    }
-    > p {
-      font-size: 1.15rem;
-    }
-    > img {
-      position: absolute;
-      left: 0;
-    }
-  }
-
-  ${(props) => props.theme.window.mobile} {
-    top: 80px;
-    width: 100%;
-    > li {
-      height: 80px;
-      > p {
-      
-      }
-      > img {
-        width: 40px;
-        height: 40px;
-        left: 23%;
-      }
-    }
-  }  
-`;
-
 function Header() {
   const { width } = useWindowSize();
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [myPageOpne, setMyPageOpen] = useState(false);
-  const { loggedUser, loggedIn, setLoggedUser, setLoggedIn } = useContext(Context);
+  const { loggedUser, setLoggedUser } = useContext(UserContext);
 
   const logout = () => {
     localStorage.removeItem("@access-Token");
-    localStorage.removeItem("@user");
+
     navigate('/')
+
     window.location.reload()
   }
   const auth = localStorage.getItem("@access-Token");
-  const user = localStorage.getItem("@user");
-  // useEffect(async ()  => {
-  //   if (auth) {
-  //     const res = await CommonAPI.get("/api/private/profile", {
-  //       Authorization: `Bearer ${auth}`,
-  //    })
-  //    if(res.status === 200){
-  //      setLoggedUser(res.data.data)
-  //     }
-  //     console.log(loggedUser)
-  //   }
-  // }, []);
+
+
 
   let navigate = useNavigate();
+
   function goToMainPage(link) {
     navigate(link);
     window.location.reload()
@@ -223,33 +171,11 @@ function Header() {
                     {width > 768 ? (
                        <>
                         {myPageOpne && (
-                        <MyPageNav>
-                          <li>
-                            <img src={myPageIcon} alt='프로필'/>
-                            <p>{user}</p>
-                          </li>
-                          <li>
-                            <p><Link to='/myProfile'>프로필 수정</Link></p>
-                          </li>
-                          <li>
-                            <p onClick={logout}>로그아웃</p>
-                          </li>
-                        </MyPageNav>
+                          <Profile onClick={logout}/>
                       )}
                        </>
                     ) : (
-                      <MyPageNav>
-                          <li>
-                            <img src={myPageIcon} alt='프로필'/>
-                            <p>{user}</p>
-                          </li>
-                          <li>
-                            <p><Link to='/myProfile'>프로필 수정</Link></p>
-                          </li>
-                          <li>
-                            <p onClick={logout}>로그아웃</p>
-                          </li>
-                        </MyPageNav>
+                      <Profile onClick={logout}/>
                     )}
                    
                   </li>

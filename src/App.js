@@ -17,7 +17,7 @@ import InsuranceInfo from './pages/InsuranceInfo';
 import PrivateRoute from './pages/PrivateRoute';
 import PublicRoute from './pages/PublicRoute';
 import EditPassword from './pages/EditPassword';
-import ContextProvider from './container/userProvider';
+import { UserContextProvider } from './container/user';
 
 function App() {
   const methods = useForm({
@@ -28,7 +28,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <ContextProvider>
+      <UserContextProvider>
         <FormProvider {...methods}>
           <GlobalStyle />
           <Router>
@@ -55,7 +55,7 @@ function App() {
             </Routes>
           </Router>       
         </FormProvider>
-      </ContextProvider>
+      </UserContextProvider>
     </ThemeProvider>
   );
 }

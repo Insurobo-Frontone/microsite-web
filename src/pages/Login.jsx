@@ -13,6 +13,8 @@ import { CommonAPI } from "../api/CommonAPI";
 
 import naverIcon from '../assets/img/naverIcon.png';
 import kakaoIcon from '../assets/img/kakaoIcon.png';
+import UserContext from '../container/user';
+import { useContext } from 'react';
 
 const SocialLoginGroup = styled.div`
   display: flex;
@@ -116,6 +118,7 @@ function Login() {
   const [type, setType] = useState(); //로그인 타입 (kakao, naver, email)
   const [type_kor, setType_kor] = useState(); //로그인 타입 한글 (kakao, naver, email)
   const { handleSubmit, reset, setError, setFocus } = useFormContext();
+  const { loggedUser, setLoggedUser } = useContext(UserContext);
 
   useEffect(() => {
     reset();
@@ -141,12 +144,23 @@ function Login() {
         const name = searchParams.get("name");
         setAccessToken(accessToken);
         setUser(name);
+        myProfile()
         navigate('/');
     }
   }, []);
-
-
-
+  const auth = localStorage.getItem("@access-Token");
+  
+  const myProfile = async () => {
+    const res = await CommonAPI.get("/api/private/profile", {
+      Authorization: `Bearer ${auth}`,
+   })
+   if(res.status === 200){
+      setLoggedUser(res.data.data)
+      setUser(res.data.data)
+      
+   }
+  }
+  console.log(loggedUser)
   const onError = (error) => {
     console.log(error)
   }
@@ -157,8 +171,11 @@ function Login() {
       const res = await CommonAPI.post('/api/public/login', req)
       if(res.status === 200){
         setAccessToken(res.data.data.accessToken);
-        setUser(res.data.data.userName)
+        myProfile()
+        // setUser(res.data.data.userName)
         navigate('/')
+        
+        
       }
     } catch (error) {
       console.log(error)

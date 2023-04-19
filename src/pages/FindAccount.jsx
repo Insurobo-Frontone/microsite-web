@@ -6,7 +6,6 @@ import { Text } from "../components/Font";
 import { useFormContext } from "react-hook-form";
 import CustomButton from "../components/Button/CustomButton";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import Timer from "../components/Timer";
 import insurobo from '../assets/icon/email-svg.svg';
 import kakao from '../assets/img/kakaoIcon.png';
@@ -179,7 +178,6 @@ function FindAccount() {
     watch,
     setError,
     setFocus,
-    setValue,
     register,
     formState: { errors },
   } = useFormContext();
@@ -197,7 +195,6 @@ function FindAccount() {
       mobile:watch("phoneRole")
     }
     setIsActiveTimer(false);
-
     try{
       const res = await CommonAPI.post("/api/public/sms_send",data);
       setMessageId(res.data.data.messageId);
@@ -274,9 +271,9 @@ function FindAccount() {
           {email.map((data, index) => (
               <DataValue>
                 <AccountIcon>
-                  {data.loginType === 'insurobo' ? <img src={insurobo}/> : null}
-                  {data.loginType === 'naver' ? <img src={naver}/> : null}
-                  {data.loginType === 'kakao' ? <img src={kakao}/> : null}
+                  {data.loginType === 'insurobo' ? <img src={insurobo} alt='insurobo'/> : null}
+                  {data.loginType === 'naver' ? <img src={naver} alt='naver' /> : null}
+                  {data.loginType === 'kakao' ? <img src={kakao} alt='kakao' /> : null}
                 </AccountIcon>
                 <AccTextWarp>
                   <EmailText>{data.userId}</EmailText>
