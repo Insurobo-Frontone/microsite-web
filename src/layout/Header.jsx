@@ -129,24 +129,21 @@ function Header() {
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [myPageOpne, setMyPageOpen] = useState(false);
-  const { loggedUser, setLoggedUser } = useContext(UserContext);
 
   const logout = () => {
     localStorage.removeItem("@access-Token");
-
+    localStorage.removeItem("@user");
     navigate('/')
-
-    window.location.reload()
+    
   }
   const auth = localStorage.getItem("@access-Token");
-
+  
 
 
   let navigate = useNavigate();
 
   function goToMainPage(link) {
     navigate(link);
-    window.location.reload()
   }
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -175,7 +172,7 @@ function Header() {
                       )}
                        </>
                     ) : (
-                      <Profile onClick={logout}/>
+                      <Profile onClick={logout} />
                     )}
                    
                   </li>

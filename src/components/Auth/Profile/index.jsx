@@ -49,14 +49,13 @@ const MyPageNav = styled.ul`
     }
   }  
 `;
-const Profile = ({onClick}) => {
-  const getUser = localStorage.getItem("@user");
-  const user = JSON.parse(getUser);
+const Profile = ({onClick, user}) => {
+
   return (
     <MyPageNav>
       <li>
         <img src={myPageIcon} alt='프로필'/>
-          <p>{user.userName}</p>
+          <p>{user}</p>
       </li>
       <li>
         <p><Link to='/myProfile'>프로필 수정</Link></p>

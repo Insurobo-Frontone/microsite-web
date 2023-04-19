@@ -33,20 +33,25 @@ function App() {
           <GlobalStyle />
           <Router>
             <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='?:category'  element={<Home />} />
-              <Route path='/view?:id'  element={<Home />} />
-              <Route path='?:page'  element={<Home />} />
-              <Route path='/event' element={<Event />} />
-              <Route path='/bizsupport/*' element={<BizSupport />} />
-              <Route path='/bizsupport/:list' element={<List />} />
-              <Route path='/insuranceInfo' element={<InsuranceInfo />} />
-              <Route path='/freeApply' element={<FreeApply />} />
-              <Route path='/board' element={<Board />} />
+              <Route element={<PublicRoute />}>
+                <Route path='/' element={<Home />} />
+                <Route path='?:category'  element={<Home />} />
+                <Route path='/view?:id'  element={<Home />} />
+                <Route path='?:page'  element={<Home />} />
+                <Route path='/event' element={<Event />} />
+                <Route path='/bizsupport/*' element={<BizSupport />} />
+                <Route path='/bizsupport/:list' element={<List />} />
+                <Route path='/insuranceInfo' element={<InsuranceInfo />} />
+                <Route path='/freeApply' element={<FreeApply />} />
+                <Route path='/board' element={<Board />} />
+              </Route>
               
-              <Route path='/login' element={<PublicRoute auth={auth} restricted component={<Login />}/>} />
-              <Route path='/login/findAccount' element={<PublicRoute auth={auth} restricted component={<FindAccount />}/>} />
-              <Route path='/register' element={<PublicRoute auth={auth} restricted component={<Register />} />} />
+              <Route element={<PublicRoute auth={auth} restricted />}>
+                <Route path='/login' element={<Login />} />
+                <Route path='/login/findAccount' element={<FindAccount />} />
+                <Route path='/register' element={<Register />} />
+              </Route>
+              
 
               <Route element={<PrivateRoute auth={auth} />}>
                 <Route path='/myProfile' element={<EditProfile  />} />

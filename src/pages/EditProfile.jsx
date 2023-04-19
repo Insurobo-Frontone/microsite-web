@@ -10,6 +10,7 @@ import DaumPostcode from 'react-daum-postcode';
 import { CommonAPI } from "../api/CommonAPI";
 import useWindowSize from "../hooks/useWindowSize";
 import Modal from "../components/Modal";
+import { setUser } from "../container/Auth";
 
 const Form = styled.form`
   padding: 54px 0 147px;
@@ -88,7 +89,6 @@ const AddressModalWrap = styled.div`
 
 function EditProfile() {
   const {handleSubmit ,setValue, watch, formState: { errors },} = useFormContext();
-  // const auth = localStorage.getItem("@access-Token");
   const navigate = useNavigate();
 
   const { width } = useWindowSize();
@@ -98,29 +98,32 @@ function EditProfile() {
   const getUser = localStorage.getItem("@user");
   const user = JSON.parse(getUser);
   const el = useRef();
-  // const [phoneNum, setPhoneNum] = useState(); //폰번호
-  // const [address, setAddress] = useState(''); // 주소
-  // const [addressDetail, setAddressDetail] = useState(''); // 상세주소
-  
 
+  const auth = localStorage.getItem("@access-Token");
+  const myProfile = async () => {
+    const res = await CommonAPI.get("/api/private/profile", {
+      Authorization: `Bearer ${auth}`,
+   })
+   if(res.status === 200){
+      setUser(res.data.data)
+   }
+  }
   
  const onSubmit = async (data) => {
-  if (!watch() === '') {
-    const res = await CommonAPI.put("/api/private/profileUpdate", 
+  
+  const res = await CommonAPI.put("/api/private/profileUpdate", 
     { 
       "address": data.address+data.addressDetail,
       "userName": data.userName,
     }
   )
+
  if(res.status === 200){
     console.log(res)
+    myProfile()
     alert('프로필 수정이 완료되었습니다');
     navigate('/');
   }
-  } else {
-    alert('수정된 값이 없습니다')
-  }
- 
  }
 
  const onError = (error) => {
@@ -198,12 +201,14 @@ function EditProfile() {
               defaultValue={user.userName}
             />
           </InputGroup>
-          <InputGroup>
-            <PasswordGroup>
-              <lable>비밀번호</lable>
-              <Link to="/myProfile/password">비밀번호 변경하기</Link>
-            </PasswordGroup>
-          </InputGroup>
+          {user.loginType === 'insurobo' && (
+            <InputGroup>
+              <PasswordGroup>
+                <lable>비밀번호</lable>
+                <Link to="/myProfile/password">비밀번호 변경하기</Link>
+              </PasswordGroup>
+            </InputGroup>
+          )}
           <InputGroup>
             <Input
               label="연락처"
