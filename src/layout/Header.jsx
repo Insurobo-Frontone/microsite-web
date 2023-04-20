@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import styled, { css } from 'styled-components';
 import logo from '../assets/img/mainLogo.png';
 import myPageIcon from '../assets/img/myPageIcon.png';
@@ -8,6 +8,7 @@ import closeBtn from '../assets/img/closeBtn.png';
 import WindStormModal from '../components/Modal/WindStormModal';
 import useWindowSize from '../hooks/useWindowSize';
 import Profile from '../components/Auth/Profile';
+import { useEffect } from 'react';
 
 const Wrap = styled.header`
   display: flex;
@@ -126,12 +127,16 @@ function Header() {
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [myPageOpne, setMyPageOpen] = useState(false);
-  
+  const location = useLocation();
   
   const auth = localStorage.getItem("@access-Token");
   const userName = localStorage.getItem("@userName");
-
-    const logout = () => {
+  useEffect(() => {
+    if (location.search === '?windstormModal=true') {
+      setShowPopup(!showPopup)
+    }
+  }, [])
+  const logout = () => {
     localStorage.clear();
     navigate('/')
     //  window.location.reload()
@@ -185,7 +190,7 @@ function Header() {
           
         </Wrap>
         {showPopup && (
-          <WindStormModal onClick={() => setShowPopup(false)} />
+          <WindStormModal onClick={() => setShowPopup(!showPopup)} />
         )}
   
     </>
