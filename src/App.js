@@ -23,6 +23,7 @@ function App() {
   const methods = useForm({
     mode: 'onBlur'
   });
+
   const auth = localStorage.getItem("@access-Token");
 
 
@@ -45,20 +46,20 @@ function App() {
                 <Route path='/freeApply' element={<FreeApply />} />
                 <Route path='/board' element={<Board />} />
               </Route>
-              
+
               <Route element={<PublicRoute auth={auth} restricted />}>
                 <Route path='/login' element={<Login />} />
                 <Route path='/login/findAccount' element={<FindAccount />} />
                 <Route path='/register' element={<Register />} />
               </Route>
-              
+
 
               <Route element={<PrivateRoute auth={auth} />}>
                 <Route path='/myProfile' element={<EditProfile  />} />
                 <Route path='/myProfile/password' element={<EditPassword />} />
               </Route>
             </Routes>
-          </Router>       
+          </Router>
         </FormProvider>
       </UserContextProvider>
     </ThemeProvider>
