@@ -8,13 +8,10 @@ import { Text } from '../components/Font';
 import { useFormContext } from 'react-hook-form';
 import CustomButton from '../components/Button/CustomButton';
 import useWindowSize from '../hooks/useWindowSize';
-import { setAccessToken, setUser } from '../container/Auth';
+import { setAccessToken, setUser, setUserName } from '../container/Auth';
 import { CommonAPI } from "../api/CommonAPI";
-
 import naverIcon from '../assets/img/naverIcon.png';
 import kakaoIcon from '../assets/img/kakaoIcon.png';
-import UserContext from '../container/user';
-import { useContext } from 'react';
 
 const SocialLoginGroup = styled.div`
   display: flex;
@@ -118,8 +115,7 @@ function Login() {
   const [type, setType] = useState(); //로그인 타입 (kakao, naver, email)
   const [type_kor, setType_kor] = useState(); //로그인 타입 한글 (kakao, naver, email)
   const { handleSubmit, reset, setError, setFocus } = useFormContext();
-
-
+ 
   useEffect(() => {
     reset();
     const loginCode = searchParams.get("loginCode");
@@ -143,23 +139,12 @@ function Login() {
         const accessToken = searchParams.get("token");
         const name = searchParams.get("name");
         setAccessToken(accessToken);
-        setUser(name);
-        myProfile()
+        setUserName(name)
         navigate('/');
     }
   }, []);
-  const auth = localStorage.getItem("@access-Token");
+
   
-  const myProfile = async () => {
-    const res = await CommonAPI.get("/api/private/profile", {
-      Authorization: `Bearer ${auth}`,
-   })
-   if(res.status === 200){
-      setUser(res.data.data)
-      const getUser = localStorage.getItem("@user");
-    const user = JSON.parse(getUser);
-   }
-  }
   const onError = (error) => {
     console.log(error)
   }
@@ -170,8 +155,10 @@ function Login() {
       const res = await CommonAPI.post('/api/public/login', req)
       if(res.status === 200){
         setAccessToken(res.data.data.accessToken);
-        myProfile()
+        setUserName(res.data.data.userName)
+        console.log(res.data)
         navigate('/')
+        
       }
     } catch (error) {
       console.log(error)

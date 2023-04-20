@@ -14,13 +14,15 @@ const Wrap = styled.div`
   background-color: ${props => theme.color[props.color] || '#FFFFFF'};
 `;
 
+
 const Layout = ({children, color}) => {
+  
   return (
     <>
       <ScrollToTop />
       <PageScrollToTop />
       <Wrap color={color}>
-        <Header />
+        <Header/>
           <Outlet />
           {children}
         <Footer />

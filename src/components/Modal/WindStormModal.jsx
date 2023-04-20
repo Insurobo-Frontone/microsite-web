@@ -221,6 +221,9 @@ function WindStormModal({onClick}) {
         alert('입력한 값을 확인해 주세요.');
         return false;
       }
+      if (response.data.STAT === '만료') {
+        alert('풍수해보험 계약이 만료되었습니다.')
+      }
       setData(response.data);
     })
     .catch(function (error) {

@@ -17,7 +17,9 @@ import InsuranceInfo from './pages/InsuranceInfo';
 import PrivateRoute from './pages/PrivateRoute';
 import PublicRoute from './pages/PublicRoute';
 import EditPassword from './pages/EditPassword';
-import { UserContextProvider } from './container/user';
+import { UserProvider } from './context/UserContext';
+
+
 
 function App() {
   const methods = useForm({
@@ -25,12 +27,10 @@ function App() {
   });
 
   const auth = localStorage.getItem("@access-Token");
-
-
   return (
     <ThemeProvider theme={theme}>
-      <UserContextProvider>
-        <FormProvider {...methods}>
+      <UserProvider>
+      <FormProvider {...methods}>
           <GlobalStyle />
           <Router>
             <Routes>
@@ -61,7 +61,7 @@ function App() {
             </Routes>
           </Router>
         </FormProvider>
-      </UserContextProvider>
+      </UserProvider>   
     </ThemeProvider>
   );
 }
