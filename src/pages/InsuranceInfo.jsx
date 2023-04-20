@@ -68,6 +68,7 @@ const list_must = [
     title: '사업장 화재보험',
     text: '가까운 곳에서 시작되는 화재',
     link: '',
+    class: '',
     icon: m_icon1
   },
   {
@@ -75,6 +76,7 @@ const list_must = [
     title: '카디프생명(e)대출안심 보장보험',
     text: '대출상환능력 상실시 대출금 상환',
     link: 'https://insurobowindstorm.com/cardifarea',
+    class: 'cadif',
     icon: m_icon2
   }
 ]
@@ -224,6 +226,7 @@ const ItemList = styled.ul`
         margin-right: 10px;
       }
       > div {
+        
         > p {
           font-size: 16px;
           color: #1A1A1A;
@@ -236,6 +239,7 @@ const ItemList = styled.ul`
           line-height: 18px;
         }
       }
+      
     }
   }
   ${(props) => props.theme.window.mobile} {
@@ -248,6 +252,11 @@ const ItemList = styled.ul`
           > p {
             white-space: nowrap;
           }
+        }
+        .cadif {
+          > p {
+            font-size: 13px;
+          } 
         }
       }
     }
@@ -442,7 +451,7 @@ function Item() {
               <li key={dt.id}>
                 <div className='left-wrap'>
                   <img src={dt.icon} alt={dt.title} />
-                  <div>
+                  <div className={dt.class}>
                     <p>{dt.title}</p>
                     <span>{dt.text}</span>
                   </div>

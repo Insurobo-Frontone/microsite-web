@@ -110,6 +110,24 @@ const Info = styled.div`
     font-size: 13px;
     margin-bottom: 10px;
   }
+  .txt3 {
+    border: 1px solid #dadada;
+    margin-bottom: 20px;
+  }
+  ${props => props.theme.window.mobile} {
+    width: 100%;
+    font-size: 10px;
+    .txt1 {
+      margin-bottom: 5px;
+    }
+    .txt2 {
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+    .txt3 {
+      margin-bottom: 10px;
+    }
+  }
 `;
 
 
@@ -176,7 +194,7 @@ const HookFormCheckbox = (props) => {
           </li>
         </ol>
         <h3 class="txt2">3. 민감 정보 및 고유식별정보의 처리에 관한 사항</h3>
-        <div class="box1">
+        <div class="txt3">
           당사는 개인정보보호법 제23조 및 제24조에 따라 본 계약과 관련하여 상기의 개인(신용)정보에 대한 개별 동의 사항에 대하여 고객님의 민감정보(질병•상해정보) 및
           고유식별정보(주민등록번호•외국인등록번호)를 처리(수집/이용, 제공 등)함
         </div>
@@ -192,18 +210,17 @@ const HookFormCheckbox = (props) => {
         message: '',
         textArea: `
         <div>
-            <ol class="txt3">
-                        <li>1. 개인정보의 수집 및 이용목적
-                          <div class="box1">
-                            전화, 문자, 온라인를 활용한 보험상품 및 보험가입안내, 유익한 정보 및 서비스의 제공, 사은판촉행사안내 (문자, 전화 등), 증권 배송업무, 회원유치, 상품 권유
-                            업무,
-                            전화상담 업무, 인터넷 관련 서비스 업무 등
-                          </div>
-                        </li>
-                        <li>2. 수집이용 할 개인(신용)정보의 내용
-                          <div class="box1">
-                            계약자 정보 (성명, 주민등록번호, 휴대폰번호, 상호, 사업장 주소, 기타 사업장정보(업종, 층수, 면적) )
-                          </div>
+          <ol class="txt3">
+            <li>1. 개인정보의 수집 및 이용목적
+              <div class="box1">
+                전화, 문자, 온라인를 활용한 보험상품 및 보험가입안내, 유익한 정보 및 서비스의 제공, 사은판촉행사안내 (문자, 전화 등), 증권 배송업무, 회원유치, 상품 권유
+                업무, 전화상담 업무, 인터넷 관련 서비스 업무 등
+              </div>
+            </li>
+             <li>2. 수집이용 할 개인(신용)정보의 내용
+                <div class="box1">
+                  계약자 정보 (성명, 주민등록번호, 휴대폰번호, 상호, 사업장 주소, 기타 사업장정보(업종, 층수, 면적) )
+                </div>
                         </li>
                         <li>3. 개인(신용)정보의 보유, 이용기간
                           <div class="box1">

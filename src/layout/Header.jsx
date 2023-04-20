@@ -133,7 +133,7 @@ function Header() {
   const userName = localStorage.getItem("@userName");
   useEffect(() => {
     if (location.search === '?windstormModal=true') {
-      setShowPopup(!showPopup)
+      setShowPopup(!showPopup);
     }
   }, [])
   const logout = () => {
