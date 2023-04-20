@@ -49,13 +49,14 @@ const MyPageNav = styled.ul`
     }
   }  
 `;
-const Profile = ({onClick, user}) => {
-
+const Profile = ({onClick, userName}) => {
+  // const { state } = useContext(UserContext)
+  
   return (
     <MyPageNav>
       <li>
         <img src={myPageIcon} alt='프로필'/>
-          <p>{user}</p>
+          <p>{userName}</p>
       </li>
       <li>
         <p><Link to='/myProfile'>프로필 수정</Link></p>

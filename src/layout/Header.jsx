@@ -1,16 +1,13 @@
-import React, { useState, useContext, useEffect,  } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import styled, { css } from 'styled-components';
 import logo from '../assets/img/mainLogo.png';
 import myPageIcon from '../assets/img/myPageIcon.png';
 import toggleBtn from '../assets/img/toggleBtn.png';
 import closeBtn from '../assets/img/closeBtn.png';
 import WindStormModal from '../components/Modal/WindStormModal';
-import { CommonAPI } from '../api/CommonAPI';
 import useWindowSize from '../hooks/useWindowSize';
 import Profile from '../components/Auth/Profile';
-import UserContext from '../container/user';
-
 
 const Wrap = styled.header`
   display: flex;
@@ -129,16 +126,16 @@ function Header() {
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [myPageOpne, setMyPageOpen] = useState(false);
-
-  const logout = () => {
-    localStorage.removeItem("@access-Token");
-    localStorage.removeItem("@user");
-    navigate('/')
-    
-  }
-  const auth = localStorage.getItem("@access-Token");
   
+  
+  const auth = localStorage.getItem("@access-Token");
+  const userName = localStorage.getItem("@userName");
 
+    const logout = () => {
+    localStorage.clear();
+    navigate('/')
+     window.location.reload()
+  }
 
   let navigate = useNavigate();
 
@@ -147,9 +144,7 @@ function Header() {
   }
   const handleClick = () => {
     setIsOpen(!isOpen);
-    
   }
-
   return (
     <>
         <Wrap>
@@ -168,11 +163,11 @@ function Header() {
                     {width > 768 ? (
                        <>
                         {myPageOpne && (
-                          <Profile onClick={logout}/>
+                          <Profile onClick={logout} userName={userName}/>
                       )}
                        </>
                     ) : (
-                      <Profile onClick={logout} />
+                      <Profile onClick={logout} userName={userName}/>
                     )}
                    
                   </li>
