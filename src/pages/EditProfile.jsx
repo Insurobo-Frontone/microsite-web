@@ -9,7 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 import DaumPostcode from 'react-daum-postcode';
 import { CommonAPI } from "../api/CommonAPI";
 import useWindowSize from "../hooks/useWindowSize";
-import { setUserName } from "../container/Auth";
+import { setUser, setUserName } from "../container/Auth";
+import { useEffect } from "react";
 // import { useContext } from "react";
 // import UserContext from "../context/UserContext";
 
@@ -89,15 +90,30 @@ const AddressModalWrap = styled.div`
 
 
 function EditProfile() {
-  const {handleSubmit ,setValue} = useFormContext();
+  const {handleSubmit ,setValue, reset} = useFormContext();
   const navigate = useNavigate();
   const { width } = useWindowSize();
   const [isOpenPost, setIsOpenPost] = useState(false);
-  
+  const auth = localStorage.getItem("@access-Token");
   const el = useRef();
-  const getUser = localStorage.getItem('@user');
-  const user = JSON.parse(getUser)
-  
+  // const getUser = localStorage.getItem('@user');
+  // const user = JSON.parse(getUser)
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    myData()
+  }, [])
+
+  const myData = async () => {
+    const res = await CommonAPI.get("/api/private/profile", {
+      Authorization: `Bearer ${auth}`,
+   })
+   if(res.status === 200){
+      setData(res.data.data)
+      reset()
+   }
+  }
+
   const onSubmit = async (data) => {
     const res = await CommonAPI.put("/api/private/profileUpdate", 
       JSON.stringify(data)
@@ -105,6 +121,7 @@ function EditProfile() {
     if(res.status === 200) {
       alert('프로필 수정이 완료되었습니다');
       setUserName(res.data.data)
+     
       navigate('/');
     }
   }
@@ -172,10 +189,10 @@ function EditProfile() {
             <Input
               label="이름"
               name="userName"
-              defaultValue={user.userName}
+              defaultValue={data?.userName}
             />
           </InputGroup>
-          {user.loginType === 'insurobo' && (
+          {data?.loginType === 'insurobo' && (
             <InputGroup>
               <PasswordGroup>
                 <lable>비밀번호</lable>
@@ -193,7 +210,7 @@ function EditProfile() {
                 value: /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/,
                 message: "규칙에 맞는 휴대폰 번호를 입력해 주세요.",
               }}
-              defaultValue={user.phoneRole}
+              defaultValue={data?.phoneRole}
             />
           </InputGroup>
           <InputGroup>
@@ -202,7 +219,7 @@ function EditProfile() {
                 label="주소" 
                 name="address" 
                 readOnly
-                defaultValue={user.address}
+                defaultValue={data?.address}
               />
               <div className="button" onClick={onChangeOpenPost}>
                 <Text color="WHITE" bold="200">
@@ -212,7 +229,7 @@ function EditProfile() {
             </div>
             <Input 
               name="address_detail" 
-              defaultValue={user.address_detail}
+              defaultValue={data?.address_detail}
             />
           </InputGroup>
           <ButtonWrap>

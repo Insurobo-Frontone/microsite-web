@@ -115,7 +115,7 @@ function Login() {
   const [type, setType] = useState(); //로그인 타입 (kakao, naver, email)
   const [type_kor, setType_kor] = useState(); //로그인 타입 한글 (kakao, naver, email)
   const { handleSubmit, reset, setError, setFocus } = useFormContext();
-  const auth = localStorage.getItem("@access-Token");
+ 
   useEffect(() => {
     reset();
     const loginCode = searchParams.get("loginCode");
@@ -140,20 +140,11 @@ function Login() {
         const name = searchParams.get("name");
         setAccessToken(accessToken);
         setUserName(name)
-        myData()
         navigate('/');
     }
   }, []);
 
-  const myData = async () => {
-    const res = await CommonAPI.get("/api/private/profile", {
-      Authorization: `Bearer ${auth}`,
-   })
-   if(res.status === 200){
-      setUser(res.data.data)
-   }
-
-  }
+  
   const onError = (error) => {
     console.log(error)
   }
@@ -165,7 +156,6 @@ function Login() {
       if(res.status === 200){
         setAccessToken(res.data.data.accessToken);
         setUserName(res.data.data.userName)
-        myData()
         console.log(res.data)
         navigate('/')
         
