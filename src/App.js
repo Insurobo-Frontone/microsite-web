@@ -27,6 +27,7 @@ function App() {
   });
 
   const auth = localStorage.getItem("@access-Token");
+  
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { createContext } from 'react';
-import { setUser } from '../container/Auth';
 
 const UserContext = createContext({
   state: { 
