@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import {CommonAPI} from "../../api/CommonAPI";
@@ -84,17 +84,31 @@ function View() {
   let navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get('id');
-  const [data, setData] = useState([]);
+  const location = useLocation();
 
+  const [data, setData] = useState([]);
+  
   useEffect(() => {
-    handleCommunityDetail();
+    switch (location) {
+      case '/' :
+      handleCommunityDetail();
+      break
+      case '/board' :
+      handleInfoPlaceDetail();
+      break
+      default :
+    }
+    
   }, [id]);
 
   const handleCommunityDetail = async () =>{
       const res = await CommonAPI.get(`/api/public/communityDetail?id=${id}`);
       setData(res.data.data);
   }
-
+  const handleInfoPlaceDetail = async () =>{
+    const res = await CommonAPI.get(`/api/public/communityDetail?id=${id}`);
+    setData(res.data.data);
+}
   function handleClick(link) {
     navigate(link);
   }
@@ -106,10 +120,10 @@ function View() {
             <h2>
               <span style={{
                 backgroundColor: data.category === '풍수해' ? '#4575F5' :
-                  data.category === '이벤트' ? '#F58839' :
-                  data.category === '지원정책' ? '#336BFF' :
-                  data.category === '대출' ? '#6F85E3' :
-                  data.category === '홍보' ? '#FFCAB2' : null
+                data.category === '이벤트' ? '#F58839' :
+                data.category === '지원정책' ? '#336BFF' :
+                data.category === '대출' ? '#6F85E3' :
+                data.category === '홍보' ? '#FFCAB2' : null
               }}>
                 {data.category}
               </span>

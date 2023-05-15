@@ -11,6 +11,8 @@ import moreIcon from '../../assets/img/moreIcon.svg';
 import foldIcon from '../../assets/img/foldIcon.png';
 import View from './View';
 import { Text } from '../Font';
+import { CommonAPI } from '../../api/CommonAPI';
+import useAsync from '../../hooks/useAsync';
 
 const BoardWrap = styled.ul`
   display: grid;
@@ -149,30 +151,17 @@ const CardLink = styled(Link)`
 function Board() { 
   const {width} = useWindowSize();
   const [isOpen, setIsOpen] = useState(false);
-  const [posts, setPosts] = useState([]);
   const limit = width > 768 ? '5' : isOpen ? '5' : '3'
+  const [state, refetch] = useAsync(getData, []);
+  const { loading, data, error } = state;
+  if (loading) return <div>로딩중..</div>;
+  if (error) return <div>에러가 발생했습니다</div>;
+  if (!data) return null;
+  async function getData() {
+    const res = await CommonAPI.get(`/api/public/communityList?_limit=${limit}`)
+    return res.data.data.slice(0).reverse();
+  }
 
-  useEffect(() => {
-    const LIST_URL = `http://localhost:4000/info_place?_limit=${limit}`
-    const getData = async () => {
-      const { data } = await axios.get(LIST_URL);   
-      setPosts(data.slice(0).reverse());
-    }
-    getData();
-  }, [limit]);
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const id = searchParams.get('id');
-  const location = useLocation();
-  const [data, setData] = useState({});
-  const CONTENT_URL = `http://localhost:4000/info_place?id=${id}`;
-  useEffect(() => {
-    const getData = async () => {
-        const {data} = await axios.get(CONTENT_URL);
-        setData(data);
-    }
-    getData();
-  }, [CONTENT_URL]);
   
   return (
     <Layout>
@@ -186,13 +175,10 @@ function Board() {
           big_title2='정보마당'
           row={width > 768 ? true : false}
         />
-       
-        {location.search === `?id=${id}` && (<View data={data[0]} />) }
-        {location.search === '' && (
           <>
             <Background src={bg} alt='배경화면'/>
             <BoardWrap isOpen={isOpen}>
-            {posts.map((dt) => (
+            {data.map((dt) => (
                 <Card key={dt.id} className={dt.class}>
                   <CardLink to={`?id=${dt.id}`}> 
                     <TextArea>
@@ -218,8 +204,8 @@ function Board() {
           )}
         </>
           </>
-        )}
-        
+        {/* )}
+         */}
         
       </Content> 
     </Layout>

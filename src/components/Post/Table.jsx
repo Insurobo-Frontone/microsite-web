@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled, { css } from 'styled-components';
 import { Link,  } from 'react-router-dom';
 import useWindowSize from '../../hooks/useWindowSize';
 import theme from '../../style/Theme';
 import moreIcon from '../../assets/img/moreIcon.svg';
-import axios from 'axios';
 import Pagination from '../Pagination';
 import useAsync from '../../hooks/useAsync';
 import { CommonAPI } from '../../api/CommonAPI';
@@ -200,19 +199,19 @@ const MoreIcon = styled.span`
   }
 `;
 
-const WriteButton = styled.button`
-  width: 100px;
-  height: 30px;
-  display: flex;
-  align-self: flex-end;
-  justify-content: center;
-  align-items: center;
-  background-color: #F9F9F9;
-  color: #393939;
-  font-family: 'Malgun Gothic';
-  font-weight: 700;
-  margin: 6% 0;
-`;
+// const WriteButton = styled.button`
+//   width: 100px;
+//   height: 30px;
+//   display: flex;
+//   align-self: flex-end;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #F9F9F9;
+//   color: #393939;
+//   font-family: 'Malgun Gothic';
+//   font-weight: 700;
+//   margin: 6% 0;
+// `;
 
 
 
@@ -233,9 +232,7 @@ export default function Table() {
 
 
   async function getData() {
-
     const res = await CommonAPI.get(`/api/public/communityList${categoryValue}`)
-
     return res.data.data.slice(0).reverse();
   }
 
