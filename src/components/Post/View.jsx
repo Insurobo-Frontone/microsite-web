@@ -1,6 +1,6 @@
 import React from 'react'
-import styled from 'styled-components';
-import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import {CommonAPI} from "../../api/CommonAPI";
@@ -9,7 +9,7 @@ const ViewContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 10% 0;
+  padding: 70px 0;
 
   ${(props) => props.theme.window.tab} {
     padding: 5% 0;
@@ -21,15 +21,13 @@ const ViewHeader = styled.div`
   align-items: center;
   height: 200px;
   background-color: #F7F7F7;
-  white-space: pre;
   border-top: 1px solid #C4C4C4;
   padding-left: 39px;
   > h2 {
     font-size: 1.5rem;
-    width: 800px;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
     display: flex;
+    align-items: center;
+    
     > span {
       display: block;
       color: #FFFFFF;
@@ -48,19 +46,52 @@ const ViewHeader = styled.div`
   
   ${(props) => props.theme.window.tab} {
     height: 100px;
-    padding-left: 0;
+    padding-left: 11px;
     > h2 {
       font-size: 1rem;
+      margin-right: 10px;
+      > span {
+        margin: 0 5px 10px 0;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 14px;
+        border-radius: 6px;
+      }
+    
     }
+    > p {
+      white-space: nowrap;
+    }
+
+    ${props => props.flex && css`
+      > h2 {
+        flex-flow: column;
+        align-items: flex-start;
+      }
+    `}
+
+    ${props => props.block && css`
+      > h2 {
+        width: 69%;
+        display: block;
+        align-items: flex-start;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+    `}
   }
 `;
 
 const ViewBody = styled.div`
-  padding: 5% 0;
   font-size: 0.9rem;
   color: #808080;
+  padding: 66px 0;
   ${(props) => props.theme.window.mobile} {
-    padding: 19% 0 50%;
+    padding: 20px 0;
+    > div {
+      overflow-x: scroll;
+    }
   }
 `;
 
@@ -80,35 +111,21 @@ const Button = styled.button`
 `;
 
 
-function View() {
+function View({api, flex, block}) {
   let navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
-  const location = useLocation();
-
   const [data, setData] = useState([]);
-  
-  useEffect(() => {
-    switch (location) {
-      case '/' :
-      handleCommunityDetail();
-      break
-      case '/board' :
-      handleInfoPlaceDetail();
-      break
-      default :
-    }
-    
-  }, [id]);
 
-  const handleCommunityDetail = async () =>{
-      const res = await CommonAPI.get(`/api/public/communityDetail?id=${id}`);
-      setData(res.data.data);
-  }
-  const handleInfoPlaceDetail = async () =>{
-    const res = await CommonAPI.get(`/api/public/communityDetail?id=${id}`);
+  useEffect(() => {
+    handleTableDetail()
+  });
+
+  const handleTableDetail = async () =>{
+    const res = await CommonAPI.get(`/api/public/${api}?id=${id}`);
     setData(res.data.data);
-}
+  }
+
   function handleClick(link) {
     navigate(link);
   }
@@ -116,17 +133,19 @@ function View() {
     <ViewContainer>
       {data && (
         <>
-          <ViewHeader key={data.id}>
+          <ViewHeader key={data.id} flex={flex} block={block}>
             <h2>
-              <span style={{
-                backgroundColor: data.category === '풍수해' ? '#4575F5' :
-                data.category === '이벤트' ? '#F58839' :
-                data.category === '지원정책' ? '#336BFF' :
-                data.category === '대출' ? '#6F85E3' :
-                data.category === '홍보' ? '#FFCAB2' : null
-              }}>
-                {data.category}
-              </span>
+              {data.category && (
+                <span style={{
+                  backgroundColor: data.category === '풍수해' ? '#4575F5' :
+                  data.category === '이벤트' ? '#F58839' :
+                  data.category === '지원정책' ? '#336BFF' :
+                  data.category === '대출' ? '#6F85E3' :
+                  data.category === '홍보' ? '#FFCAB2' : null
+                }}>
+                  {data.category}
+                </span>
+              )}
               {data.title}
             </h2>
             <p style={{marginRight:"10px"}}>{data.createdDate}</p>
@@ -134,7 +153,6 @@ function View() {
           <ViewBody>
             <div dangerouslySetInnerHTML={{__html: data.content}}></div>
           </ViewBody>
-
           <ButtonWrap>
             <Button onClick={() => handleClick(-1)}>이전</Button>
           </ButtonWrap>

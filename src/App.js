@@ -38,7 +38,6 @@ function App() {
               <Route element={<PublicRoute />}>
                 <Route path='/' element={<Home />} />
                 <Route path='?:category'  element={<Home />} />
-                <Route path='/view?:id'  element={<Home />} />
                 <Route path='?:page'  element={<Home />} />
                 <Route path='/event' element={<Event />} />
                 <Route path='/bizsupport/*' element={<BizSupport />} />

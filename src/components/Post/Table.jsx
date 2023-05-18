@@ -224,8 +224,9 @@ export default function Table() {
   const offset = (page - 1) * limit;
   const [category, setCategory] = useState('all');
   const categoryValue = category === 'all' ? '' : `?category=${category}`
-  const [state, refetch] = useAsync(getData, [category]);
+  const [state] = useAsync(getData, [category]);
   const { loading, data, error } = state;
+
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다</div>;
   if (!data) return null;
