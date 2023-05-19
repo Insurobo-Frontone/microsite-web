@@ -147,7 +147,7 @@ function Footer() {
               <Text size={width > 768 ? '1.15rem' : '1rem'} color='WHITE' bold='700'>070-4126-3333</Text>
             </div>
           </div>
-          <Text size={width > 768 ? '0.75rem' : '0.8666666666666667rem'} color='WHITE' bold='400'>Copyright@INSUROBO All Right Reserved.</Text>
+          <Text size={width > 768 ? '0.75rem' : '0.8666666666666667rem'} color='WHITE' bold='400'>Copyright@INSUROBO All Rights Reserved.</Text>
         </RightContent>
       </FooterWrap>
     </Section>
