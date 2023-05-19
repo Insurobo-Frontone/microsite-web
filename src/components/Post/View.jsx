@@ -4,6 +4,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import {CommonAPI} from "../../api/CommonAPI";
+import ScrollToTop from '../../layout/ScrollToTop';
 
 const ViewContainer = styled.div`
   width: 100%;
@@ -130,35 +131,38 @@ function View({api, flex, block}) {
     navigate(link);
   }
   return (
-    <ViewContainer>
-      {data && (
-        <>
-          <ViewHeader key={data.id} flex={flex} block={block}>
-            <h2>
-              {data.category && (
-                <span style={{
-                  backgroundColor: data.category === '풍수해' ? '#4575F5' :
-                  data.category === '이벤트' ? '#F58839' :
-                  data.category === '지원정책' ? '#336BFF' :
-                  data.category === '대출' ? '#6F85E3' :
-                  data.category === '홍보' ? '#FFCAB2' : null
-                }}>
-                  {data.category}
-                </span>
-              )}
-              {data.title}
-            </h2>
-            <p style={{marginRight:"10px"}}>{data.createdDate}</p>
-          </ViewHeader>
-          <ViewBody>
-            <div dangerouslySetInnerHTML={{__html: data.content}}></div>
-          </ViewBody>
-          <ButtonWrap>
-            <Button onClick={() => handleClick(-1)}>이전</Button>
-          </ButtonWrap>
-        </>
-      )}
-    </ViewContainer>
+    <>
+      <ViewContainer>
+        {data && (
+          <>
+            <ViewHeader key={data.id} flex={flex} block={block}>
+              <h2>
+                {data.category && (
+                  <span style={{
+                    backgroundColor: data.category === '풍수해' ? '#4575F5' :
+                    data.category === '이벤트' ? '#F58839' :
+                    data.category === '지원정책' ? '#336BFF' :
+                    data.category === '대출' ? '#6F85E3' :
+                    data.category === '홍보' ? '#FFCAB2' : null
+                  }}>
+                    {data.category}
+                  </span>
+                )}
+                {data.title}
+              </h2>
+              <p style={{marginRight:"10px"}}>{data.createdDate}</p>
+            </ViewHeader>
+            <ViewBody>
+              <div dangerouslySetInnerHTML={{__html: data.content}}></div>
+            </ViewBody>
+            <ButtonWrap>
+              <Button onClick={() => handleClick(-1)}>이전</Button>
+            </ButtonWrap>
+          </>
+        )}
+      </ViewContainer>
+    </>
+    
   )
 }
 

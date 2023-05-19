@@ -3,19 +3,27 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Layout from '../../layout';
 import TitleSet from '../TitleSet';
-import Content from '../Content';
 import bg from '../../assets/img/left_bg.png';
 import useWindowSize from '../../hooks/useWindowSize';
 import { CommonAPI } from '../../api/CommonAPI';
 import useAsync from '../../hooks/useAsync';
 import View from './View';
 
+const Wrap = styled.div`
+  width: 75%;
+  margin: 0 auto;
+  ${(props) => props.theme.window.mobile} {
+    width: 85.33333333333333%;
+    padding: 66px 0 81px 0; 
+  }
+`;
+
 const BoardWrap = styled.ul`
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  padding: 142px 0;
-
+  padding: 112px 0;
+  
   ${(props) => props.theme.window.mobile} {
     padding: 27px 10px;
   }
@@ -24,6 +32,7 @@ const BoardWrap = styled.ul`
 const Card = styled.li`
   display: flex;
   width: 545px;
+  height: 350px;
   flex-direction: column;
   justify-content: space-between;
   background-color: #FFFFFF;
@@ -54,12 +63,12 @@ const Background = styled.img`
   width: 70%;
   left: -29%;
   top: 15%;
-
+  z-index: 0;
   ${(props) => props.theme.window.mobile} {
     width: 100%;
     left: -50%;
     top: 25%;
-    transform: scale(1.8);
+    transform: scale(1.2);
   }
 `;
 
@@ -115,32 +124,35 @@ function Board() {
   
   return (
     <Layout>
-      <Content 
+      {/* <Content 
         top={width > 768 ? '6.56%' : '16.5%'}
         bottom={width > 768 ? '10%' : '16.5%'}
-      >
-        <TitleSet
-          small_title='정보 알림이'
-          big_title1='소상공인&nbsp;'
-          big_title2='정보마당'
-          row={width > 768 ? true : false}
-        />
-        <Background src={bg} alt='배경화면'/>
-        {location.search === `?id=${id}` ? (<View api='infoPlaceDetail' block/>) : (
-          <BoardWrap>
-            {data.map((dt) => (
-              <Card key={dt.id} className={dt.class}>
-                <CardLink to={`?id=${dt.id}`}> 
-                  <TextArea>
-                    <h2>{dt.title}</h2>
-                    <div dangerouslySetInnerHTML={{__html: dt.content}}></div>
-                  </TextArea>
-                </CardLink>
-              </Card>
-            ))}
-          </BoardWrap> 
-        )}
-      </Content> 
+      > */}
+        <Wrap>
+          <TitleSet
+            small_title='정보 알림이'
+            big_title1='소상공인&nbsp;'
+            big_title2='정보마당'
+            row={width > 768 ? true : false}
+          />
+          <Background src={bg} alt='배경화면'/>
+          {location.search === `?id=${id}` ? (<View api='infoPlaceDetail' block/>) : (
+            <BoardWrap>
+              {data.map((dt) => (
+                <Card key={dt.id} className={dt.class}>
+                  <CardLink to={`?id=${dt.id}`}> 
+                    <TextArea>
+                      <h2>{dt.title}</h2>
+                      <div dangerouslySetInnerHTML={{__html: dt.content}}></div>
+                    </TextArea>
+                  </CardLink>
+                </Card>
+              ))}
+            </BoardWrap> 
+          )}
+        </Wrap>
+       
+      {/* </Content>  */}
     </Layout>
   )
 }
