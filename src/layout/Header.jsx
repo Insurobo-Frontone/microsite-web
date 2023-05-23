@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled, { css } from 'styled-components';
 import logo from '../assets/img/mainLogo.png';
 import myPageIcon from '../assets/img/myPageIcon.png';
@@ -128,28 +128,31 @@ function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [myPageOpne, setMyPageOpen] = useState(false);
   const location = useLocation();
-  
   const auth = localStorage.getItem("@access-Token");
   const userName = localStorage.getItem("@userName");
+  let navigate = useNavigate();
+  // const modalRef = useRef(null);
   useEffect(() => {
     if (location.search === '?windstormModal=true') {
       setShowPopup(!showPopup);
     }
-  }, [])
+  }, []);
+
   const logout = () => {
     localStorage.clear();
     navigate('/')
     //  window.location.reload()
   }
-
-  let navigate = useNavigate();
-
   function goToMainPage(link) {
     navigate(link);
   }
   const handleClick = () => {
     setIsOpen(!isOpen);
   }
+  // const modalOutSideClick = (e) => {
+  //   if(modalRef.current === e.target) {
+  //     setMyPageOpen(false)
+  // }  }
   return (
     <>
         <Wrap>
@@ -168,8 +171,8 @@ function Header() {
                     {width > 768 ? (
                        <>
                         {myPageOpne && (
-                          <Profile onClick={logout} userName={userName}/>
-                      )}
+                          <Profile onClick={logout} userName={userName} />
+                        )}
                        </>
                     ) : (
                       <Profile onClick={logout} userName={userName}/>

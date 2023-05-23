@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import styled, { css } from 'styled-components'
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 import Layout from '../layout'
 import { Text  } from '../components/Font';
 import bannerImg from '../assets/img/windstorm.png';
@@ -11,9 +12,9 @@ import facility from '../assets/icon/facility.png';
 import inventories from '../assets/icon/inventories.png';
 import equipment from '../assets/icon/equipment.png';
 
-import coin from '../assets/icon/coin.png';
-import { Link } from 'react-router-dom';
+// import coin from '../assets/icon/coin.png';
 import useWindowSize from '../hooks/useWindowSize';
+import { setPathName } from '../container/Auth';
 
 const list1 = [
   {
@@ -267,18 +268,19 @@ const Content = styled.div`
   }
 `;
 
-const Coin = styled.div`
-  width: 100px;
-  height: 100px;
-  background-image: url(${coin});
-  background-position: center;
-  margin-right: 20px;
-`;
+// const Coin = styled.div`
+//   width: 100px;
+//   height: 100px;
+//   background-image: url(${coin});
+//   background-position: center;
+//   margin-right: 20px;
+// `;
 
 const ButtonWrap = styled.div`
   width: 100%;
   padding: 0 13% 0;
-  > a {
+  > button {
+    width: 100%;
     display: flex;
     background-color: #2EA5FF;
     border-radius: 10px;
@@ -293,10 +295,21 @@ const ButtonWrap = styled.div`
 `;
 
 function FreeApply() {
-  const [isOpen1, setIsOpen1] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const auth = localStorage.getItem("@access-Token");
+  const { pathname } = useLocation()
+  const navigate = useNavigate();
   const { width } = useWindowSize();
+  
+  const checkLogin = () => {
+    if (auth) {
+      window.open('https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo');
+    } else {
+      alert('로그인이 필요한 페이지입니다.');
+      setPathName(pathname)
+      navigate('/login')
+    }
+  }
 
   return (
     <Layout color="BG_GRAY">
@@ -317,11 +330,11 @@ function FreeApply() {
           </Bubble>
           <Text color='BLACK5' size='16px' bold='400'><b>풍수해보험은 태풍, 홍수, 호우, 강풍, 지진</b> 등 자연재해로 인한 사고발생시 <b>실손비용을 보상</b>하는 정부의 정책보험입니다.</Text>
           <Accordion>
-            <Title onClick={() => setIsOpen1(!isOpen1)}>
+            <Title onClick={() => setIsOpen(!isOpen)}>
               <Text color='BLACK5' size='16px' bold='700'>가입대상</Text>
-              <MoreButton isopen={isOpen1} />
+              <MoreButton isopen={isOpen} />
             </Title>
-            <Content isopen={isOpen1}>
+            <Content isopen={isOpen}>
               <ul>
                 {list1.map((item) => (
                    <li key={item.id}>
@@ -337,7 +350,7 @@ function FreeApply() {
               </ul>
             </Content>
           </Accordion>
-          <Accordion>
+          {/* <Accordion>
             <Title onClick={() => setIsOpen2(!isOpen2)}>
               <Text color='BLACK5' size='16px' bold='700'>보험료 지원</Text>
               <MoreButton isopen={isOpen2}/>
@@ -348,13 +361,20 @@ function FreeApply() {
                 <li><span style={{color: '#444444'}}>인슈로보가</span><br />100%<br /><span style={{color: '#2EA5FF'}}>보험료 지원!</span></li>
               </ul>
             </Content>
-          </Accordion>
+          </Accordion> */}
         </Discription>
-        <ButtonWrap>
-          <Link to='https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo'>
-            <Text color='WHITE' size='16px'>가입 신청</Text>
-          </Link>
-        </ButtonWrap>
+      
+           <ButtonWrap>
+           <button onClick={checkLogin}>
+               <Text color='WHITE' size='16px' bold='700'>가입 신청</Text>
+           </button>
+         </ButtonWrap>
+      
+        {/* <ButtonWrap>
+          <button onClick={checkLogin}>
+              <Text color='WHITE' size='16px' bold='700'>가입 신청</Text>
+          </button>
+        </ButtonWrap> */}
       </Wrap>
     </Layout>
   )

@@ -10,3 +10,7 @@ export const setAccessToken = (token) => {
   localStorage.setItem('@access-Token', token);
 }
 
+export const setPathName = (path) => {
+  localStorage.setItem('@pathname', path);
+}
+

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
 import GlobalStyle from './style/GlobalStyle'
 import theme from './style/Theme';
@@ -18,16 +18,16 @@ import PrivateRoute from './pages/PrivateRoute';
 import PublicRoute from './pages/PublicRoute';
 import EditPassword from './pages/EditPassword';
 import { UserProvider } from './context/UserContext';
-
+;
 
 
 function App() {
+  
   const methods = useForm({
     mode: 'onBlur'
   });
 
   const auth = localStorage.getItem("@access-Token");
-  
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>

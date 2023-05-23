@@ -8,7 +8,7 @@ import { Text } from '../components/Font';
 import { useFormContext } from 'react-hook-form';
 import CustomButton from '../components/Button/CustomButton';
 import useWindowSize from '../hooks/useWindowSize';
-import { setAccessToken, setUser, setUserName } from '../container/Auth';
+import { setAccessToken, setUserName } from '../container/Auth';
 import { CommonAPI } from "../api/CommonAPI";
 import naverIcon from '../assets/img/naverIcon.png';
 import kakaoIcon from '../assets/img/kakaoIcon.png';
@@ -110,16 +110,16 @@ const TextLink = styled(Link)`
 function Login() {
   const { width }= useWindowSize();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [showPopup, setShowPopup] = useState(false);
   const [type, setType] = useState(); //로그인 타입 (kakao, naver, email)
   const [type_kor, setType_kor] = useState(); //로그인 타입 한글 (kakao, naver, email)
   const { handleSubmit, reset, setError, setFocus } = useFormContext();
- 
+  const path = localStorage.getItem("@pathname");
   useEffect(() => {
     reset();
     const loginCode = searchParams.get("loginCode");
-
+    
     if (loginCode !== null && loginCode === 'fail'){
       setShowPopup(true);
       setType(searchParams.get("type"));
@@ -140,7 +140,11 @@ function Login() {
         const name = searchParams.get("name");
         setAccessToken(accessToken);
         setUserName(name)
-        navigate('/');
+        if (path) {
+          navigate('/freeApply')
+        } else {
+          navigate('/')
+        }
     }
   }, []);
 
@@ -156,9 +160,13 @@ function Login() {
       if(res.status === 200){
         setAccessToken(res.data.data.accessToken);
         setUserName(res.data.data.userName)
-        console.log(res.data)
-        navigate('/')
-        
+        // console.log(res.data)
+        if (path) {
+          navigate('/freeApply')
+        } else {
+          navigate('/')
+        }
+     
       }
     } catch (error) {
       console.log(error)
