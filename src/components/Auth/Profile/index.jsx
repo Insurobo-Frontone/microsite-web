@@ -3,24 +3,13 @@ import styled from "styled-components";
 import myPageIcon from '../../../assets/img/myPageIcon.png';
 import { Link } from "react-router-dom";
 
-// const Wrap = styled.div`
-//   position: fixed;
-//   position: fixed;
-//    top: 0;
-//    left: 0;
-//    right: 0;
-//    bottom: 0;
-//    background: rgba(0,0,0,0.3);
-//    z-index: 9;
-// `;
-
 const MyPageNav = styled.ul`
   position: absolute;
   width: 450px;
   height: 360px;
   background-color: #FFFFFF;
   top: 100%;
-  left: 0%;
+  right: 0;
   z-index: 9999;
   display: flex;
   flex-direction: column;
@@ -63,7 +52,9 @@ const MyPageNav = styled.ul`
 const Profile = ({onClick, userName}) => {
   // const { state } = useContext(UserContext)
   return (
-    <MyPageNav>
+   
+     
+      <MyPageNav>
         <li>
           <img src={myPageIcon} alt='프로필'/>
             <p>{userName}</p>
@@ -75,11 +66,7 @@ const Profile = ({onClick, userName}) => {
           <p onClick={onClick}>로그아웃</p>
         </li>
       </MyPageNav>
-
       
-    
-      
-  
     
   )
 }

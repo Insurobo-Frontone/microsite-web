@@ -89,7 +89,10 @@ const Input = ({
           required: require,
           validate: validate,
           pattern: pattern,
-          maxLength: maxLength,
+          maxLength: {
+            value: maxLength,
+            message: `${maxLength}자리 이내로 입력해주세요.`
+          },
           minLength: minLength,
         })}
       />

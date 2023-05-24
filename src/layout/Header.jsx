@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled, { css } from 'styled-components';
 import logo from '../assets/img/mainLogo.png';
@@ -6,9 +6,9 @@ import myPageIcon from '../assets/img/myPageIcon.png';
 import toggleBtn from '../assets/img/toggleBtn.png';
 import closeBtn from '../assets/img/closeBtn.png';
 import WindStormModal from '../components/Modal/WindStormModal';
-import useWindowSize from '../hooks/useWindowSize';
 import Profile from '../components/Auth/Profile';
 import { useEffect } from 'react';
+import ModalOutLayer from '../components/ModalOutLayer';
 
 const Wrap = styled.header`
   display: flex;
@@ -123,7 +123,6 @@ const MyPage = styled.div`
 `;
 
 function Header() {
-  const { width } = useWindowSize();
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [myPageOpne, setMyPageOpen] = useState(false);
@@ -131,7 +130,7 @@ function Header() {
   const auth = localStorage.getItem("@access-Token");
   const userName = localStorage.getItem("@userName");
   let navigate = useNavigate();
-  // const modalRef = useRef(null);
+  const modalRef = useRef(null);
   useEffect(() => {
     if (location.search === '?windstormModal=true') {
       setShowPopup(!showPopup);
@@ -149,10 +148,13 @@ function Header() {
   const handleClick = () => {
     setIsOpen(!isOpen);
   }
-  // const modalOutSideClick = (e) => {
-  //   if(modalRef.current === e.target) {
-  //     setMyPageOpen(false)
-  // }  }
+
+  const modalOutSideClick = (e) => {
+    if(modalRef.current === e.target) {
+      setMyPageOpen(false)
+    }
+  }
+
   return (
     <>
         <Wrap>
@@ -168,16 +170,12 @@ function Header() {
                 <>
                   <li>
                     <MyPage onClick={() => setMyPageOpen(!myPageOpne)} />
-                    {width > 768 ? (
-                       <>
-                        {myPageOpne && (
+                      {myPageOpne && (
+                        <>
+                          <ModalOutLayer modalOutSideClick={modalOutSideClick} modalRef={modalRef} />
                           <Profile onClick={logout} userName={userName} />
-                        )}
-                       </>
-                    ) : (
-                      <Profile onClick={logout} userName={userName}/>
-                    )}
-                   
+                        </>
+                      )}
                   </li>
                 </>
               :

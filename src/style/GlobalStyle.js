@@ -43,7 +43,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'SCoreDream';
     color: #2F2F2F;
   } 
-    
 
   html, body, div, span, applet, object, iframe,
   p, blockquote, pre,
@@ -94,6 +93,11 @@ const GlobalStyle = createGlobalStyle`
   }
   button:focus {
     outline: none !important;
+  }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
   input.primary {
     width: 100%;

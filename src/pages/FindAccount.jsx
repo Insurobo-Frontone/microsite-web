@@ -10,7 +10,7 @@ import Timer from "../components/Timer";
 import insurobo from '../assets/icon/email-svg.svg';
 import kakao from '../assets/img/kakaoIcon.png';
 import naver from '../assets/icon/naver-icon.png';
-import {CommonAPI} from "../api/CommonAPI";
+import { CommonAPI } from "../api/CommonAPI";
 
 const Form = styled.form`
   padding-top: 80px;
@@ -192,22 +192,22 @@ function FindAccount() {
 
   const openSmsSend = async () => {
     const data = {
-      mobile:watch("phoneRole")
+      mobile: watch("phoneRole")
     }
     setIsActiveTimer(false);
-    try{
+    try {
       const res = await CommonAPI.post("/api/public/sms_send",data);
       setMessageId(res.data.data.messageId);
       setSmsCheckOpen(true);
       setFocus("confirmCode");
       setIsActiveTimer(true);
-    }catch (error){
-
+    } catch (error){
+      console.log(error)
     }
-
   };
 
   const openSmsCheck = async () => {
+    
     try{
         const res = await CommonAPI.get(`/api/public/sms_check?messageId=${messageId}&authKey=${watch("confirmCode")}`);
         setMessage(res.data.message);
@@ -304,6 +304,7 @@ function FindAccount() {
                 name="phoneRole"
                 placeholder="‘-’없이 번호만 입력해주세요"
                 require="*필수 입력 사항입니다."
+                maxLength={11}
                 pattern={{
                   value:
                     /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/,
@@ -312,7 +313,7 @@ function FindAccount() {
               />
               <div
                 className={button ? "button" : "button disabled"}
-                onClick={button ? openSmsSend : null}
+                onClick={button ? handleSubmit(openSmsSend) : null}
               >
                 <Text color="WHITE" bold="200">
                   인증번호받기

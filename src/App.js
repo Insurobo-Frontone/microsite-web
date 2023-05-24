@@ -18,6 +18,7 @@ import PrivateRoute from './pages/PrivateRoute';
 import PublicRoute from './pages/PublicRoute';
 import EditPassword from './pages/EditPassword';
 import { UserProvider } from './context/UserContext';
+import Policy from './pages/Policy';
 ;
 
 
@@ -45,6 +46,7 @@ function App() {
                 <Route path='/insuranceInfo' element={<InsuranceInfo />} />
                 <Route path='/freeApply' element={<FreeApply />} />
                 <Route path='/board' element={<Board />} />
+                <Route path='/policy/:pagename' element={<Policy />} />
               </Route>
 
               <Route element={<PublicRoute auth={auth} restricted />}>
