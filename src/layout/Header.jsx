@@ -122,6 +122,7 @@ const MyPage = styled.div`
   } 
 `;
 
+
 function Header() {
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -131,6 +132,7 @@ function Header() {
   const userName = localStorage.getItem("@userName");
   let navigate = useNavigate();
   const modalRef = useRef(null);
+
   useEffect(() => {
     if (location.search === '?windstormModal=true') {
       setShowPopup(!showPopup);
@@ -191,7 +193,12 @@ function Header() {
           
         </Wrap>
         {showPopup && (
-          <WindStormModal onClick={() => setShowPopup(!showPopup)} />
+          <>
+
+            <WindStormModal onClick={() => setShowPopup(!showPopup)} />
+          
+          </>
+    
         )}
   
     </>

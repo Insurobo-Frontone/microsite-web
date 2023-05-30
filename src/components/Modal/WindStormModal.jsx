@@ -1,12 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
-import Modal from '.';
+import React, { useRef, useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import tamplate from '../../assets/img/hyundaiTamplate.png';
+import styled from 'styled-components';
 import axios from 'axios';
-import { useState } from 'react';
-import { useEffect } from 'react';
-
+import ReactToPrint from 'react-to-print';
+import Modal from '.';
+import tamplate from '../../assets/img/hyundaiTamplate.png';
+import { BsPrinterFill } from 'react-icons/bs';
 
 
 const Form = styled.form`
@@ -71,12 +70,22 @@ const InsuranceCertificate = styled.div`
   box-shadow: 7px 10px 39px 0 rgba(0, 0, 0, 0.3);
   background-image: url(${tamplate});
   padding: 150px 50px;
-  
+  /* width : 1.458765022793211
+    height : 1.336332958380238 */
+  @media print {
+    width: 21cm;
+    height: 29.7cm;
+    background-size: 87%;
+    padding: 200px 72.9px;
+    box-shadow: none;
+  }
+
   ${(props) => props.theme.window.mobile} {
     width: 320px;
     height: 450px;
     padding: 70px 20px;
     margin: 0 auto;
+
   }
 `;
 
@@ -109,6 +118,29 @@ const InputWrap = styled.div`
     > b {
       width: 80px;
       display: inline-block;
+    }
+  }
+  @media print {
+    padding: 6.1px 0;
+    :first-child {
+      margin-top: 5px;
+    }
+    :nth-child(8) {
+      margin-bottom: 50px;
+    }
+    :nth-child(9) {
+      margin-top: 109px;
+    }
+    > p {
+      font-size: 16px;
+      width: 87.5px;
+    }
+    > span {
+      padding-left: 7.29px;
+      font-size: 16px;
+      > b {
+        width: 116.7px;
+      }
     }
   }
 
@@ -144,19 +176,36 @@ const InputWrap = styled.div`
 
 const ErrorText = styled.p`
   font-size: 13px;
-  line-height: 13px;
+  line-height: 1;
   color: ${(props) => props.theme.color.WARNING_MESSAGE};
   position: absolute;
   bottom: 0;
+
   ${props => props.theme.window.mobile} {
     padding-top: 0px;
     line-height: 20px;
   }
 `;
 
-function WindStormModal({onClick}) {
+const CustomIcon = styled(BsPrinterFill)`
+  position: absolute;
+  top: 65px;
+  right: -65px;
+  font-size: 30px;
+  fill: #FFFFFF;
+  cursor: pointer;
+
+  ${(props) => props.theme.window.mobile} {
+    display: none;
+  }
+`;
+
+
+function WindStormModal({ onClick }) {
   const { register, watch, reset, formState: { errors } } = useFormContext();
   const [data, setData] = useState([]);
+  const printRef = useRef(null);
+
   const frame = [
     {
       id: '1',
@@ -233,32 +282,39 @@ function WindStormModal({onClick}) {
 
 
   return (
-    <Modal onClick={onClick}>
+    <Modal onClick={onClick} print>
       {data.STAT === '유지' ? (
-       <InsuranceCertificate>
-       {frame.map((dt) => (
-         <InputWrap key={dt.name}>
-           <p>{dt.name}</p><span>:</span>
-           <span>{dt.value}</span>
-         </InputWrap>
-       ))}
-       <InputWrap>
-         <p>보장한도액</p><span>:</span>
-         <span><b>시설</b><b>3 천만원</b><b>재고자산</b><b>1 천만원</b></span>
-       </InputWrap>
-       <InputWrap>
-         <p></p><span></span>
-         <span><b>총보상한도</b><b>미적용</b><b>자기부담금</b><b>20 만원</b></span>
-       </InputWrap>
-       <InputWrap>
-         <p>가입약관</p><span>:</span>
-         <span>풍수해보험 VI 보통약관</span>
-       </InputWrap>
-       <InputWrap>
-         <p></p><span></span>
-         <span>날짜인식오류 보장제외 추가약관</span>
-       </InputWrap>
-     </InsuranceCertificate>
+        <>
+          <ReactToPrint
+            trigger={() => <CustomIcon />}
+            content={() => printRef.current}
+          />
+          <InsuranceCertificate ref={printRef}>
+            {frame.map((dt) => (
+              <InputWrap key={dt.name}>
+                <p>{dt.name}</p><span>:</span>
+                <span>{dt.value}</span>
+              </InputWrap>
+            ))}
+          <InputWrap>
+            <p>보장한도액</p><span>:</span>
+            <span><b>시설</b><b>3 천만원</b><b>재고자산</b><b>1 천만원</b></span>
+          </InputWrap>
+          <InputWrap>
+            <p></p><span></span>
+            <span><b>총보상한도</b><b>미적용</b><b>자기부담금</b><b>20 만원</b></span>
+          </InputWrap>
+          <InputWrap>
+            <p>가입약관</p><span>:</span>
+            <span>풍수해보험 VI 보통약관</span>
+          </InputWrap>
+          <InputWrap>
+            <p></p><span></span>
+            <span>날짜인식오류 보장제외 추가약관</span>
+          </InputWrap>
+        </InsuranceCertificate>
+        </>
+       
       ) : (
       <Form>
         <h2>풍수해보험 가입확인</h2>

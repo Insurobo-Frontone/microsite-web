@@ -13,8 +13,10 @@ const GlobalStyle = createGlobalStyle`
     -ms-touch-action: manipulation; 
     touch-action: manipulation; 
     box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
   }
-
+  
   *:focus { 
     -webkit-tap-highlight-color: transparent; 
     outline: none; 
