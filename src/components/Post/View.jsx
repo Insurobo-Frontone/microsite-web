@@ -3,8 +3,7 @@ import styled, { css } from 'styled-components';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import {CommonAPI} from "../../api/CommonAPI";
-import ScrollToTop from '../../layout/ScrollToTop';
+import { CommonAPI } from "../../api/CommonAPI";
 
 const ViewContainer = styled.div`
   width: 100%;
@@ -119,7 +118,7 @@ function View({api, flex, block}) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    handleTableDetail()
+    handleTableDetail();
   });
 
   const handleTableDetail = async () =>{

@@ -31,17 +31,6 @@ const Menu = styled.ul`
     font-size: 0.75rem;
     font-weight: 400;
     position: relative;
-    margin-right: 10px;
-    ::after {
-      content: '|';
-      display: block;
-      position: absolute;
-      top: 0;
-      right: -7px;
-    }
-    :last-child::after {
-      content: none;
-    }
   }
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 9%;
@@ -123,16 +112,16 @@ function Footer() {
       <FooterWrap>
         <LeftContent>
           <Menu>
-            <li><Link to='/policy/service'>이용안내</Link></li>
-            <li><Link to='/policy/privacy'>개인정보처리방침</Link></li>
+            <li><Link to='/policy/service'>이용안내 &nbsp;|&nbsp;</Link></li>
+            <li><Link to='/policy/privacy'>&nbsp;개인정보처리방침</Link></li>
           </Menu>
           <Info>
             <div>
-              <p>상 호 명 | (주)인슈로보</p>
-              <p>대&nbsp;&nbsp;표 | 서 민</p>
+              <p>상 호 명 &nbsp;| &nbsp;(주)인슈로보</p>
+              <p>대&nbsp;&nbsp;표 &nbsp;| &nbsp;서 민</p>
             </div>
             <div>
-              <p>이 메 일 | info@insurobo.com</p>
+              <p>이 메 일 &nbsp;|&nbsp; info@insurobo.com</p>
             </div>
             
             <p>06247 ) <br />서울특별시 강남구 논현로75길 10 4층</p>

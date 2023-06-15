@@ -100,10 +100,10 @@ function AccordionList({list}) {
       {list.map((item) => (
         <li key={item.id} onClick={activeMethod}>
           <div className='title'>
-              <div>
-                <p>{item.title}</p>
-              </div>
+            <div>
+              <p>{item.title}</p>
             </div>
+          </div>
           <div className='answer'>
             <ul
               className='list-style-disc'
