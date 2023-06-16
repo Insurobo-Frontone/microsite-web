@@ -11,11 +11,21 @@ import { CommonAPI } from "../api/CommonAPI";
 import useWindowSize from "../hooks/useWindowSize";
 import { setUserName } from "../container/Auth";
 import { useEffect } from "react";
+import SelectInput from "../components/Input/SelectInput";
 // import { useContext } from "react";
 // import UserContext from "../context/UserContext";
 
 const Form = styled.form`
   padding: 54px 0 147px;
+`;
+
+const Label = styled.label`
+	display: block;
+  width: 100%;
+  color: #2F2F2F;
+  font-size: 1rem;
+  font-weight: 300;
+  margin-bottom: 15px;
 `;
 
 const InputGroup = styled.div`
@@ -39,6 +49,13 @@ const InputGroup = styled.div`
     }
   }
 
+  .recommender {
+    display: flex;
+    select {
+      width: 250px;
+      margin-right: 27px;
+    }
+  }
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 20px;
     .address {
@@ -181,6 +198,18 @@ function EditProfile() {
     top: '15%'
   };
   
+  const optionData = [
+    {
+      id: 0,
+      title: '회사선택',
+      value: ''
+    },
+    {
+      id: 1,
+      title: 'dsdsddsd',
+      value: 'dsdsdsdsdsdsds'
+    }
+  ]
   return (
     <>
       <AuthLayout title="프로필 수정">
@@ -232,13 +261,19 @@ function EditProfile() {
               defaultValue={data?.address_detail}
             />
           </InputGroup>
-          {/* <InputGroup>
-            <Input
-              label='추천인'
-              name='recommender'
-            />
-            
-          </InputGroup> */}
+          <InputGroup>
+            <Label>추천인</Label>
+            <div className="recommender">
+              <SelectInput
+                name='company'
+                options={optionData}
+              />
+              <Input
+                name='recom_code'
+                placeholder='추천인 코드입력'
+              />
+            </div>
+          </InputGroup>
           <ButtonWrap>
             <CustomButton bgColor="GRAY" width="100%" type="submit">
               <Text color="WHITE" bold="200">
