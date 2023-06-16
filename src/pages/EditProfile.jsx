@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DaumPostcode from 'react-daum-postcode';
 import { CommonAPI } from "../api/CommonAPI";
 import useWindowSize from "../hooks/useWindowSize";
-import { setUser, setUserName } from "../container/Auth";
+import { setUserName } from "../container/Auth";
 import { useEffect } from "react";
 // import { useContext } from "react";
 // import UserContext from "../context/UserContext";
@@ -232,6 +232,13 @@ function EditProfile() {
               defaultValue={data?.address_detail}
             />
           </InputGroup>
+          {/* <InputGroup>
+            <Input
+              label='추천인'
+              name='recommender'
+            />
+            
+          </InputGroup> */}
           <ButtonWrap>
             <CustomButton bgColor="GRAY" width="100%" type="submit">
               <Text color="WHITE" bold="200">

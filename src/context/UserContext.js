@@ -44,4 +44,4 @@ const UserProvider = ({children}) => {
 const { Comsumer: UserConsumer } = UserContext;
 export { UserProvider, UserConsumer }
 
-export default UserContext
+export default UserContext;
