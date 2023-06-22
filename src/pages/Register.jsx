@@ -144,9 +144,11 @@ function Register() {
           marketing_yn: data.marketing_yn === true ? 'Y' : 'N'
         })
         if (res.status === 200) {
+          await CommonAPI.post('/api/public/kakaoAPI',{userId: data.userId,userName: data.userName, phoneRole: data.phoneRole })
           alert('회원가입이 완료되었습니다')
           navigate('/')
-        }
+        } 
+        
       } catch (error) {
         console.log('에러', error)
         alert('본인인증이 완료되지 않았습니다.')
