@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -11,8 +11,8 @@ import slider3 from '../../assets/img/slider3.png';
 import mb_slider1 from '../../assets/img/mb_slider1.png';
 import mb_slider2 from '../../assets/img/mb_slider2.png';
 import mb_slider3 from '../../assets/img/mb_slider3.png';
-import play from '../../assets/img/playIcon.png';
-import pause from '../../assets/img/pauseIcon.png';
+// import play from '../../assets/img/playIcon.png';
+// import pause from '../../assets/img/pauseIcon.png';
 
 import useWindowSize from '../../hooks/useWindowSize';
 import { Link } from 'react-router-dom';
@@ -130,104 +130,160 @@ const ButtonBox = styled.div`
   }
 `;
 
-const PlayButton = styled.button`
-  width: 22px;
-  height: 22px;
-  background-image: url(${play});
-  background-repeat: no-repeat;
-  background-size: contain;
-  ${(props) => props.theme.window.mobile} {
-    width: 15px;
-    height: 15px;
-  } 
-`;
-const PauseButton = styled.button`
-  width: 12px;
-  height: 22px;
-  background-image: url(${pause});
-  background-repeat: no-repeat;
-  background-size: contain;
-  ${(props) => props.theme.window.mobile} {
-    width: 10px;
-    height: 15px;
-  } 
-`;
+// const PlayButton = styled.button`
+//   width: 22px;
+//   height: 22px;
+//   background-image: url(${play});
+//   background-repeat: no-repeat;
+//   background-size: contain;
+//   ${(props) => props.theme.window.mobile} {
+//     width: 15px;
+//     height: 15px;
+//   } 
+// `;
+// const PauseButton = styled.button`
+//   width: 12px;
+//   height: 22px;
+//   background-image: url(${pause});
+//   background-repeat: no-repeat;
+//   background-size: contain;
+//   ${(props) => props.theme.window.mobile} {
+//     width: 10px;
+//     height: 15px;
+//   } 
+// `;
 
-const ProgressWrap = styled.div`
+// const ProgressWrap = styled.div`
+//   display: flex;
+//   align-items: center;
+// `;
+
+// const ProgressBar = styled.div`
+//   width: 230px;
+//   background-color: rgba(255, 255, 255, 0.5);
+//   margin-right: 21px;
+//   .progress-bar {
+//     background-color: #FFFFFF;
+//     height: 3px;
+//     transition: 1s ease-in-out;
+//   }
+//   ${(props) => props.theme.window.mobile} {
+//     width: 120px;
+//     margin-right: 14px;
+//     .progress-bar {
+//       height: 2px;
+//     }
+//   }
+
+// `;
+// const Page = styled.h2`
+//   font-size: 0.75rem;
+//   font-weight: 200;
+//   color: #FFFFFF;
+//   white-space: nowrap;
+
+//   ${(props) => props.theme.window.mobile} {
+//     font-size: 0.9333333333333333rem;
+//   }
+// `;
+
+/////////////////////////////////////
+
+const CustomDot = styled.div`
+  width: 100%;
+  position: absolute;
+  bottom: 35px;
   display: flex;
   align-items: center;
-`;
+  justify-content: center;
 
-const ProgressBar = styled.div`
-  width: 230px;
-  background-color: rgba(255, 255, 255, 0.5);
-  margin-right: 21px;
-  .progress-bar {
-    background-color: #FFFFFF;
-    height: 3px;
-    transition: 1s ease-in-out;
-  }
-  ${(props) => props.theme.window.mobile} {
-    width: 120px;
-    margin-right: 14px;
-    .progress-bar {
-      height: 2px;
+  > ul {
+    display: flex;
+    > li {
+      list-style: none;
+      cursor: pointer;
+      display: inline-block;
+      margin: 0 15px;
+      padding: 0;
+      
+      button {
+        border: none;
+        background: #FFFFFF;
+        color: transparent;
+        cursor: pointer;
+        display: block;
+        height: 15px;
+        width: 15px;
+        border-radius: 100%;
+        padding: 0;
+        opacity: .5;
+      }
+      &.slick-active button {
+        opacity: 1;
+      }
     }
   }
 
-`;
-const Page = styled.h2`
-  font-size: 0.75rem;
-  font-weight: 200;
-  color: #FFFFFF;
-  white-space: nowrap;
-
   ${(props) => props.theme.window.mobile} {
-    font-size: 0.9333333333333333rem;
+    bottom: 20px;
+    > ul {
+      > li {
+        margin: 10px;
+        button {
+          width: 10px;
+          height: 10px;
+        }
+      }
+    }
   }
 `;
-/////////////////////////////////////
 
-const Progress = ({ currentSlide, totalSlides }) => {
-  const progress = ((currentSlide + 1) / totalSlides) * 100;
-  return (
-    <ProgressWrap>
-      <ProgressBar>
-        <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-      </ProgressBar>
-      <Page>{`${currentSlide + 1} / ${totalSlides}`}</Page>
-    </ProgressWrap>
-  )
-}
+// const Progress = ({ currentSlide, totalSlides }) => {
+//   const progress = ((currentSlide + 1) / totalSlides) * 100;
+//   return (
+//     <ProgressWrap>
+//       <ProgressBar>
+//         <div className="progress-bar" style={{ width: `${progress}%` }}></div>
+//       </ProgressBar>
+//       <Page>{`${currentSlide + 1} / ${totalSlides}`}</Page>
+//     </ProgressWrap>
+//   )
+// }
 
 function MainSlider() {
   const { width } = useWindowSize();
   const sliderRef = useRef(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  // const [currentSlide, setCurrentSlide] = useState(0);
 
-  const handleBeforeChange = (oldIndex, newIndex) => {
-    setCurrentSlide(newIndex);
-  };
-  const handleAfterChange = () => {};
+  // const handleBeforeChange = (oldIndex, newIndex) => {
+  //   setCurrentSlide(newIndex);
+  // };
+  // const handleAfterChange = () => {};
 
-  const pause = () => {
-    sliderRef.current.slickPause();
-  };
+  // const pause = () => {
+  //   sliderRef.current.slickPause();
+  // };
 
-  const play = () => {
-    sliderRef.current.slickPlay();
-  };
+  // const play = () => {
+  //   sliderRef.current.slickPlay();
+  // };
 
   
   const settings = {
-    dots: false,
-    speed: 3000,
+    dots: true,
+    speed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     infinite: true,
     autoplaySpeed: 4000,
     pauseOnHover: false,
+    appendDots: (dots) => (
+      <CustomDot>
+        <ul> {dots} </ul>
+      </CustomDot>
+    ),
+    dotsClass: 'dots_custom'
   }
 
 
@@ -236,8 +292,8 @@ function MainSlider() {
     <Wrap>
       <StyledSlider
         ref={sliderRef}
-        beforeChange={handleBeforeChange}
-        afterChange={handleAfterChange}
+        // beforeChange={handleBeforeChange}
+        // afterChange={handleAfterChange}
         {...settings}
       >
         {data.map((dt) => (
@@ -256,10 +312,10 @@ function MainSlider() {
       
       <SliderPlayerGroup> 
         <ButtonBox>
-          <PauseButton onClick={pause} />
-          <PlayButton onClick={play} />
+          {/* <PauseButton onClick={pause} />
+          <PlayButton onClick={play} /> */}
         </ButtonBox>
-        <Progress currentSlide={currentSlide} totalSlides={'3'} />
+        {/* <Progress currentSlide={currentSlide} totalSlides={'3'} /> */}
       </SliderPlayerGroup>
     </Wrap>
   )
