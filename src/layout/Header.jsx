@@ -14,12 +14,13 @@ const Wrap = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2.2% 0;
+  padding: 2.35% 0;
   background-color: #FFFFFF;
   
   
   ${(props) => props.theme.window.mobile} {
     height: 80px;
+    padding: 0;
   } 
 `;
 
@@ -35,12 +36,12 @@ const Nav = styled.nav`
 `;
 
 const LogoBox = styled.button`
-  width: 150px;
+  width: 21.04166666666667%;
   display: flex;
   align-items: center;
   
   ${(props) => props.theme.window.mobile} {
-    width: 113px;
+    width: 35.3125%;
 
   }
 `;

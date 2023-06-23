@@ -6,7 +6,7 @@ import moreBtnReverse from '../../assets/icon/moreBtnReverse.png';
 
 const InputWrap = styled.div`
 	> select {
-		display: block;
+	    display: block;
 		width: 100%;
 		padding: 25px 26px;
 		height: 80px;
@@ -18,9 +18,9 @@ const InputWrap = styled.div`
 		font-size: 1rem;
 		color: #989898;
 		-o-appearance: none;
-  	-webkit-appearance: none;
-  	-moz-appearance: none;
-  	appearance: none;
+  		-webkit-appearance: none;
+  		-moz-appearance: none;
+  		appearance: none;
 		background: url(${moreBtnReverse}) no-repeat 90%;
 		> option {
       width: 100%;

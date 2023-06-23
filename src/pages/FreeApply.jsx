@@ -366,7 +366,7 @@ function FreeApply() {
       
            <ButtonWrap>
            <button onClick={checkLogin}>
-               <Text color='WHITE' size='16px' bold='700'>가입 신청</Text>
+              <Text color='WHITE' size='16px' bold='700'>가입 신청</Text>
            </button>
          </ButtonWrap>
       
