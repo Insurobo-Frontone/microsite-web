@@ -204,11 +204,11 @@ function EditProfile() {
       title: '회사선택',
       value: ''
     },
-    {
-      id: 1,
-      title: 'dsdsddsd',
-      value: 'dsdsdsdsdsdsds'
-    }
+    // {
+    //   id: 1,
+    //   title: 'dsdsddsd',
+    //   value: 'dsdsdsdsdsdsds'
+    // }
   ]
   return (
     <>
@@ -261,7 +261,7 @@ function EditProfile() {
               defaultValue={data?.address_detail}
             />
           </InputGroup>
-          <InputGroup>
+          {/* <InputGroup>
             <Label>추천인</Label>
             <div className="recommender">
               <SelectInput
@@ -273,7 +273,7 @@ function EditProfile() {
                 placeholder='추천인 코드입력'
               />
             </div>
-          </InputGroup>
+          </InputGroup> */}
           <ButtonWrap>
             <CustomButton bgColor="GRAY" width="100%" type="submit">
               <Text color="WHITE" bold="200">
