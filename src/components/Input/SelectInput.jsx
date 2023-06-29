@@ -31,7 +31,7 @@ const InputWrap = styled.div`
 const ErrorText = styled.p``;
 
 
-const SelectInput = ({name, label, options, required, ...rest}) => {
+const SelectInput = ({name, options, defaultValue, required, ...rest}) => {
 	const { register, formState: { errors }} = useFormContext({
 		mode: 'onBlur',
 	});
@@ -40,14 +40,16 @@ const SelectInput = ({name, label, options, required, ...rest}) => {
 		<InputWrap>
 			<select
 				name={name}
+				key={defaultValue}
+				defaultValue={defaultValue}
 				{...register(name, {
 					required: required
 				})}
 				{...rest}
 			>
-				{options.map(option => (
-					<option key={option.id} value={option.value}>
-						{option.title}
+				{options.map((option, index) => (
+					<option key={index} value={option.companyName}>
+						{option.companyName}
 					</option>
 				))}
 			</select>

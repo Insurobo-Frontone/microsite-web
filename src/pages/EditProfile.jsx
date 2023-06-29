@@ -107,7 +107,7 @@ const AddressModalWrap = styled.div`
 
 
 function EditProfile() {
-  const {handleSubmit ,setValue, reset} = useFormContext();
+  const {handleSubmit ,setValue, reset, watch} = useFormContext();
   const navigate = useNavigate();
   const { width } = useWindowSize();
   const [isOpenPost, setIsOpenPost] = useState(false);
@@ -116,21 +116,32 @@ function EditProfile() {
   // const getUser = localStorage.getItem('@user');
   // const user = JSON.parse(getUser)
   const [data, setData] = useState();
-
+  const [insuList, setInsuList] = useState([]);
+  
   useEffect(() => {
     myData()
+    // plannerList()
   }, [])
 
   const myData = async () => {
-    const res = await CommonAPI.get("/api/private/profile", {
+    const res1 = await CommonAPI.get("/api/private/profile", {
       Authorization: `Bearer ${auth}`,
    })
-   if(res.status === 200){
-      setData(res.data.data)
-      reset()
-   }
+    const res2 = await CommonAPI.get("/api/private/insuList") 
+    if(res1.status === 200){
+        setData(res1.data.data)
+        console.log(res1.data.data)
+        
+        reset()
+    }
+    if (res2.status === 200) {
+      console.log(res2.data.data)
+      setInsuList(res2.data.data)
+      console.log(insuList)
+    }
   }
 
+  
   const onSubmit = async (data) => {
     const res = await CommonAPI.put("/api/private/profileUpdate", 
       JSON.stringify(data)
@@ -138,12 +149,12 @@ function EditProfile() {
     if(res.status === 200) {
       alert('프로필 수정이 완료되었습니다');
       setUserName(res.data.data)
-     
       navigate('/');
     }
   }
 
  const onError = (error) => {
+  
   console.log(error)
  }
   const onChangeOpenPost = () => {
@@ -177,7 +188,6 @@ function EditProfile() {
    }
     
   };
-
   //모달 바깥 클릭
   const modalOutSideClick = (e) =>{
     if (isOpenPost && (!el.current || !el.current.contains(e.target))) setIsOpenPost(false);
@@ -198,18 +208,6 @@ function EditProfile() {
     top: '15%'
   };
   
-  const optionData = [
-    {
-      id: 0,
-      title: '회사선택',
-      value: ''
-    },
-    // {
-    //   id: 1,
-    //   title: 'dsdsddsd',
-    //   value: 'dsdsdsdsdsdsds'
-    // }
-  ]
   return (
     <>
       <AuthLayout title="프로필 수정">
@@ -261,19 +259,23 @@ function EditProfile() {
               defaultValue={data?.address_detail}
             />
           </InputGroup>
-          {/* <InputGroup>
+          <InputGroup>
             <Label>추천인</Label>
             <div className="recommender">
               <SelectInput
-                name='company'
-                options={optionData}
+                name='companyName'
+                options={insuList}
+                required={'필수'}
+                defaultValue={data?.companyName}
               />
               <Input
-                name='recom_code'
+                name='insuId'
                 placeholder='추천인 코드입력'
+                defaultValue={data?.insuId}
+                require={'필수'}
               />
             </div>
-          </InputGroup> */}
+          </InputGroup>
           <ButtonWrap>
             <CustomButton bgColor="GRAY" width="100%" type="submit">
               <Text color="WHITE" bold="200">
