@@ -265,14 +265,12 @@ function EditProfile() {
               <SelectInput
                 name='companyName'
                 options={insuList}
-                required={'필수'}
                 defaultValue={data?.companyName}
               />
               <Input
                 name='insuId'
                 placeholder='추천인 코드입력'
                 defaultValue={data?.insuId}
-                require={'필수'}
               />
             </div>
           </InputGroup>
