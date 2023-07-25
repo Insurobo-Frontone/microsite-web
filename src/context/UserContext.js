@@ -10,7 +10,9 @@ const UserContext = createContext({
         userId: '',
         userName: '',
         address: '',
-        address_detail: ''
+        address_detail: '',
+        companyName: '',
+        insuId: '',
       }
   },
   actions: {
@@ -25,8 +27,9 @@ const initalState = {
   userId: '',
   userName: '',
   address: '',
-  address_detail: ''
-
+  address_detail: '',
+  companyName: '',
+  insuId: '',
 }
 
 const UserProvider = ({children}) => {

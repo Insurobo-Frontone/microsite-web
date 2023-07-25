@@ -12,6 +12,8 @@ import useWindowSize from "../hooks/useWindowSize";
 import { setUserName } from "../container/Auth";
 import { useEffect } from "react";
 import SelectInput from "../components/Input/SelectInput";
+import { useContext } from "react";
+import UserContext from "../context/UserContext";
 // import { useContext } from "react";
 // import UserContext from "../context/UserContext";
 
@@ -117,7 +119,8 @@ function EditProfile() {
   // const user = JSON.parse(getUser)
   const [data, setData] = useState();
   const [insuList, setInsuList] = useState([]);
-  
+  const { state, actions } = useContext(UserContext);
+
   useEffect(() => {
     myData()
     // plannerList()
@@ -131,7 +134,8 @@ function EditProfile() {
     if(res1.status === 200){
         setData(res1.data.data)
         console.log(res1.data.data)
-        
+        actions.setUser(res1.data.data)
+        console.log(state.user)
         reset()
     }
     if (res2.status === 200) {

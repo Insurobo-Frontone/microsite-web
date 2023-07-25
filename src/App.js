@@ -19,6 +19,7 @@ import PublicRoute from './pages/PublicRoute';
 import EditPassword from './pages/EditPassword';
 import { UserProvider } from './context/UserContext';
 import Policy from './pages/Policy';
+import InsuroboWindstorm from './pages/InsuroboWindstorm';
 ;
 
 
@@ -45,6 +46,7 @@ function App() {
                 <Route path='/bizsupport/:list' element={<List />} />
                 <Route path='/insuranceInfo' element={<InsuranceInfo />} />
                 <Route path='/freeApply' element={<FreeApply />} />
+                <Route path='/freeApply/insuroboWindstorm' element={<InsuroboWindstorm />} />
                 <Route path='/board' element={<Board />} />
                 <Route path='/policy/:pagename' element={<Policy />} />
               </Route>
