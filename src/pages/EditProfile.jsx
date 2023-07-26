@@ -14,8 +14,6 @@ import { useEffect } from "react";
 import SelectInput from "../components/Input/SelectInput";
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
-// import { useContext } from "react";
-// import UserContext from "../context/UserContext";
 
 const Form = styled.form`
   padding: 54px 0 147px;
