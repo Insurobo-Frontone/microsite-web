@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import myPageIcon from '../../../assets/img/myPageIcon.png';
 import { Link } from "react-router-dom";
+import UserContext from "../../../context/UserContext";
 
 const MyPageNav = styled.ul`
   position: absolute;
@@ -50,24 +51,19 @@ const MyPageNav = styled.ul`
   }  
 `;
 const Profile = ({onClick, userName}) => {
-  // const { state } = useContext(UserContext)
   return (
-   
-     
-      <MyPageNav>
-        <li>
-          <img src={myPageIcon} alt='프로필'/>
-            <p>{userName}</p>
-        </li>
-        <li>
-          <p><Link to='/myProfile'>프로필 수정</Link></p>
-        </li>
-        <li>
-          <p onClick={onClick}>로그아웃</p>
-        </li>
-      </MyPageNav>
-      
-    
+    <MyPageNav>
+      <li>
+        <img src={myPageIcon} alt='프로필'/>
+          <p>{userName}</p>
+      </li>
+      <li>
+        <p><Link to='/myProfile'>프로필 수정</Link></p>
+      </li>
+      <li>
+        <p onClick={onClick}>로그아웃</p>
+      </li>
+    </MyPageNav>
   )
 }
 

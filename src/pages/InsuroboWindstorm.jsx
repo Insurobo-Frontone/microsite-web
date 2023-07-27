@@ -6,6 +6,8 @@ import Step1 from "../container/InsuroboWindStrom/Step1";
 const Wrap = styled.div`
   width: 100%;
   max-width: 1280px;
+  min-height: 1549px;
+  padding-top: 80px;
   padding-left: 15px;
   padding-right: 15px;
   margin: auto;

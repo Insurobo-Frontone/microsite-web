@@ -117,8 +117,7 @@ function EditProfile() {
   // const user = JSON.parse(getUser)
   const [data, setData] = useState();
   const [insuList, setInsuList] = useState([]);
-  const { state, actions } = useContext(UserContext);
-
+  const user = useContext(UserContext);
   useEffect(() => {
     myData()
     // plannerList()
@@ -130,16 +129,17 @@ function EditProfile() {
    })
     const res2 = await CommonAPI.get("/api/private/insuList") 
     if(res1.status === 200){
+        
+        user.actions.setUser(res1.data.data)
         setData(res1.data.data)
-        console.log(res1.data.data)
-        actions.setUser(res1.data.data)
-        console.log(state.user)
+       
+        
+        console.log(user.state.user)
+
         reset()
     }
     if (res2.status === 200) {
-      console.log(res2.data.data)
       setInsuList(res2.data.data)
-      console.log(insuList)
     }
   }
 
