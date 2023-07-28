@@ -113,10 +113,12 @@ const ToggleBtn = styled.div`
 `;
 
 const MyPage = styled.div`
-  background-image: url(${myPageIcon});
-  width: 80px;
-  height: 80px;
-
+  /* background-image: url(${myPageIcon}); */
+  /* width: 80px;
+  height: 80px; */
+  > img {
+    width: 60px;
+  }
   ${(props) => props.theme.window.mobile} {
     display: none;
     
@@ -172,7 +174,9 @@ function Header() {
               {auth ? 
                 <>
                   <li>
-                    <MyPage onClick={() => setMyPageOpen(!myPageOpne)} />
+                    <MyPage onClick={() => setMyPageOpen(!myPageOpne)}>
+                      <img src={myPageIcon} alt='profile' />
+                    </MyPage>
                       {myPageOpne && (
                         <>
                           <ModalOutLayer modalOutSideClick={modalOutSideClick} modalRef={modalRef} />
