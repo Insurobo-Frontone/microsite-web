@@ -41,8 +41,7 @@ const LogoBox = styled.button`
   align-items: center;
   
   ${(props) => props.theme.window.mobile} {
-    width: 35.3125%;
-
+    width: 113px;
   }
 `;
 
