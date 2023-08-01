@@ -5,10 +5,13 @@ import Title from "../Title";
 import SelectItems from "./SelectItems";
 import FindAddress from "./FindAddress";
 import StoreInfo from "./StoreInfo";
+import Button from "../Button";
+import { useState } from "react";
 
 
 
 const Step1 = () => {
+  const [disabled, setDisabled] = useState(true);
   return (
     <Wrap>
       <Heading>
@@ -20,6 +23,7 @@ const Step1 = () => {
       <FindAddress />
       <Title>사업장 정보</Title>
       <StoreInfo />
+      <Button disabled={disabled}>다음</Button>
     </Wrap>
   )
 }

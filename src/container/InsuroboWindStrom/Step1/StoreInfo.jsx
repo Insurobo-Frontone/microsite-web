@@ -11,7 +11,12 @@ const StoreInfo = () => {
         <Input placeholder='가입 시작' />
         <Input placeholder='가입 끝' />
       </div>
-      <Select />
+      <Select placeholder='영위 업종을 선택해주세요.'>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+      </Select>
     </Wrap>
   )
 }
