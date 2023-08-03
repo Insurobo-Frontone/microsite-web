@@ -35,7 +35,7 @@ const data = [
     id: 3,
     icon: icon3,
     title: '재테크보험',
-    text: '저축과\n 위험보장을 동시에',
+    text: '저축과\n위험보장을 동시에',
     link: '/insuranceInfo?item=invest',
     className: 'delay3'
   },
@@ -54,7 +54,9 @@ const CardList = styled.ul`
 `;
 
 const Card = styled.li`
-  width: 29.71768202080238%;
+  /* width: 29.71768202080238%; */
+  width: 27.77777777777778%;
+  /* min-width: 210px; */
   border-radius: 18px;
   background-color: #FFFFFF;
   box-shadow: 0 0 26px 0 rgba(0, 0, 0, 0.1);
@@ -84,9 +86,11 @@ const Card = styled.li`
     white-space: pre-wrap;
     padding-top: 17.3%;
     padding-bottom: 13.5%;
+    font-size: 1.2vw;
   }
   > h1 {
     text-align: end;
+    font-size: 1.6vw;
   }
 
   ${(props) => props.theme.window.mobile} {
@@ -106,12 +110,17 @@ const Card = styled.li`
 `;
 
 const ImgWrap = styled.div`
+  width: 26.9%;
+  > img {
+   
+  }
   ${(props) => props.theme.window.mobile} {
-    height: 63px;
+    /* height: 63px;
     > img {
       max-width: 50px;
       max-height: 50px;
-    }
+     
+    } */
   }
 `;
 

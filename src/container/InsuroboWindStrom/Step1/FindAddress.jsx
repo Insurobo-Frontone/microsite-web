@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import Input from "../Input";
 import Button from "../Button";
 
-const FindAddress = () => {
+const FindAddress = ({onClick}) => {
+
   return (
     <Wrap>
       <div>
         <Input first placeholder="기본주소" />
-        <Button width={'85px'}>주소검색</Button>
+        <Button width={'85px'} onClick={onClick}>주소검색</Button>
       </div>
       <Input placeholder="상세주소를 입력해 주세요."/>
     </Wrap>

@@ -45,7 +45,7 @@ const categories = [
 
 const TableWrap = styled.div`
   border-top: 2px solid #2F2F2F;
-  background-color: #FFFFFF;
+  
   margin-top: 3.5%;
   display: flex;
   flex-direction: column;
@@ -57,6 +57,7 @@ const TableWrap = styled.div`
 const Categories = styled.ul`
   display: flex;
   align-self: flex-end;
+  background-color: #FFFFFF;
   > li {
     display: flex;
     align-items: center;
@@ -110,7 +111,7 @@ const Category = styled(Link)`
 const ListWrap = styled.ul`
   display: flex;
   flex-direction: column;
-
+  background-color: #FFFFFF;
 `;
 
 const ItemBlock = styled.li`

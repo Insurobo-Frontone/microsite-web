@@ -10,13 +10,15 @@ import Passage from './Passage';
 import bannerImg from '../../assets/img/infomationBanner.png';
 
 const InfoBanner = styled.div`
-  height: 400px;
-  background-color: #EEE;
+  /* height: 400px; */
+  /* background-color: #EEE; */
   margin-top: 9%;
   background-image: url(${bannerImg});
-  background-size: contain;
+
   background-repeat: no-repeat;
-  /* background-position: contain; */
+  height: 34vh;
+  background-position: left bottom;
+  background-size: contain;
   background-color: #AEB5EC;
 
   ${(props) => props.theme.window.mobile} {

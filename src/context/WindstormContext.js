@@ -10,7 +10,7 @@ const initalState = {
 }
 
 const UserProvider = ({children}) => {
-
+  
 
   const value = {};
   return (

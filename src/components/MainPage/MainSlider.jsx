@@ -77,7 +77,7 @@ const StyleLink = styled(Link)`
   font-family: 'SCoreDream';
   color: ${props => props.theme.color[props.color]};
   background-color: #FFFFFF;
-  font-size: 1rem;
+  font-size: 1.05vw;
   padding: 0.6rem 1.666666666666667rem;
   border-radius: 5rem;
   margin-top: 3.7%;
@@ -93,6 +93,7 @@ const TextBox = styled.div`
   > h1 {
     color: #FFFFFF;
     line-height: 1.25;
+    font-size: 3.1vw;
   }
 
   ${(props) => props.theme.window.mobile} {

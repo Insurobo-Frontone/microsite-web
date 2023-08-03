@@ -14,7 +14,7 @@ const Wrap = styled.div`
   background-position: top left;
   position: relative;
   /* min-width: 1920px; */
-  min-width: 1440px;
+  /* min-width: 1440px; */
 
   ${(props) => props.theme.window.mobile} {
     padding-left: 6.5%;

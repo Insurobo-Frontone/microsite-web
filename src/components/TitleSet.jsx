@@ -9,6 +9,7 @@ const MainTitle = styled.div`
   
   h1 {
     line-height: 1.2;
+    font-size: 3.1vw;
   }
 
   ${(props) => props.theme.window.tab} {

@@ -16,6 +16,7 @@ const TaxReturnBanner = styled.div`
   justify-content: space-between;
   > h2 {
     padding-left: 7.3%;
+    font-size: 1.6vw;
   }
   > img {
     width: 40.31454545454545%;
