@@ -57,7 +57,7 @@ const TableWrap = styled.div`
 const Categories = styled.ul`
   display: flex;
   align-self: flex-end;
-  background-color: #FFFFFF;
+  
   > li {
     display: flex;
     align-items: center;
