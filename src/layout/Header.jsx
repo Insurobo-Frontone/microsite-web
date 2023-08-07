@@ -9,6 +9,7 @@ import WindStormModal from '../components/Modal/WindStormModal';
 import Profile from '../components/Auth/Profile';
 import { useEffect } from 'react';
 import ModalOutLayer from '../components/ModalOutLayer';
+import useWindowSize from '../hooks/useWindowSize';
 
 const Wrap = styled.header`
   display: flex;
@@ -36,7 +37,8 @@ const Nav = styled.nav`
 `;
 
 const LogoBox = styled.button`
-  width: 21.04166666666667%;
+  /* width: 21.04166666666667%; */
+  width: 15.8vw;
   display: flex;
   align-items: center;
   
@@ -116,10 +118,19 @@ const MyPage = styled.div`
   /* width: 80px;
   height: 80px; */
   > img {
-    width: 60px;
+    width: 4.2vw;
   }
   ${(props) => props.theme.window.mobile} {
-    display: none;
+    display: flex;
+    align-items: center;
+    > img {
+      width: 40px;
+      height: 40px;
+      margin-right: 14px;
+    }
+    > span {
+      font-size: 17px;
+    }
     
   } 
 `;
@@ -151,6 +162,7 @@ function Header() {
   }
   const handleClick = () => {
     setIsOpen(!isOpen);
+    setMyPageOpen(true)
   }
 
   const modalOutSideClick = (e) => {
@@ -158,6 +170,8 @@ function Header() {
       setMyPageOpen(false)
     }
   }
+
+  const { width } = useWindowSize();
 
   return (
     <>
@@ -175,14 +189,21 @@ function Header() {
                   <li>
                     <MyPage onClick={() => setMyPageOpen(!myPageOpne)}>
                       <img src={myPageIcon} alt='profile' />
+                      {width < 768 && (<span>내 프로필</span>)}
                     </MyPage>
-                      {myPageOpne && (
+                      {myPageOpne && width > 768 && (
                         <>
                           <ModalOutLayer modalOutSideClick={modalOutSideClick} modalRef={modalRef} />
                           <Profile onClick={logout} userName={userName} />
                         </>
                       )}
                   </li>
+                  {myPageOpne && width < 768 && (
+                    <li>
+                      <Profile onClick={logout} userName={userName} />
+                    </li>
+                  )}
+                  
                 </>
               :
                 <>

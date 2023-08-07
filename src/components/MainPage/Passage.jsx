@@ -37,10 +37,10 @@ const GoToMoreButton = styled.div`
   right: -35%;
 
   > h3 {
-    height: 100px;
+    /* height: 100px; */
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.6vw;
     color: #2F2F2F;
     font-weight: 200;
     position: relative;
@@ -53,16 +53,17 @@ const GoToMoreButton = styled.div`
 
     ::before {
       content: '';
+      width: 2.2vw;
+      height: 2.2vw;
       position: absolute;
-      top: 30%;
-      left: -7%;
+      top: 0;
+      left: -1vw;
       z-index: 0;
       display: block;
-      width: 40px;
-      height: 40px;
+      max-width: 40px;
       border-radius: 50%;
       background-color: ${props => theme.color[props.circle]};
-      transition: all 1s;
+      transition: animation 1s;
     }
   }
 
@@ -84,7 +85,7 @@ const GoToMoreButton = styled.div`
 
 const Arrow = styled.img`
   z-index: 1;
-
+  width: 10vw;
   ${(props) => props.theme.window.mobile} {
 
   }

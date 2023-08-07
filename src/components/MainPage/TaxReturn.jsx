@@ -8,7 +8,8 @@ import taxRefund from '../../assets/img/tax_refund.png';
 
 const TaxReturnBanner = styled.div`
   background-color: #FFF;
-  height: 300px;
+  /* height: 300px; */
+  height: 15.66vw;
   border-radius: 40px;
   margin-top: 4.4%;
   display: flex;

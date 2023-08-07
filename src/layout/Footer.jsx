@@ -28,9 +28,10 @@ const Menu = styled.ul`
 
   > li, a {
     color: #FFFFFF;
-    font-size: 0.75rem;
+    font-size: 0.78vw;
     font-weight: 400;
     position: relative;
+    margin-right: 0.7vw;
   }
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 9%;
@@ -49,8 +50,14 @@ const Info = styled.div`
   }
   p {
     color: #FFFFFF;
-    font-size: 0.75rem;
+    font-size: 0.78vw;
     font-weight: 400;
+    display: flex;
+    > span {
+      color: #FFFFFF;
+      position: relative;
+      margin-right: 1vw;
+    }
   }
   br {
     display: none;
@@ -86,8 +93,8 @@ const RightContent = styled.div`
 
 
 const Icon = styled.div`
-  width: 50px;
-  height: 52px;
+  width: 3.23vw;
+  height: 3.4vw;
   background-image: url(${cs});
   background-size: contain;
   margin-right: 18px;
@@ -112,16 +119,16 @@ function Footer() {
       <FooterWrap>
         <LeftContent>
           <Menu>
-            <li><Link to='/policy/service'>이용안내 &nbsp;|&nbsp;</Link></li>
-            <li><Link to='/policy/privacy'>&nbsp;개인정보처리방침</Link></li>
+            <li><Link to='/policy/service'>이용안내</Link></li>
+            <li><Link to='/policy/privacy'>개인정보처리방침</Link></li>
           </Menu>
           <Info>
             <div>
-              <p>상 호 명 &nbsp;| &nbsp;(주)인슈로보</p>
-              <p>대&nbsp;&nbsp;표 &nbsp;| &nbsp;서 민</p>
+              <p><span>상 호 명 |</span>(주)인슈로보</p>
+              <p><span>대 표 |</span>서 민</p>
             </div>
             <div>
-              <p>이 메 일 &nbsp;|&nbsp; info@insurobo.com</p>
+              <p><span>이 메 일 |</span>info@insurobo.com</p>
             </div>
             
             <p>06247 ) <br />서울특별시 강남구 논현로75길 10 4층</p>
@@ -132,11 +139,11 @@ function Footer() {
           <div>
             <Icon />
             <div>
-              <Text size={width > 768 ? '0.75rem' : '0.8666666666666667rem'} color='WHITE' bold='350'>고객센터</Text>
-              <Text size={width > 768 ? '1.15rem' : '1rem'} color='WHITE' bold='700'>070-4126-3333</Text>
+              <Text size='0.78vw' color='WHITE' bold='350'>고객센터</Text>
+              <Text size='1.2vw' color='WHITE' bold='700'>070-4126-3333</Text>
             </div>
           </div>
-          <Text size={width > 768 ? '0.75rem' : '0.8666666666666667rem'} color='WHITE' bold='400'>Copyright@INSUROBO All Rights Reserved.</Text>
+          <Text size='0.78vw' color='WHITE' bold='400'>Copyright@INSUROBO All Rights Reserved.</Text>
         </RightContent>
       </FooterWrap>
     </Section>

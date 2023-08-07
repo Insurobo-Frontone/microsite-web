@@ -21,17 +21,16 @@ const GoodsList = styled.ul`
 `;
 
 const Card = styled.li`
-  width: 41.39072847682119%;
-
-  /* min-width: 400px; */
-  padding: 3% 2%;
+  width: 26.06vw;
+  height: 26.06vw;
+  padding: 2.24vw 1.88vw;
   border: 2px solid #F5F5F5;
   border-radius: 21px;
   display: flex;
   justify-content: space-between;
   white-space: nowrap;
   background-color: #FFFFFF;
-  transition: all 0.5s ease-in;
+  transition: box-shadow 0.5s ease-in;
   :hover {
     box-shadow: 0 4px 42px 0 rgba(0, 0, 0, 0.15);
   }
@@ -53,10 +52,10 @@ const TextArea = styled.div`
   background-position: top right;
   background-size: 35%;
   > h1 {
-    margin-top: 3%;
+    margin-top: 1.15vw;
   }
   > div {
-    padding: 12% 0 9.2%;
+    padding: 2.97vw 0 1.4vw;
 
   }
   span {
@@ -71,8 +70,8 @@ const TextArea = styled.div`
       position: absolute;
       top: -5px;
       right: 6px;
-      width: 5px;
-      height: 5px;
+      width: 0.26vw;
+      height: 0.26vw;
       border-radius: 100px;
       background-color: #4575F5;
     }
@@ -114,40 +113,40 @@ function FinanceGoods() {
       <GoodsList>
         <Card>
           <TextArea img={loan}>
-            <Title size={width > 768 ? '1rem' : '1.125rem'} color='BLACK3'>소상공인 전용 대출</Title>
+            <Title size='1.045vw' color='BLACK3'>소상공인 전용 대출</Title>
             <div>
-              <Text size={width > 768 ? '0.9rem' : '1rem'}color='GRAY' bold='200'>대출 조건 <b>깐</b><b>깐</b>하게<br />
+              <Text size='0.94vw' color='GRAY' bold='200'>대출 조건 <b>깐</b><b>깐</b>하게<br />
                 따지는 소상공인이라면</Text>
-              <Text size={width > 768 ? '1.75rem' : '1.333333333333333rem'} color='BLACK3' bold='700'>
-                <span>대출</span>도<br />남달라야합니다.
+              <Text size='1.83vw' color='BLACK3' bold='700'>
+                <span>대출</span>도<br />남달라야합니다!
               </Text>
-              <Text size={width > 768 ? '0.9rem' : '0.8666666666666667rem'} color='GRAY' bold='200'>
+              <Text size='0.94vw' color='GRAY' bold='200'>
                 연 금리 5.90% ~ 20.90%<br />
                 중도상환수수료 0.0% ~ 1.0%<br />
                 대출기관 최대 10년
               </Text>
             </div>
-            <Text size={width > 768 ? '0.7rem' : '0.8666666666666667rem'} color='GRAY' bold='400'>*대출금액에 따라 상환기간 상이</Text>
+            <Text size='0.73vw' color='GRAY' bold='400'>*대출금액에 따라 상환기간 상이</Text>
           </TextArea>
         </Card>
         <Card>
           <TextArea img={card}>
-            <Title size={width > 768 ? '1rem' : '1.125rem'} color='BLACK3'>소상공인 전용카드</Title>
+            <Title size='1.045vw' color='BLACK3'>소상공인 전용카드</Title>
             <div>
-              <Text size={width > 768 ? '0.9rem' : '1rem'} color='GRAY'>다양한 혜택을 한 카드로!<br />
+              <Text size='0.94vw' color='GRAY'>다양한 혜택을 한 카드로!<br />
                 본인에게 맞는 전용카드 필수!
               </Text>
-              <Text size={width > 768 ? '1.75rem' : '1.333333333333333rem'} color='BLACK3' bold='700'>
+              <Text size='1.83vw' color='BLACK3' bold='700'>
                 많이 쓰는 영역<br />
                 <span>맞춤 할인</span> 혜택
               </Text>
-              <Text size={width > 768 ? '0.9rem' : '0.8666666666666667rem'} color='GRAY' bold='200'>
+              <Text size='0.94vw' color='GRAY' bold='200'>
                 연매출액 3억원 이하 소상공인 누구나!<br />
                 자동맞춤 최대 30%할인<br />
                 카드 매출액의 0.8%에 해당하는 금액 지급 등등
               </Text>
             </div>
-            <Text size={width > 768 ? '0.7rem' : '0.8666666666666667rem'} color='GRAY' bold='400'>*제외대상은 상세내용 확인해주세요</Text>
+            <Text size='0.73vw' color='GRAY' bold='400'>*제외대상은 상세내용 확인해주세요</Text>
           </TextArea>
         </Card>
       </GoodsList>

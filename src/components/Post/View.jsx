@@ -19,44 +19,49 @@ const ViewHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 200px;
+  height: 10.45vw;
   background-color: #F7F7F7;
   border-top: 1px solid #C4C4C4;
-  padding-left: 39px;
+  padding-left: 2.05vw;
   > h2 {
-    font-size: 1.5rem;
+    font-size: 1.57vw;
     display: flex;
     align-items: center;
     
     > span {
       display: block;
       color: #FFFFFF;
-      height: 39px;
-      padding: 0 23px;
-      border-radius: 19px;
-      text-align: center;
+      /* height: 39px;
       line-height: 39px;
       font-size: 0.75rem;
       margin-right: 39px;
+      padding: 0 23px; */
+      height: 2.05vw;
+      line-height: 2.05vw;
+      font-size: 0.78vw;
+      margin-right: 2.05vw;
+      padding: 0 1.2vw;
+      border-radius: 19px;
+      text-align: center;
     }
   }
   > p {
-    font-size: 0.9rem;
+    font-size: 0.94vw;
   }
   
   ${(props) => props.theme.window.tab} {
-    height: 100px;
-    padding-left: 11px;
+    /* height: 100px;
+    padding-left: 11px; */
     > h2 {
-      font-size: 1rem;
-      margin-right: 10px;
-      > span {
+      /* font-size: 1rem;
+      margin-right: 10px; */
+      /* > span {
         margin: 0 5px 10px 0;
         height: 30px;
         line-height: 30px;
         padding: 0 14px;
         border-radius: 6px;
-      }
+      } */
     
     }
     > p {
@@ -64,10 +69,10 @@ const ViewHeader = styled.div`
     }
 
     ${props => props.flex && css`
-      > h2 {
+      /* > h2 {
         flex-flow: column;
         align-items: flex-start;
-      }
+      } */
     `}
 
     ${props => props.block && css`
@@ -84,7 +89,7 @@ const ViewHeader = styled.div`
 `;
 
 const ViewBody = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.94vw;
   color: #808080;
   padding: 66px 0;
   ${(props) => props.theme.window.mobile} {
@@ -101,10 +106,11 @@ const ButtonWrap = styled.div`
 `;
 
 const Button = styled.button`
-  width: 100px;
-  height: 30px;
+  width: 5.2vw;
+  height: 1.6vw;
   background-color:#4575F5;
   color: #FFFFFF;
+  font-size: 0.73vw;
   ${(props) => props.theme.window.mobile} {
     font-size: 0.8666666666666667rem;
   }

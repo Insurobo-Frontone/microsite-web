@@ -62,8 +62,10 @@ const Categories = styled.ul`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 80px;
+    /* width: 100px;
+    height: 80px; */
+    width: 5.24vw;
+    height: 4.2vw;
   }
 
   ${(props) => props.theme.window.mobile} {
@@ -77,15 +79,15 @@ const Categories = styled.ul`
 const Category = styled(Link)`
   color: #BABABA;
   position: relative;
-
+  font-size: 1.05vw;
   ${props => props.active && css`
     color:#4575F5;
     
     ::before {
       content: '';
       display: inline-block;
-      width: 8px;
-      height: 8px;
+      width: 0.42vw;
+      height: 0.42vw;
       border-radius: 50%;
       background-color: #4575F5;
       position: absolute;
@@ -118,14 +120,16 @@ const ItemBlock = styled.li`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 22px 10px;
-  line-height: 39px;
+  /* padding: 22px 10px; */
+  padding: 1.18vw 0.55vw;
+  line-height: 2.05vw;
   border-top: 2px solid #F5F5F5;
   :last-child {
     border-bottom: 2px solid #F5F5F5;
   }
   a {
     width: 87.63888888888889%;
+    font-size: 1.05vw;
   }
   ${(props) => props.theme.window.mobile} {
     padding: 10px 15px;
@@ -143,14 +147,17 @@ const ItemBlock = styled.li`
 const CategoryLabel = styled.span`
   display: block;
   color: #FFFFFF;
-  height: 39px;
-  width: 100px;
+  
+  /* width: 100px; */
+  width: 5.25vw;
+  height: 2.05vw;
   border-radius: 19px;
   text-align: center;
-  line-height: 39px;
-  font-size: 0.75rem;
+  line-height: 2.05vw;
+  /* font-size: 0.75rem; */
+  font-size: 0.78vw;
   background-color: ${props => theme.color[props.color]};
-
+  
   ${(props) => props.theme.window.mobile} {
     width: 54px;
     height: 30px;
@@ -162,18 +169,23 @@ const CategoryLabel = styled.span`
 `;
 
 const ButtonWrap = styled.div`
-  width: 20%;
+  /* width: 20%; */
+  width: 14vw;
   margin: 0 auto;
   padding-top: 5.5%;
+  
   > button {
     width: 100%;
-    height: 70px;
+    height: 3.66vw;
     border-radius: 56px;
     font-size: 1rem;
     background-color: #F9F9F9;
     display: flex;
     justify-content: center;
     align-items: center;
+    > p {
+      font-size: 1.04vw;
+    }
   }
 
   ${(props) => props.theme.window.mobile} {
@@ -186,8 +198,8 @@ const ButtonWrap = styled.div`
 `;
 
 const MoreIcon = styled.span`
-  width: 15px;
-  height: 15px;
+  width: 0.78vw;
+  height: 0.78vw;
   display: inline-block;
   background-image: url(${moreIcon});
   background-size: contain;

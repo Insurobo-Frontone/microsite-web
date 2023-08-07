@@ -213,8 +213,8 @@ const CustomDot = styled.div`
         color: transparent;
         cursor: pointer;
         display: block;
-        height: 15px;
-        width: 15px;
+        height: 0.78vw;
+        width: 0.78vw;
         border-radius: 100%;
         padding: 0;
         opacity: .5;
