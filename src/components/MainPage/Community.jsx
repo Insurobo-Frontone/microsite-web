@@ -14,7 +14,7 @@ function Community() {
   const id = searchParams.get('id');
 
   return (
-    <Content bottom={width > 768 ? '3.4%' : '15.4%'}>
+    <Content top={width > 768 ? '3.4%' : '15.4%'} bottom={width > 768 ? '3.4%' : '15.4%'}>
       <TitleSet 
         small_title='서로 공유해요!!'
         big_title2='커뮤니티'

@@ -12,7 +12,7 @@ const ViewContainer = styled.div`
   padding: 70px 0;
 
   ${(props) => props.theme.window.tab} {
-    padding: 5% 0;
+    padding: 45px 0;
   }
 `;
 const ViewHeader = styled.div`
@@ -50,22 +50,27 @@ const ViewHeader = styled.div`
   }
   
   ${(props) => props.theme.window.tab} {
-    /* height: 100px;
-    padding-left: 11px; */
+    height: 100px;
+    padding-left: 11px;
     > h2 {
-      /* font-size: 1rem;
-      margin-right: 10px; */
-      /* > span {
+      font-size: 15px;
+      margin-right: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      > span {
         margin: 0 5px 10px 0;
+        width: 54px;
         height: 30px;
         line-height: 30px;
         padding: 0 14px;
         border-radius: 6px;
-      } */
+        font-size: 13px;
+      }
     
     }
     > p {
-      white-space: nowrap;
+      display: none;
     }
 
     ${props => props.flex && css`
@@ -94,6 +99,7 @@ const ViewBody = styled.div`
   padding: 66px 0;
   ${(props) => props.theme.window.mobile} {
     padding: 20px 0;
+    font-size: 15px;
     > div {
       overflow-x: scroll;
     }
@@ -113,6 +119,8 @@ const Button = styled.button`
   font-size: 0.73vw;
   ${(props) => props.theme.window.mobile} {
     font-size: 0.8666666666666667rem;
+    width: 100px;
+    height: 30px;
   }
 `;
 

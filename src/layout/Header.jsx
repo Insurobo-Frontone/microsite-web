@@ -43,7 +43,7 @@ const LogoBox = styled.button`
   align-items: center;
   
   ${(props) => props.theme.window.mobile} {
-    width: 113px;
+    width: 120px;
   }
 `;
 
@@ -88,7 +88,7 @@ const Menu = styled.ul`
         justify-content: center;
         align-items: center;
         height: 80px;
-        border-bottom: 1px solid #F5F5F5;
+        /* border-bottom: 1px solid #F5F5F5; */
         font-size: 1.133333333333333rem;
 
         :first-child {

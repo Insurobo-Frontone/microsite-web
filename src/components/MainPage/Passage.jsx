@@ -46,7 +46,9 @@ const GoToMoreButton = styled.div`
     position: relative;
     padding-left: 6.5%;
     white-space: nowrap;
-   
+    > a {
+      font-family: inherit;
+    }
     :hover::before {
       animation: ${mouseAnimation} 2s infinite;
     }
@@ -69,14 +71,16 @@ const GoToMoreButton = styled.div`
 
   ${(props) => props.theme.window.mobile} {
     display: ${props => props.none ? 'none' : 'flex'};
-    top: 85%;
-    left: 15%;
+    bottom: -40px;
+    left: 47px;
     h3 {
-      font-size: 1rem;
+      font-size: 15px;
+      line-height: 15px;
+      padding-left: 28.5px;
       ::before {
         width: 25px;
         height: 25px;
-        top: 36%;
+        top: -2px;
         left: -10%;
       }
     }
@@ -87,7 +91,7 @@ const Arrow = styled.img`
   z-index: 1;
   width: 10vw;
   ${(props) => props.theme.window.mobile} {
-
+    width: 91.5px;
   }
 `;
 

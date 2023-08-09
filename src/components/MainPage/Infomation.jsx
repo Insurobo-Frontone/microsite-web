@@ -14,7 +14,6 @@ const InfoBanner = styled.div`
   /* background-color: #EEE; */
   margin-top: 9%;
   background-image: url(${bannerImg});
-
   background-repeat: no-repeat;
   height: 34vh;
   background-position: left bottom;
@@ -23,48 +22,58 @@ const InfoBanner = styled.div`
 
   ${(props) => props.theme.window.mobile} {
     margin-top: 11%;
-    height: 200px;
+    height: 320px;
     width: 100%;
-    min-width: 320px;
   }
 `;
 
 
 const LeftBackground = styled.div`
   position: absolute;
-  top: -7%;
-  left: -39%;
-  width: 80%;
+  top: 10vw;
+  left: -25vw;
   opacity: 0;
+  transform: rotate(37.09deg);
   transition: opacity 1s ease;
   transition-delay: 0.4s;
+  > img {
+    width: 55.85vw;
+  }
   &.show {
     opacity: 1;
   }
 
   ${(props) => props.theme.window.mobile} {
-    top: 35%;
-    left: -80%;
-    width: 160%;
+    /* top: 35%;
+    left: -50%; */
+    top: 250px;
+    left: -280px;
+   > img {
+      width: 500px;
+   } 
   }
 `;
 
 const RightBackground = styled.div`
   position: absolute;
-  top: -20%;
-  right: -30%;
-  width: 50%;
+  top: -10vw;
+  right: -18vw;
   opacity: 0;
   transition: opacity 1s ease;
-
+  > img {
+    width: 36.5vw;
+  }
   &.show {
     opacity: 1;
   }
 
   ${(props) => props.theme.window.mobile} {
-    width: 53.4%;
+    
     top: -7.5%;
     right: -22%;
+    > img {
+      width: 200px;
+    }
   }
 `;
 
@@ -78,8 +87,8 @@ function Infomation({scrollY1, scrollY2}) {
 
   return (
     <Content
-      top={width > 768 ? '5%' : '18%'}
-      bottom={width > 768 ? '8.45%' : '20%'}
+      top={width > 768 ? '3.4%' : '15.4%'} 
+      bottom={width > 768 ? '3.4%' : '15.4%'}
       scrollY1={scrollY1}
       scrollY2={scrollY2}
     >
