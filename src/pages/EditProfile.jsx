@@ -107,7 +107,7 @@ const AddressModalWrap = styled.div`
 
 
 function EditProfile() {
-  const {handleSubmit ,setValue, reset, watch} = useFormContext();
+  const {handleSubmit ,setValue, reset} = useFormContext();
   const navigate = useNavigate();
   const { width } = useWindowSize();
   const [isOpenPost, setIsOpenPost] = useState(false);

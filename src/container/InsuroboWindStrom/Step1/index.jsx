@@ -8,13 +8,20 @@ import StoreInfo from "./StoreInfo";
 import Button from "../Button";
 import { useState } from "react";
 import FindAddrModal from "./FindAddrModal";
+import { useContext } from "react";
+import StepContext from "../../../context/StepContext";
 
 
 
 const Step1 = () => {
   const [disabled, setDisabled] = useState(true);
   const [open, setOpen] = useState(false);
+  const step = useContext(StepContext);
 
+  const onClickNext = () => {
+    step.state.step.secondStep = true
+    console.log(step)
+  }
   return (
     <Wrap>
       <Heading>
@@ -26,7 +33,8 @@ const Step1 = () => {
       <FindAddress onClick={() => setOpen(!open)} />
       <Title>사업장 정보</Title>
       <StoreInfo />
-      <Button disabled={disabled}>다음</Button>
+      {/* <Button disabled={disabled}>다음</Button> */}
+      <Button onClick={onClickNext}>다음</Button>
       {open && (
         <FindAddrModal />
       )}

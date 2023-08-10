@@ -20,6 +20,8 @@ import EditPassword from './pages/EditPassword';
 import { UserProvider } from './context/UserContext';
 import Policy from './pages/Policy';
 import InsuroboWindstorm from './pages/InsuroboWindstorm';
+import { GlobalContextProvider } from './context/global';
+import { StepProvider } from './context/StepContext';
 ;
 
 
@@ -32,41 +34,43 @@ function App() {
   const auth = localStorage.getItem("@access-Token");
   return (
     <ThemeProvider theme={theme}>
-      <UserProvider>
-      <FormProvider {...methods}>
-          <GlobalStyle />
-          <Router>
-            <Routes>
-              <Route element={<PublicRoute />}>
-                <Route path='/' element={<Home />} />
-                <Route path='?:category'  element={<Home />} />
-                <Route path='?:page'  element={<Home />} />
-                <Route path='/event' element={<Event />} />
-                <Route path='/bizsupport/*' element={<BizSupport />} />
-                <Route path='/bizsupport/:list' element={<List />} />
-                <Route path='/insuranceInfo' element={<InsuranceInfo />} />
-                <Route path='/freeApply' element={<FreeApply />} />
-                <Route path='/freeApply/insuroboWindstorm' element={<InsuroboWindstorm />} />
-                <Route path='/board' element={<Board />} />
-                <Route path='/policy/:pagename' element={<Policy />} />
-              </Route>
+      <StepProvider>
+        <UserProvider>
+          <FormProvider {...methods}>
+            <GlobalStyle />
+              <Router>
+                <Routes>
+                  <Route element={<PublicRoute />}>
+                    <Route path='/' element={<Home />} />
+                    <Route path='?:category'  element={<Home />} />
+                    <Route path='?:page'  element={<Home />} />
+                    <Route path='/event' element={<Event />} />
+                    <Route path='/bizsupport/*' element={<BizSupport />} />
+                    <Route path='/bizsupport/:list' element={<List />} />
+                    <Route path='/insuranceInfo' element={<InsuranceInfo />} />
+                    <Route path='/freeApply' element={<FreeApply />} />
+                    <Route path='/freeApply/insuroboWindstorm' element={<InsuroboWindstorm />} />
+                    <Route path='/board' element={<Board />} />
+                    <Route path='/policy/:pagename' element={<Policy />} />
+                  </Route>
 
-              <Route element={<PublicRoute auth={auth} restricted />}>
-                <Route path='/login' element={<Login />} />
-                <Route path='/login/findAccount' element={<FindAccount />} />
-                <Route path='/register' element={<Register />} />
-              </Route>
+                  <Route element={<PublicRoute auth={auth} restricted />}>
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/login/findAccount' element={<FindAccount />} />
+                    <Route path='/register' element={<Register />} />
+                  </Route>
 
 
-              <Route element={<PrivateRoute auth={auth} />}>
-                <Route path='/myProfile' element={<EditProfile  />} />
-                <Route path='/myProfile/password' element={<EditPassword />} />
-              </Route>
-            </Routes>
-          </Router>
-        </FormProvider>
-      </UserProvider>   
-    </ThemeProvider>
+                  <Route element={<PrivateRoute auth={auth} />}>
+                    <Route path='/myProfile' element={<EditProfile  />} />
+                    <Route path='/myProfile/password' element={<EditPassword />} />
+                  </Route>
+                </Routes>
+              </Router>
+            </FormProvider>
+          </UserProvider>
+        </StepProvider>
+      </ThemeProvider>
   );
 }
 

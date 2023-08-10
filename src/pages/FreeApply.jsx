@@ -15,6 +15,8 @@ import equipment from '../assets/icon/equipment.png';
 // import coin from '../assets/icon/coin.png';
 import useWindowSize from '../hooks/useWindowSize';
 import { setPathName } from '../container/Auth';
+import { useContext } from 'react';
+import StepContext from '../context/StepContext';
 
 const list1 = [
   {
@@ -300,11 +302,13 @@ function FreeApply() {
   const { pathname } = useLocation()
   const navigate = useNavigate();
   const { width } = useWindowSize();
-  
+  const step = useContext(StepContext);
   const checkLogin = () => {
     if (auth) {
       // window.open('https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo');
       navigate('/freeApply/insuroboWindstorm')
+      step.state.step.firstStep = true;
+      console.log(step)
     } else {
       alert('로그인이 필요한 페이지입니다.');
       setPathName(pathname)

@@ -20,7 +20,7 @@ const UserContext = createContext({
   }
 });
 
-const initalState = {
+const initialState = {
   loginType: '',
   marketing_yn: '',
   phoneRole: '',
@@ -33,7 +33,7 @@ const initalState = {
 }
 
 const UserProvider = ({children}) => {
-  const [user, setUser] = useState(initalState)
+  const [user, setUser] = useState(initialState)
 
   const value = {
     state: { user },

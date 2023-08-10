@@ -4,10 +4,11 @@ import styled from "styled-components";
 const Button = ({
   width,
   disabled,
-  children
+  children,
+  onClick
 }) => {
   return (
-    <ButtonWrap width={width} disabled={disabled}>
+    <ButtonWrap width={width} disabled={disabled} onClick={onClick}>
       {children}
     </ButtonWrap>
   )
