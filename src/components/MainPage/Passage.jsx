@@ -37,45 +37,50 @@ const GoToMoreButton = styled.div`
   right: -35%;
 
   > h3 {
-    height: 100px;
+    /* height: 100px; */
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1.6vw;
     color: #2F2F2F;
     font-weight: 200;
     position: relative;
     padding-left: 6.5%;
     white-space: nowrap;
-   
+    > a {
+      font-family: inherit;
+    }
     :hover::before {
       animation: ${mouseAnimation} 2s infinite;
     }
 
     ::before {
       content: '';
+      width: 2.2vw;
+      height: 2.2vw;
       position: absolute;
-      top: 30%;
-      left: -7%;
+      top: 0;
+      left: -1vw;
       z-index: 0;
       display: block;
-      width: 40px;
-      height: 40px;
+      max-width: 40px;
       border-radius: 50%;
       background-color: ${props => theme.color[props.circle]};
-      transition: all 1s;
+      transition: animation 1s;
     }
   }
 
   ${(props) => props.theme.window.mobile} {
     display: ${props => props.none ? 'none' : 'flex'};
-    top: 85%;
-    left: 15%;
+    bottom: -40px;
+    left: 47px;
     h3 {
-      font-size: 1rem;
+      font-size: 15px;
+      line-height: 15px;
+      padding-left: 28.5px;
       ::before {
         width: 25px;
         height: 25px;
-        top: 36%;
+        top: -2px;
         left: -10%;
       }
     }
@@ -84,9 +89,9 @@ const GoToMoreButton = styled.div`
 
 const Arrow = styled.img`
   z-index: 1;
-
+  width: 10vw;
   ${(props) => props.theme.window.mobile} {
-
+    width: 91.5px;
   }
 `;
 

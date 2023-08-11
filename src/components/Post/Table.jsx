@@ -45,10 +45,10 @@ const categories = [
 
 const TableWrap = styled.div`
   border-top: 2px solid #2F2F2F;
-  background-color: #FFFFFF;
   margin-top: 3.5%;
   display: flex;
   flex-direction: column;
+  background-color: #FFFFFF;
   ${(props) => props.theme.window.mobile} {
     margin-top: 13.9%;
   }
@@ -57,12 +57,15 @@ const TableWrap = styled.div`
 const Categories = styled.ul`
   display: flex;
   align-self: flex-end;
+  
   > li {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 80px;
+    /* width: 100px;
+    height: 80px; */
+    width: 5.24vw;
+    height: 4.2vw;
   }
 
   ${(props) => props.theme.window.mobile} {
@@ -76,6 +79,7 @@ const Categories = styled.ul`
 const Category = styled(Link)`
   color: #BABABA;
   position: relative;
+  font-size: 1.05vw;
 
   ${props => props.active && css`
     color:#4575F5;
@@ -83,8 +87,8 @@ const Category = styled(Link)`
     ::before {
       content: '';
       display: inline-block;
-      width: 8px;
-      height: 8px;
+      width: 0.42vw;
+      height: 0.42vw;
       border-radius: 50%;
       background-color: #4575F5;
       position: absolute;
@@ -95,7 +99,7 @@ const Category = styled(Link)`
 
   ${(props) => props.theme.window.mobile} {
     text-align: end;
-    font-size: 0.9333333333333333rem;
+    font-size: 13px;
     text-align: center;
     
     ::before {
@@ -110,31 +114,35 @@ const Category = styled(Link)`
 const ListWrap = styled.ul`
   display: flex;
   flex-direction: column;
-
 `;
 
 const ItemBlock = styled.li`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 22px 10px;
-  line-height: 39px;
+  /* padding: 22px 10px; */
+  padding: 1.18vw 0.55vw;
+  line-height: 2.05vw;
   border-top: 2px solid #F5F5F5;
   :last-child {
     border-bottom: 2px solid #F5F5F5;
   }
   a {
     width: 87.63888888888889%;
+    font-size: 1.05vw;
   }
+
   ${(props) => props.theme.window.mobile} {
-    padding: 10px 15px;
+    padding: 13px 0;
+    justify-content: flex-start;
     a {
-      display: block;
+      display: flex;
       width: 75%;
-      font-size: 0.8666666666666667rem;
+      font-size: 13px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      align-items: center;
     }
   }
 `;
@@ -142,51 +150,62 @@ const ItemBlock = styled.li`
 const CategoryLabel = styled.span`
   display: block;
   color: #FFFFFF;
-  height: 39px;
-  width: 100px;
+  /* width: 100px; */
+  width: 5.25vw;
+  height: 2.05vw;
   border-radius: 19px;
   text-align: center;
-  line-height: 39px;
-  font-size: 0.75rem;
+  line-height: 2.05vw;
+  /* font-size: 0.75rem; */
+  font-size: 0.78vw;
   background-color: ${props => theme.color[props.color]};
-
+  
   ${(props) => props.theme.window.mobile} {
     width: 54px;
     height: 30px;
+    margin-right: 13px;
     line-height: 30px;
     border-radius: 6px;
-    font-size: 0.8666666666666667rem;
+    font-size: 13px;
     align-self: center;
   }
 `;
 
 const ButtonWrap = styled.div`
-  width: 20%;
+  /* width: 20%; */
+  width: 14vw;
   margin: 0 auto;
   padding-top: 5.5%;
+  background-color: transparent;
   > button {
     width: 100%;
-    height: 70px;
+    height: 3.66vw;
     border-radius: 56px;
     font-size: 1rem;
     background-color: #F9F9F9;
     display: flex;
     justify-content: center;
     align-items: center;
+    > p {
+      font-size: 1.04vw;
+    }
   }
 
   ${(props) => props.theme.window.mobile} {
     width: 61.4%;
-    padding-top: 20%;
+    padding-top: 80px;
     > button {
       height: 40px;
+      > p {
+        font-size: 15px;
+      }
     }
   }
 `;
 
 const MoreIcon = styled.span`
-  width: 15px;
-  height: 15px;
+  width: 0.78vw;
+  height: 0.78vw;
   display: inline-block;
   background-image: url(${moreIcon});
   background-size: contain;
@@ -243,46 +262,48 @@ export default function Table() {
   }
 
   return (
-    <TableWrap>
-      <Categories>
-        {width > 768 ? categories.map((dt) => (
+    <>
+      <TableWrap>
+        <Categories>
+          {width > 768 ? categories.map((dt) => (
+            <li>
+              <Category
+                key={dt.id}
+                to={dt.name === 'all' ? '' : `?category=${dt.name}`}
+                active={category === dt.name}
+                onClick={() => onSelect(dt.name)}
+              >
+                {dt.print}
+              </Category>
+            </li>
+          )) : categories.filter((dt) => dt.name === 'all').map((dt) => (
           <li>
             <Category
               key={dt.id}
-              to={dt.name === 'all' ? '' : `?category=${dt.name}`}
               active={category === dt.name}
-              onClick={() => onSelect(dt.name)}
             >
               {dt.print}
             </Category>
           </li>
-        )) : categories.filter((dt) => dt.name === 'all').map((dt) => (
-         <li>
-          <Category
-            key={dt.id}
-            active={category === dt.name}
-          >
-            {dt.print}
-          </Category>
-         </li>
-        ))}
-      </Categories>
+          ))}
+        </Categories>
 
-      <ListWrap className={limit === 10 ? 'open' : null}>
-        {data.slice(offset, offset + limit).map((dt) => (
-          <ItemBlock key={dt.id}>
-            {categories.filter((ct) => (ct.name === dt.code)).map((fd) => (
-                <CategoryLabel color={fd.color}>{fd.print}</CategoryLabel>
-              ))}
-              {category === 'all' ? (<Link to={`?id=${dt.id}`}>{dt.title}</Link>) : (
-                <Link
-                  to={`?id=${dt.id}`}>
-                    {dt.title}
-                </Link>
-              )}
-          </ItemBlock>
-        ))}
-      </ListWrap>
+        <ListWrap className={limit === 10 ? 'open' : null}>
+          {data.slice(offset, offset + limit).map((dt) => (
+            <ItemBlock key={dt.id}>
+              {categories.filter((ct) => (ct.name === dt.code)).map((fd) => (
+                  <CategoryLabel color={fd.color}>{fd.print}</CategoryLabel>
+                ))}
+                {category === 'all' ? (<Link to={`?id=${dt.id}`}>{dt.title}</Link>) : (
+                  <Link
+                    to={`?id=${dt.id}`}>
+                      {dt.title}
+                  </Link>
+                )}
+            </ItemBlock>
+          ))}
+        </ListWrap>
+      </TableWrap>
       {limit === 4 && (
         <ButtonWrap>
           <button
@@ -293,7 +314,7 @@ export default function Table() {
           </button>
         </ButtonWrap>
       )}
-
+    
       {limit === 8 && (
         <>
           {/* <WriteButton>글쓰기</WriteButton> */}
@@ -305,8 +326,7 @@ export default function Table() {
           />
         </>
       )}
-    </TableWrap>
-
+    </>
     )
   }
 

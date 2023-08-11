@@ -35,7 +35,7 @@ const data = [
     id: 3,
     icon: icon3,
     title: '재테크보험',
-    text: '저축과\n 위험보장을 동시에',
+    text: '저축과\n위험보장을 동시에',
     link: '/insuranceInfo?item=invest',
     className: 'delay3'
   },
@@ -54,7 +54,9 @@ const CardList = styled.ul`
 `;
 
 const Card = styled.li`
-  width: 29.71768202080238%;
+  /* width: 29.71768202080238%; */
+  width: 27.77777777777778%;
+  /* min-width: 210px; */
   border-radius: 18px;
   background-color: #FFFFFF;
   box-shadow: 0 0 26px 0 rgba(0, 0, 0, 0.1);
@@ -84,34 +86,39 @@ const Card = styled.li`
     white-space: pre-wrap;
     padding-top: 17.3%;
     padding-bottom: 13.5%;
+    font-size: 1.2vw;
   }
   > h1 {
     text-align: end;
+    font-size: 1.6vw;
   }
 
   ${(props) => props.theme.window.mobile} {
     width: 93.75%;
-    margin-bottom: 10%;
-    padding: 8.9% 7.2% 7%;
+    margin-bottom: 45px;
+    padding: 23px;
 
     :last-child {
       margin-bottom: 0;
     }
 
     > p {
-      padding-top: 0;
-      padding-bottom: 10.6%;
+      padding-top: 12px;
+      padding-bottom: 27px;
+      font-size: 15px;
+    }
+    > h1 {
+      font-size: 18px;
     }
   }
 `;
 
 const ImgWrap = styled.div`
+  width: 26.9%;
+  
   ${(props) => props.theme.window.mobile} {
-    height: 63px;
-    > img {
-      max-width: 50px;
-      max-height: 50px;
-    }
+    width: 71px;
+    height: 61px;
   }
 `;
 
@@ -125,7 +132,7 @@ function Plaza({scrollY}) {
       bottom={width > 768 ? '5.8%' : '0%'}
       bgImg={bg_R}
       scrollY={scrollY}
-      min={width > 768 && '1440px'}
+      // min={width > 768 && '1440px'}
     >
       <TitleSet
         small_title='사업장 안전지킴이'
@@ -142,8 +149,8 @@ function Plaza({scrollY}) {
             <ImgWrap>
               <img src={dt.icon} alt='아이콘' />
             </ImgWrap>
-            <Text size={width > 768 ? '1.15rem' : '1rem' } bold='400' color='BLACK4'>{dt.text}</Text>
-            <Title size={width > 768 ? '1.5rem' : '1.2rem' }>{dt.title}</Title>
+            <Text bold='400' color='BLACK4'>{dt.text}</Text>
+            <Title>{dt.title}</Title>
           </Card>
         ))}
       </CardList>

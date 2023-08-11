@@ -10,7 +10,9 @@ const UserContext = createContext({
         userId: '',
         userName: '',
         address: '',
-        address_detail: ''
+        address_detail: '',
+        companyName: '',
+        insuId: '',
       }
   },
   actions: {
@@ -18,19 +20,20 @@ const UserContext = createContext({
   }
 });
 
-const initalState = {
+const initialState = {
   loginType: '',
   marketing_yn: '',
   phoneRole: '',
   userId: '',
   userName: '',
   address: '',
-  address_detail: ''
-
+  address_detail: '',
+  companyName: '',
+  insuId: '',
 }
 
 const UserProvider = ({children}) => {
-  const [user, setUser] = useState(initalState)
+  const [user, setUser] = useState(initialState)
 
   const value = {
     state: { user },

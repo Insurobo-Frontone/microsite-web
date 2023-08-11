@@ -77,14 +77,19 @@ const StyleLink = styled(Link)`
   font-family: 'SCoreDream';
   color: ${props => props.theme.color[props.color]};
   background-color: #FFFFFF;
-  font-size: 1rem;
-  padding: 0.6rem 1.666666666666667rem;
+  font-size: 1.05vw;
   border-radius: 5rem;
   margin-top: 3.7%;
-  display: inline-block;
+  width: 10.45vw;
+  height: 2.61vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   ${(props) => props.theme.window.mobile} {
-    padding: 0.6rem 1.666666666666667rem;
-    margin-top: 6.5%;
+    font-size: 15px;
+    margin-top: 20px;
+    width: 122px;
+    height: 35px;
   }
 `;
  
@@ -93,42 +98,45 @@ const TextBox = styled.div`
   > h1 {
     color: #FFFFFF;
     line-height: 1.25;
+    font-size: 3.1vw;
   }
 
   ${(props) => props.theme.window.mobile} {
-
+    > h1 {
+      font-size: 28px;
+    }
   }
 
 `;
 
 // 재생버튼은 px로 고정해야함
-const SliderPlayerGroup = styled.div`
-  position: absolute;
-  bottom: 10%;
-  left: 12.5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-  height: 2.75rem;
+// const SliderPlayerGroup = styled.div`
+//   position: absolute;
+//   bottom: 10%;
+//   left: 12.5%;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   width: 350px;
+//   height: 2.75rem;
 
-  ${(props) => props.theme.window.mobile} {
-    width: 200px;
-    left: 7.466666666666667%;
-    bottom: 50%;
-  }
-`;
+//   ${(props) => props.theme.window.mobile} {
+//     width: 200px;
+//     left: 7.466666666666667%;
+//     bottom: 50%;
+//   }
+// `;
 
 
-const ButtonBox = styled.div`
-  width: 46px;
-  display: flex;
-  justify-content: space-between;
+// const ButtonBox = styled.div`
+//   width: 46px;
+//   display: flex;
+//   justify-content: space-between;
 
-  ${(props) => props.theme.window.mobile} {
-    width: 31px;
-  }
-`;
+//   ${(props) => props.theme.window.mobile} {
+//     width: 31px;
+//   }
+// `;
 
 // const PlayButton = styled.button`
 //   width: 22px;
@@ -212,8 +220,8 @@ const CustomDot = styled.div`
         color: transparent;
         cursor: pointer;
         display: block;
-        height: 15px;
-        width: 15px;
+        height: 0.78vw;
+        width: 0.78vw;
         border-radius: 100%;
         padding: 0;
         opacity: .5;
@@ -251,7 +259,7 @@ const CustomDot = styled.div`
 // }
 
 function MainSlider() {
-  const { width } = useWindowSize();
+  // const { width } = useWindowSize();
   const sliderRef = useRef(null);
   // const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -299,9 +307,9 @@ function MainSlider() {
         {data.map((dt) => (
           <Banner key={dt.id} bgImg={dt.bg_img} mbBgImg={dt.mb_bg_img}>
             <TextBox>
-              <Title bold='300' size={width > 768 ? '3rem' : '1.866666666666667rem'}>{dt.t_line1}</Title>
-              <Title bold='300' size={width > 768 ? '3rem' : '1.866666666666667rem'}>{dt.t_line2}</Title>
-              <Title size={width > 768 ? '3rem' : '1.866666666666667rem'}>{dt.t_line3}</Title>
+              <Title bold='300'>{dt.t_line1}</Title>
+              <Title bold='300'>{dt.t_line2}</Title>
+              <Title>{dt.t_line3}</Title>
               <StyleLink to={dt.link} color={dt.color}>
                 자세히보기
               </StyleLink>
@@ -310,13 +318,13 @@ function MainSlider() {
         ))}
       </StyledSlider>
       
-      <SliderPlayerGroup> 
+      {/* <SliderPlayerGroup> 
         <ButtonBox>
-          {/* <PauseButton onClick={pause} />
-          <PlayButton onClick={play} /> */}
+          <PauseButton onClick={pause} />
+          <PlayButton onClick={play} />
         </ButtonBox>
-        {/* <Progress currentSlide={currentSlide} totalSlides={'3'} /> */}
-      </SliderPlayerGroup>
+        <Progress currentSlide={currentSlide} totalSlides={'3'} />
+      </SliderPlayerGroup> */}
     </Wrap>
   )
 }

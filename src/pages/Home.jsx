@@ -13,10 +13,10 @@ function Home() {
   return (
     <Layout>
       <MainSlider />
-      <Plaza scrollY={width > 700 ? 450 : 550} />
+      <Plaza scrollY={width > 700 ? 0 : 0} />
       <Infomation 
-        scrollY1={width > 768 ? 1700 : 1600}
-        scrollY2={width > 768 ? 1400 : 1450}
+        scrollY1={width > 768 ? 0 : 0}
+        scrollY2={width > 768 ? 0 : 0}
       />
       <Community />
       <TaxReturn />
