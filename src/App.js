@@ -20,10 +20,6 @@ import EditPassword from './pages/EditPassword';
 import { UserProvider } from './context/UserContext';
 import Policy from './pages/Policy';
 import InsuroboWindstorm from './pages/InsuroboWindstorm';
-import { GlobalContextProvider } from './context/global';
-import { StepProvider } from './context/StepContext';
-;
-
 
 function App() {
   
@@ -34,7 +30,7 @@ function App() {
   const auth = localStorage.getItem("@access-Token");
   return (
     <ThemeProvider theme={theme}>
-      <StepProvider>
+
         <UserProvider>
           <FormProvider {...methods}>
             <GlobalStyle />
@@ -69,7 +65,7 @@ function App() {
               </Router>
             </FormProvider>
           </UserProvider>
-        </StepProvider>
+
       </ThemeProvider>
   );
 }
