@@ -22,7 +22,6 @@ const Content = styled.div`
 
 
 const InsuroboWindstorm = () => {
-
   return (
     <Layout>
       <Wrap>

@@ -17,6 +17,10 @@ import UserContext from "../context/UserContext";
 
 const Form = styled.form`
   padding: 54px 0 147px;
+
+  ${(props) => props.theme.window.mobile} {
+    padding-bottom: 0px;
+  }
 `;
 
 const Label = styled.label`
@@ -63,6 +67,12 @@ const InputGroup = styled.div`
         margin-left: 5px;
         height: 50px;
         margin-bottom: 20px;
+      }
+    }
+    .recommender {
+      select {
+        width: 130px;
+        margin-right: 5px;
       }
     }
   }

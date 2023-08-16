@@ -6,7 +6,7 @@ import moreBtnReverse from '../../assets/icon/moreBtnReverse.png';
 
 const InputWrap = styled.div`
 	> select {
-	    display: block;
+	  display: block;
 		width: 100%;
 		padding: 25px 26px;
 		height: 80px;
@@ -25,6 +25,14 @@ const InputWrap = styled.div`
 		> option {
       width: 100%;
     }
+	}
+
+	${(props) => props.theme.window.mobile} {
+
+		> select {
+			height: 50px;
+			padding: 14px 13px;
+		}
 	}
 `;
 

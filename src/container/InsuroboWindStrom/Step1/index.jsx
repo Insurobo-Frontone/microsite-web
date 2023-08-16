@@ -13,9 +13,6 @@ const Step1 = () => {
   // const [disabled, setDisabled] = useState(true);
   const [open, setOpen] = useState(false);
  
-  const onClickNext = () => {
-    
-  }
   return (
     <Wrap>
       <Heading>
@@ -27,10 +24,8 @@ const Step1 = () => {
       <FindAddress onClick={() => setOpen(!open)} />
       <Title>사업장 정보</Title>
       <StoreInfo />
-      {/* <Button disabled={disabled}>다음</Button> */}
-      <Button onClick={onClickNext}>다음</Button>
       {open && (
-        <FindAddrModal />
+        <FindAddrModal onClick={() => setOpen(!open)}/>
       )}
     </Wrap>
   )

@@ -302,8 +302,8 @@ function FreeApply() {
   const { width } = useWindowSize();
   const checkLogin = () => {
     if (auth) {
-      window.open('https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo');
-      // navigate('/freeApply/insuroboWindstorm')
+      // window.open('https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo');
+      navigate('/freeApply/insuroboWindstorm')
     } else {
       alert('로그인이 필요한 페이지입니다.');
       setPathName(pathname)
