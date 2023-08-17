@@ -1,6 +1,7 @@
 const size = {
   mobile: 768,
   tab: 1440,
+  iframe: 1100,
 }
 
 const theme = {
@@ -41,6 +42,7 @@ const theme = {
   window: {
     tab: `@media screen and (max-width: ${size.tab}px)`,
     mobile: `@media screen and (max-width: ${size.mobile}px)`,
+    iframe: `@media screen and (max-width: ${size.iframe}px)`,
   }
 }
 
