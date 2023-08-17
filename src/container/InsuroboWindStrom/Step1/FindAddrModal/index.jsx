@@ -40,7 +40,7 @@ const FindAddrModal = ({onClick}) => {
       ji: cur.lnbrSlno,
       zip: cur.zipNo,
     }).then((res) => {
-
+      
     }).catch(() => {
       alert(
         '해당 지역은 건축물 대장에 데이터 존재하지 않습니다, 다시 선택해 주세요',
