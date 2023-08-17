@@ -20,6 +20,7 @@ import EditPassword from './pages/EditPassword';
 import { UserProvider } from './context/UserContext';
 import Policy from './pages/Policy';
 import InsuroboWindstorm from './pages/InsuroboWindstorm';
+import InsuroboCard from './pages/InsuroboCard';
 
 function App() {
   
@@ -48,6 +49,7 @@ function App() {
                     <Route path='/freeApply/insuroboWindstorm' element={<InsuroboWindstorm />} />
                     <Route path='/board' element={<Board />} />
                     <Route path='/policy/:pagename' element={<Policy />} />
+                    <Route path='/insuroboCard' element={<InsuroboCard />} />
                   </Route>
 
                   <Route element={<PublicRoute auth={auth} restricted />}>

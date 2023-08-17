@@ -6,6 +6,7 @@ import { Text, Title } from '../Font';
 import loan from '../../assets/img/loan.png';
 import card from '../../assets/img/card.png';
 import useWindowSize from '../../hooks/useWindowSize';
+import { useNavigate } from 'react-router-dom';
 
 const GoodsList = styled.ul`
   display: flex;
@@ -133,6 +134,10 @@ const TextArea = styled.div`
 
 function FinanceGoods() {
   const {width} = useWindowSize();
+  const navigate = useNavigate();
+  const goToLink = (link) => {
+    navigate(link)
+  }
   return (
     <Content 
       top={width > 768 ? '8.23%' : '18%'} 
@@ -165,7 +170,7 @@ function FinanceGoods() {
             <Text color='GRAY' bold='400'>*대출금액에 따라 상환기간 상이</Text>
           </TextArea>
         </Card>
-        <Card>
+        <Card onClick={() => goToLink('/insuroboCard')}>
           <TextArea img={card}>
             <Title color='BLACK3'>소상공인 전용카드</Title>
             <div>
