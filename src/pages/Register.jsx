@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from "react-router-dom";
-import AuthLayout from '../components/Auth/AuthLayout';
+import { useFormContext } from "react-hook-form";
+import { CommonAPI } from '../api/CommonAPI';
 import { Text } from '../components/Font';
+
+import AuthLayout from '../components/Auth/AuthLayout';
 import CustomButton from '../components/Button/CustomButton';
 import Input from '../components/Input';
 import HookFormCheckbox from '../components/Input/HookFormCheckbox';
 import useWindowSize from '../hooks/useWindowSize';
 import Timer from '../components/Timer';
-import { CommonAPI } from '../api/CommonAPI';
-import { useFormContext } from "react-hook-form";
 
 const ButtonWrap = styled.div`
   padding-top: 50px;

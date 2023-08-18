@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useFormContext } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { CommonAPI } from "../api/CommonAPI";
+import { Text } from "../components/Font";
 import Input from "../components/Input";
 import AuthLayout from "../components/Auth/AuthLayout";
-import { Text } from "../components/Font";
-import { useFormContext } from "react-hook-form";
 import CustomButton from "../components/Button/CustomButton";
-import { Link } from "react-router-dom";
 import Timer from "../components/Timer";
+
 import insurobo from '../assets/icon/email-svg.svg';
 import kakao from '../assets/img/kakaoIcon.png';
 import naver from '../assets/icon/naver-icon.png';
-import { CommonAPI } from "../api/CommonAPI";
+
 
 const Form = styled.form`
   padding-top: 80px;

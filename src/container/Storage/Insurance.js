@@ -5,13 +5,13 @@ export const StorageSetInsurance = async (insurance, initUserInfo) => {
   await localStorage.setItem('@inituser', JSON.stringify(initUserInfo));
 }
 
-export const StorageGetInsruance = async () => {
+export const StorageGetInsruance = () => {
   const defaultInsurance = {};
   const defaultInitUser = {};
 
   try {
-    const insurance = await localStorage.getItem('@insurance');
-    const initUser = await localStorage.getItem('@inituser');
+    const insurance = localStorage.getItem('@insurance');
+    const initUser = localStorage.getItem('@inituser');
     return {
       insurance: insurance ? JSON.parse(insurance) : '',
       inituser: initUser ? JSON.parse(initUser) : '',

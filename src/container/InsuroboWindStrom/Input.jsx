@@ -4,12 +4,14 @@ import styled, {css} from "styled-components";
 const Input = ({
   placeholder,
   first,
+  readOnly,
+  value,
   onChange,
-  value
 }) => {
   return (
     <InputBase
       first={first}
+      readOnly={readOnly}
       placeholder={placeholder}
       onChange={onChange}
       value={value}

@@ -1,13 +1,16 @@
 import React from 'react'
 import styled from 'styled-components';
-import Input from '../components/Input';
-import AuthLayout from '../components/Auth/AuthLayout';
-import { Text } from '../components/Font';
-import { useFormContext } from "react-hook-form";
-import CustomButton from '../components/Button/CustomButton';
-import useWindowSize from '../hooks/useWindowSize';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useFormContext } from "react-hook-form";
+import { Text } from '../components/Font';
+
+import Input from '../components/Input';
+import AuthLayout from '../components/Auth/AuthLayout';
+import CustomButton from '../components/Button/CustomButton';
+import useWindowSize from '../hooks/useWindowSize';
+
+
 
 const Form = styled.form`
   padding-top: 80px;

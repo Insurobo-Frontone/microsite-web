@@ -4,18 +4,20 @@ import { ReactComponent as CloseBtn } from '../../../../assets/icon/addrModalClo
 import searchIcon from '../../../../assets/icon/searchIcon.svg';
 import Prev from "./Prev";
 import { getCover, getJuso } from "../../../../api/WindstormAPI";
-import { useFormContext } from "react-hook-form";
+// import { useFormContext } from "react-hook-form";
 import ItemInfo from "./ItemInfo";
+import { StorageGetInsruance, StorageSetInsurance } from "../../../Storage/Insurance";
 
 const FindAddrModal = ({onClick}) => {
-  const { register, watch, formState: { errors } } = useFormContext({
-    mode: 'onBlur'
-  });
+  // const { register, watch, formState: { errors } } = useFormContext({
+  //   mode: 'onBlur'
+  // });
   const [addrData, setAddrData] = useState();
+  const [findAddrModal, setFindAddrModal] = useState(true); 
   const [errorMessage, setErrorMessage] = useState();
   const [value, setValue] = useState();
   const [apiCheck, setApiCheck] = useState(false);
-
+  
   const onClickSearch = () => {
     setApiCheck(true);
     if (!apiCheck) {
@@ -40,7 +42,10 @@ const FindAddrModal = ({onClick}) => {
       ji: cur.lnbrSlno,
       zip: cur.zipNo,
     }).then((res) => {
-      
+      StorageSetInsurance(res.data, '');
+      // const InsuroboInsurance = StorageGetInsruance()
+      // console.log(InsuroboInsurance);
+      setFindAddrModal(false);
     }).catch(() => {
       alert(
         '해당 지역은 건축물 대장에 데이터 존재하지 않습니다, 다시 선택해 주세요',
@@ -49,7 +54,7 @@ const FindAddrModal = ({onClick}) => {
 
   }
   return (
-    <FindAddrModalWrap>
+    <FindAddrModalWrap visible={findAddrModal}>
       <Content>
         <TitleWrap>
           <p>주소검색</p>
@@ -82,14 +87,6 @@ const FindAddrModal = ({onClick}) => {
             } 
           </ItemsWrap>) : (<Prev />)
         }
-          
-            
-          
-        
-        
-        
-        
-        
       </Content>
     </FindAddrModalWrap>
   )
@@ -101,10 +98,10 @@ const FindAddrModalWrap = styled.div`
   position: fixed;
   z-index: 9999;
   inset: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
+  display: ${props => props.visible ? 'flex' : 'none'};
 `;
 
 const Content = styled.div`

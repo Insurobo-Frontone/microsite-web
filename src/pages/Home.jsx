@@ -8,7 +8,7 @@ import Plaza from '../components/MainPage/Plaza';
 import TaxReturn from '../components/MainPage/TaxReturn';
 import useWindowSize from '../hooks/useWindowSize';
 import Layout from '../layout/index';
-import BizCareModal from '../components/BizCareProgram/BizCareModal';
+// import BizCareModal from '../components/BizCareProgram/BizCareModal';
 
 function Home() {
   const { width } = useWindowSize();

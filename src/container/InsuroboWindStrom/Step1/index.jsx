@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Heading from "../Heading";
 import Title from "../Title";
 import SelectItems from "./SelectItems";
 import FindAddress from "./FindAddress";
 import StoreInfo from "./StoreInfo";
-import Button from "../Button";
-import { useState } from "react";
+// import Button from "../Button";
 import FindAddrModal from "./FindAddrModal";
+import { StorageGetInsruance } from "../../Storage/Insurance";
 
 const Step1 = () => {
   // const [disabled, setDisabled] = useState(true);
   const [open, setOpen] = useState(false);
- 
+   
+  const InsuroboInsurance = StorageGetInsruance();
+
   return (
     <Wrap>
       <Heading>
@@ -21,11 +23,15 @@ const Step1 = () => {
       <Title>가입물건 선택</Title>
       <SelectItems />
       <Title>목적물 소재지</Title>
-      <FindAddress onClick={() => setOpen(!open)} />
+      <FindAddress
+        onClick={() => setOpen(!open)} 
+      />
       <Title>사업장 정보</Title>
       <StoreInfo />
       {open && (
-        <FindAddrModal onClick={() => setOpen(!open)}/>
+        <FindAddrModal 
+          onClick={() => setOpen(!open)} 
+        />
       )}
     </Wrap>
   )

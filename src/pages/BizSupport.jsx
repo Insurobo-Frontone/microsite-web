@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Title } from '../components/Font';
+
+import useWindowSize from '../hooks/useWindowSize';
 import Button from '../components/Button';
 import DetailContent from '../components/Content/DetailContent';
-import { Title } from '../components/Font';
 import Layout from '../layout/index';
 import banner from '../assets/img/event/bizsupport_banner.png';
-import useWindowSize from '../hooks/useWindowSize';
 
 const Banner = styled.div`
   display: flex;

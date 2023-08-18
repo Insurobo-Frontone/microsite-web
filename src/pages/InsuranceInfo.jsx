@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import { Text } from '../components/Font';
 import Layout from '../layout';
 import InfoContent from '../components/Content/InfoContent';
-import styled from 'styled-components';
-import hyd from '../assets/img/insurance/hyd.png';
-import imgPlace from '../assets/img/insurance/imagePlace.png';
+import CustomButton from '../components/Button/CustomButton';
+import ApplyModal from '../components/Modal/ApplyModal';
+import useWindowSize from '../hooks/useWindowSize';
+// import hyd from '../assets/img/insurance/hyd.png';
+// import imgPlace from '../assets/img/insurance/imagePlace.png';
 import duty_main from '../assets/img/insurance/dutyMain.png';
 import must_main from '../assets/img/insurance/mustMain.png';
 import invest_main from '../assets/img/insurance/investMain.png';
@@ -15,15 +19,11 @@ import d_icon4 from '../assets/icon/dutyIcon4.png';
 import d_icon5 from '../assets/icon/dutyIcon5.png';
 import m_icon1 from '../assets/icon/mustIcon1.png';
 import m_icon2 from '../assets/icon/mustIcon2.png';
-import CustomButton from '../components/Button/CustomButton';
-import { Text, Title } from '../components/Font';
-import ApplyModal from '../components/Modal/ApplyModal';
-
 import i_icon1 from '../assets/icon/invest_icon1.png'
 import i_icon2 from '../assets/icon/invest_icon2.png'
 import i_icon3 from '../assets/icon/invest_icon3.png'
 import i_icon4 from '../assets/icon/invest_icon4.png'
-import useWindowSize from '../hooks/useWindowSize';
+
 const list_duty = [
   {
     id: 1,

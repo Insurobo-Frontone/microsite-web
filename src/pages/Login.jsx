@@ -8,7 +8,7 @@ import { Text } from '../components/Font';
 import { useFormContext } from 'react-hook-form';
 import CustomButton from '../components/Button/CustomButton';
 import useWindowSize from '../hooks/useWindowSize';
-import { setAccessToken, setUserName } from '../container/Auth';
+import { setAccessToken, setUserName } from '../container/Storage/Auth';
 import { CommonAPI } from "../api/CommonAPI";
 import naverIcon from '../assets/img/naverIcon.png';
 import kakaoIcon from '../assets/img/kakaoIcon.png';
@@ -26,7 +26,7 @@ const SocialLoginGroup = styled.div`
     white-space: nowrap;
     
     > img {
-      margin-right: 14.3%;
+      margin-right: 1.75vw;
     }
   }
 
@@ -65,7 +65,7 @@ const Linear = styled.div`
   align-items: center;
   height: 110px;
   > span {
-    font-size: 1.15rem;
+    font-size: 1.2vw;
     color: #545454;
   }
 
@@ -197,11 +197,11 @@ function Login() {
     <SocialLoginGroup>
       <CustomButton bgColor='YELLOW' onClick={onKakaoLogin}>
         <img src={kakaoIcon} alt='카카오톡' />
-        <Text size={width > 768 ? '1.15rem' : '1rem'} color='BLACK4'>카카오톡 로그인</Text>
+        <Text size={width > 768 ? '1.2vw' : '1rem'} color='BLACK4'>카카오톡 로그인</Text>
       </CustomButton>
       <CustomButton bgColor='GREEN' onClick={onNaverLogin}>
         <img src={naverIcon} alt='네이버' />
-        <Text size={width > 768 ? '1.15rem' : '1rem'} color='WHITE'>네이버 로그인</Text>
+        <Text size={width > 768 ? '1.2vw' : '1rem'} color='WHITE'>네이버 로그인</Text>
       </CustomButton>
     </SocialLoginGroup>
     <Linear>

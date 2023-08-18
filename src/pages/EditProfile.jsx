@@ -1,19 +1,18 @@
-import React, { useState, useRef } from "react";
-import AuthLayout from "../components/Auth/AuthLayout";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import styled from "styled-components";
-import { useFormContext } from "react-hook-form";
-import Input from "../components/Input";
-import { Text } from "../components/Font";
-import CustomButton from "../components/Button/CustomButton";
 import { Link, useNavigate } from "react-router-dom";
-import DaumPostcode from 'react-daum-postcode';
+import { useFormContext } from "react-hook-form";
+import { Text } from "../components/Font";
 import { CommonAPI } from "../api/CommonAPI";
-import useWindowSize from "../hooks/useWindowSize";
-import { setUserName } from "../container/Auth";
-import { useEffect } from "react";
-import SelectInput from "../components/Input/SelectInput";
-import { useContext } from "react";
+import { setUserName } from "../container/Storage/Auth";
+
 import UserContext from "../context/UserContext";
+import AuthLayout from "../components/Auth/AuthLayout";
+import Input from "../components/Input";
+import SelectInput from "../components/Input/SelectInput";
+import CustomButton from "../components/Button/CustomButton";
+import DaumPostcode from 'react-daum-postcode';
+import useWindowSize from "../hooks/useWindowSize";
 
 const Form = styled.form`
   padding: 54px 0 147px;
@@ -128,6 +127,7 @@ function EditProfile() {
   const [data, setData] = useState();
   const [insuList, setInsuList] = useState([]);
   const user = useContext(UserContext);
+
   useEffect(() => {
     myData()
     // plannerList()
@@ -139,17 +139,13 @@ function EditProfile() {
    })
     const res2 = await CommonAPI.get("/api/private/insuList") 
     if(res1.status === 200){
-        
-        user.actions.setUser(res1.data.data)
-        setData(res1.data.data)
-       
-        
-        console.log(user.state.user)
-
+        user.actions.setUser(res1.data.data);
+        setData(res1.data.data);
+        console.log(user.state.user);
         reset()
     }
     if (res2.status === 200) {
-      setInsuList(res2.data.data)
+      setInsuList(res2.data.data);
     }
   }
 

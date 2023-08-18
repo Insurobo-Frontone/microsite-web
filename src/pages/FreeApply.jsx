@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import Layout from '../layout'
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Text  } from '../components/Font';
+import { setPathName } from '../container/Storage/Auth';
+
+import useWindowSize from '../hooks/useWindowSize';
+import Layout from '../layout';
+
 import bannerImg from '../assets/img/windstorm.png';
 import moreBtn from '../assets/icon/moreBtn.png';
 import checkIcon from '../assets/icon/checkIcon.png';
@@ -11,10 +15,8 @@ import factory from '../assets/icon/factory.png';
 import facility from '../assets/icon/facility.png';
 import inventories from '../assets/icon/inventories.png';
 import equipment from '../assets/icon/equipment.png';
-
 // import coin from '../assets/icon/coin.png';
-import useWindowSize from '../hooks/useWindowSize';
-import { setPathName } from '../container/Auth';
+
 
 const list1 = [
   {
@@ -302,8 +304,8 @@ function FreeApply() {
   const { width } = useWindowSize();
   const checkLogin = () => {
     if (auth) {
-      // window.open('https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo');
-      navigate('/freeApply/insuroboWindstorm')
+      window.open('https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo');
+      // navigate('/freeApply/insuroboWindstorm')
     } else {
       alert('로그인이 필요한 페이지입니다.');
       setPathName(pathname)

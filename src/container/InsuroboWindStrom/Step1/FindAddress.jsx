@@ -1,18 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "../Input";
 import Button from "../Button";
 
 const FindAddress = ({onClick}) => {
-  
+  const [values, setValues] = useState({
+    addr: '',
+    detail_addr: ''
+  })
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setValues({ ...values, [name]: value });
+  }
   return (
-    <>
+     <>
       <Wrap>
         <div>
-          <Input first placeholder="기본주소" />
+          <Input 
+            first
+            readOnly
+            placeholder="기본주소"
+            value={values.addr}
+          />
           <Button width={'85px'} onClick={onClick}>주소검색</Button>
         </div>
-        <Input placeholder="상세주소를 입력해 주세요."/>
+        <Input
+          placeholder="상세주소를 입력해 주세요."
+          value={values.detail_addr}
+          onChange={handleChange}
+        />
       </Wrap>
     </>
   )
