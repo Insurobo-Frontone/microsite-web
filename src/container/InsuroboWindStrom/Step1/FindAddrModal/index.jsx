@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as CloseBtn } from '../../../../assets/icon/addrModalCloseBtn.svg';
 import searchIcon from '../../../../assets/icon/searchIcon.svg';
@@ -6,7 +6,8 @@ import Prev from "./Prev";
 import { getCover, getJuso } from "../../../../api/WindstormAPI";
 // import { useFormContext } from "react-hook-form";
 import ItemInfo from "./ItemInfo";
-import { StorageGetInsruance, StorageSetInsurance } from "../../../Storage/Insurance";
+import { StorageSetInsurance } from "../../../Storage/Insurance";
+
 
 const FindAddrModal = ({onClick}) => {
   // const { register, watch, formState: { errors } } = useFormContext({
@@ -17,13 +18,15 @@ const FindAddrModal = ({onClick}) => {
   const [errorMessage, setErrorMessage] = useState();
   const [value, setValue] = useState();
   const [apiCheck, setApiCheck] = useState(false);
-  
+
+
   const onClickSearch = () => {
     setApiCheck(true);
     if (!apiCheck) {
       getJuso(value)
         .then((res) => (
           setAddrData(res.data),
+       
           setErrorMessage('')
         ))
         .catch((e) => (setErrorMessage(e.response.data.message)))
@@ -43,6 +46,7 @@ const FindAddrModal = ({onClick}) => {
       zip: cur.zipNo,
     }).then((res) => {
       StorageSetInsurance(res.data, '');
+
       // const InsuroboInsurance = StorageGetInsruance()
       // console.log(InsuroboInsurance);
       setFindAddrModal(false);

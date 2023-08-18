@@ -22,6 +22,7 @@ import Policy from './pages/Policy';
 import InsuroboWindstorm from './pages/InsuroboWindstorm';
 import InsuroboCard from './pages/InsuroboCard';
 
+
 function App() {
   
   const methods = useForm({
@@ -33,6 +34,7 @@ function App() {
     <ThemeProvider theme={theme}>
 
         <UserProvider>
+          
           <FormProvider {...methods}>
             <GlobalStyle />
               <Router>
@@ -66,6 +68,8 @@ function App() {
                 </Routes>
               </Router>
             </FormProvider>
+         
+          
           </UserProvider>
 
       </ThemeProvider>

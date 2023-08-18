@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import Input from "../Input";
 import Button from "../Button";
+import FindAddrModal from "./FindAddrModal";
+import { StorageGetInsruance } from "../../Storage/Insurance";
 
-const FindAddress = ({onClick}) => {
-  const [values, setValues] = useState({
-    addr: '',
-    detail_addr: ''
-  })
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setValues({ ...values, [name]: value });
-  }
-  return (
+const FindAddress = ({value, onChange}) => {
+
+  const [open, setOpen] = useState(false);
+  return ( 
      <>
       <Wrap>
         <div>
@@ -21,16 +17,20 @@ const FindAddress = ({onClick}) => {
             first
             readOnly
             placeholder="기본주소"
-            value={values.addr}
+            // value={insurance.state.address}
           />
-          <Button width={'85px'} onClick={onClick}>주소검색</Button>
+          <Button width={'85px'} onClick={() => setOpen(!open)}>주소검색</Button>
         </div>
         <Input
+          onChange={onChange}
           placeholder="상세주소를 입력해 주세요."
-          value={values.detail_addr}
-          onChange={handleChange}
         />
       </Wrap>
+      {open && (
+        <FindAddrModal
+          onClick={() => setOpen(!open)} 
+        />
+      )}
     </>
   )
 }
