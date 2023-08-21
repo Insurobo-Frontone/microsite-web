@@ -5,6 +5,7 @@ import Step1 from "../container/InsuroboWindStrom/Step1";
 import Step2 from "../container/InsuroboWindStrom/Step2";
 import { useEffect } from "react";
 import { StorageClearInsurance } from "../container/Storage/Insurance";
+import { useFormContext } from "react-hook-form";
 
 
 const Wrap = styled.div`

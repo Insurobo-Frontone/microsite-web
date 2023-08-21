@@ -5,15 +5,15 @@ import Title from "../Title";
 import SelectItems from "./SelectItems";
 import FindAddress from "./FindAddress";
 import StoreInfo from "./StoreInfo";
+import { useFormContext } from "react-hook-form";
+
 // import Button from "../Button";
-import { StorageGetInsruance } from "../../Storage/Insurance";
 
 const Step1 = () => {
-
-  const Insurance = StorageGetInsruance()
-
-
-
+  const { watch } = useFormContext({
+    mode: 'onBlur'
+  });
+  console.log(watch('objCat'))
   return (
     <Wrap>
       <Heading>
@@ -22,12 +22,9 @@ const Step1 = () => {
       <Title>가입물건 선택</Title>
       <SelectItems />
       <Title>목적물 소재지</Title>
-      <FindAddress 
-        
-      />
+      <FindAddress />
       <Title>사업장 정보</Title>
       <StoreInfo />
-      
     </Wrap>
   )
 }

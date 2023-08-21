@@ -104,4 +104,4 @@ const Input = ({
     </InputWrap>
   )
 }
-export default Input
+export default Input;

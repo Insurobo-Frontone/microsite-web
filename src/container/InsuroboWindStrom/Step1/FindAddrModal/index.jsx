@@ -4,36 +4,33 @@ import { ReactComponent as CloseBtn } from '../../../../assets/icon/addrModalClo
 import searchIcon from '../../../../assets/icon/searchIcon.svg';
 import Prev from "./Prev";
 import { getCover, getJuso } from "../../../../api/WindstormAPI";
-// import { useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import ItemInfo from "./ItemInfo";
 import { StorageSetInsurance } from "../../../Storage/Insurance";
-
+import RoadViewModal from "../Modal/RoadViewModal";
 
 const FindAddrModal = ({onClick}) => {
-  // const { register, watch, formState: { errors } } = useFormContext({
-  //   mode: 'onBlur'
-  // });
+  const { setValue } = useFormContext({
+    mode: 'onBlur'
+  });
   const [addrData, setAddrData] = useState();
   const [findAddrModal, setFindAddrModal] = useState(true); 
+  const [roadViewModal, setRoadViewModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-  const [value, setValue] = useState();
+  const [value, setValues] = useState();
   const [apiCheck, setApiCheck] = useState(false);
-
-
+  
   const onClickSearch = () => {
     setApiCheck(true);
     if (!apiCheck) {
       getJuso(value)
         .then((res) => (
           setAddrData(res.data),
-       
           setErrorMessage('')
         ))
         .catch((e) => (setErrorMessage(e.response.data.message)))
         .finally(() => setApiCheck(false));
     }
-    console.log(addrData)
-    console.log(errorMessage)
   }
 
   const onClickJuso = (cur) => {
@@ -46,10 +43,9 @@ const FindAddrModal = ({onClick}) => {
       zip: cur.zipNo,
     }).then((res) => {
       StorageSetInsurance(res.data, '');
-
-      // const InsuroboInsurance = StorageGetInsruance()
-      // console.log(InsuroboInsurance);
+      setValue('objAddr1', res.data.address)
       setFindAddrModal(false);
+      setRoadViewModal(true);
     }).catch(() => {
       alert(
         '해당 지역은 건축물 대장에 데이터 존재하지 않습니다, 다시 선택해 주세요',
@@ -58,41 +54,49 @@ const FindAddrModal = ({onClick}) => {
 
   }
   return (
-    <FindAddrModalWrap visible={findAddrModal}>
-      <Content>
-        <TitleWrap>
-          <p>주소검색</p>
-          <StyledCloseBtn onClick={onClick} />
-        </TitleWrap>
-        <SearchInputWrap>
-          <input
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            placeholder="주소를 입력하세요"
-          />
-          <SearchButton onClick={onClickSearch} />
-        </SearchInputWrap>
-        {addrData || errorMessage ? (
-          <ItemsWrap>
-            {errorMessage ? 
-              (<NonDataInfo>{errorMessage}</NonDataInfo>) : 
-              (
-                addrData?.results?.juso?.map((cur) => {
-                  return (
-                    <ItemInfo
-                      onClick={() => onClickJuso(cur)}
-                      zipCode={cur.zipNo}
-                      jibunAddr={cur.jibunAddr}
-                      roadAddr={cur.roadAddr}
-                    />
+    <>
+      {!roadViewModal ? (
+        <FindAddrModalWrap visible={findAddrModal}>
+          <Content>
+            <TitleWrap>
+              <p>주소검색</p>
+              <StyledCloseBtn onClick={onClick} />
+            </TitleWrap>
+            <SearchInputWrap>
+              <input
+                value={value}
+                onChange={(e) => setValues(e.target.value)}
+                placeholder="주소를 입력하세요"
+              />
+              <SearchButton onClick={onClickSearch} />
+            </SearchInputWrap>
+            {addrData || errorMessage ? (
+              <ItemsWrap>
+                {errorMessage ? 
+                  (<NonDataInfo>{errorMessage}</NonDataInfo>) : 
+                  (
+                    addrData.results.juso?.map((cur) => {
+                      return (
+                        <ItemInfo
+                          onClick={() => onClickJuso(cur)}
+                          zipCode={cur.zipNo}
+                          jibunAddr={cur.jibunAddr}
+                          roadAddr={cur.roadAddr}
+                        />
+                      )
+                    })
                   )
-                })
-              )
-            } 
-          </ItemsWrap>) : (<Prev />)
-        }
-      </Content>
-    </FindAddrModalWrap>
+                } 
+              </ItemsWrap>) : (<Prev />)
+            }
+          </Content>
+        </FindAddrModalWrap>
+        ) : (
+          <RoadViewModal 
+            onClick={() => setRoadViewModal(false)}
+          />
+        )}
+    </>
   )
 }
 

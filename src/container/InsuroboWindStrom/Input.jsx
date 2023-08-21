@@ -1,20 +1,32 @@
 import React from "react";
 import styled, {css} from "styled-components";
+import { useFormContext } from 'react-hook-form';
 
 const Input = ({
   placeholder,
   first,
   readOnly,
-  value,
   onChange,
+  name,
+  defaultValue,
+  required,
+  validate
 }) => {
+  const { register } = useFormContext({
+    mode: 'onBlur'
+  });
   return (
     <InputBase
       first={first}
       readOnly={readOnly}
       placeholder={placeholder}
       onChange={onChange}
-      value={value}
+      defaultValue={defaultValue}
+      name={name}
+      {...register(name, {
+        required: required,
+        validate: validate,
+      })}
     />
   )
 }

@@ -6,10 +6,20 @@ import Select from "../Select";
 const StoreInfo = () => {
   return (
     <Wrap>
-      <Input placeholder='가입면적' />
+      <Input 
+        placeholder='가입면적'
+        name='hsArea'
+
+      />
       <div>
-        <Input placeholder='가입 시작' />
-        <Input placeholder='가입 끝' />
+        <Input 
+          placeholder='가입 시작'
+          name='bldFloors1'
+        />
+        <Input 
+          placeholder='가입 끝'
+          name='bldFloors2'
+        />
       </div>
       <Select placeholder='영위 업종을 선택해주세요.'>
         <option>1</option>

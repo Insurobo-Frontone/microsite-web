@@ -3,29 +3,53 @@ import styled, { css } from "styled-components";
 import store from '../../../assets/icon/insuroboWindstorm/store.png';
 import factory from '../../../assets/icon/insuroboWindstorm/factory.png';
 import circleCheckIcon from '../../../assets/icon/insuroboWindstorm/circleCheckIcon.png';
+import { useFormContext } from 'react-hook-form';
 
 const SelectItems = () => {
   const [click, setClick] = useState(true);
-
+  const { register, setValue } = useFormContext({
+    mode: 'onBlur'
+  });
   return (
     <Wrap>
-      <div onClick={() => setClick(true)}>
+      <div onClick={() => {
+        setClick(true);
+        setValue('objCat', '1');
+      }}>
         <Icon color={click}>
           <img src={store} alt='일반상가' />
           {click && (
             <CircleIcon />
           )}
         </Icon>
-        <Title>일반상가</Title>
+        <input
+          type='radio'
+          id='1'
+          value='1'
+          name='objCat'
+          {...register('objCat')}
+          defaultChecked
+        />
+        <label for='1'>일반상가</label>
       </div>
-      <div onClick={() => setClick(false)}>
+      <div onClick={() => {
+        setClick(false);
+        setValue('objCat', '2');
+      }}>
         <Icon color={!click}>
           <img src={factory} alt='공장' />
           {!click && (
             <CircleIcon />
           )}
         </Icon>
-        <Title>공장</Title>
+        <input
+          id='2'
+          value='2'
+          type='radio'
+          name='objCat'
+          {...register('objCat')}
+        />
+        <label for='2'>공장</label>
       </div>
     </Wrap>
   ) 
@@ -38,6 +62,21 @@ const Wrap = styled.div`
   justify-content: center;
   margin-top: 30px;
   margin-bottom: 60px;
+
+  > div {
+    position: relative;
+    > input {
+      position: absolute;
+      left: -2000%;
+    }
+    > label {
+      display: block;
+      font-size: 14px;
+      line-height: 26px;
+      font-weight: 700;
+      color: #808080;
+    }
+  }
   > div {
     text-align: center;
   }
@@ -49,12 +88,7 @@ const Wrap = styled.div`
   }
 `;
 
-const Title = styled.p`
-  font-size: 14px;
-  line-height: 26px;
-  font-weight: 700;
-  color: #808080;
-`;
+
 
 const Icon = styled.div`
   width: 84px;

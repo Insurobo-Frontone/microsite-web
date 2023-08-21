@@ -1,7 +1,10 @@
 import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
-import GlobalStyle from './style/GlobalStyle'
+import { useForm, FormProvider } from "react-hook-form";
+import { UserProvider } from './context/UserContext';
+import GlobalStyle from './style/GlobalStyle';
 import theme from './style/Theme';
+
 import Home from './pages/Home';
 import Event from './pages/Event';
 import BizSupport from './pages/BizSupport';
@@ -11,13 +14,11 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import FindAccount from './pages/FindAccount';
 import FreeApply from './pages/FreeApply';
-import { useForm, FormProvider } from "react-hook-form";
 import EditProfile from './pages/EditProfile';
 import InsuranceInfo from './pages/InsuranceInfo';
 import PrivateRoute from './pages/PrivateRoute';
 import PublicRoute from './pages/PublicRoute';
 import EditPassword from './pages/EditPassword';
-import { UserProvider } from './context/UserContext';
 import Policy from './pages/Policy';
 import InsuroboWindstorm from './pages/InsuroboWindstorm';
 import InsuroboCard from './pages/InsuroboCard';
@@ -32,9 +33,7 @@ function App() {
   const auth = localStorage.getItem("@access-Token");
   return (
     <ThemeProvider theme={theme}>
-
         <UserProvider>
-          
           <FormProvider {...methods}>
             <GlobalStyle />
               <Router>
@@ -68,10 +67,7 @@ function App() {
                 </Routes>
               </Router>
             </FormProvider>
-         
-          
           </UserProvider>
-
       </ThemeProvider>
   );
 }

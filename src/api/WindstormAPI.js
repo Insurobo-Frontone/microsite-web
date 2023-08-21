@@ -1,4 +1,6 @@
 import axios from "axios";
+import { StorageGetInsruance } from "../container/Storage/Insurance";
+const InsuroboWindstorm = StorageGetInsruance();
 
 export const WindstormAPI = axios.create({
   baseURL: 'https://insrb.com',
@@ -19,3 +21,12 @@ export const getCover = async (params) => {
     `/ww/cover?sigungucd=${params.sigungucd}&bjdongcd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
   );
 };
+
+export const getRoadView = async () => {
+  return await axios.get(
+    `https://dapi.kakao.com/v2/local/search/address.json?query=${InsuroboWindstorm.insurance?.address}`,
+    {
+      headers: { Authorization: 'KakaoAK 0e523d00ef26c72b25033a3fb1570d1d' }
+    }
+  )
+}
