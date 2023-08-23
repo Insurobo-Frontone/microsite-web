@@ -1,6 +1,6 @@
 import axios from "axios";
-import { StorageGetInsruance } from "../container/Storage/Insurance";
-const InsuroboWindstorm = StorageGetInsruance();
+import { StorageGetInsurance } from "../container/Storage/Insurance";
+const InsuroboWindstorm = StorageGetInsurance();
 
 export const WindstormAPI = axios.create({
   baseURL: 'https://insrb.com',

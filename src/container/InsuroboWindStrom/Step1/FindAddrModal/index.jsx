@@ -118,6 +118,14 @@ const Content = styled.div`
   border-radius: 5px;
   background-color: #FFFFFF;
   overflow: scroll;
+
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+  }
 `;
 
 const TitleWrap = styled.div`

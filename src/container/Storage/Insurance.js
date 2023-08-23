@@ -5,7 +5,7 @@ export const StorageSetInsurance = async (insurance, initUserInfo) => {
   await localStorage.setItem('@inituser', JSON.stringify(initUserInfo));
 }
 
-export const StorageGetInsruance = () => {
+export const StorageGetInsurance = () => {
   const defaultInsurance = {};
   const defaultInitUser = {};
 

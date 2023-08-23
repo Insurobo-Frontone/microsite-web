@@ -246,27 +246,26 @@ const HookFormCheckbox = (props) => {
           arr[index] = !prev[index];
           return arr;
       });
-  };
+    };
 
     const selectAll = (e) => {
         setAllFlag(e.target.checked);
-        setValue('use_agree', true)
-        setValue('marketing_yn', true)
+        setValue('use_agree', e.target.checked)
+        setValue('marketing_yn', e.target.checked)
         setTermsFlag((prev) => {
           Object.keys(prev).map((item) => prev[item] = e.target.checked)
          return {
              ...prev
          }
-      });
-        
+      });  
     };
 
     useEffect(() => {
-        let allChecked = false;
-        if (Object.values(termsFlag).every((item) => item)) {
-            allChecked = true;
-        }
-        setAllFlag(allChecked);
+      let allChecked = false;
+      if (Object.values(termsFlag).every((item) => item)) {
+        allChecked = true;
+      }
+      setAllFlag(allChecked);
     },[termsFlag])
 
     const [id, setId] = useState(0);

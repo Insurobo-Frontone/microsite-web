@@ -14,7 +14,7 @@ const SelectItems = () => {
     <Wrap>
       <div onClick={() => {
         setClick(true);
-        setValue('objCat', '1');
+        setValue('objCat', '2');
       }}>
         <Icon color={click}>
           <img src={store} alt='일반상가' />
@@ -24,17 +24,17 @@ const SelectItems = () => {
         </Icon>
         <input
           type='radio'
-          id='1'
-          value='1'
+          id='2'
+          defaultValue='2'
           name='objCat'
           {...register('objCat')}
           defaultChecked
         />
-        <label for='1'>일반상가</label>
+        <label for='2'>일반상가</label>
       </div>
       <div onClick={() => {
         setClick(false);
-        setValue('objCat', '2');
+        setValue('objCat', '4');
       }}>
         <Icon color={!click}>
           <img src={factory} alt='공장' />
@@ -43,13 +43,13 @@ const SelectItems = () => {
           )}
         </Icon>
         <input
-          id='2'
-          value='2'
+          id='4'
+          defaultValue='4'
           type='radio'
           name='objCat'
           {...register('objCat')}
         />
-        <label for='2'>공장</label>
+        <label for='4'>공장</label>
       </div>
     </Wrap>
   ) 

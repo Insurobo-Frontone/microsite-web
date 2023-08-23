@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { ReactComponent as CloseBtn } from '../../../../assets/icon/addrModalCloseBtn.svg';
-import { StorageGetInsruance } from "../../../Storage/Insurance";
+import { StorageGetInsurance } from "../../../Storage/Insurance";
 import { getRoadView } from "../../../../api/WindstormAPI";
 import ModalTextList from "./ModalTextList";
 import Button from "../../Button";
 const { kakao } = window;
 
 const RoadViewModal = ({onClick}) => {
-  const InsuroboWindstorm = StorageGetInsruance();
+  const InsuroboWindstorm = StorageGetInsurance();
 
   useEffect(() => {
     getRoadView().then((res) => {

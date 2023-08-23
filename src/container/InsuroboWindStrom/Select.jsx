@@ -1,13 +1,22 @@
 import React from "react";
+import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import selectIcon from '../../assets/icon/insuroboWindstorm/selectIcon.png';
 
-const Select = ({defaultValue, placeholder, children, ...rest}) => {
+const Select = ({name, defaultValue, placeholder, required, children, ...rest}) => {
+  const { register, formState: { errors }} = useFormContext({
+		mode: 'onBlur',
+	});
+
   return (
     <SelectContainer>
       <SelectBase
+        name={name}
         key={defaultValue}
         defaultValue={defaultValue}
+        {...register(name, {
+					required: required
+				})}
         {...rest}
       >
         <option value="" hidden>

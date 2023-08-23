@@ -17,7 +17,6 @@ const FindAddress = () => {
             placeholder="기본주소"
             name='objAddr1'
             defaultValue=''
-            
           />
           <Button width={'85px'} onClick={() => setOpen(!open)}>주소검색</Button>
         </div>
@@ -25,8 +24,6 @@ const FindAddress = () => {
           placeholder="상세주소를 입력해 주세요."
           name='objAddr2'
           defaultValue=''
-         
-
         />
       </Wrap>
       {open && (

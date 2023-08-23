@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { StorageGetInsruance } from "../../../Storage/Insurance";
+import { StorageGetInsurance } from "../../../Storage/Insurance";
 
 const ModalTextList = () => {
-  const InsuroboWindstorm = StorageGetInsruance();
+  const InsuroboWindstorm = StorageGetInsurance();
 
   const BuildingInfoData = [
     {

@@ -328,9 +328,7 @@ function Register() {
               </SmsCheckBox>
             )}
           </PhoneGroup>
-            
           <HookFormCheckbox />
-
           <Text size={width > 768 ? '0.9rem' : '0.86rem'} color='WARNING_MESSAGE'>
             *선택 항목을 동의하지 않아도 가입이 가능합니다.
           </Text>
