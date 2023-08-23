@@ -43,5 +43,10 @@ const CustomTitle = styled.h1`
     left: 0;
     z-index: -1;
   }
+
+  ${(props) => props.theme.window.mobile} {
+    font-size: 20px;
+    line-height: 29px;
+  }
 `;
 

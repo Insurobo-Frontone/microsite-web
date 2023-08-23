@@ -30,7 +30,7 @@ const SelectItems = () => {
           {...register('objCat')}
           defaultChecked
         />
-        <label for='2'>일반상가</label>
+        <Label for='2' color={click}>일반상가</Label>
       </div>
       <div onClick={() => {
         setClick(false);
@@ -49,7 +49,7 @@ const SelectItems = () => {
           name='objCat'
           {...register('objCat')}
         />
-        <label for='4'>공장</label>
+        <Label for='4' color={!click}>공장</Label>
       </div>
     </Wrap>
   ) 
@@ -69,13 +69,6 @@ const Wrap = styled.div`
       position: absolute;
       left: -2000%;
     }
-    > label {
-      display: block;
-      font-size: 14px;
-      line-height: 26px;
-      font-weight: 700;
-      color: #808080;
-    }
   }
   > div {
     text-align: center;
@@ -88,6 +81,16 @@ const Wrap = styled.div`
   }
 `;
 
+const Label = styled.label`
+  display: block;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 700;
+  color: #808080;
+  ${props => props.color && css`
+    color: #2EA5FF;
+  `}
+`;
 
 
 const Icon = styled.div`

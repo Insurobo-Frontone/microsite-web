@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import { StorageSetInsurance, StorageGetInsurance, StorageClearInsurance } from "../container/Storage/Insurance";
@@ -17,6 +16,10 @@ const Wrap = styled.div`
   padding-left: 15px;
   padding-right: 15px;
   margin: auto;
+
+  ${(props) => props.theme.window.mobile} {
+    padding-top: 0;
+  }
 `;
 
 const Content = styled.div`
@@ -27,21 +30,26 @@ const Content = styled.div`
 
 
 const InsuroboWindstorm = () => {
-  const { watch, reset, } = useFormContext({
+  const { watch, reset} = useFormContext({
     mode: 'onChange'
   });
-  const location = useLocation();
+  
   useEffect(() => {
+    reset({
+      objAddr1: '',
+      objAddr2: '',
+      hsArea: '',
+      bldFloors1: '',
+      bldFloors2: '',
+      lobzCd: '',
+      ptyKorNm: '',
+      telNo: '',
+      emailAddr: '',
+      regNo: '',
+    })
     StorageClearInsurance()
-    console.log(
-      watch('Terms_1'),
-      watch('Terms_2'),
-      watch('Terms_3'),
-      watch('Terms_4'),
-      watch('Terms_5'),
-    )
-    reset()
-  }, [location, reset])
+    
+  }, [])
 
   const validate = () => {
     if (
@@ -51,10 +59,10 @@ const InsuroboWindstorm = () => {
       watch('bldFloors1') === '' ||
       watch('bldFloors2') === '' ||
       watch('lobzCd') === '' ||
-      watch('name') === '' ||
+      watch('ptyKorNm') === '' ||
       watch('telNo') === '' ||
-      watch('email') === '' ||
-      watch('identiNum') === ''
+      watch('emailAddr') === '' ||
+      watch('regNo') === ''
     ) {
       alert('정보값확인')
       return false;
@@ -73,20 +81,29 @@ const InsuroboWindstorm = () => {
   }
   const onClickNext = () => {
     validate();
+
     const getData = StorageGetInsurance()
 
     const clientInfo = {
-      ptyKorNm: watch('ptyKorNm'),
-      email: watch('emailAddr')
-
+      name: watch('ptyKorNm'),
+      phone: watch('telNo'),
+      email: watch('emailAddr'),
+      regNo: watch('regNo')
     }
     // 연락처
     const TelReplaceValue = watch('telNo').replace(
       /(^02.{0}|^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/,
       '$1-$2-$3',
     );
-    const SplitValue = TelReplaceValue.split('-');
-    console.log(SplitValue, watch('telNo'))
+    const TelSplitValue = TelReplaceValue.split('-');
+    
+    //주민번호 
+    const RegReplaceValue = watch('regNo').replace(
+      /([0-9]{6})([0-9]{6})/,
+      '$1-$2',
+    );
+    const RegSplitValue = RegReplaceValue.split('-');
+ 
     console.log('before', getData.insurance, getData.inituser)
     getData.insurance.ww_info.oagi6002vo.objCat = watch('objCat');
     getData.insurance.ww_info.oagi6002vo.objAddr2 = watch('objAddr2');
@@ -95,35 +112,34 @@ const InsuroboWindstorm = () => {
     getData.insurance.ww_info.oagi6002vo.bldFloors2 = watch('bldFloors2');
     getData.insurance.ww_info.oagi6002vo.lobzCd = watch('lobzCd');
     getData.insurance.ww_info.oagi6002vo.ptyKorNm = watch('ptyKorNm');
-    getData.insurance.ww_info.oagi6002vo.telNo1 = SplitValue[0];
-    getData.insurance.ww_info.oagi6002vo.telNo2 = SplitValue[1];
-    getData.insurance.ww_info.oagi6002vo.telNo3 = SplitValue[3];
-   
-    // getData.insurance.ww_info.oagi6002vo.telNo1 = watch('ptyKorNm');
-    getData.inituser = clientInfo
+    getData.insurance.ww_info.oagi6002vo.telNo1 = TelSplitValue[0];
+    getData.insurance.ww_info.oagi6002vo.telNo2 = TelSplitValue[1];
+    getData.insurance.ww_info.oagi6002vo.telNo3 = TelSplitValue[2];
+    getData.insurance.ww_info.oagi6002vo.regNo1 = RegSplitValue[0];
+    getData.insurance.ww_info.oagi6002vo.regNo2 = RegSplitValue[1];
+
+    getData.inituser = clientInfo;
+
     StorageSetInsurance(getData.insurance, getData.inituser)
     console.log('after', getData.insurance, getData.inituser)
     
   }
-  
 
   return (
-    
-      <Layout>
-        <Wrap>
-          <Content>
-            <Step1 />
-            <Step2 />
-            <Button 
-              onClick={onClickNext}
-              // disabled={validata}
-            >
-              다음
-            </Button>
-          </Content>
-        </Wrap>
-      </Layout>
-    
+    <Layout>
+      <Wrap>
+        <Content>
+          <Step1 />
+          <Step2 />
+          <Button 
+            onClick={onClickNext}
+            // disabled={validata}
+          >
+            다음
+          </Button>
+        </Content>
+      </Wrap>
+    </Layout>
   )
 }
 

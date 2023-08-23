@@ -11,7 +11,9 @@ const RoadViewModal = ({onClick}) => {
   const InsuroboWindstorm = StorageGetInsurance();
 
   useEffect(() => {
-    getRoadView().then((res) => {
+
+    getRoadView(InsuroboWindstorm.insurance.address).then((res) => {
+
       const xPosition = res.data.documents[0].address.x // 경도
       const yPosition = res.data.documents[0].address.y // 위도
 
@@ -19,20 +21,19 @@ const RoadViewModal = ({onClick}) => {
       const roadview = new kakao.maps.Roadview(roadviewContainer);
       const roadviewClient = new kakao.maps.RoadviewClient();
       const position = new kakao.maps.LatLng(yPosition, xPosition);
-
+      console.log(xPosition, yPosition)
       roadviewClient.getNearestPanoId(position, 50, function (panoId) {
         roadview.setPanoId(panoId, position);
-        console.log(panoId)
       });
 
-    })
-  }, []);
+    }).catch((e) => console.log(e, '에러'))
+  }, [InsuroboWindstorm]);
 
   return (
     <RoadViewModalWrap>
       <RoadViewBody>
         <RoadViewWrap>
-          <div id='roadview' />
+          <div id="roadview"></div>
           <TitleWrap>
             <div />
             <div style={{width: '80%'}}>
@@ -83,6 +84,14 @@ const RoadViewBody = styled.div`
 
   ::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
   }
 `;
 

@@ -22,11 +22,12 @@ export const getCover = async (params) => {
   );
 };
 
-export const getRoadView = async () => {
+// 카카오 위도 경도 구하기
+export const getRoadView = async (address) => {
   return await axios.get(
-    `https://dapi.kakao.com/v2/local/search/address.json?query=${InsuroboWindstorm.insurance?.address}`,
+    `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`,
     {
-      headers: { Authorization: 'KakaoAK 0e523d00ef26c72b25033a3fb1570d1d' }
+      headers: { Authorization: 'KakaoAK fcc20fe788cb7810ce0a9d929409394a' }
     }
   )
 }

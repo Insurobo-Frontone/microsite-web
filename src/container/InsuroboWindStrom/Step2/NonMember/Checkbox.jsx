@@ -70,7 +70,7 @@ const SelectChecked = styled.ul`
         background-image: url(${CheckBtn});
         background-repeat: no-repeat;
         background-position: center;
-        background-size: contain;
+        background-size: 80%;
       }
     }
   }

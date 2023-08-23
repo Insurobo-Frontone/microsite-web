@@ -10,7 +10,7 @@ const Title = ({children}) => {
 export default Title;
 
 const TitleContainer = styled.p`
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
   color: #000000;
 `;

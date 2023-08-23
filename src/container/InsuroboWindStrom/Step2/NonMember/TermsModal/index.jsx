@@ -18,7 +18,7 @@ const TermsModal = ({onClick, id}) => {
             __html: InfoData.find((cur) => cur.id === id).textData
           }} 
         />
-        <Button>확인</Button>
+        <Button onClick={onClick}>확인</Button>
       </Content>
     </TermsModalWrap>
   )
@@ -44,10 +44,16 @@ const Content = styled.div`
   background-color: #FFFFFF;
   overflow: scroll;
   padding: 20px 16px 30px;
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+  }
 `;
 
 const TitleWrap = styled.div`
-  
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -64,6 +70,13 @@ const TitleWrap = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    > p {
+      font-size: 20px;
+    }
+
   }
 `;
 
