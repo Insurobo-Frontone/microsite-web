@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import Input from "../../Input";
 
-const TitleInput = ({title, name, placeholder}) => {
+const TitleInput = ({title, name, placeholder, validate}) => {
   return (
     <Wrap>
       <Title>{title}</Title>
       <Input
         name={name}
         placeholder={placeholder}
+        validate={validate}
       />
     </Wrap>
   )  
