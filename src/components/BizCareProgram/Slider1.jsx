@@ -112,11 +112,12 @@ const Discription = styled.p`
 
   ${(props) => props.theme.window.mobile} {
     font-size: 11px;
-    line-height: 14px;
-    padding-top: 10px;
+    line-height: 147%;
+    padding-top: 15px;
     ::before {
-      width: 20px;
+      width: 15px;
       height: 3px;
+      margin-bottom: 5px;
     }
     > span {
       display: block;
@@ -132,12 +133,10 @@ const CardList = styled.ul`
   justify-content: space-between;
   padding: 2.27vw 0 1.3vw;
   
-  /* padding: 3.58% 0 2.1%; */
-
   ${(props) => props.theme.window.mobile} {
     flex-direction: column;
-    padding: 15px 0 15px;
-    height: 55.7919621749409%;
+    padding: 15px 0;
+ 
   }
 `;
 
@@ -164,10 +163,20 @@ const Card = styled.li`
   }
   ${(props) => props.theme.window.mobile} {
     width: 100%;
+    height: 13vh;
     flex-direction: row;
     padding: 7px 17px 8px;
     /* padding: 17px 17px 8px; */
     margin-bottom: 11px;
+    :first-child > div > div > img {
+      width: 3.3vh;
+    }
+    :nth-child(2) > div > div > img {
+      width: 4.9vh;
+    }
+    :last-child > div > div > img {
+      width: 2.6vh;
+    }
   }
 `;
 
@@ -182,9 +191,8 @@ const Icon = styled.div`
   box-shadow: 0 0 27px 0 rgba(109, 109, 109, 0.2);
   
   ${(props) => props.theme.window.mobile} {
-    width: 40px;
-    height: 40px;
-   
+    width: 6vh;
+    height: 6vh;
   }
 `;
 
@@ -282,6 +290,8 @@ const CardDiscription = styled.div`
 
   ${(props) => props.theme.window.mobile} {
     height: 84%;
+    align-self: flex-start;
+    margin-left: 15px;
     &.step1 {
       width: auto;
       display: flex;
@@ -296,16 +306,12 @@ const CardDiscription = styled.div`
     }
     &.step2, &.step3 {
       width: auto;
-      /* height: 104px; */
       display: flex;
       align-items: center;
     }
     &.step2 {
-      margin-left: 9px;
     }
     &.step3 {
-     
-      margin-left: 20px;
     }
     > p {
       font-size: 10px /*13px*/;
@@ -336,7 +342,8 @@ const Cost = styled.p`
   text-align: end;
   ${(props) => props.theme.window.mobile} {
     height: 16%;
-    font-size: 10px  /*10px*/;
-    transform: translate(-0%, -0%) scale(0.8);
+    font-size: 1vw; /*10px*/;
+    /* transform: translate(-0%, -0%) scale(0.8); */
+
   }
 `;

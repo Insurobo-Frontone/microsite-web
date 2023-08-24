@@ -55,6 +55,10 @@ const Wrapper = styled.div`
   background-color: #FAFAFA;
   ${(props) => props.theme.window.mobile} {
     box-shadow: 0 4px 19px 0 rgba(0, 0, 0, 0.3);
+    width: 85.33333333333333%;
+    height: 85%;
+    margin-top: 15%
+    ;
   }
 
   
@@ -66,7 +70,6 @@ const StyledSlider = styled(Slider)`
   background-image: url(${bg1}), url(${bg2});
   background-repeat: no-repeat;
   background-position: 99% 2%, 0% 71%;
-
   padding: 2.35vw 1.85vw 0;
   position: relative;
 
@@ -236,10 +239,10 @@ const LastPageClose = styled.button`
 
   ${(props) => props.theme.window.mobile} {
     font-size: 13px;
-    right: 17px;
-    bottom: 0px;
+    right: 13px;
+    top: 94.5%;
+    bottom: 0;
     height: 5.4%;
     width: 50px;
-    line-height: 1;
   }
 `;

@@ -8,7 +8,7 @@ import Plaza from '../components/MainPage/Plaza';
 import TaxReturn from '../components/MainPage/TaxReturn';
 import useWindowSize from '../hooks/useWindowSize';
 import Layout from '../layout/index';
-// import BizCareModal from '../components/BizCareProgram/BizCareModal';
+import BizCareModal from '../components/BizCareProgram/BizCareModal';
 
 function Home() {
   const { width } = useWindowSize();
@@ -40,12 +40,12 @@ function Home() {
 
   return (
     <>
-      {/* <EventModalOverlay open={showPopup}>
+      <EventModalOverlay open={showPopup}>
         <BizCareModal
           todayOnClose={handleClickClose}
           close={onClose}
         />
-      </EventModalOverlay> */}
+      </EventModalOverlay>
       <Layout>
         <MainSlider />
         <Plaza scrollY={width > 700 ? 0 : 0} />
@@ -76,9 +76,4 @@ const EventModalOverlay = styled.div`
   ${props => props.open && css`
     display: flex;
   `}
-
-  ${(props) => props.theme.window.tab} {
-    flex-direction: column;
-
-  }
 `;

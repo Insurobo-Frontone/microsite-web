@@ -78,19 +78,19 @@ const SelectChecked = styled.ul`
 
 
 const Title = styled.p`
-  font-size: 12px;
+  font-size: 15px;
   text-decoration: underline;
-  line-height: 16px;
+  line-height: 24px;
   color: #808080;
 `
 
 
 
 const Checkbox = () => {
-    const {register, setValue, formState: { errors }} = useFormContext();
+    const { register, setValue } = useFormContext();
     const [allFlag, setAllFlag] = useState(false);
     const [termsFlag, setTermsFlag] = useState([false,false,false,false,false]);
-    
+    const [modal, setModal] = useState(0);
     const exList = [
       {
         id: 0,
@@ -102,21 +102,21 @@ const Checkbox = () => {
       },
       {
         id: 1,
-        title: '개인(신용)정보의 수집/이용에 관한 사항',
+        title: '개인(신용)정보의 수집/이용에 관한 사항',
         name: 'Terms_2',
         label: 'select2',
         terms: 2,
       },
       {
         id: 2,
-        title: '개인(신용)정보의 조회에 관한 사항',
+        title: '개인(신용)정보의 조회에 관한 사항',
         name: 'Terms_3',
         label: 'select3',
         terms: 3,
       },
       {
         id: 3,
-        title: '개인(신용)정보의 제공에 관한 사항',
+        title: '개인(신용)정보의 제공에 관한 사항',
         name: 'Terms_4',
         label: 'select4',
         terms: 4,
@@ -132,9 +132,9 @@ const Checkbox = () => {
 
     const toggleCheck = (e, index) => {
       setTermsFlag((prev) => {
-          const arr = { ...prev };
-          arr[index] = !prev[index];
-          return arr;
+        const arr = { ...prev };
+        arr[index] = !prev[index];
+        return arr;
       });
     };
 
@@ -160,7 +160,8 @@ const Checkbox = () => {
       }
       setAllFlag(allChecked);
     },[termsFlag])
-    const [modal, setModal] = useState(0);
+
+    
     const handleModal = (idx) => {
       setModal(idx)
     }
@@ -185,7 +186,7 @@ const Checkbox = () => {
                     id={item.label}
                     checked={termsFlag[item.id]}
                     {...register(item.name)}
-                    onChange={(e) => toggleCheck(e, index)} 
+                    onChange={(e) => toggleCheck(e, index)}
                   />
                   <label for={item.label}></label>
                 </li>

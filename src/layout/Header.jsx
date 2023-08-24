@@ -153,7 +153,8 @@ function Header() {
   }, []);
 
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem('@userName');
+    localStorage.removeItem('@access-Token');
     navigate('/')
     //  window.location.reload()
   }
@@ -219,9 +220,7 @@ function Header() {
         </Wrap>
         {showPopup && (
           <>
-
             <WindStormModal onClick={() => setShowPopup(!showPopup)} />
-          
           </>
     
         )}

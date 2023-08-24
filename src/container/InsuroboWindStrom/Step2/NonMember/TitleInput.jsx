@@ -29,7 +29,7 @@ const Wrap = styled.div`
 
 const Title = styled.p`
   color: #2EA5FF;
-  font-size: 10px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 16px;
   margin-bottom: 10px;
