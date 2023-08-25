@@ -107,8 +107,8 @@ const InsuroboWindstorm = () => {
         '$1-$2-$3',
       );
       const BizSplitValue = BizReplaceValue.split('-');
-  
       console.log('before', getData.insurance, getData.inituser)
+      
       getData.insurance.ww_info.oagi6002vo.objCat = watch('objCat');
       getData.insurance.ww_info.oagi6002vo.objAddr2 = watch('objAddr2');
       getData.insurance.ww_info.oagi6002vo.hsArea = watch('hsArea');

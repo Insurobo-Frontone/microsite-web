@@ -57,11 +57,8 @@ const Wrapper = styled.div`
     box-shadow: 0 4px 19px 0 rgba(0, 0, 0, 0.3);
     width: 85.33333333333333%;
     height: 85%;
-    margin-top: 15%
-    ;
+    margin-top: 15%;
   }
-
-  
 `;
 
 const StyledSlider = styled(Slider)`
@@ -80,21 +77,33 @@ const StyledSlider = styled(Slider)`
     background-color: #FFFFFF;
     border-radius:  0 0 10px 10px;
     > li {
-        margin-top: 1.5vw;
-        button::before {
-        color: #F0F0F0;
-        opacity: 1;
-        border-radius: 50%;
-        font-size: 0.77vw;
+      margin: 1.3vw 0.55vw 1.3vw 0;
+      width: 1.04vw;
+      height: 1.04vw;
+      :last-child {
+        margin-right: 0;
+      }
+      button {
+        width: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        ::before {
+          content: '';
+          background-color: #F0F0F0;
+          opacity: 1;
+          border-radius: 50%;
+          width: 0.7vw;
+          height: 0.7vw;
+        }
       }
     }
     .slick-active {
       button::before {
-        color: #4575F5;
+        background-color: #4575F5;
         opacity: 1;
       }
     }
-    
   }
   .slick-prev {
     left: 1.83vw;
@@ -145,20 +154,16 @@ const StyledSlider = styled(Slider)`
     .slick-dots {
       height: 5.4%;
       > li {
-        top: -5%;
+        top: -20%;
+        margin: 1.3vw 0.55vw 1.3vw 0;
         width: 14px;
         height: 14px;
-        margin: 0;
-      }
-      button {
-        width: 14px;
-        height: 14px;
-      }
-      button::before {
-        width: 14px;
-        height: 14px;
-        line-height: 14px;
-        font-size: 8px;
+        button {
+          ::before {
+            width: 10px;
+            height: 10px;
+          }
+        }
       }
     }
     .slick-prev {
