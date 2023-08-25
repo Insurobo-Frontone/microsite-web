@@ -13,8 +13,6 @@ import mb_slider2 from '../../assets/img/mb_slider2.png';
 import mb_slider3 from '../../assets/img/mb_slider3.png';
 // import play from '../../assets/img/playIcon.png';
 // import pause from '../../assets/img/pauseIcon.png';
-
-import useWindowSize from '../../hooks/useWindowSize';
 import { Link } from 'react-router-dom';
 
 
@@ -29,18 +27,18 @@ const data = [
     mb_bg_img: mb_slider1,
     color: 'PRIMARY',
   },
+  // {
+  //   id: 2,
+  //   t_line1: '비즈로보',
+  //   t_line2: '지원센터',
+  //   t_line3: '오픈 EVENT',
+  //   link: '/event',
+  //   bg_img: slider2,
+  //   mb_bg_img: mb_slider2,
+  //   color: 'SECONDARY',
+  // },
   {
     id: 2,
-    t_line1: '비즈로보',
-    t_line2: '지원센터',
-    t_line3: '오픈 EVENT',
-    link: '/event',
-    bg_img: slider2,
-    mb_bg_img: mb_slider2,
-    color: 'SECONDARY',
-  },
-  {
-    id: 3,
     t_line1: '2023년',
     t_line2: '소상공인',
     t_line3: '지원정책',
