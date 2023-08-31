@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Input from "../Input";
 import Select from "../Select";
 import { StorageGetInsurance } from "../../Storage/Insurance";
 import { useFormContext } from "react-hook-form";
-import { useEffect } from "react";
 
 const StoreInfo = () => {
-  const [infoData, setInfoData] = useState();
+  // const [infoData, setInfoData] = useState();
+
 
   const InsuroboWindstorm = StorageGetInsurance();
-  const { watch } = useFormContext({
+  const { watch, trigger } = useFormContext({
     mode: 'onBlur'
   });
-  
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <Wrap>

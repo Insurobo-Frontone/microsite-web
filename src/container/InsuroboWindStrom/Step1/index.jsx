@@ -7,14 +7,7 @@ import SelectItems from "./SelectItems";
 import FindAddress from "./FindAddress";
 import StoreInfo from "./StoreInfo";
 
-
-// import Button from "../Button";
-
 const Step1 = () => {
-  const { watch } = useFormContext({
-    mode: 'onBlur'
-  });
-  console.log(watch('objCat'))
   return (
     <Wrap>
       <Heading>

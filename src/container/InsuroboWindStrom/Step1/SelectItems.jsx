@@ -3,13 +3,19 @@ import styled, { css } from "styled-components";
 import store from '../../../assets/icon/insuroboWindstorm/store.png';
 import factory from '../../../assets/icon/insuroboWindstorm/factory.png';
 import circleCheckIcon from '../../../assets/icon/insuroboWindstorm/circleCheckIcon.png';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
+import { useEffect } from "react";
 
 const SelectItems = () => {
   const [click, setClick] = useState(true);
-  const { register, setValue } = useFormContext({
-    mode: 'onBlur'
+  const { register, setValue, watch } = useFormContext({
+    defaultValues: {
+      objCat: "2"
+    },
+
   });
+
+ 
   return (
     <Wrap>
       <div onClick={() => {
@@ -25,7 +31,7 @@ const SelectItems = () => {
         <input
           type='radio'
           id='2'
-          defaultValue='2'
+          value='2'
           name='objCat'
           {...register('objCat')}
           defaultChecked
@@ -44,7 +50,7 @@ const SelectItems = () => {
         </Icon>
         <input
           id='4'
-          defaultValue='4'
+          value='4'
           type='radio'
           name='objCat'
           {...register('objCat')}
