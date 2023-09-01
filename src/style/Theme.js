@@ -1,7 +1,6 @@
 const size = {
   mobile: 768,
   tab: 1440,
-  iframe: 1100,
 }
 
 const theme = {

@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { ReactComponent as CloseBtn } from '../../assets/icon/bizCarecloseButton.svg';
-import mbClose from '../../assets/icon/bizSlideCloseBtn.png';
+import sliderCloseIcon from '../../assets/icon/bizSlideCloseBtn.png';
 import bg1 from '../../assets/img/bizcareBg1.png';
 import bg2 from '../../assets/img/bizcareBg2.png';
 import Slider1 from './Slider1';
@@ -19,20 +18,18 @@ const settings = {
   infinite: false,
 }
 
-function BizCareModal({todayOnClose, close}) {
+function BizCareModal({close}) {
   return (
   <>
     <Wrapper>
+      <SliderCloseButton onClick={close}>
+        <img src={sliderCloseIcon} alt='닫기' />
+      </SliderCloseButton>
       <StyledSlider {...settings}>
         <Slider1 />
         <Slider2 />
         <Slider3 onClick={close} />
       </StyledSlider>
-      <TodayCloseButton onClick={todayOnClose}>
-        <CloseIcon fill='#FFFFFF' onClick={close} />
-        <p>다시보지 않기</p>
-      </TodayCloseButton>
-      <MobileCloseButton onClick={close} />
       <LastPageClose onClick={close}>CLOSE</LastPageClose>
     </Wrapper>
   </>
@@ -42,7 +39,6 @@ export default BizCareModal;
 
 
 const Wrapper = styled.div`
-  position: relative;
   width: 66.7vw;
   height: 42.73vw;
   position: relative;
@@ -189,43 +185,21 @@ const StyledSlider = styled(Slider)`
 
 `;
 
-const TodayCloseButton = styled.div`
+const SliderCloseButton = styled.button`
   position: absolute;
-  left: 0;
-  bottom: -3vw;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  > p {
-    color: #FFFFFF;
-    font-size: 1.2vw;
-    letter-spacing: -0.3px;
+  top: -7%;
+  right: 0;
+  > img {
+    width: 2.34vw;
+    height: 2.34vw;
   }
-
   ${(props) => props.theme.window.mobile} {
-    display: none;
-  }
-`;
-
-const CloseIcon = styled(CloseBtn)`
-  margin: 0.365vw 0.68vw 0.315vw 0;
-  width: 1.36vw;
-  height: 1.36vw;
-  font-size: 1.2vw;
-`;
-
-const MobileCloseButton = styled.button`
-  display: none;
-  ${(props) => props.theme.window.mobile} {
-    display: flex;
-    width: 17px;
-    height: 17px;
-    background-image: url(${mbClose});
-    background-size: contain;
-    position: absolute;
-    top: -25px;
+    top: -30px;
     right: 0;
-    background-color: transparent;
+    > img {
+      width: 24px;
+      height: 24px;
+    }
   }
 `;
 

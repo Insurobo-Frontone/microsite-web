@@ -6,6 +6,7 @@ import theme from '../style/Theme';
 import ScrollToTop from "./ScrollToTop";
 import PageScrollToTop from "./pageScrollToTop";
 import { Outlet } from 'react-router-dom';
+import QuickMenu from "./QuickMenu";
 
 const Wrap = styled.div`
   width: 100%;
@@ -21,6 +22,7 @@ const Layout = ({children, color}) => {
     <>
       <ScrollToTop />
       <PageScrollToTop />
+      <QuickMenu />
       <Wrap color={color}>
         <Header/>
           <Outlet />
