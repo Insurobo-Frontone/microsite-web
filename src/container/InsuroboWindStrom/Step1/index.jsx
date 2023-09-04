@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useFormContext } from "react-hook-form";
 import Heading from "../Heading";
 import Title from "../Title";
 import SelectItems from "./SelectItems";

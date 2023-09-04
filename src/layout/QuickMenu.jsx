@@ -87,10 +87,6 @@ const QuickMenuList = styled.div`
   }
   ${(props) => props.theme.window.tab} {
     margin-bottom: 20px;
-    
-  }
-  ${(props) => props.theme.window.mobile} {
-    
   }
 `;
 
@@ -119,6 +115,7 @@ const TextWrap = styled.div`
     }
     > p {
       font-size: 10px;
+      line-height: 1.3;
     }
   }
 `;
