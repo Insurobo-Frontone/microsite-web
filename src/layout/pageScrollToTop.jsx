@@ -33,7 +33,7 @@ export default PageScrollToTop;
 const ToTopButton = styled.div`
   position: fixed;
   bottom: 5%;
-  right: 2%;
+  right: 3%;
   background-color: #444444;
   width: 50px;
   height: 50px;
@@ -44,7 +44,8 @@ const ToTopButton = styled.div`
   opacity: 0;
   transition: all .4s;
   display: flex;
-  &.show{
+  &.show {
     opacity: 1;
   }
+
 `;
