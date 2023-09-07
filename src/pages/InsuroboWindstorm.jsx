@@ -45,7 +45,6 @@ const InsuroboWindstorm = () => {
       ptyKorNm: '',
       ptyBizNm: '',
       telNo: '',
-      emailAddr: '',
       regNo: '',
       bizNo: ''
     })
@@ -64,7 +63,6 @@ const InsuroboWindstorm = () => {
       watch('ptyKorNm') === '' ||
       watch('ptyBizNm') === '' ||
       watch('telNo') === '' ||
-      watch('emailAddr') === '' ||
       watch('regNo') === '' ||
       watch('bizNo') === ''
     ) {
@@ -78,14 +76,15 @@ const InsuroboWindstorm = () => {
     ) {
       alert('개인정보처리 동의 필수체크')
     } else {
-      const getData = StorageGetInsurance()
+      const getData = StorageGetInsurance();
+
       const clientInfo = {
         name: watch('ptyKorNm'),
         bizname: watch('ptyBizNm'),
         phone: watch('telNo'),
-        email: watch('emailAddr'),
         regNo: watch('regNo'),
-        bizNo: watch('bizNo')
+        bizNo: watch('bizNo'),
+        gender: watch('gender')
       }
       // 연락처
       const TelReplaceValue = watch('telNo').replace(
@@ -95,11 +94,11 @@ const InsuroboWindstorm = () => {
       const TelSplitValue = TelReplaceValue.split('-');
       
       //주민번호 
-      const RegReplaceValue = watch('regNo').replace(
-        /([0-9]{6})([0-9]{6})/,
-        '$1-$2',
-      );
-      const RegSplitValue = RegReplaceValue.split('-');
+      // const RegReplaceValue = watch('regNo').replace(
+      //   /([0-9]{6})([0-9]{6})/,
+      //   '$1-$2',
+      // );
+      // const RegSplitValue = RegReplaceValue.split('-');
    
       //사업자등록번호
       const BizReplaceValue = watch('bizNo').replace(
@@ -121,9 +120,9 @@ const InsuroboWindstorm = () => {
       getData.insurance.ww_info.oagi6002vo.telNo2 = TelSplitValue[1];
       getData.insurance.ww_info.oagi6002vo.telNo3 = TelSplitValue[2];
   
-      getData.insurance.ww_info.oagi6002vo.regNo1 = RegSplitValue[0];
-      getData.insurance.ww_info.oagi6002vo.regNo2 = RegSplitValue[1];
-  
+      getData.insurance.ww_info.oagi6002vo.regNo1 = watch('regNo');
+      // getData.insurance.ww_info.oagi6002vo.regNo2 = RegSplitValue[1];
+      
       getData.insurance.ww_info.oagi6002vo.bizNo1 = BizSplitValue[0];
       getData.insurance.ww_info.oagi6002vo.bizNo2 = BizSplitValue[1];
       getData.insurance.ww_info.oagi6002vo.bizNo3 = BizSplitValue[2];
