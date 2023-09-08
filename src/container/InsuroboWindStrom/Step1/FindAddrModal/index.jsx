@@ -8,6 +8,7 @@ import { useFormContext } from "react-hook-form";
 import ItemInfo from "./ItemInfo";
 import { StorageSetInsurance } from "../../../Storage/Insurance";
 import RoadViewModal from "../Modal/RoadViewModal";
+import axios from "axios";
 
 const FindAddrModal = ({onClick}) => {
   const { setValue } = useFormContext({
@@ -25,10 +26,11 @@ const FindAddrModal = ({onClick}) => {
     if (!apiCheck) {
       getJuso(value)
         .then((res) => (
-          setAddrData(res.data),
-          setErrorMessage('')
+          setAddrData(res),
+          setErrorMessage(''),
+          console.log(res)
         ))
-        .catch((e) => (setErrorMessage(e.response.data.message)))
+        // .catch((e) => (setErrorMessage(e.response)))
         .finally(() => setApiCheck(false));
     }
   }
@@ -42,8 +44,8 @@ const FindAddrModal = ({onClick}) => {
       ji: cur.lnbrSlno,
       zip: cur.zipNo,
     }).then((res) => {
-      StorageSetInsurance(res.data, '');
-      setValue('objAddr1', res.data.address)
+      StorageSetInsurance(res, '');
+      setValue('objAddr1', addrData.results.juso?.roadAddr)
       setFindAddrModal(false);
       setRoadViewModal(true);
     }).catch(() => {
