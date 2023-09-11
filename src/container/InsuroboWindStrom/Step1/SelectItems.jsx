@@ -3,19 +3,15 @@ import styled, { css } from "styled-components";
 import store from '../../../assets/icon/insuroboWindstorm/store.png';
 import factory from '../../../assets/icon/insuroboWindstorm/factory.png';
 import circleCheckIcon from '../../../assets/icon/insuroboWindstorm/circleCheckIcon.png';
-import { Controller, useFormContext } from 'react-hook-form';
-import { useEffect } from "react";
+import { useFormContext } from 'react-hook-form';
 
 const SelectItems = () => {
   const [click, setClick] = useState(true);
-  const { register, setValue, watch } = useFormContext({
+  const { register, setValue } = useFormContext({
     defaultValues: {
       objCat: "2"
     },
-
   });
-
- 
   return (
     <Wrap>
       <div onClick={() => {

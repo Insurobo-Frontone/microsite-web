@@ -5,10 +5,10 @@ import searchIcon from '../../../../assets/icon/searchIcon.svg';
 import Prev from "./Prev";
 import { getCover, getJuso } from "../../../../api/WindstormAPI";
 import { useFormContext } from "react-hook-form";
-import ItemInfo from "./ItemInfo";
 import { StorageSetInsurance } from "../../../Storage/Insurance";
+import ItemInfo from "./ItemInfo";
+
 import RoadViewModal from "../Modal/RoadViewModal";
-import axios from "axios";
 
 const FindAddrModal = ({onClick}) => {
   const { setValue } = useFormContext({
@@ -27,10 +27,9 @@ const FindAddrModal = ({onClick}) => {
       getJuso(value)
         .then((res) => (
           setAddrData(res),
-          setErrorMessage(''),
-          console.log(res)
+          setErrorMessage('')
         ))
-        // .catch((e) => (setErrorMessage(e.response)))
+        .catch((e) => (setErrorMessage(e.message)))
         .finally(() => setApiCheck(false));
     }
   }
@@ -44,16 +43,15 @@ const FindAddrModal = ({onClick}) => {
       ji: cur.lnbrSlno,
       zip: cur.zipNo,
     }).then((res) => {
-      StorageSetInsurance(res, '');
-      setValue('objAddr1', addrData.results.juso?.roadAddr)
+      StorageSetInsurance(res, addrData);
+      setValue('objAddr1', addrData.addrs?.roadAddr);
       setFindAddrModal(false);
       setRoadViewModal(true);
     }).catch(() => {
       alert(
         '해당 지역은 건축물 대장에 데이터 존재하지 않습니다, 다시 선택해 주세요',
       );
-    })
-
+    });
   }
   return (
     <>
@@ -77,7 +75,7 @@ const FindAddrModal = ({onClick}) => {
                 {errorMessage ? 
                   (<NonDataInfo>{errorMessage}</NonDataInfo>) : 
                   (
-                    addrData.results.juso?.map((cur) => {
+                    addrData.addrs?.map((cur) => {
                       return (
                         <ItemInfo
                           onClick={() => onClickJuso(cur)}

@@ -3,18 +3,19 @@ import axios from "axios";
 export const WindstormAPI = axios.create({
   baseURL: 'https://insrb.com',
   // baseURL: 'http://localhost:8080',
-  // headers: {
-  //   'X-insr-servicekey':
-  //   'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg==',
-  // },
+  headers: {
+    'X-insr-servicekey':
+    'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg==',
+  },
 });
 
+// 주소검색
 export const getJuso = async (params) => {
   // return await WindstormAPI.get(`/ww/juso?search=${params}`);
-  return await WindstormAPI.get(`/Pub/AddrLink/getAddr?=${params}`);
+  return await WindstormAPI.get(`/Pub/AddrLink/getAddr?search=${params}`);
 };
 
-
+// 건축물 표제부 검색 API
 export const getCover = async (params) => {
   console.log('getCover', params);
   return await WindstormAPI.get(
@@ -32,3 +33,20 @@ export const getRoadView = async (address) => {
     }
   )
 }
+
+// 현대해상 웹링크 목적물 정보 연계 API
+export const postHiLinkObj = async (params) => {
+  console.log('postHiLinkObj', params);
+  return await WindstormAPI.post('Hi/StmFld/linkObjInfo', {
+    data: {
+      ...params,
+    },
+  });
+};
+
+//업종코드 기준정보 조회 API
+export const getLoBzCdList = async () => {
+  return await WindstormAPI.get(
+    `Master/Code/getLoBzCdList`,
+  );
+};

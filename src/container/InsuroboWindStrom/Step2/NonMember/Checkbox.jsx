@@ -91,11 +91,12 @@ const Checkbox = () => {
     const [allFlag, setAllFlag] = useState(false);
     const [termsFlag, setTermsFlag] = useState([false,false,false,false,false]);
     const [modal, setModal] = useState(0);
+    
     const exList = [
       {
         id: 0,
         title: '소비자 권익에 관한 사항',
-        name: 'Terms_1',
+        name: 'TERMSA_1',
         label: 'select1',
         terms: 1,
 
@@ -103,28 +104,28 @@ const Checkbox = () => {
       {
         id: 1,
         title: '개인(신용)정보의 수집/이용에 관한 사항',
-        name: 'Terms_2',
+        name: 'TERMSA_2',
         label: 'select2',
         terms: 2,
       },
       {
         id: 2,
         title: '개인(신용)정보의 조회에 관한 사항',
-        name: 'Terms_3',
+        name: 'TERMSA_3',
         label: 'select3',
         terms: 3,
       },
       {
         id: 3,
         title: '개인(신용)정보의 제공에 관한 사항',
-        name: 'Terms_4',
+        name: 'TERMSA_4',
         label: 'select4',
         terms: 4,
       },
       {
         id: 4,
         title: '민감정보 및 고유식별정보의 처리에 관한 사항',
-        name: 'Terms_5',
+        name: 'TERMSA_5',
         label: 'select5',
         terms: 5,
       },
@@ -140,11 +141,11 @@ const Checkbox = () => {
 
     const selectAll = (e) => {
       setAllFlag(e.target.checked);
-      setValue('Terms_1', e.target.checked);
-      setValue('Terms_2', e.target.checked);
-      setValue('Terms_3', e.target.checked);
-      setValue('Terms_4', e.target.checked);
-      setValue('Terms_5', e.target.checked);
+      setValue('TERMSA_1', e.target.checked);
+      setValue('TERMSA_2', e.target.checked);
+      setValue('TERMSA_3', e.target.checked);
+      setValue('TERMSA_4', e.target.checked);
+      setValue('TERMSA_5', e.target.checked);
       setTermsFlag((prev) => {
         Object.keys(prev).map((item) => prev[item] = e.target.checked)
         return {

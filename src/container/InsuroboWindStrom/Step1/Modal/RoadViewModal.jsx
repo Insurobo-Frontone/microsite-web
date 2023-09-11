@@ -9,11 +9,8 @@ const { kakao } = window;
 
 const RoadViewModal = ({onClick}) => {
   const InsuroboWindstorm = StorageGetInsurance();
-
   useEffect(() => {
-
     getRoadView(InsuroboWindstorm.insurance.address).then((res) => {
-
       const xPosition = res.data.documents[0].address.x // 경도
       const yPosition = res.data.documents[0].address.y // 위도
 
@@ -21,12 +18,12 @@ const RoadViewModal = ({onClick}) => {
       const roadview = new kakao.maps.Roadview(roadviewContainer);
       const roadviewClient = new kakao.maps.RoadviewClient();
       const position = new kakao.maps.LatLng(yPosition, xPosition);
-      console.log(xPosition, yPosition)
+
       roadviewClient.getNearestPanoId(position, 50, function (panoId) {
         roadview.setPanoId(panoId, position);
       });
+    }).catch((e) => console.log(e, '에러'));
 
-    }).catch((e) => console.log(e, '에러'))
   }, [InsuroboWindstorm]);
 
   return (
@@ -46,7 +43,7 @@ const RoadViewModal = ({onClick}) => {
         </RoadViewWrap>
         <BodyWrap>
           <BadgeWrap>
-            {InsuroboWindstorm.insurance?.main_purps?.split(',').map((cur, index) => {
+            {InsuroboWindstorm.getCover?.purpsCdNm?.split(',').map((cur, index) => {
               return (
                 <Badge key={index}>
                   {cur}
@@ -54,7 +51,7 @@ const RoadViewModal = ({onClick}) => {
               )
             })}
           </BadgeWrap>
-          <p>{InsuroboWindstorm.insurance?.address}</p>
+          <p>{InsuroboWindstorm.getCover?.address}</p>
           <ModalTextList />
           <Button onClick={onClick}>소재지 등록</Button>
         </BodyWrap>

@@ -10,8 +10,7 @@ const InputData = [
   { id: 2, title: '상호명', placeholder: '비즈로보', name: 'ptyBizNm' },
   { id: 3, title: '연락처', placeholder: '010-1234-5678', name: 'telNo'},
   { id: 4, title: '사업자등록번호', placeholder: '‘-’ 제외 숫자만 입력', name: 'bizNo' },
-  { id: 5, title: '생년월일 (6자리)', placeholder: 'ex) 730321', name: 'regNo' },
-  
+  { id: 5, title: '생년월일 (6자리)', placeholder: 'ex) 730321', name: 'inrBirth' },
 ];
 
 const NonMember = () => {

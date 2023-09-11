@@ -1,30 +1,30 @@
 
-export const StorageSetInsurance = async (insurance, initUserInfo) => {
-  console.log(insurance, initUserInfo);
-  await localStorage.setItem('@insurance', JSON.stringify(insurance));
-  await localStorage.setItem('@inituser', JSON.stringify(initUserInfo));
+export const StorageSetInsurance = async (getCover, getAddr) => {
+  console.log(getCover, getAddr);
+  await localStorage.setItem('@getCover', JSON.stringify(getCover));
+  await localStorage.setItem('@getAddr', JSON.stringify(getAddr));
 }
 
 export const StorageGetInsurance = () => {
-  const defaultInsurance = {};
-  const defaultInitUser = {};
+  const defaultGetCover = {};
+  const defaultGetAddr = {};
 
   try {
-    const insurance = localStorage.getItem('@insurance');
-    const initUser = localStorage.getItem('@inituser');
+    const getCover = localStorage.getItem('@getCover');
+    const getAddr = localStorage.getItem('@getAddr');
     return {
-      insurance: insurance ? JSON.parse(insurance) : '',
-      inituser: initUser ? JSON.parse(initUser) : '',
+      getCover: getCover ? JSON.parse(getCover) : '',
+      inituser: getAddr ? JSON.parse(getAddr) : '',
     }
   } catch (e) {
     return {
-      insurance: defaultInsurance,
-      inituser: defaultInitUser,
+      getCover: defaultGetCover,
+      inituser: defaultGetAddr,
     };
   }
 }
 
 export const StorageClearInsurance = async () => {
-  await localStorage.removeItem('@insurance');
-  await localStorage.removeItem('@inituser');
+  await localStorage.removeItem('@getCover');
+  await localStorage.removeItem('@getAddr');
 };

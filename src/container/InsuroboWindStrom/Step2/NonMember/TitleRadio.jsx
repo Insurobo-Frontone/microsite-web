@@ -13,8 +13,8 @@ const TitleRadio = () => {
             type='radio'
             id='men'
             value='1'
-            name='gender'
-            {...register('gender')} 
+            name='inrGender'
+            {...register('inrGender')} 
             defaultChecked
           />
           <label htmlFor="men">남성</label>
@@ -24,8 +24,8 @@ const TitleRadio = () => {
             type='radio'
             id='women'
             value='2'
-            name='gender'
-            {...register('gender')} 
+            name='inrGender'
+            {...register('inrGender')} 
           />
           <label htmlFor="women">여성</label>
         </RadioBox>

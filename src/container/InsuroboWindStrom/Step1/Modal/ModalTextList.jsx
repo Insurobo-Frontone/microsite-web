@@ -9,17 +9,17 @@ const ModalTextList = () => {
     {
       id: 1,
       title: '건축물 명칭',
-      content: InsuroboWindstorm.insurance?.bld_name
+      content: InsuroboWindstorm.getCover?.bldNm
     },
-    { id: 2, title: '층수', content: InsuroboWindstorm.insurance?.flr_name },
-    { id: 3, title: '세대수', content: InsuroboWindstorm.insurance?.cnt_sedae },
+    { id: 2, title: '층수', content: `지하${InsuroboWindstorm.getCover?.ugrndFlrCnt}층/지상${InsuroboWindstorm.getCover?.grndFlrCnt}`},
+    { id: 3, title: '세대수', content: InsuroboWindstorm.getCover?.totSedae },
     {
       id: 4,
       title: '전체 연면적',
-      content: `${InsuroboWindstorm.insurance?.total_area}m²`,
+      content: `${InsuroboWindstorm.getCover?.totArea}m²`,
     },
-    { id: 5, title: '주구조', content: InsuroboWindstorm.insurance?.main_struct },
-    { id: 6, title: '지붕', content: InsuroboWindstorm.insurance?.roof_name },
+    { id: 5, title: '주구조', content: InsuroboWindstorm.getCover?.strctCdNm },
+    { id: 6, title: '지붕', content: InsuroboWindstorm.getCover?.roofStrc },
   ]
   return (
     <Wrap>

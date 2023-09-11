@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Input from "../Input";
 import Select from "../Select";
-import { StorageGetInsurance } from "../../Storage/Insurance";
 import { useFormContext } from "react-hook-form";
+import { getLoBzCdList } from "../../../api/WindstormAPI";
 
 const StoreInfo = () => {
-  // const [infoData, setInfoData] = useState();
-
-
-  const InsuroboWindstorm = StorageGetInsurance();
-  const { watch, trigger } = useFormContext({
+  const [loBzCdList, setLoBzCdList] = useState('');
+  const { watch } = useFormContext({
     mode: 'onBlur'
   });
 
   useEffect(() => {
-
-  }, [])
-
+    getLoBzCdList().then((res) => (
+      setLoBzCdList(res)
+    ))
+  }, []);
   return (
     <Wrap>
       <Input 
@@ -28,12 +26,12 @@ const StoreInfo = () => {
       <div>
         <Input 
           placeholder='가입 시작'
-          name='bldFloors1'
+          name='inputBldSt'
           defaultValue=''
         />
         <Input 
           placeholder='가입 끝'
-          name='bldFloors2'
+          name='inputBldEd'
           defaultValue=''
           validate={() => watch('objCat')}
         />
@@ -43,7 +41,7 @@ const StoreInfo = () => {
         name='lobzCd'
         defaultValue=''
       >
-        {InsuroboWindstorm.insurance?.lobz_cds?.filter((obj) => obj.obj_type === watch('objCat')).map((cur, index) => {
+        {loBzCdList.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
           return (
             <option value={cur.code} key={index}>
               {cur.name}
