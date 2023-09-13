@@ -6,16 +6,18 @@ import { useFormContext } from "react-hook-form";
 import { getLoBzCdList } from "../../../api/WindstormAPI";
 
 const StoreInfo = () => {
-  const [loBzCdList, setLoBzCdList] = useState('');
+  const [loBzCdList, setLoBzCdList] = useState([]);
   const { watch } = useFormContext({
     mode: 'onBlur'
   });
-
   useEffect(() => {
-    getLoBzCdList().then((res) => (
-      setLoBzCdList(res)
-    ))
+    getLoBzCdList()
+    .then((res) => {
+      setLoBzCdList(res.data.results.codes)
+    })
+    .catch((e) => console.log(e)) 
   }, []);
+
   return (
     <Wrap>
       <Input 
@@ -33,7 +35,7 @@ const StoreInfo = () => {
           placeholder='가입 끝'
           name='inputBldEd'
           defaultValue=''
-          validate={() => watch('objCat')}
+          // validate={() => watch('objCat')}
         />
       </div>
       <Select 
@@ -41,7 +43,8 @@ const StoreInfo = () => {
         name='lobzCd'
         defaultValue=''
       >
-        {loBzCdList.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
+        
+        {loBzCdList?.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
           return (
             <option value={cur.code} key={index}>
               {cur.name}

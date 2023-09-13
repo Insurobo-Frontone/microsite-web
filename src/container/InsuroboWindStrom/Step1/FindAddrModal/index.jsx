@@ -11,7 +11,7 @@ import ItemInfo from "./ItemInfo";
 import RoadViewModal from "../Modal/RoadViewModal";
 
 const FindAddrModal = ({onClick}) => {
-  const { setValue } = useFormContext({
+  const { setValue, watch } = useFormContext({
     mode: 'onBlur'
   });
   const [addrData, setAddrData] = useState();
@@ -26,7 +26,8 @@ const FindAddrModal = ({onClick}) => {
     if (!apiCheck) {
       getJuso(value)
         .then((res) => (
-          setAddrData(res),
+          // setAddrData(res.results.addrs),
+          setAddrData(res.data.results.juso),
           setErrorMessage('')
         ))
         .catch((e) => (setErrorMessage(e.message)))
@@ -43,8 +44,9 @@ const FindAddrModal = ({onClick}) => {
       ji: cur.lnbrSlno,
       zip: cur.zipNo,
     }).then((res) => {
-      StorageSetInsurance(res, addrData);
-      setValue('objAddr1', addrData.addrs?.roadAddr);
+      // StorageSetInsurance(res, cur);
+      StorageSetInsurance(res.data, cur);
+      setValue('objAddr1', cur.roadAddr);
       setFindAddrModal(false);
       setRoadViewModal(true);
     }).catch(() => {
@@ -75,7 +77,7 @@ const FindAddrModal = ({onClick}) => {
                 {errorMessage ? 
                   (<NonDataInfo>{errorMessage}</NonDataInfo>) : 
                   (
-                    addrData.addrs?.map((cur) => {
+                    addrData?.map((cur) => {
                       return (
                         <ItemInfo
                           onClick={() => onClickJuso(cur)}

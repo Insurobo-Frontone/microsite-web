@@ -14,12 +14,12 @@ export const StorageGetInsurance = () => {
     const getAddr = localStorage.getItem('@getAddr');
     return {
       getCover: getCover ? JSON.parse(getCover) : '',
-      inituser: getAddr ? JSON.parse(getAddr) : '',
+      getAddr: getAddr ? JSON.parse(getAddr) : '',
     }
   } catch (e) {
     return {
       getCover: defaultGetCover,
-      inituser: defaultGetAddr,
+      getAddr: defaultGetAddr,
     };
   }
 }

@@ -1,58 +1,65 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import store from '../../../assets/icon/insuroboWindstorm/store.png';
 import factory from '../../../assets/icon/insuroboWindstorm/factory.png';
 import circleCheckIcon from '../../../assets/icon/insuroboWindstorm/circleCheckIcon.png';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 
 const SelectItems = () => {
-  const [click, setClick] = useState(true);
-  const { register, setValue } = useFormContext({
-    defaultValues: {
-      objCat: "2"
+  const {  control } = useFormContext();
+  const data = [
+    {
+      idx: '1',
+      title: '일반상가',
+      icon: store,
+      name: 'objCat',
+      value: '2',
     },
-  });
+    {
+      idx: '2',
+      title: '공장',
+      icon: factory,
+      name: 'objCat',
+      value: '4',
+    }
+  ]
   return (
     <Wrap>
-      <div onClick={() => {
-        setClick(true);
-        setValue('objCat', '2');
-      }}>
-        <Icon color={click}>
-          <img src={store} alt='일반상가' />
-          {click && (
-            <CircleIcon />
-          )}
-        </Icon>
-        <input
-          type='radio'
-          id='2'
-          value='2'
-          name='objCat'
-          {...register('objCat')}
-          defaultChecked
+      <Controller
+        name="objCat"
+        control={control}
+        render={({ field }) => {
+          return (
+            <Form {...field}>
+              {data.map((item) => {
+                return (
+                  <label htmlFor={item.idx.toString()}>
+                    <Icon color={field.value == item.value}>
+                    <img src={item.icon} alt='일반상가' />
+                    {field.value == item.value && (
+                      <CircleIcon />
+                    )}
+                    </Icon>
+                    <FormCheck
+                      key={item.idx}
+                      type="radio"
+                      defaultValues='2'
+                      id={item.idx.toString()}
+                      name={field.name}
+                      value={item.value} 
+                      checked={field.value == item.value}
+                      onChange={(e) => {
+                        field.onChange(e.target.value);
+                      }}
+                    />
+                    <Title color={field.value == item.value}>{item.title}</Title>
+                  </label>
+                );
+              })}
+            </Form>
+          );
+        }}
         />
-        <Label for='2' color={click}>일반상가</Label>
-      </div>
-      <div onClick={() => {
-        setClick(false);
-        setValue('objCat', '4');
-      }}>
-        <Icon color={!click}>
-          <img src={factory} alt='공장' />
-          {!click && (
-            <CircleIcon />
-          )}
-        </Icon>
-        <input
-          id='4'
-          value='4'
-          type='radio'
-          name='objCat'
-          {...register('objCat')}
-        />
-        <Label for='4' color={!click}>공장</Label>
-      </div>
     </Wrap>
   ) 
 }
@@ -60,39 +67,19 @@ const SelectItems = () => {
 export default SelectItems;
 
 const Wrap = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  margin-bottom: 60px;
 
-  > div {
-    position: relative;
-    > input {
-      position: absolute;
-      left: -2000%;
-    }
-  }
-  > div {
-    text-align: center;
-  }
-  > div:first-child {
-    margin-right: 40px;
-  }
-  > div:last-child {
-    margin-left: 40px;
-  }
 `;
 
-const Label = styled.label`
-  display: block;
-  font-size: 16px;
-  line-height: 26px;
-  font-weight: 700;
-  color: #808080;
-  ${props => props.color && css`
-    color: #2EA5FF;
-  `}
-`;
+// const Label = styled.label`
+//   display: block;
+//   font-size: 16px;
+//   line-height: 26px;
+//   font-weight: 700;
+//   color: #808080;
+//   ${props => props.color && css`
+//     color: #2EA5FF;
+//   `}
+// `;
 
 
 const Icon = styled.div`
@@ -124,8 +111,38 @@ const CircleIcon = styled.div`
   right: 0;
 `;
 
+const FormCheck = styled.input`
+  position: absolute;
+  left: -2000%;
+`;
 
+const Form = styled.form`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 60px;
+  > label {
+    display: block;
+    text-align: center;
+  }
+  > label:first-child {
+    margin-right: 40px;
+  }
+  > label:last-child {
+    margin-left: 40px;
+  }
+`;
 
-
+const Title = styled.p`
+  display: block;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 700;
+  color: #808080;
+  ${props => props.color && css`
+    color: #2EA5FF;
+  `}
+`;
 
 

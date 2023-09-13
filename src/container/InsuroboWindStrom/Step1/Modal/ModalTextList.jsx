@@ -9,17 +9,35 @@ const ModalTextList = () => {
     {
       id: 1,
       title: '건축물 명칭',
-      content: InsuroboWindstorm.getCover?.bldNm
+      // content: InsuroboWindstorm.getCover?.bldNm
+      content: InsuroboWindstorm.getCover?.bld_name
     },
-    { id: 2, title: '층수', content: `지하${InsuroboWindstorm.getCover?.ugrndFlrCnt}층/지상${InsuroboWindstorm.getCover?.grndFlrCnt}`},
-    { id: 3, title: '세대수', content: InsuroboWindstorm.getCover?.totSedae },
+    { id: 2, 
+      title: '층수', 
+      // content: `지하${InsuroboWindstorm.getCover?.ugrndFlrCnt}층/지상${InsuroboWindstorm.getCover?.grndFlrCnt}`
+      content: InsuroboWindstorm.getCover?.flr_name
+    },
+    { id: 3, 
+      title: '세대수', 
+      // content: InsuroboWindstorm.getCover?.totSedae
+      content: InsuroboWindstorm.getCover?.cnt_sedae
+    },
     {
       id: 4,
       title: '전체 연면적',
-      content: `${InsuroboWindstorm.getCover?.totArea}m²`,
+      // content: `${InsuroboWindstorm.getCover?.totArea}m²`,
+      content: `${InsuroboWindstorm.getCover?.total_area}m²`,
     },
-    { id: 5, title: '주구조', content: InsuroboWindstorm.getCover?.strctCdNm },
-    { id: 6, title: '지붕', content: InsuroboWindstorm.getCover?.roofStrc },
+    { id: 5, 
+      title: '주구조', 
+      // content: InsuroboWindstorm.getCover?.strctCdNm 
+      content: InsuroboWindstorm.getCover?.main_struct
+    },
+    { id: 6, 
+      title: '지붕', 
+      // content: InsuroboWindstorm.getCover?.roofStrc 
+      content: InsuroboWindstorm.getCover?.roof_strc
+    },
   ]
   return (
     <Wrap>

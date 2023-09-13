@@ -11,16 +11,16 @@ export const WindstormAPI = axios.create({
 
 // 주소검색
 export const getJuso = async (params) => {
-  // return await WindstormAPI.get(`/ww/juso?search=${params}`);
-  return await WindstormAPI.get(`/Pub/AddrLink/getAddr?search=${params}`);
+  return await WindstormAPI.get(`/ww/juso?search=${params}`);
+  // return await WindstormAPI.get(`/Pub/AddrLink/getAddr?search=${params}`);
 };
 
 // 건축물 표제부 검색 API
 export const getCover = async (params) => {
   console.log('getCover', params);
   return await WindstormAPI.get(
-    // `/ww/cover?sigungucd=${params.sigungucd}&bjdongcd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
-    `/Pub/Bld/getCover?sigungucd=${params.sigungucd}&bjdongcd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
+    `/ww/cover?sigungucd=${params.sigungucd}&bjdongcd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
+    // `/Pub/Bld/getCover?sigungucd=${params.sigungucd}&bjdongcd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
   );
 };
 
@@ -45,8 +45,10 @@ export const postHiLinkObj = async (params) => {
 };
 
 //업종코드 기준정보 조회 API
-export const getLoBzCdList = async () => {
-  return await WindstormAPI.get(
-    `Master/Code/getLoBzCdList`,
+export const getLoBzCdList = () => {
+  return axios.get(
+    // `Master/Code/getLoBzCdList`,
+    'http://roylabs.iptime.org:8090/Master/Code/getLoBzCdList'
   );
+
 };

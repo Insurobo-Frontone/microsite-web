@@ -163,7 +163,7 @@ function QuickMenu() {
             </a>
           </QuickMenuList>
           <QuickMenuList>
-            <a href='https://insurobo.com/' target='_blank' rel="noreferrer">
+            <a href='https://company.insurobo.co.kr/' target='_blank' rel="noreferrer">
               <img src={companyIcon} alt='회사소개'/>
               <TextWrap>
                 <span>인슈로보</span>
