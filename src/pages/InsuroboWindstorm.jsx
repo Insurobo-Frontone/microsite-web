@@ -126,35 +126,6 @@ const InsuroboWindstorm = () => {
         navigate('/');
       }).catch((e) => console.log(e))
     }
-    //   postHiLinkObj({
-    //     inputBldSt: watch('inputBldSt'),
-    //     inputBldEd: watch('inputBldEd'),
-    //     bldTotLyrNum: insurance.getCover.bldTotLyrNum,
-    //     hsArea: watch('hsArea'),
-    //     poleStrc: insurance.getCover.poleStrc,
-    //     roofStrc: insurance.getCover.poleStrc,
-    //     otwlStrc: insurance.getCover.otwlStrc,
-    //     objCat: watch('objCat'),
-    //     lobzCd: watch('lobzCd'),
-    //     objZip1: objZipValue.substring(0, 4),
-    //     objZip2: objZipValue.substring(4, 6),
-    //     objAddr1: watch('objAddr1'),
-    //     objAddr2: watch('objAddr2'),
-    //     bizNo: BizReplaceValue,
-    //     inrBirth: watch('inrBirth'),
-    //     inrGender: watch('inrGender'),
-    //     telNo: TelReplaceValue,
-    //     ptyBizNm: watch('ptyBizNm'),
-    //     ptyKorNm: watch('ptyKorNm'),
-    //     TERMSA_1: watch('TERMSA_1'),
-    //     TERMSA_2: watch('TERMSA_2'),
-    //     TERMSA_3: watch('TERMSA_3'),
-    //     TERMSA_4: watch('TERMSA_4'),
-    //     TERMSA_5: watch('TERMSA_5')
-    //   }).then((res) => {
-    //     console.log(res)
-    //   }).catch((e) => console.log(e))
-    // }
   }
   
 
