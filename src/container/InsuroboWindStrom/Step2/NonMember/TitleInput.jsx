@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import Input from "../../Input";
 
-const TitleInput = ({title, name, placeholder, validate}) => {
+const TitleInput = ({title, name, placeholder, pattern}) => {
   return (
     <Wrap>
       <Title>{title}</Title>
       <Input
         name={name}
         placeholder={placeholder}
-        validate={validate}
+        pattern={pattern}
       />
     </Wrap>
   )  
@@ -19,6 +19,8 @@ export default TitleInput;
 
 const Wrap = styled.div`
   margin-top: 30px;
+  font-size: 12px;
+  color: ${(props) => props.theme.color.WARNING_MESSAGE};
   > div {
     width: 100%;
     > div {

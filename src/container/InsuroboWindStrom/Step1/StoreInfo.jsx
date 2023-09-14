@@ -35,7 +35,6 @@ const StoreInfo = () => {
           placeholder='가입 끝'
           name='inputBldEd'
           defaultValue=''
-          // validate={() => watch('objCat')}
         />
       </div>
       <Select 

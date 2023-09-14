@@ -19,7 +19,7 @@ const QuickMenuWrap = styled.div`
   box-shadow: 2px 0px 10px 0px rgba(0, 0, 0, 0.20);
   background-color: #FFFFFF;
   padding: 2.1vw 0;
-  
+
   ${(props) => props.theme.window.tab} {
     padding: 20px 0;
     width: 72px;
@@ -36,7 +36,14 @@ const QuickMenuWrap = styled.div`
   }
 `;
 
-const MobileToggle = styled.div`
+const ToggleWrap = styled.div`
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const ToggleIcon = styled.div`
   display: none;
   ${(props) => props.theme.window.mobile} {
     position: absolute;
@@ -44,11 +51,20 @@ const MobileToggle = styled.div`
     justify-content: center;
     align-items: center;
     top: 0;
+    left: 0;
     width: 72px;
     height: 72px;
     border-radius: 50%;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background-color: #FFFFFF;
+  }
+`;
+
+const ToggleText = styled.p`
+  display: none;
+  ${(props) => props.theme.window.mobile} {
+    display: block;
+
   }
 `;
 
@@ -120,6 +136,9 @@ const TextWrap = styled.div`
   }
 `;
 
+
+
+
 const EventModalOverlay = styled.div`
   box-sizing: border-box;
   align-items: center;
@@ -148,10 +167,14 @@ function QuickMenu() {
 
   return (
     <>
+      
       <QuickMenuWrap open={toggleOn}>
-        <MobileToggle onClick={() => setToggleOn(!toggleOn)} >
-          <img src={toggleIcon} alt='toggle'/>
-        </MobileToggle>
+        <ToggleWrap>
+          <ToggleText>{toggleOn ? '접어두기' : '펼처보기'}</ToggleText>
+          <ToggleIcon onClick={() => setToggleOn(!toggleOn)} >
+            <img src={toggleIcon} alt='toggle'/>
+          </ToggleIcon>
+        </ToggleWrap>
         <QuickMenuListWrap open={toggleOn}>
           <QuickMenuList>
             <a href='https://insurobowindstorm.com/' target='_blank' rel="noreferrer">

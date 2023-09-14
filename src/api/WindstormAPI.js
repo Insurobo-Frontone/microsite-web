@@ -50,5 +50,4 @@ export const getLoBzCdList = () => {
     // `Master/Code/getLoBzCdList`,
     'http://roylabs.iptime.org:8090/Master/Code/getLoBzCdList'
   );
-
 };

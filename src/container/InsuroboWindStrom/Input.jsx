@@ -1,6 +1,7 @@
 import React from "react";
 import styled, {css} from "styled-components";
 import { useFormContext } from 'react-hook-form';
+import { ErrorMessage } from "@hookform/error-message";
 
 const Input = ({
   placeholder,
@@ -10,24 +11,30 @@ const Input = ({
   name,
   defaultValue,
   required,
-  validate
+  pattern,
 }) => {
-  const { register } = useFormContext({
+  const { register, formState: { errors } } = useFormContext({
     mode: 'onBlur'
   });
   return (
-    <InputBase
-      first={first}
-      readOnly={readOnly}
-      placeholder={placeholder}
-      onChange={onChange}
-      defaultValue={defaultValue}
-      name={name}
-      {...register(name, {
-        required: required,
-        validate: validate,
-      })}
-    />
+    <>
+      <InputBase
+        first={first}
+        readOnly={readOnly}
+        placeholder={placeholder}
+        onChange={onChange}
+        defaultValue={defaultValue}
+        name={name}
+        {...register(name, {
+          required: required,
+          pattern: {
+            value: pattern,
+            message: '올바른 형식이 아닙니다.'
+          }
+        })}
+      />
+      <ErrorMessage errors={errors} name={name} />
+    </>
   )
 }
 
@@ -48,3 +55,5 @@ const InputBase = styled.input`
     width: calc(100% - 84px);
   `}
 `;
+
+

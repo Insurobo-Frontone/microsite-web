@@ -31,12 +31,13 @@ const Content = styled.div`
 `;
 
 const InsuroboWindstorm = () => {
-  const insurance = StorageGetInsurance();
+  
   const navigate = useNavigate();
+  
   const { watch, reset } = useFormContext({
     mode: 'onChange'
   });
-
+  
   useEffect(() => {
     reset({
       objCat: '2',
@@ -75,35 +76,36 @@ const InsuroboWindstorm = () => {
     ) {
       alert('입력하신 값을 확인해 주세요')
     } else if (
+      watch('TERMSA_6') === false ||
       watch('TERMSA_1') === false ||
       watch('TERMSA_2') === false ||
       watch('TERMSA_3') === false ||
-      watch('TERMSA_4') === false ||
-      watch('TERMSA_5') === false
+      watch('TERMSA_4') === false
     ) {
       alert('개인정보처리 동의 필수체크')
     } else {
+      const insurance = StorageGetInsurance();
       // 연락처
-      const TelReplaceValue = watch('telNo').replace(
-        /(^02.{0}|^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/,
-        '$1-$2-$3',
-      );
+      // const TelReplaceValue = watch('telNo').replace(
+      //   /(^02.{0}|^01.{1}|[0-9]{3})([0-9]{4})([0-9]{4})/,
+      //   '$1-$2-$3',
+      // );
       //사업자등록번호
-      const BizReplaceValue = watch('bizNo').replace(
-        /(\d{3})(\d{2})(\d{5})/,
-        '$1-$2-$3',
-      );
-      //우편번호v
-      const objZipValue = insurance.getAddr.zipNo + ''
-      console.log(objZipValue)
+      const BizReplaceValue = watch('bizNo').replace(/-/g, "");
+      console.log(BizReplaceValue)
+      //우편번호
+      const objZipValue = insurance.getAddr.zipNo+''
+      console.log(insurance.getAddr.zipNo)
+
       postHiLinkObj({
         inputBldSt: watch('inputBldSt'),
         inputBldEd: watch('inputBldEd'),
-        bldTotLyrNum: insurance.getCover.bldTotLyrNum,
+        // bldTotLyrNum: insurance.getCover.bldTotLyrNum,
+        bldTotLyrNum: insurance.getCover.ww_info.oagi6002vo?.bldTotLyrNum,
         hsArea: watch('hsArea'),
-        poleStrc: insurance.getCover.poleStrc,
-        roofStrc: insurance.getCover.poleStrc,
-        otwlStrc: insurance.getCover.otwlStrc,
+        poleStrc: insurance.getCover.pole_strc,
+        roofStrc: insurance.getCover.roof_strc,
+        otwlStrc: insurance.getCover.otwl_strc,
         objCat: watch('objCat'),
         lobzCd: watch('lobzCd'),
         objZip1: objZipValue.substring(0, 3),
@@ -113,7 +115,7 @@ const InsuroboWindstorm = () => {
         bizNo: BizReplaceValue,
         inrBirth: watch('inrBirth'),
         inrGender: watch('inrGender'),
-        telNo: TelReplaceValue,
+        telNo: watch('telNo'),
         ptyBizNm: watch('ptyBizNm'),
         ptyKorNm: watch('ptyKorNm'),
         TERMSA_1: watch('TERMSA_1') ? 'Y' : 'N',
