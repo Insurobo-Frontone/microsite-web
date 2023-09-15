@@ -40,7 +40,7 @@ function Slider2() {
       </MainTitle>
       <CardList>
         {cardData.map(data => (
-          <Card>
+          <Card key={data.id}>
             <TitleBox>
               <h2>{data.title}</h2>
             </TitleBox>
@@ -62,7 +62,7 @@ function Slider2() {
   )
 }
 
-export default Slider2
+export default Slider2;
 
 const Wrapper = styled.div`
   overflow: hidden;

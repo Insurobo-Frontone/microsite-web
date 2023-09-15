@@ -106,7 +106,7 @@ function CheckBox({data, }) {
             onChange={(e) => handleAllCheck(e.target.checked)}
             checked={checkItems.length === data.length ? true : false}
           />
-          <label for='all'>전체 약관 동의</label>
+          <label htmlFor='all'>전체 약관 동의</label>
         </AllChecked>
         <SelectChecked>
           {data?.map((data) => (
@@ -118,7 +118,7 @@ function CheckBox({data, }) {
                 onChange={(e) => handleSingleCheck(e.target.checked, data.id)}
                 checked={checkItems.includes(data.id) ? true : false}
               />
-              <label for={`check${data.id}`}>{data.title}</label>
+              <label htmlFor={`check${data.id}`}>{data.title}</label>
             </li>
           ))}
         </SelectChecked>

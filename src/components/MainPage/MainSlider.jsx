@@ -6,10 +6,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { Title } from '../Font';
 
 import slider1 from '../../assets/img/slider1.png';
-import slider2 from '../../assets/img/slider2.png';
 import slider3 from '../../assets/img/slider3.png';
 import mb_slider1 from '../../assets/img/mb_slider1.png';
-import mb_slider2 from '../../assets/img/mb_slider2.png';
 import mb_slider3 from '../../assets/img/mb_slider3.png';
 // import play from '../../assets/img/playIcon.png';
 // import pause from '../../assets/img/pauseIcon.png';
@@ -27,16 +25,6 @@ const data = [
     mb_bg_img: mb_slider1,
     color: 'PRIMARY',
   },
-  // {
-  //   id: 2,
-  //   t_line1: '비즈로보',
-  //   t_line2: '지원센터',
-  //   t_line3: '오픈 EVENT',
-  //   link: '/event',
-  //   bg_img: slider2,
-  //   mb_bg_img: mb_slider2,
-  //   color: 'SECONDARY',
-  // },
   {
     id: 2,
     t_line1: '2023년',

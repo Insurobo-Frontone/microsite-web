@@ -9,7 +9,6 @@ import Step2 from "../container/InsuroboWindStrom/Step2";
 import Button from "../container/InsuroboWindStrom/Button";
 import { postHiLinkObj } from "../api/WindstormAPI";
 
-
 const Wrap = styled.div`
   width: 100%;
   max-width: 1280px;
@@ -76,11 +75,11 @@ const InsuroboWindstorm = () => {
     ) {
       alert('입력하신 값을 확인해 주세요')
     } else if (
-      watch('TERMSA_6') === false ||
-      watch('TERMSA_1') === false ||
-      watch('TERMSA_2') === false ||
-      watch('TERMSA_3') === false ||
-      watch('TERMSA_4') === false
+      watch('termsA6') === false ||
+      watch('termsA1') === false ||
+      watch('termsA2') === false ||
+      watch('termsA3') === false ||
+      watch('termsA4') === false
     ) {
       alert('개인정보처리 동의 필수체크')
     } else {
@@ -92,20 +91,17 @@ const InsuroboWindstorm = () => {
       // );
       //사업자등록번호
       const BizReplaceValue = watch('bizNo').replace(/-/g, "");
-      console.log(BizReplaceValue)
+
       //우편번호
       const objZipValue = insurance.getAddr.zipNo+''
-      console.log(insurance.getAddr.zipNo)
-
       postHiLinkObj({
         inputBldSt: watch('inputBldSt'),
         inputBldEd: watch('inputBldEd'),
-        // bldTotLyrNum: insurance.getCover.bldTotLyrNum,
-        bldTotLyrNum: insurance.getCover.ww_info.oagi6002vo?.bldTotLyrNum,
+        bldTotLyrNum: insurance.getCover.bldTotLyrNum,
         hsArea: watch('hsArea'),
-        poleStrc: insurance.getCover.pole_strc,
-        roofStrc: insurance.getCover.roof_strc,
-        otwlStrc: insurance.getCover.otwl_strc,
+        poleStrc: insurance.getCover.poleStrc,
+        roofStrc: insurance.getCover.roofStrc,
+        otwlStrc: insurance.getCover.otwlStrc,
         objCat: watch('objCat'),
         lobzCd: watch('lobzCd'),
         objZip1: objZipValue.substring(0, 3),
@@ -118,18 +114,17 @@ const InsuroboWindstorm = () => {
         telNo: watch('telNo'),
         ptyBizNm: watch('ptyBizNm'),
         ptyKorNm: watch('ptyKorNm'),
-        TERMSA_1: watch('TERMSA_1') ? 'Y' : 'N',
-        TERMSA_2: watch('TERMSA_2') ? 'Y' : 'N',
-        TERMSA_3: watch('TERMSA_3') ? 'Y' : 'N',
-        TERMSA_4: watch('TERMSA_4') ? 'Y' : 'N',
-        TERMSA_5: watch('TERMSA_5') ? 'Y' : 'N'
+        termsA1: watch('termsA1') ? 'Y' : 'N',
+        termsA2: watch('termsA2') ? 'Y' : 'N',
+        termsA3: watch('termsA3') ? 'Y' : 'N',
+        termsA4: watch('termsA4') ? 'Y' : 'N',
+        termsA6: watch('termsA6') ? 'Y' : 'N',
       }).then((res) => {
         window.open(`https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo+${res}`);
         navigate('/');
       }).catch((e) => console.log(e))
     }
   }
-  
 
   return (
     <Layout>

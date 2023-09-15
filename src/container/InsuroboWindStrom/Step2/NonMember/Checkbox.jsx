@@ -83,9 +83,6 @@ const Title = styled.p`
   line-height: 24px;
   color: #808080;
 `
-
-
-
 const Checkbox = () => {
     const { register, setValue } = useFormContext();
     const [allFlag, setAllFlag] = useState(false);
@@ -96,35 +93,35 @@ const Checkbox = () => {
       {
         id: 0,
         title: '소비자 권익에 관한 사항',
-        name: 'TERMSA_6',
+        name: 'termsA6',
         label: 'select1',
         terms: 1,
       },
       {
         id: 1,
         title: '개인(신용)정보의 사전 수집/이용에 관한 사항',
-        name: 'TERMSA_1',
+        name: 'termsA1',
         label: 'select2',
         terms: 2,
       },
       {
         id: 2,
         title: '개인(신용)정보의 조회에 관한 사항',
-        name: 'TERMSA_2',
+        name: 'termsA2',
         label: 'select3',
         terms: 3,
       },
       {
         id: 3,
         title: '개인(신용)정보의 제공에 관한 사항',
-        name: 'TERMSA_3',
+        name: 'termsA3',
         label: 'select4',
         terms: 4,
       },
       {
         id: 4,
         title: '민감정보 및 고유식별정보의 처리에 관한 사항',
-        name: 'TERMSA_4',
+        name: 'termsA4',
         label: 'select5',
         terms: 5,
       },
@@ -140,11 +137,11 @@ const Checkbox = () => {
 
     const selectAll = (e) => {
       setAllFlag(e.target.checked);
-      setValue('TERMSA_6', e.target.checked);
-      setValue('TERMSA_1', e.target.checked);
-      setValue('TERMSA_2', e.target.checked);
-      setValue('TERMSA_3', e.target.checked);
-      setValue('TERMSA_4', e.target.checked);
+      setValue('termsA6', e.target.checked);
+      setValue('termsA1', e.target.checked);
+      setValue('termsA2', e.target.checked);
+      setValue('termsA3', e.target.checked);
+      setValue('termsA4', e.target.checked);
       setTermsFlag((prev) => {
         Object.keys(prev).map((item) => prev[item] = e.target.checked)
         return {
@@ -188,7 +185,7 @@ const Checkbox = () => {
                     {...register(item.name)}
                     onChange={(e) => toggleCheck(e, index)}
                   />
-                  <label for={item.label}></label>
+                  <label htmlFor={item.label}></label>
                 </li>
               )})
             }

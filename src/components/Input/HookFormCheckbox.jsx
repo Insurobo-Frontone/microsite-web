@@ -281,7 +281,7 @@ const HookFormCheckbox = (props) => {
         <CheckBoxGroup>
           <AllChecked>
             <input type="checkbox" checked={allFlag} {...register('all')} onChange={selectAll} id='all'/>
-            <label for='all'>전체 약관 동의</label>
+            <label htmlFor='all'>전체 약관 동의</label>
           </AllChecked>
           <SelectChecked>
             {exList.map((item, index) => {
@@ -301,7 +301,7 @@ const HookFormCheckbox = (props) => {
                       onChange={(e) => toggleCheck(e, index)} 
                       
                     />
-                    <label for={item.label}>{item.title}</label>
+                    <label htmlFor={item.label}>{item.title}</label>
                   </div>
                   <div className='button' onClick={() => openModal(item.id)} />
                 </li>

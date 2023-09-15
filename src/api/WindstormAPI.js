@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const WindstormAPI = axios.create({
   // baseURL: 'https://insrb.com',
-  baseURL: ' http://roylabs.iptime.org:8090',
+  baseURL: 'http://roylabs.iptime.org:8090',
   // headers: {
   //   'X-insr-servicekey':
   //   'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg==',
@@ -18,7 +18,6 @@ export const getJuso = async (params) => {
 export const getCover = async (params) => {
   console.log('getCover', params);
   return await WindstormAPI.get(
-    // `/ww/cover?sigungucd=${params.sigungucd}&bjdongcd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
     `/Pub/Bld/getCover?sigunguCd=${params.sigungucd}&bjdongCd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
   );
 };
@@ -33,20 +32,18 @@ export const getRoadView = async (address) => {
   )
 }
 
+//업종코드 기준정보 조회 API
+export const getLoBzCdList = () => {
+  return WindstormAPI.get(
+    '/Master/Code/getLoBzCdList'
+  );
+};
+
 // 현대해상 웹링크 목적물 정보 연계 API
 export const postHiLinkObj = async (params) => {
   console.log('postHiLinkObj', params);
-  return await WindstormAPI.post('Hi/StmFld/linkObjInfo', {
-    data: {
-      ...params,
-    },
-  });
+  return await WindstormAPI.post('/Hi/StmFld/linkObjInfo', { 
+    ...params,
+   });
 };
 
-//업종코드 기준정보 조회 API
-export const getLoBzCdList = () => {
-  return axios.get(
-    // `Master/Code/getLoBzCdList`,
-    'http://roylabs.iptime.org:8090/Master/Code/getLoBzCdList'
-  );
-};
