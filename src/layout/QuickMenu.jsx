@@ -25,22 +25,48 @@ const QuickMenuWrap = styled.div`
     width: 72px;
   }
   ${(props) => props.theme.window.mobile} {
-    padding: 72px 0 0 0;
+    padding: 120px 0 0 0;
     overflow: hidden;
-    transition: all 0.2s;
+    transition: padding 0.2s;
     right: 2%;
-    bottom: 15%;
+    bottom: 10%;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
     ${(props) => props.open && css`
       padding: 92px 0 20px;
+      border-radius: 50px;
+      box-shadow: 2px 0px 10px 0px rgba(0, 0, 0, 0.20);
+      background-color: #FFFFFF;
+      overflow: visible;
     `}
   }
 `;
 
 const ToggleWrap = styled.div`
-  position: relative;
+  width: 100%;
   position: absolute;
   top: 0;
   left: 0;
+`;
+
+const ToggleText = styled.p`
+  display: none;
+  color: #FFFFFF;
+  font-weight: 700;
+
+  ${(props) => props.theme.window.mobile} {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    
+    ${(props) => props.open && css`
+      position: absolute;
+      left: 0;
+      top: -30px;
+    `}
+  }
 `;
 
 const ToggleIcon = styled.div`
@@ -50,7 +76,7 @@ const ToggleIcon = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 0;
+    top: 100%;
     left: 0;
     width: 72px;
     height: 72px;
@@ -60,24 +86,15 @@ const ToggleIcon = styled.div`
   }
 `;
 
-const ToggleText = styled.p`
-  display: none;
-  ${(props) => props.theme.window.mobile} {
-    display: block;
-
-  }
-`;
-
-
 const QuickMenuListWrap = styled.div`
-
-${(props) => props.theme.window.mobile} {
-  height: 0;
-  transition: height 0.2s;
-  ${props => props.open && css`
-     height: auto;
-  `}
-}
+  
+  ${(props) => props.theme.window.mobile} {
+    height: 0;
+    
+    ${props => props.open && css`
+      height: auto;
+    `}
+  }
 `;
 
 const QuickMenuList = styled.div`
@@ -159,7 +176,7 @@ const EventModalOverlay = styled.div`
 
 function QuickMenu() {
   const [showPopup, setShowPopup] = useState(false);
-  const [toggleOn, setToggleOn] = useState(false);
+  const [toggleOn, setToggleOn] = useState(true);
 
   const onClose = () => {
     setShowPopup(false);
@@ -169,9 +186,10 @@ function QuickMenu() {
     <>
       
       <QuickMenuWrap open={toggleOn}>
-        <ToggleWrap>
-          <ToggleText>{toggleOn ? '접어두기' : '펼처보기'}</ToggleText>
-          <ToggleIcon onClick={() => setToggleOn(!toggleOn)} >
+        <ToggleWrap onClick={() => setToggleOn(!toggleOn)}>
+          <ToggleText open={toggleOn}>
+            {toggleOn ? '접어두기' : '펼처보기'}</ToggleText>
+          <ToggleIcon>
             <img src={toggleIcon} alt='toggle'/>
           </ToggleIcon>
         </ToggleWrap>

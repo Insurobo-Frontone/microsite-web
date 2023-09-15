@@ -43,8 +43,7 @@ const RoadViewModal = ({onClick}) => {
         </RoadViewWrap>
         <BodyWrap>
           <BadgeWrap>
-            {InsuroboWindstorm.getCover?.main_purps?.split(',').map((cur, index) => {
-            // {InsuroboWindstorm.getCover?.purpsCdNm?.split(',').map((cur, index) => {
+            {InsuroboWindstorm.getCover?.purpsCdNm?.split(',').map((cur, index) => {
               return (
                 <Badge key={index}>
                   {cur}

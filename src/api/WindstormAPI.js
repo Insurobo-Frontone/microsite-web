@@ -1,26 +1,25 @@
 import axios from "axios";
 
 export const WindstormAPI = axios.create({
-  baseURL: 'https://insrb.com',
-  // baseURL: 'http://localhost:8080',
-  headers: {
-    'X-insr-servicekey':
-    'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg==',
-  },
+  // baseURL: 'https://insrb.com',
+  baseURL: ' http://roylabs.iptime.org:8090',
+  // headers: {
+  //   'X-insr-servicekey':
+  //   'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg==',
+  // },
 });
 
 // 주소검색
 export const getJuso = async (params) => {
-  return await WindstormAPI.get(`/ww/juso?search=${params}`);
-  // return await WindstormAPI.get(`/Pub/AddrLink/getAddr?search=${params}`);
+  return await WindstormAPI.get(`/Pub/AddrLink/getAddr?search=${params}`);
 };
 
 // 건축물 표제부 검색 API
 export const getCover = async (params) => {
   console.log('getCover', params);
   return await WindstormAPI.get(
-    `/ww/cover?sigungucd=${params.sigungucd}&bjdongcd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
-    // `/Pub/Bld/getCover?sigungucd=${params.sigungucd}&bjdongcd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
+    // `/ww/cover?sigungucd=${params.sigungucd}&bjdongcd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
+    `/Pub/Bld/getCover?sigunguCd=${params.sigungucd}&bjdongCd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
   );
 };
 
