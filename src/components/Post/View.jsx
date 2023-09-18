@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import styled, { css } from 'styled-components';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -125,44 +125,43 @@ const Button = styled.button`
 `;
 
 
-function View({api, flex, block}) {
+function View({ api, flex, block }) {
   let navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    handleTableDetail();
-  });
-
-  const handleTableDetail = async () =>{
+  const handleTableDetail = useCallback(async () => {
     const res = await CommonAPI.get(`/api/public/${api}?id=${id}`);
     setData(res.data.data);
-  }
+  }, [api, id]);
+
+  useEffect(() => {
+    handleTableDetail();
+  }, []);
 
   function handleClick(link) {
     navigate(link);
   }
   return (
-    <>
-      <ViewContainer>
-        {data && (
-          <>
-            <ViewHeader key={data.id} flex={flex} block={block}>
-              <h2>
-                {data.category && (
-                  <span style={{
-                    backgroundColor: data.category === '풍수해' ? '#4575F5' :
-                    data.category === '이벤트' ? '#F58839' :
-                    data.category === '지원정책' ? '#336BFF' :
-                    data.category === '대출' ? '#6F85E3' :
-                    data.category === '홍보' ? '#FFCAB2' : null
-                  }}>
-                    {data.category}
-                  </span>
-                )}
+    <ViewContainer>
+      {data && (
+        <>
+          <ViewHeader key={data.id} flex={flex} block={block}>
+            <h2>
+              {data.category && (
+                <span style={{
+                  backgroundColor: data.category === '풍수해' ? '#4575F5' :
+                  data.category === '이벤트' ? '#F58839' :
+                  data.category === '지원정책' ? '#336BFF' :
+                  data.category === '대출' ? '#6F85E3' :
+                  data.category === '홍보' ? '#FFCAB2' : null
+                }}>
+                  {data.category}
+                </span>
+              )}
                 {data.title}
-              </h2>
+            </h2>
               <p style={{marginRight:"10px"}}>{data.createdDate}</p>
             </ViewHeader>
             <ViewBody>
@@ -174,7 +173,7 @@ function View({api, flex, block}) {
           </>
         )}
       </ViewContainer>
-    </>
+
     
   )
 }

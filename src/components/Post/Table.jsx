@@ -218,22 +218,6 @@ const MoreIcon = styled.span`
   }
 `;
 
-// const WriteButton = styled.button`
-//   width: 100px;
-//   height: 30px;
-//   display: flex;
-//   align-self: flex-end;
-//   justify-content: center;
-//   align-items: center;
-//   background-color: #F9F9F9;
-//   color: #393939;
-//   font-family: 'Malgun Gothic';
-//   font-weight: 700;
-//   margin: 6% 0;
-// `;
-
-
-
 export default function Table() {
   const { width } = useWindowSize();
   const [limit, setLimit] = useState(4);
@@ -292,39 +276,32 @@ export default function Table() {
           {data.slice(offset, offset + limit).map((dt) => (
             <ItemBlock key={dt.id}>
               {categories.filter((ct) => (ct.name === dt.code)).map((fd) => (
-                  <CategoryLabel color={fd.color}>{fd.print}</CategoryLabel>
-                ))}
-                {category === 'all' ? (<Link to={`?id=${dt.id}`}>{dt.title}</Link>) : (
-                  <Link
-                    to={`?id=${dt.id}`}>
-                      {dt.title}
-                  </Link>
-                )}
+                <CategoryLabel color={fd.color}>{fd.print}</CategoryLabel>
+              ))}
+              {category === 'all' ? (<Link to={`?id=${dt.id}`}>{dt.title}</Link>) : (
+                <Link to={`?id=${dt.id}`}>
+                  {dt.title}
+                </Link>
+              )}
             </ItemBlock>
           ))}
         </ListWrap>
       </TableWrap>
       {limit === 4 && (
         <ButtonWrap>
-          <button
-            onClick={() => setLimit(Number(8))}
-          >
+          <button onClick={() => setLimit(Number(8))}>
             <MoreIcon />
             <p>더 보기</p>
           </button>
         </ButtonWrap>
       )}
-    
       {limit === 8 && (
-        <>
-          {/* <WriteButton>글쓰기</WriteButton> */}
-          <Pagination
-            total={data.length}
-            limit={limit}
-            page={page}
-            setPage={setPage}
-          />
-        </>
+        <Pagination
+          total={data.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
       )}
     </>
     )
