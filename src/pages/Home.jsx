@@ -7,13 +7,11 @@ import Plaza from '../components/MainPage/Plaza';
 import TaxReturn from '../components/MainPage/TaxReturn';
 import useWindowSize from '../hooks/useWindowSize';
 import Layout from '../layout/index';
-
 function Home() {
   const { width } = useWindowSize();
-
   return (
     <>
-      <Layout>
+      <Layout quickScrollY={800}>
         <MainSlider />
         <Plaza scrollY={width > 700 ? 0 : 0} />
         <Infomation 

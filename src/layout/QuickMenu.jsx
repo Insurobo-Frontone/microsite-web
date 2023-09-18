@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import BizCareModal from '../components/BizCareProgram/BizCareModal';
 import insuroboWindstormIcon from '../assets/icon/go_to_insurobowindstorm_icon.png';
@@ -29,7 +29,7 @@ const QuickMenuWrap = styled.div`
     overflow: hidden;
     transition: padding 0.2s;
     right: 2%;
-    bottom: 10%;
+    bottom: 13%;
     border-radius: 0;
     box-shadow: none;
     background-color: transparent;
@@ -52,9 +52,11 @@ const ToggleWrap = styled.div`
 
 const ToggleText = styled.p`
   display: none;
-  color: #FFFFFF;
+  color: #176FFF;
   font-weight: 700;
-
+  &.white {
+    color: #FFFFFF;
+  }
   ${(props) => props.theme.window.mobile} {
     display: block;
     width: 100%;
@@ -174,20 +176,31 @@ const EventModalOverlay = styled.div`
 
 
 
-function QuickMenu() {
+function QuickMenu({quickScrollY}) {
   const [showPopup, setShowPopup] = useState(false);
   const [toggleOn, setToggleOn] = useState(true);
+  const [leave, Setleave] = useState(0);
+  const colorRef = useRef(null);
+  const mainBannerPosition = () => {
+    Setleave(window.scrollY)
+  }
+  useEffect(() => {
+    window.addEventListener('scroll', mainBannerPosition);
+  }, [])
 
   const onClose = () => {
     setShowPopup(false);
   }
-
+  
   return (
     <>
-      
       <QuickMenuWrap open={toggleOn}>
         <ToggleWrap onClick={() => setToggleOn(!toggleOn)}>
-          <ToggleText open={toggleOn}>
+          <ToggleText 
+            open={toggleOn}
+            className={leave < quickScrollY ? 'white' : ''}
+            ref={colorRef}
+          >
             {toggleOn ? '접어두기' : '펼처보기'}</ToggleText>
           <ToggleIcon>
             <img src={toggleIcon} alt='toggle'/>

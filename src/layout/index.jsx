@@ -15,18 +15,16 @@ const Wrap = styled.div`
   background-color: ${props => theme.color[props.color] || '#FFFFFF'};
 `;
 
-
-const Layout = ({children, color}) => {
-  
+const Layout = ({children, color, quickScrollY}) => {
   return (
     <>
       <ScrollToTop />
       <PageScrollToTop />
-      <QuickMenu />
+      <QuickMenu quickScrollY={quickScrollY}/>
       <Wrap color={color}>
         <Header/>
-          <Outlet />
-          {children}
+        <Outlet />
+        {children}
         <Footer />
       </Wrap>
     </>

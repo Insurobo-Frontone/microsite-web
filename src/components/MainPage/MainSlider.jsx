@@ -13,7 +13,6 @@ import mb_slider3 from '../../assets/img/mb_slider3.png';
 // import pause from '../../assets/img/pauseIcon.png';
 import { Link } from 'react-router-dom';
 
-
 const data = [
   {
     id: 1,
@@ -244,9 +243,9 @@ const CustomDot = styled.div`
 //   )
 // }
 
-function MainSlider() {
+function MainSlider({ref}) {
   // const { width } = useWindowSize();
-  const sliderRef = useRef(null);
+  
   // const [currentSlide, setCurrentSlide] = useState(0);
 
   // const handleBeforeChange = (oldIndex, newIndex) => {
@@ -261,8 +260,8 @@ function MainSlider() {
   // const play = () => {
   //   sliderRef.current.slickPlay();
   // };
+  const mainRef = useRef(null);
 
-  
   const settings = {
     dots: true,
     speed: 2000,
@@ -283,36 +282,36 @@ function MainSlider() {
 
 
   return (
-    <Wrap>
-      <StyledSlider
-        ref={sliderRef}
-        // beforeChange={handleBeforeChange}
-        // afterChange={handleAfterChange}
-        {...settings}
-      >
-        {data.map((dt) => (
-          <Banner key={dt.id} bgImg={dt.bg_img} mbBgImg={dt.mb_bg_img}>
-            <TextBox>
-              <Title bold='300'>{dt.t_line1}</Title>
-              <Title bold='300'>{dt.t_line2}</Title>
-              <Title>{dt.t_line3}</Title>
-              <StyleLink to={dt.link} color={dt.color}>
-                자세히보기
-              </StyleLink>
-            </TextBox>
-          </Banner>
-        ))}
-      </StyledSlider>
+      <Wrap>
+        <StyledSlider
+          ref={mainRef}
+          {...settings}
+          // beforeChange={handleBeforeChange}
+          // afterChange={handleAfterChange}
+        >
+          {data.map((dt) => (
+            <Banner key={dt.id} bgImg={dt.bg_img} mbBgImg={dt.mb_bg_img}>
+              <TextBox>
+                <Title bold='300'>{dt.t_line1}</Title>
+                <Title bold='300'>{dt.t_line2}</Title>
+                <Title>{dt.t_line3}</Title>
+                <StyleLink to={dt.link} color={dt.color}>
+                  자세히보기
+                </StyleLink>
+              </TextBox>
+            </Banner>
+          ))}
+        </StyledSlider>
       
-      {/* <SliderPlayerGroup> 
-        <ButtonBox>
-          <PauseButton onClick={pause} />
-          <PlayButton onClick={play} />
-        </ButtonBox>
-        <Progress currentSlide={currentSlide} totalSlides={'3'} />
-      </SliderPlayerGroup> */}
-    </Wrap>
-  )
+        {/* <SliderPlayerGroup> 
+          <ButtonBox>
+            <PauseButton onClick={pause} />
+            <PlayButton onClick={play} />
+          </ButtonBox>
+          <Progress currentSlide={currentSlide} totalSlides={'3'} />
+        </SliderPlayerGroup> */}
+      </Wrap>
+  );
 }
 
 export default MainSlider
