@@ -28,10 +28,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0 auto;
     overflow-x: hidden;
     /* scroll-behavior: smooth; */
-    font-size: 20px;
-    ${(props) => props.theme.window.mobile} {
-      font-size: 15px;
-    }
+    font-size: 16px;
   }
 
   a {
@@ -42,8 +39,9 @@ const GlobalStyle = createGlobalStyle`
     max-width: 100%;
   }
   h1, h2, h3, h4, h5, h6, th {
-    font-family: 'SCoreDream';
-    color: #2F2F2F;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #393939;
+    font-weight: 700;
   } 
 
   html, body, div, span, applet, object, iframe,
@@ -60,14 +58,13 @@ const GlobalStyle = createGlobalStyle`
   menu, nav, output, ruby, section, summary,
   time, mark, audio, video, button {
     font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 300;
-    color: #393939;
+    font-weight: 400;
+    color: #545454;
   }
   body {
     width: 100%;
     user-select: none;
     -webkit-overflow-scrolling: none;
-    
   }
   article, aside, details, figcaption, figure, 
   footer, header, hgroup, menu, nav, section, img {

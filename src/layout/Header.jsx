@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled, { css } from 'styled-components';
 import logo from '../assets/img/mainLogo.png';
@@ -7,111 +7,77 @@ import toggleBtn from '../assets/img/toggleBtn.png';
 import closeBtn from '../assets/img/closeBtn.png';
 import WindStormModal from '../components/Modal/WindStormModal';
 import Profile from '../components/Auth/Profile';
-import { useEffect } from 'react';
 import ModalOutLayer from '../components/ModalOutLayer';
 import useWindowSize from '../hooks/useWindowSize';
+import ContentInner from './ContentInner';
 
 const Wrap = styled.header`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2.35% 0;
-  background-color: #FFFFFF;
-  
-  
-  ${(props) => props.theme.window.mobile} {
-    height: 80px;
-    padding: 0;
-  } 
+  width: 100%;
+  background-color: #FAFAFA;
 `;
 
 const Nav = styled.nav`
-  width: 75%;
+  height: 95px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
+  border-bottom: 1px solid #F0F0F0;
  ${(props) => props.theme.window.mobile} {
-    width: 85.33333333333333%;
+    
  } 
 `;
 
 const LogoBox = styled.button`
-  /* width: 21.04166666666667%; */
-  width: 15.8vw;
-  display: flex;
-  align-items: center;
-  
+  width: 155px;
+  margin-right: 64px;
   ${(props) => props.theme.window.mobile} {
-    width: 120px;
+
   }
 `;
 
-const Menu = styled.ul`
+const Menu = styled.div`
+  width: 100%;
   display: flex;
-  /* width: 50%; */
-  justify-content: flex-end;
-  align-items: center;
-  position: relative;
-  > li {
-    margin-right: 45px;
-    font-size: 1.25vw;
-    cursor: pointer;
-    :first-child {
-      border: 1px solid #393939;
-      padding: 12px 18px;
-    }
-    :last-child {
-      margin-right: 0;
-      border: none;
-    }
-  }
-  ${(props) => props.theme.window.mobile} {
-    position: relative;
-    display: none;
-    ${props => props.isOpen && css`
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 80px;
-      left: 0;
-      z-index : 99;
-      background-color: #FFFFFF;
-
-      > li {
-        width: 85.33333333333333%;
+  justify-content: space-between;
+  > ul {
+    display: flex;
+    > li {
+      padding: 0 10px;
+      line-height: 46px;
+      margin-right: 14px;
+      font-weight: 300;
+      font-size: 18px;
+      > a {
+        color: #2d2d2d;
+        font-weight: 300;
+      } 
+      :last-child {
         margin-right: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 80px;
-        /* border-bottom: 1px solid #F5F5F5; */
-        font-size: 1.133333333333333rem;
-
-        :first-child {
-          height: 50px;
-          margin: 15px 0;
-        }
       }
-    `}
+    }
+    .border-btn {
+      border: 1px solid #2EA5FF;
+      border-radius: 5px;
+      color: #2d2d2d;
+      padding: 0 13px;
+      margin-right: 20px;
+    }
   }
+
+  
 `;
 
-const ToggleBtn = styled.div`
-  width: 28px;
-  height: ${props => props.isOpen ?  '30px' : '20px'};
-  background-image: ${props => props.isOpen ? `url(${closeBtn})` : `url(${toggleBtn})`};
-  display: none;
-  background-size: contain;
+// const ToggleBtn = styled.div`
+//   width: 28px;
+//   height: ${props => props.isOpen ?  '30px' : '20px'};
+//   background-image: ${props => props.isOpen ? `url(${closeBtn})` : `url(${toggleBtn})`};
+//   display: none;
+//   background-size: contain;
   
-  ${(props) => props.theme.window.mobile} {
-    display: block;
+//   ${(props) => props.theme.window.mobile} {
+//     display: block;
     
-  }
-`;
+//   }
+// `;
 
 const MyPage = styled.div`
   /* background-image: url(${myPageIcon}); */
@@ -176,55 +142,57 @@ function Header() {
 
   return (
     <>
-        <Wrap>
-          <Nav>
-            <LogoBox onClick={() => goToMainPage('/')}>
-              <img src={logo} alt='비즈로보' />
-            </LogoBox>
-            <Menu isOpen={isOpen}>
-              <li onClick={() => setShowPopup(true)}>
-                <span>풍수해보험 가입확인</span>
+    <Wrap>
+      <ContentInner>
+        <Nav>
+          <LogoBox onClick={() => goToMainPage('/')}>
+            <img src={logo} alt='비즈로보' />
+          </LogoBox>
+          <Menu>
+            <ul>
+              <li><Link to='#'>간편보험가입</Link></li>
+              <li><Link to='#'>기업경영건강검진</Link></li>
+              <li><Link to='#'>제휴서비스</Link></li>
+              <li><Link to='#'>회사소개</Link></li>
+            </ul>
+            <ul>
+              <li onClick={() => setShowPopup(true)} className='border-btn'>
+                풍수해보험 가입확인
               </li>
-              {auth ? 
-                <>
-                  <li>
+              {auth ? (
+                <li>
+                  <>
                     <MyPage onClick={() => setMyPageOpen(!myPageOpne)}>
                       <img src={myPageIcon} alt='profile' />
                       {width < 768 && (<span>내 프로필</span>)}
                     </MyPage>
-                      {myPageOpne && width > 768 && (
-                        <>
-                          <ModalOutLayer modalOutSideClick={modalOutSideClick} modalRef={modalRef} />
-                          <Profile onClick={logout} userName={userName} />
-                        </>
-                      )}
-                  </li>
-                  {myPageOpne && width < 768 && (
-                    <li>
-                      <Profile onClick={logout} userName={userName} />
-                    </li>
-                  )}
-                  
-                </>
-              :
-                <>
-                  <li><Link to='/login'>로그인</Link></li>
-                  <li><Link to='/register'>회원가입</Link></li>
-                </>
-              }
-            </Menu>
-            <ToggleBtn onClick={handleClick} isOpen={isOpen} />
-            
+                    {myPageOpne && width > 768 && (
+                      <>
+                        <ModalOutLayer modalOutSideClick={modalOutSideClick} modalRef={modalRef} />
+                        <Profile onClick={logout} userName={userName} />
+                      </>
+                    )}
+                    {myPageOpne && width < 768 && (
+                      <li>
+                        <Profile onClick={logout} userName={userName} />
+                      </li>
+                    )}
+                  </>
+                </li>
+              ) : (
+                <li><Link to='/login'>로그인/회원가입</Link></li>
+              )}
+            </ul>
+          </Menu>
+          {/* <ToggleBtn onClick={handleClick} isOpen={isOpen} /> */}
           </Nav>
-          
-        </Wrap>
+        </ContentInner>
         {showPopup && (
           <>
             <WindStormModal onClick={() => setShowPopup(!showPopup)} />
           </>
-    
         )}
-  
+      </Wrap>
     </>
   )
 }

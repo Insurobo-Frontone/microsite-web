@@ -1,6 +1,6 @@
 const size = {
   mobile: 768,
-  tab: 1440,
+  tab: 1279.98
 }
 
 const theme = {
@@ -23,12 +23,13 @@ const theme = {
     GRAY2: '#EBEBEB',
     GRAY3: '#989898',
     GRAY4: '#808080',
+    SKY_BLUE: '#39C8F5',
     BLUE: '#176FFF',
     BLUE2: '#0C1F6F',
     BLUE3: '#2EA5FF',
     BLUE4: '#2B3350',
     NAVY: '#212A5D',
-    BG_WHITE: '#FAFAFA',
+    BG_WHITE: '#FCFCFC',
     BG_WHITE2: '#F5F5F5',
     BG_GRAY: '#F9F9F9',
     BG_BLACK:'#333333',
@@ -41,7 +42,6 @@ const theme = {
   window: {
     tab: `@media screen and (max-width: ${size.tab}px)`,
     mobile: `@media screen and (max-width: ${size.mobile}px)`,
-    iframe: `@media screen and (max-width: ${size.iframe}px)`,
   }
 }
 

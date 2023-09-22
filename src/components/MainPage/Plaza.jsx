@@ -1,11 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Content from '../Content';
 import TitleSet from '../TitleSet';
-
-import icon1 from '../../assets/img/bell.png';
-import icon2 from '../../assets/img/speaker.png';
-import icon3 from '../../assets/img/wallet.png';
 import { Text, Title } from '../Font';
 import { useScroll } from '../../hooks/useScroll';
 import bg_R from '../../assets/img/bg_Img_R.png';
@@ -17,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 const data = [
   {
     id: 1,
-    icon: icon1,
+
     title: '의무보험',
     text: '업종별 의무보험\n꼭! 챙기세요',
     link: '/insuranceInfo?item=duty',
@@ -25,7 +20,7 @@ const data = [
   },
   {
     id: 2,
-    icon: icon2,
+
     title: '필수보험',
     text: '사업장 안전!\n선택이 아닌 필수',
     link: '/insuranceInfo?item=must',
@@ -33,7 +28,7 @@ const data = [
   },
   {
     id: 3,
-    icon: icon3,
+ 
     title: '재테크보험',
     text: '저축과\n위험보장을 동시에',
     link: '/insuranceInfo?item=invest',
@@ -41,6 +36,7 @@ const data = [
   },
 ]
 
+const PlazaWrap = styled.div``;
 const CardList = styled.ul`
   display: flex;
   justify-content: space-between;
@@ -122,39 +118,32 @@ const ImgWrap = styled.div`
   }
 `;
 
-function Plaza({scrollY}) {
+function Plaza() {
   let navigate = useNavigate();
-  const { y } = useScroll();
-  const { width } = useWindowSize();
+
   return (
-    <Content 
-      top={width > 768 ? '10.66%' : '16.5%'} 
-      bottom={width > 768 ? '5.8%' : '0%'}
-      bgImg={bg_R}
-      scrollY={scrollY}
-      // min={width > 768 && '1440px'}
-    >
+    <PlazaWrap>
       <TitleSet
-        small_title='사업장 안전지킴이'
-        big_title1='사장님 보험'
-        big_title2='Plaza'
+        title='사장님! 어떤 보험에 관심이 있으신가요?'
+        text='다양한 보험을 직접 확인하고 비교해보세요!'
       />
       <CardList>
         {data.map((dt) => (
           <Card 
             key={dt.id} 
-            className={y > scrollY ? `${dt.className}` : null}
             onClick={() => navigate(dt.link)}
           >
             <ImgWrap>
-              <img src={dt.icon} alt='아이콘' />
+              
             </ImgWrap>
             <Text bold='400' color='BLACK4'>{dt.text}</Text>
             <Title>{dt.title}</Title>
           </Card>
         ))}
       </CardList>
-    </Content>
+    </PlazaWrap>
+      
+
   )
 }
 

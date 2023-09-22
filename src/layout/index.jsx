@@ -2,29 +2,30 @@ import React from "react";
 import Header from "./Header";
 import styled from "styled-components";
 import Footer from "./Footer";
-import theme from '../style/Theme';
 import ScrollToTop from "./ScrollToTop";
 import PageScrollToTop from "./pageScrollToTop";
 import { Outlet } from 'react-router-dom';
-import QuickMenu from "./QuickMenu";
+import ContentInner from "./ContentInner";
+
 
 const Wrap = styled.div`
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-  background-color: ${props => theme.color[props.color] || '#FFFFFF'};
 `;
 
-const Layout = ({children, color, quickScrollY}) => {
+
+const Layout = ({children}) => {
   return (
     <>
       <ScrollToTop />
       <PageScrollToTop />
-      <QuickMenu quickScrollY={quickScrollY}/>
-      <Wrap color={color}>
+      <Wrap>
         <Header/>
         <Outlet />
-        {children}
+        <ContentInner>
+          {children}
+        </ContentInner>
         <Footer />
       </Wrap>
     </>
