@@ -95,7 +95,6 @@ const InsuroboWindstorm = () => {
       //우편번호
       const objZipValue = insurance.getAddr.zipNo+''
       postHiLinkObj({
-        bldCls: '',
         inputBldSt: watch('inputBldSt'),
         inputBldEd: watch('inputBldEd'),
         bldTotLyrNum: insurance.getCover.bldTotLyrNum,
@@ -122,6 +121,7 @@ const InsuroboWindstorm = () => {
         termsA6: watch('termsA6') ? 'Y' : 'N',
       }).then((res) => {
         console.log(res.data.results.userID);
+        console.log(res.data)
         const userId = res.data.results.userID;
         window.open(`https://mplatform.hi.co.kr/service.do?m=pipis1000&${userId}`);
         navigate('/');
