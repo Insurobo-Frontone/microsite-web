@@ -7,6 +7,7 @@ import { Title } from '../Font';
 import duty from '../../assets/img/duty.png';
 import must from '../../assets/img/must.png';
 import invest from '../../assets/img/invest.png';
+import ContentInner from '../../layout/ContentInner';
 
 const data = [
   {
@@ -98,26 +99,28 @@ function Plaza() {
   let navigate = useNavigate();
 
   return (
-    <PlazaWrap>
-      <TitleSet
-        title='사장님! 어떤 보험에 관심이 있으신가요?'
-        text='다양한 보험을 직접 확인하고 비교해보세요!'
-        label='Go!'
-      />
-      <CardList>
-        {data.map((dt) => (
-          <Card 
-            key={dt.id} 
-            onClick={() => navigate(dt.link)}
-            bgImg={dt.img}
-          >
-            <Overlay />
-            <div dangerouslySetInnerHTML={{ __html: dt.text }} />
-            <Title>{dt.title}</Title>
-          </Card>
-        ))}
-      </CardList>
-    </PlazaWrap>
+    <ContentInner>
+      <PlazaWrap>
+        <TitleSet
+          title='사장님! 어떤 보험에 관심이 있으신가요?'
+          text='다양한 보험을 직접 확인하고 비교해보세요!'
+          label='Go!'
+        />
+        <CardList>
+          {data.map((dt) => (
+            <Card 
+              key={dt.id} 
+              onClick={() => navigate(dt.link)}
+              bgImg={dt.img}
+            >
+              <Overlay />
+              <div dangerouslySetInnerHTML={{ __html: dt.text }} />
+              <Title>{dt.title}</Title>
+            </Card>
+          ))}
+        </CardList>
+      </PlazaWrap>
+    </ContentInner>
       
 
   )

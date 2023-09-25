@@ -140,11 +140,10 @@ function Login() {
         const name = searchParams.get("name");
         setAccessToken(accessToken);
         setUserName(name)
-        if (path) {
-          navigate('/freeApply')
-        } else {
+        // if (path) {
+        //   navigate('/freeApply')
+        // } else {
           navigate('/')
-        }
     }
   }, []);
 

@@ -11,6 +11,8 @@ const theme = {
     POINT_SUB: '#FFCAB2',
     ORANGE: '#FF9243',
     WARNING: '#FF6060',
+    RED: '#FF4117',
+    RED_RGBA: 'rgba(255, 65, 23, 0.28)',
     WARNING_MESSAGE: '#BA0000',
     SUCCESS: '#336BFF', 
     BLACK0: '#252525',
@@ -28,13 +30,16 @@ const theme = {
     BLUE2: '#0C1F6F',
     BLUE3: '#2EA5FF',
     BLUE4: '#2B3350',
+    BLUE5: '#3154FF',
+    BLUE_RGBA: `rgba(0, 97, 255, 0.20)`,
     NAVY: '#212A5D',
     BG_WHITE: '#FCFCFC',
     BG_WHITE2: '#F5F5F5',
     BG_GRAY: '#F9F9F9',
     BG_BLACK:'#333333',
     YELLOW: '#FAE300',
-    GREEN: '#03CF5D'
+    GREEN: '#03CF5D',
+    
   },
   gradientsColor: {
     GRADIENT0: `linear-gradient(0deg, rgba(89, 116, 255, 0.5) 0%, rgba(95, 161, 255, 0.5) 61.8%, rgba(99, 189, 255, 0.5) 100%)`,

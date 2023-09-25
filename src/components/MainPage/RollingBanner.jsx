@@ -11,6 +11,7 @@ import icon4 from '../../assets/icon/Fire_perspective_matte.png';
 import icon5 from '../../assets/icon/Gym_perspective_matte.png';
 import icon6 from '../../assets/icon/Shop_perspective_matte.png';
 import icon7 from '../../assets/icon/Heart_rate_perspective_matte.png';
+import ContentInner from "../../layout/ContentInner";
 
 const product = [
   {
@@ -55,11 +56,11 @@ const settings = {
   variableWidth: true,
   autoplay: true,
   infinite: true,
-  cssEase: 'linear', 
   slidesToShow: 6,
   slidesToScroll: 1,
   autoplaySpeed: 2000,
   pauseOnHover: false,
+  arrows: false,
 }
 
 const RollingBannerWrap = styled.div`
@@ -87,18 +88,21 @@ const Item = styled.div`
 
 const RollingBanner = () => {
   return (
-    <RollingBannerWrap>
-      <StyledSlider {...settings}>
-        {product.map((item) => (
-          <Item key={item.id}>
-            <div>
-              <img src={item.icon} alt={item.title}/>
-              <p>{item.title}</p>
-            </div>
-          </Item>
-        ))}
-      </StyledSlider>
-    </RollingBannerWrap>
-  )
-}
+    <ContentInner>
+      <RollingBannerWrap>
+        <StyledSlider {...settings}>
+          {product.map((item) => (
+            <Item key={item.id}>
+              <div>
+                <img src={item.icon} alt={item.title}/>
+                <p>{item.title}</p>
+              </div>
+            </Item>
+          ))}
+        </StyledSlider>
+      </RollingBannerWrap>
+    </ContentInner>
+  );
+};
+
 export default RollingBanner;

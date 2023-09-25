@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import MainSlider from "./MainSlider";
 import MainMenu from "./MainMenu";
+import ContentInner from "../../layout/ContentInner";
 
 const MainBannerWrap = styled.div`
   display: flex;
@@ -11,11 +12,13 @@ const MainBannerWrap = styled.div`
 
 const MainBanner = () => {
   return (
-    <MainBannerWrap>
-      <MainSlider />
-      <MainMenu />
-    </MainBannerWrap>
+    <ContentInner>
+      <MainBannerWrap>
+        <MainSlider />
+        <MainMenu />
+      </MainBannerWrap>
+    </ContentInner>
   )
-}
+};
 
 export default MainBanner;

@@ -5,8 +5,6 @@ import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import PageScrollToTop from "./pageScrollToTop";
 import { Outlet } from 'react-router-dom';
-import ContentInner from "./ContentInner";
-
 
 const Wrap = styled.div`
   width: 100%;
@@ -23,9 +21,7 @@ const Layout = ({children}) => {
       <Wrap>
         <Header/>
         <Outlet />
-        <ContentInner>
           {children}
-        </ContentInner>
         <Footer />
       </Wrap>
     </>

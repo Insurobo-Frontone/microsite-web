@@ -1,13 +1,7 @@
 import axios from "axios";
 
 export const WindstormAPI = axios.create({
-  baseURL: 'http://210.179.175.150:80/'
-  // baseURL: 'https://insrb.com',
-  // baseURL: 'http://roylabs.iptime.org:8090',
-  // headers: {
-  //   'X-insr-servicekey':
-  //   'Q29weXJpZ2h0IOKTkiBpbnN1cm9iby5jby5rciBBbGwgcmlnaHRzIHJlc2VydmVkLg==',
-  // },
+  baseURL: process.env.REACT_APP_HIAPI_SERVER_HOST,
 });
 
 // 주소검색

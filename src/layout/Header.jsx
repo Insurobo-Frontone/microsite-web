@@ -1,10 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import logo from '../assets/img/mainLogo.png';
-import myPageIcon from '../assets/img/myPageIcon.png';
-import toggleBtn from '../assets/img/toggleBtn.png';
-import closeBtn from '../assets/img/closeBtn.png';
+import myPageIcon from '../assets/icon/myPageIcon.png.png';
 import WindStormModal from '../components/Modal/WindStormModal';
 import Profile from '../components/Auth/Profile';
 import ModalOutLayer from '../components/ModalOutLayer';
@@ -38,8 +36,10 @@ const Menu = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   > ul {
     display: flex;
+    align-items: center;
     > li {
       padding: 0 10px;
       line-height: 46px;
@@ -55,7 +55,7 @@ const Menu = styled.div`
       }
     }
     .border-btn {
-      border: 1px solid #2EA5FF;
+      border: 1.5px solid #2EA5FF;
       border-radius: 5px;
       color: #2d2d2d;
       padding: 0 13px;
@@ -66,39 +66,21 @@ const Menu = styled.div`
   
 `;
 
-// const ToggleBtn = styled.div`
-//   width: 28px;
-//   height: ${props => props.isOpen ?  '30px' : '20px'};
-//   background-image: ${props => props.isOpen ? `url(${closeBtn})` : `url(${toggleBtn})`};
-//   display: none;
-//   background-size: contain;
-  
-//   ${(props) => props.theme.window.mobile} {
-//     display: block;
-    
-//   }
-// `;
 
 const MyPage = styled.div`
-  /* background-image: url(${myPageIcon}); */
-  /* width: 80px;
-  height: 80px; */
+  display: flex;
+  align-items: center;
+  padding: 24.5px 0;
+  width: 148px;
   > img {
-    width: 4.2vw;
+    padding: 0 11.5px;
   }
-  ${(props) => props.theme.window.mobile} {
-    display: flex;
-    align-items: center;
-    > img {
-      width: 40px;
-      height: 40px;
-      margin-right: 14px;
-    }
-    > span {
-      font-size: 17px;
-    }
-    
-  } 
+  > p {
+    font-size: 16px;
+    color: #2D2D2D;
+    font-weight: 500;
+    margin-left: 4px;
+  }
 `;
 
 
@@ -163,13 +145,13 @@ function Header() {
                 <li>
                   <>
                     <MyPage onClick={() => setMyPageOpen(!myPageOpne)}>
-                      <img src={myPageIcon} alt='profile' />
-                      {width < 768 && (<span>내 프로필</span>)}
+                      <img src={myPageIcon} alt='마이페이지' />
+                      <p>마이페이지</p>
                     </MyPage>
                     {myPageOpne && width > 768 && (
                       <>
                         <ModalOutLayer modalOutSideClick={modalOutSideClick} modalRef={modalRef} />
-                        <Profile onClick={logout} userName={userName} />
+                        <Profile onClick={logout} />
                       </>
                     )}
                     {myPageOpne && width < 768 && (
@@ -180,11 +162,13 @@ function Header() {
                   </>
                 </li>
               ) : (
-                <li><Link to='/login'>로그인/회원가입</Link></li>
+                <>
+                  <li><Link to='/login'>로그인</Link></li>
+                  <li><Link to='/register'>회원가입</Link></li>
+                </>
               )}
             </ul>
           </Menu>
-          {/* <ToggleBtn onClick={handleClick} isOpen={isOpen} /> */}
           </Nav>
         </ContentInner>
         {showPopup && (

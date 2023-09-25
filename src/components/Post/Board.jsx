@@ -1,112 +1,76 @@
 import React from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Layout from '../../layout';
-import TitleSet from '../TitleSet';
-import bg from '../../assets/img/left_bg.png';
-import useWindowSize from '../../hooks/useWindowSize';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { CommonAPI } from '../../api/CommonAPI';
 import useAsync from '../../hooks/useAsync';
 import View from './View';
+import Label from '../Label';
 
 const Wrap = styled.div`
-  width: 75%;
-  margin: 0 auto;
-  ${(props) => props.theme.window.mobile} {
-    width: 85.33333333333333%;
-    padding: 66px 0 81px 0; 
-  }
+
+  
 `;
 
-const BoardWrap = styled.ul`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  padding: 112px 0;
-  
-  ${(props) => props.theme.window.mobile} {
-    padding: 27px 10px;
+const StyledSlider = styled(Slider)`
+  .slick-track {
+    width: 100%;
+    margin: 0;
+    padding: 30px 0;
+    .slick-slide {
+      width: 383px;
+      height: 194px;
+      margin-right: 20px;
+      border-radius: 15px;
+      box-shadow: 4px 6px 16px 0px rgba(0, 0, 0, 0.25);
+      background-color: #FFFFFF;
+    }
   }
+
 `;
 
 const Card = styled.li`
-  display: flex;
-  width: 545px;
-  height: 350px;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #FFFFFF;
-  overflow: hidden;
-  z-index: 2;
-  box-shadow: 8px 11px 50px 0 rgba(69, 117, 245, 0.15);
-  border-radius: 20px;
-  padding: 40px 35px;
-  margin-bottom: 80px;
-  :hover {
-    box-shadow: 8px 11px 50px 0 rgba(69, 117, 245, 0.3);
-  }
-  :last-child {
-    margin-bottom: 0;
-  }
-  ${(props) => props.theme.window.mobile} {
-    width: 100%;
-    height: 160px;
-    box-shadow: 0 4px 15px 0 rgba(69, 117, 245, 0.15);
-    padding: 31px 16px;
-    justify-self: center;
-    margin-bottom: 30px;
+  padding: 20px;
+  
+`;
+
+const CardLink = styled(Link)`
+  > div {
+    display: flex;
+    justify-content: space-between;
+    
+    > h2 {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #545454;
+      font-size: 18px;
+      margin-right: 12px;
+      margin-bottom: 20px;
+      font-weight: 350;
+    }
   }
 `;
 
-const Background = styled.img`
-  position: absolute;
-  width: 70%;
-  left: -29%;
-  top: 15%;
-  z-index: 0;
-  ${(props) => props.theme.window.mobile} {
-    width: 100%;
-    left: -50%;
-    top: 25%;
-    transform: scale(1.2);
-  }
-`;
 
 const TextArea = styled.div`
   overflow: hidden;
   
-  > h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    height: 100px;
-  }
   > div {
-    height: 150px;
-    margin-top: 20px;
+    height: 81px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
-  ${(props) => props.theme.window.mobile} {
-    > h2 {
-      font-size: 1rem;
-      height: 30px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-    > div {
-      margin-top: 5px;
-      height: 70px;
-    }
-  }
-`;
-
-const CardLink = styled(Link)`
-  display: block;
-  height: 100%;
 `;
 
 function Board() { 
-  const { width } = useWindowSize();
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const id = searchParams.get('id');
@@ -121,39 +85,42 @@ function Board() {
     const res = await CommonAPI.get(`/api/public/infoPlaceList`)
     return res.data.data.slice(0).reverse(); 
   }
-  
+  const settings = {
+    speed: 1000,
+    autoplay: true,
+    infinite: true,
+    slidesToScroll: 1,
+    autoplaySpeed: 2000,
+    pauseOnHover: false,
+    arrows: false,
+    variableWidth: true,
+  }
+
   return (
-    <Layout>
-      {/* <Content 
-        top={width > 768 ? '6.56%' : '16.5%'}
-        bottom={width > 768 ? '10%' : '16.5%'}
-      > */}
-        <Wrap>
-          <TitleSet
-            small_title='정보 알림이'
-            big_title1='소상공인&nbsp;'
-            big_title2='정보마당'
-            row={width > 768 ? true : false}
-          />
-          <Background src={bg} alt='배경화면'/>
-          {location.search === `?id=${id}` ? (<View api='infoPlaceDetail' block/>) : (
-            <BoardWrap>
-              {data.map((dt) => (
-                <Card key={dt.id} className={dt.class}>
-                  <CardLink to={`?id=${dt.id}`}> 
-                    <TextArea>
-                      <h2>{dt.title}</h2>
-                      <div dangerouslySetInnerHTML={{__html: dt.content}}></div>
-                    </TextArea>
-                  </CardLink>
-                </Card>
-              ))}
-            </BoardWrap> 
-          )}
-        </Wrap>
-       
-      {/* </Content>  */}
-    </Layout>
+    <Wrap>
+      {location.search === `?id=${id}` ? (<View api='infoPlaceDetail' block />) : (
+        <StyledSlider {...settings}>
+          {data.map((dt) => (
+            <Card key={dt.id} className={dt.class}>
+              <CardLink to={`/board?id=${dt.id}`}>
+                <div>
+                  <h2>{dt.title}</h2>
+                  <Label 
+                    label={dt.id === 6 ? 'NEW' : 'HOT' }
+                    color={dt.id === 6 ? 'BLUE5' : 'RED'}
+                    bgColor={dt.id === 6 ? 'BLUE_RGBA' : 'RED_RGBA'}
+                  />
+                </div>
+                <TextArea>
+                  <div dangerouslySetInnerHTML={{__html: dt.content}}></div>
+                </TextArea>
+              </CardLink>
+            </Card>
+          ))}
+          </StyledSlider> 
+        )}
+    </Wrap>
+
   )
 }
 
