@@ -92,12 +92,7 @@ function Infomation({scrollY1, scrollY2}) {
       scrollY1={scrollY1}
       scrollY2={scrollY2}
     >
-      <LeftBackground className={y > scrollY1 ? 'show' : null}>
-        <img src={left} alt='insurobo'  />
-      </LeftBackground>
-      <RightBackground className={y > scrollY2 ? 'show' : null}>
-        <img src={right} alt='insurobo' />
-      </RightBackground>
+     
       <TitleSet
         small_title='정보 알림이'
         big_title1='소상공인&nbsp;'

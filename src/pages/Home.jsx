@@ -17,10 +17,7 @@ function Home() {
         <MainBanner />
         <RollingBanner />
         <Plaza scrollY={width > 700 ? 0 : 0} />
-        <Infomation 
-          scrollY1={width > 768 ? 0 : 0}
-          scrollY2={width > 768 ? 0 : 0}
-        />
+        <Infomation />
         <Community />
         <TaxReturn />
         <FinanceGoods />

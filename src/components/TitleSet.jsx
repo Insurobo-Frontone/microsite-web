@@ -5,7 +5,15 @@ import Label from './Label';
 
 
 const MainTitle = styled.div`
- 
+  padding-bottom: 30px;
+  > div {
+    display: flex;
+    align-items: center;
+    padding-bottom: 6px;
+    > div {
+      margin-left: 10px;
+    }
+  }
 `;
 
 
@@ -15,7 +23,7 @@ function TitleSet({title, text, label}) {
       {title && (
         <div>
           <Title>{title}</Title>
-          {label && (<Label>{label}</Label>)}
+          {label && (<Label label={label}/>)}
         </div>
       )}
       {text && (<Text color='BLACK2' bold='600'>{text}</Text>)}
