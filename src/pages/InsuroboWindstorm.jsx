@@ -95,7 +95,6 @@ const InsuroboWindstorm = () => {
       //우편번호
       const objZipValue = insurance.getAddr.zipNo+''
       postHiLinkObj({
-        bldCls: '',
         inputBldSt: watch('inputBldSt'),
         inputBldEd: watch('inputBldEd'),
         bldTotLyrNum: insurance.getCover.bldTotLyrNum,

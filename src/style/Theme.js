@@ -1,5 +1,5 @@
 const size = {
-  mobile: 768,
+  mobile: 767.98,
   tab: 1279.98
 }
 
@@ -39,7 +39,6 @@ const theme = {
     BG_BLACK:'#333333',
     YELLOW: '#FAE300',
     GREEN: '#03CF5D',
-    
   },
   gradientsColor: {
     GRADIENT0: `linear-gradient(0deg, rgba(89, 116, 255, 0.5) 0%, rgba(95, 161, 255, 0.5) 61.8%, rgba(99, 189, 255, 0.5) 100%)`,

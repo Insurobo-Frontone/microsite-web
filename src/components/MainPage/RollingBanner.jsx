@@ -61,17 +61,29 @@ const settings = {
   autoplaySpeed: 2000,
   pauseOnHover: false,
   arrows: false,
+  responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2,
+      }
+    }
+  ]
 }
 
 const RollingBannerWrap = styled.div`
   width: 100%;
   height: 54px;
-  padding: 0 20px;
   border-radius: 15px;
+  padding: 0 20px;
   box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.10);
+  ${(props) => props.theme.window.mobile} {
+
+  }
 `;
 
 const StyledSlider = styled(Slider)`
+  
 `;
 
 const Item = styled.div`
@@ -82,6 +94,16 @@ const Item = styled.div`
     height: 54px;
     > img {
       margin-right: 10px;
+    }
+  }
+  ${(props) => props.theme.window.mobile} {
+    > div {
+      > img {
+        margin-right: 9px;
+      }
+      > p {
+        font-size: 14px;
+      }
     }
   }
 `;

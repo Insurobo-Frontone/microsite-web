@@ -1,152 +1,80 @@
 import React from 'react';
 import styled from 'styled-components';
-import Section from '../components/Content';
-import { Text } from '../components/Font';
-import cs from '../assets/img/customer_service_center_icon.png';
-import useWindowSize from '../hooks/useWindowSize';
 import { Link } from 'react-router-dom';
-
+import ContentInner from './ContentInner';
+import logo from '../assets/img/bizroboLogo.png';
 
 const FooterWrap = styled.footer`
-  display: flex;
-  justify-content: space-between;
-
-
-  ${(props) => props.theme.window.mobile} {
-    flex-direction: column;
-  }
+  padding-top: 30px;
+  padding-bottom: 24px;
 `;
 
-const LeftContent = styled.div`
+const Gnb = styled.ul`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const Menu = styled.ul`
-  display: flex;
-
-  > li, a {
-    color: #FFFFFF;
-    font-size: 0.78vw;
-    font-weight: 400;
+  padding-bottom: 20px;
+  > li > a {
+    display: block;
+    color: #2D2D2D;
+    font-size: 14px;
+    font-weight: 700;
     position: relative;
-    margin-right: 0.7vw;
-  }
-  ${(props) => props.theme.window.mobile} {
-    margin-bottom: 9%;
-    > li {
-      font-size: 0.8666666666666667rem;
-    }
+    margin-right: 30px;
   }
 `;
 
 const Info = styled.div`
-  margin-bottom: 9.5%;
-  > div {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-  }
-  p {
-    color: #FFFFFF;
-    font-size: 0.78vw;
+  padding-bottom: 20px;
+  > p {
+    font-size: 12px;
     font-weight: 400;
     display: flex;
-    > span {
-      color: #FFFFFF;
-      position: relative;
-      margin-right: 1vw;
-    }
-  }
-  br {
-    display: none;
-  }
-
-  ${(props) => props.theme.window.mobile} {
-    margin-bottom: 11%;
-    > div {
-      width: 80%;
-    }
-    p {
-      font-size: 0.8666666666666667rem;
-    }
-
-    br {
-      display: block;
-    }
+    color: #2D2D2D;
   }
 `;
 
-const RightContent = styled.div`
-  > div {
-    display: flex;
-    padding-bottom: 24%;
-  }
-
-  ${(props) => props.theme.window.mobile} {
-    > div {
-      padding-bottom: 11%;
-    }
-  }
+const PolicyArea = styled.div`
+  font-size: 12px;
+  color: #2D2D2D;
+  padding-bottom: 51px;
 `;
 
-
-const Icon = styled.div`
-  width: 3.23vw;
-  height: 3.4vw;
-  background-image: url(${cs});
-  background-size: contain;
-  margin-right: 18px;
-
-  ${(props) => props.theme.window.mobile} {
-    width: 30px;
-    height: 31px;
-    margin-right: 14px;
-    align-self: center;
+const Foot = styled.div`
+  display: flex;
+  align-items: center;
+  > p {
+    padding-left: 20px;
+    color: #2D2D2D;
+    font-size: 14px;
+    font-weight: 500;
   }
 `;
 
 
 function Footer() {
-  const {width} = useWindowSize();
   return (
-    <Section
-      color='BG_BLACK'
-      top={width > 768 ? '5%' : '6.2%'}
-      bottom={width > 768 ? '2%' : '15.451%'}
-    >
+    <ContentInner borderTop>
       <FooterWrap>
-        <LeftContent>
-          <Menu>
-            <li><Link to='/policy/service'>이용안내</Link></li>
-            <li><Link to='/policy/privacy'>개인정보처리방침</Link></li>
-          </Menu>
-          <Info>
-            <div>
-              <p><span>상 호 명 |</span>(주)인슈로보</p>
-              <p><span>대 표 |</span>서 민</p>
-            </div>
-            <div>
-              <p><span>이 메 일 |</span>info@insurobo.com</p>
-            </div>
-            
-            <p>06247 ) <br />서울특별시 강남구 논현로75길 10 4층</p>
-            <p>사업자등록번호 690-87-01268</p>
-          </Info>
-        </LeftContent>
-        <RightContent>
-          <div>
-            <Icon />
-            <div>
-              <Text size='0.78vw' color='WHITE' bold='350'>고객센터</Text>
-              <Text size='1.2vw' color='WHITE' bold='700'>070-4126-3333</Text>
-            </div>
-          </div>
-          <Text size='0.78vw' color='WHITE' bold='400'>Copyright@INSUROBO All Rights Reserved.</Text>
-        </RightContent>
+        <Gnb>
+          <li><Link to='https://company.insurobo.co.kr'>회사소개</Link></li>
+          <li><Link to='/policy/privacy'>개인정보처리방침</Link></li>
+          <li><Link to='/policy/service'>이용약관</Link></li>
+        </Gnb>
+        <Info>
+          <p>(주)인슈로보 서울특별시 강남구 논현로 75길 10, 영창빌딩 4층</p>
+          <p>사업자등록번호 690-87-01268</p>
+          <p>대표자:서 민 대표번호: 070-4126-3333 메일:info@insurobo.com</p>
+        </Info>
+        <PolicyArea>
+          (주)인슈로보(이하‘회사’라 한다.)는 인슈로보 앱 서비스(이하 ‘서비스’라 한다.)를 제공함에 있어 정보통신망 이용촉진 및 정보보호 등에 관한 법률(이하 “정보통신망법”이라 한다.), 개인정보보호법, 인용정보 이용 및 보호에 관한<br />
+          법률 등 개인정보 보호 법령을 철저히 준수하면 관련 법규에 의거한 개인정보취급방침을 다음과 같이 두고 있습니다. 회사는 개인정보취급방침을 개정하는 경우 회사가 운영하는 사이트(이하 “사이트”라 한다.) 혹은 서비스의 공지사항<br />
+          (또는 개별공지)를 통해 공지할 것입니다. 
+        </PolicyArea>
+        <Foot>
+          <img src={logo} alt='bizrobo' />
+          <p>⒞ INSUROBO All Right Reserved.</p>
+        </Foot>
       </FooterWrap>
-    </Section>
+    </ContentInner>
   )
 }
 

@@ -33,7 +33,10 @@ const data = [
 ];
 
 const Wrap = styled.div`
-  position: relative;  
+  position: relative;
+  ${(props) => props.theme.window.mobile} {
+    display: none;
+  }
 `;
 
 const StyledSlider = styled(Slider)`

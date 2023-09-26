@@ -8,6 +8,7 @@ import { CommonAPI } from '../../api/CommonAPI';
 import useAsync from '../../hooks/useAsync';
 import View from './View';
 import Label from '../Label';
+import ContentInner from '../../layout/ContentInner';
 
 const Wrap = styled.div`
 
@@ -70,15 +71,15 @@ const TextArea = styled.div`
   }
 `;
 
-function Board() { 
+function Board() {
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const id = searchParams.get('id');
   const [state] = useAsync(getData, []);
   const { loading, data, error } = state;
  
-  if (loading) return <div>로딩중..</div>;
-  if (error) return <div>에러가 발생했습니다</div>;
+  if (loading) return <ContentInner>로딩중..</ContentInner>;
+  if (error) return <ContentInner>에러가 발생했습니다</ContentInner>;
   if (!data) return null;
   
   async function getData() {

@@ -16,11 +16,42 @@ const MainMenuWrap = styled.div`
       padding: 20px;
       box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.10);
       > h2 {
-      font-size: 20px;
+        font-size: 20px;
       }
       > p {
-      font-size: 14px;
-      padding-top: 10px;
+        font-size: 14px;
+        padding-top: 10px;
+      }
+    }
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    > div:first-child  {
+      > div {
+        padding: 19px 16px;
+        > h2 {
+          font-size: 18px;
+        }
+        > p {
+          padding-top: 2px;
+        }
+      }
+    }
+    > div:last-child  {
+      > div {
+        
+        padding: 9px 12px;
+        > h2 {
+          font-size: 16px;
+        }
+        > p {
+          padding-top: 2px;
+          font-size: 12px;
+          /* > br {
+            display: none;
+          } */
+        }
       }
     }
   }
@@ -36,6 +67,14 @@ const TopMenu = styled.div`
     background-repeat: no-repeat;
     background-position: 257px -4px;
     
+  }
+  ${(props) => props.theme.window.mobile} {
+    > div {
+      height: 86px;
+      background-position: calc(100% + 6px) -4px;
+      background-size: 95.74px;
+      margin-bottom: 10px;
+    }
   }
 `;
 
@@ -61,6 +100,41 @@ const BottomMenu = styled.div`
     }
   }
 
+  ${(props) => props.theme.window.mobile} {
+    > div {
+      width: 48.4%;
+      height: 86px;
+      &:first-child {
+        align-items: flex-end;
+        text-align: end;
+        background-image: none;
+        position: relative;
+        overflow: hidden;
+        ::before {
+          content: '';
+          position: absolute;
+          display: block;
+          background-repeat: no-repeat;
+          background-size: contain;
+          top: -7px;
+          left: 2px;
+          transform: rotate(90deg);
+          width: 35px;
+          height: 41px;
+          z-index: -1;
+          background-image: url(${icon2});
+        }
+      }
+      &:last-child {
+        background-position: calc(100% + 28px) 50%;
+        background-size: 53px;
+        position: relative;
+      }
+      > h2 {
+        font-size: 16px;
+      }
+    }
+  }
 `;
 
 const MainMenu = () => {
