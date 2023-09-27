@@ -10,6 +10,7 @@ const MyPageNav = styled.div`
   border-radius: 0 0 15px 15px;
   box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.10);
   z-index: 1000;
+  top: 96px;
   > p, a {
     height: 63px;
     display: flex;
@@ -26,6 +27,7 @@ const MyPageNav = styled.div`
 
   ${(props) => props.theme.window.mobile} {
     left: 0;
+    top: 61px;
     box-shadow: none;
     width: 100%;
     > p {

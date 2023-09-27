@@ -78,7 +78,7 @@ const RollingBannerWrap = styled.div`
   padding: 0 20px;
   box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.10);
   ${(props) => props.theme.window.mobile} {
-
+    height: 44px;
   }
 `;
 
@@ -98,6 +98,7 @@ const Item = styled.div`
   }
   ${(props) => props.theme.window.mobile} {
     > div {
+      height: 44px;
       > img {
         margin-right: 9px;
       }

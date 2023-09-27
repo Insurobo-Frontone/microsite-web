@@ -7,7 +7,8 @@ export const Title = styled.h1`
   color: ${(props) => (theme.color[props.color] || theme.color.BLACK3)};
 
   ${(props) => props.theme.window.mobile} {
-    font-size: ${(props) => (props.size ? props.size : '16px')};
+    font-size: 16px;
+    letter-spacing: -0.1px;
   }
 `;
 
@@ -15,6 +16,10 @@ export const Title = styled.h1`
 export const Text = styled.p`
   font-weight: ${(props) => (props.bold ? props.bold : '400')};
   font-size: ${(props) => (props.size ? props.size : '18px')};
+
+  ${(props) => props.theme.window.mobile} {
+    font-size: 14px;
+  }
 `;
 
 

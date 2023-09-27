@@ -9,6 +9,12 @@ const LabelBox = styled.div`
   font-weight: 700;
   color: ${props => props.theme.color[props.color] || '#FFFFFF'};
   background-color: ${props => props.theme.color[props.bgColor] || '#176FFF'};
+
+  ${(props) => props.theme.window.mobile} {
+    font-size: 14px;
+    height: 24px;
+    line-height: 24px;
+  }
 `;
 
 const Label = ({label, color, bgColor}) => {

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import icon1 from "../../assets/icon/bell.png";
 import icon2 from "../../assets/icon/speaker.png";
 import icon3 from "../../assets/icon/wallet.png";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const MainMenuWrap = styled.div`
   width: 416px;
@@ -29,7 +30,7 @@ const MainMenuWrap = styled.div`
     width: 100%;
     > div:first-child  {
       > div {
-        padding: 19px 16px;
+        padding: 16px;
         > h2 {
           font-size: 18px;
         }
@@ -40,8 +41,6 @@ const MainMenuWrap = styled.div`
     }
     > div:last-child  {
       > div {
-        
-        padding: 9px 12px;
         > h2 {
           font-size: 16px;
         }
@@ -71,6 +70,7 @@ const TopMenu = styled.div`
   ${(props) => props.theme.window.mobile} {
     > div {
       height: 86px;
+      justify-content: space-between;
       background-position: calc(100% + 6px) -4px;
       background-size: 95.74px;
       margin-bottom: 10px;
@@ -93,17 +93,19 @@ const BottomMenu = styled.div`
       background-position: -17px 74px;
       align-items: flex-end;
       text-align: end;
+      padding: 10px 12px 10px 0;
     }
     &:last-child {
       background-image: url(${icon3});
       background-position: 127px 100px;
+      padding: 10px 0 10px 16px;
     }
   }
 
   ${(props) => props.theme.window.mobile} {
     > div {
       width: 48.4%;
-      height: 86px;
+      height: 62px;
       &:first-child {
         align-items: flex-end;
         text-align: end;
@@ -138,6 +140,7 @@ const BottomMenu = styled.div`
 `;
 
 const MainMenu = () => {
+  const { width } = useWindowSize();
   return (
     <MainMenuWrap>
       <TopMenu>
@@ -148,12 +151,13 @@ const MainMenu = () => {
       </TopMenu>    
       <BottomMenu>
         <div>
-          <h2>기업경영건강검진</h2>
-          <p>기업도 검진이<br />필요합니다.</p>
+          {width > 767.98 ? (<h2>기업경영건강검진</h2>) : (<h2>기업경영검진</h2>)}
+          {width > 767.98 ? (<p>기업도 검진이<br />필요합니다</p>) : (<p>기업, 검진이 필요합니다</p>)}
         </div>
         <div>
           <h2>제휴서비스</h2>
-          <p>세금환급과<br />혜택이 있는 카드?</p>
+          {width > 767.98 ? (<p>세금환급과<br />혜택이 있는 카드?</p>) : (<p>세금환급, 카드 혜택</p>)}
+          
         </div>
       </BottomMenu>
     </MainMenuWrap>

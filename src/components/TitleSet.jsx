@@ -14,6 +14,16 @@ const MainTitle = styled.div`
       margin-left: 10px;
     }
   }
+  ${(props) => props.theme.window.mobile} {
+    padding-bottom: 20px;
+    > div {
+      padding-bottom: 4px;
+      justify-content: space-between;
+      > div {
+        margin-left: 0;
+      }
+    }
+  }
 `;
 
 const Arrow = styled.div`

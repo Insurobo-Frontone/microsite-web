@@ -63,7 +63,8 @@ const Menu = styled.div`
     display: flex;
     align-items: center;
     > li {
-      line-height: 46px;
+      height: 46px;
+      line-height: 44px;
       font-weight: 300;
       font-size: 18px;
       > a {
@@ -88,6 +89,7 @@ const Menu = styled.div`
       border-radius: 5px;
       color: #2d2d2d;
       padding: 0 13px;
+      box-sizing: border-box;
     }
   }
   .logout {
@@ -127,6 +129,7 @@ const Menu = styled.div`
       ul {
         width: 100%;
         > li {
+          height: 63px;
           line-height: 63px;
           font-size: 16px;
           border-top: 1px solid #F0F0F0;
@@ -164,6 +167,7 @@ const Menu = styled.div`
         display: block;
         > li {
           border-bottom: 1px solid #F0F0F0;
+          position: relative;
         }
       }
     `}
@@ -187,7 +191,6 @@ const ToggleBtn = styled.div`
 const MyPage = styled.div`
   display: flex;
   align-items: center;
-  padding: 24.5px 0;
   width: 148px;
   > img {
     padding: 0 11.5px;

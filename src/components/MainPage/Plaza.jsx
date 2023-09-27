@@ -37,13 +37,19 @@ const data = [
 
 const PlazaWrap = styled.div`
   padding: 70px 0;
+
+  ${(props) => props.theme.window.mobile} {
+    padding: 30px 0;
+  }
 `;
 
 const CardList = styled.ul`
   display: flex;
   justify-content: space-between;
   
-
+  ${(props) => props.theme.window.mobile} {
+    flex-direction: column;
+  }
 
 `;
 
