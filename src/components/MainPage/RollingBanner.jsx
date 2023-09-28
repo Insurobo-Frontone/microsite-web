@@ -63,7 +63,7 @@ const settings = {
   arrows: false,
   responsive: [
     {
-      breakpoint: 768,
+      breakpoint: 767.98,
       settings: {
         slidesToShow: 2,
       }

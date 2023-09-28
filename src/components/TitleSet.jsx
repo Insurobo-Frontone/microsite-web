@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Title, Text } from '../components/Font';
 import Label from './Label';
 import arrowIcon from '../assets/icon/titleArrowIcon.png';
@@ -23,6 +23,15 @@ const MainTitle = styled.div`
         margin-left: 0;
       }
     }
+
+    ${props => props.arrow && css`
+      > div {
+        justify-content: flex-start;
+        > div {
+          margin-left: 6px;
+        }
+      }
+    `}
   }
 `;
 
@@ -37,7 +46,7 @@ const Arrow = styled.div`
 
 function TitleSet({ title, text, label, arrow }) {
   return (
-    <MainTitle>
+    <MainTitle arrow={arrow}>
       {title && (
         <div>
           <Title>{title}</Title>

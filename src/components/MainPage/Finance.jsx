@@ -8,11 +8,18 @@ import ContentInner from '../../layout/ContentInner';
 
 const FinanceWrap = styled.div`
   padding: 70px 0;
+  ${(props) => props.theme.window.mobile} {
+    padding: 30px 0;
+  }
 `;
 
 const GoodsList = styled.ul`
   display: flex;
   justify-content: space-between;
+
+  ${(props) => props.theme.window.mobile} {
+    flex-direction: column;
+  }
 `;
 
 const Card = styled.li`
@@ -79,6 +86,10 @@ const Card = styled.li`
   > p {
     font-size: 10px;
     color: #6C6C6C;
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    
   }
 `;
 

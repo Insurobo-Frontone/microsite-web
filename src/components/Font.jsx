@@ -19,6 +19,8 @@ export const Text = styled.p`
 
   ${(props) => props.theme.window.mobile} {
     font-size: 14px;
+    white-space: pre-wrap;
+    font-weight: 400;
   }
 `;
 

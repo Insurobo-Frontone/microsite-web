@@ -159,7 +159,7 @@ function MainSlider() {
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows:false,
+    arrows: false,
     autoplay: true,
     infinite: true,
     autoplaySpeed: 3000,
@@ -196,7 +196,7 @@ function MainSlider() {
           <ButtonBox>
             <PrevArrow onClick={previous}/>
             <PauseButton onClick={pause} />
-            <NextArrow onClick={next}/>
+            <NextArrow onClick={next} />
           </ButtonBox>
           <Paging currentSlide={currentSlide} totalSlides={'2'} />
         </SliderPlayerGroup>

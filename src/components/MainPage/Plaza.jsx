@@ -88,7 +88,25 @@ const Card = styled.li`
     font-size: 30px;
     align-self: flex-end;
   }
-  
+
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    height: 132px;
+    margin-bottom: 10px;
+    :last-child {
+      margin-bottom: 0;
+    }
+    > div {
+      > p {
+        font-size: 16px;
+        line-height: 23px;
+      }
+    }
+    h1 {
+      font-size: 24px;
+      align-self: flex-end;
+    }
+  }
 `;
 
 const Overlay = styled.div`
