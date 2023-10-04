@@ -10,7 +10,7 @@ const MainBannerWrap = styled.div`
   padding: 30px 0;
 
   ${(props) => props.theme.window.mobile} {
-    padding: 10px 0;
+    padding: 0 0 10px 0;
   }
 `;
 

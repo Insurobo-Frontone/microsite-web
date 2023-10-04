@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import styled, { css } from 'styled-components';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { CommonAPI } from "../../api/CommonAPI";
@@ -120,26 +120,26 @@ const Button = styled.button`
   color: #FFFFFF;
   font-size: 0.73vw;
   ${(props) => props.theme.window.mobile} {
-    font-size: 0.8666666666666667rem;
+    font-size: 13px;
     width: 100px;
     height: 30px;
   }
 `;
 
 
-function View({ api, flex, block }) {
+function View({ flex, block }) {
   let navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
   const [data, setData] = useState([]);
-
   const handleTableDetail = useCallback(async () => {
-    const res = await CommonAPI.get(`/api/public/${api}?id=${id}`);
+    const res = await CommonAPI.get(`/api/public/infoPlaceDetail?id=${id}`);
     setData(res.data.data);
-  }, [api, id]);
+  }, [id]);
 
   useEffect(() => {
     handleTableDetail();
+    
   }, []);
 
   function handleClick(link) {

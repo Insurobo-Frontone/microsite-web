@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
 import icon1 from "../../assets/icon/bell.png";
 import icon2 from "../../assets/icon/speaker.png";
 import icon3 from "../../assets/icon/wallet.png";
@@ -30,7 +30,7 @@ const MainMenuWrap = styled.div`
     width: 100%;
     > div:first-child  {
       > div {
-        padding: 16px;
+        padding: 20px 16px;
         > h2 {
           font-size: 18px;
         }
@@ -42,14 +42,11 @@ const MainMenuWrap = styled.div`
     > div:last-child  {
       > div {
         > h2 {
-          font-size: 16px;
+          font-size: 14px;
         }
         > p {
-          padding-top: 2px;
+          padding-top: 0;
           font-size: 12px;
-          /* > br {
-            display: none;
-          } */
         }
       }
     }
@@ -112,14 +109,15 @@ const BottomMenu = styled.div`
         background-image: none;
         position: relative;
         overflow: hidden;
+        padding: 12px 12px 12px 0;
         ::before {
           content: '';
           position: absolute;
           display: block;
           background-repeat: no-repeat;
           background-size: contain;
-          top: -7px;
-          left: 2px;
+          top: -9px;
+          left: 0;
           transform: rotate(90deg);
           width: 35px;
           height: 41px;
@@ -128,9 +126,10 @@ const BottomMenu = styled.div`
         }
       }
       &:last-child {
-        background-position: calc(100% + 28px) 50%;
+        background-position: calc(100% + 18px) 50%;
         background-size: 53px;
         position: relative;
+        padding: 12px 0 12px 12px;
       }
       > h2 {
         font-size: 16px;
@@ -141,20 +140,35 @@ const BottomMenu = styled.div`
 
 const MainMenu = () => {
   const { width } = useWindowSize();
+  let navigate = useNavigate();
+  const goToLink = (link) => {
+    switch (link) {
+      case 'bizcare' :
+        window.open('http://www.insrb.com:7070/bizcare/short');
+        break;
+      case 'duty' :
+        navigate('/insuranceInfo?item=duty');
+        break;
+      case 'card' :
+        navigate('/insuroboCard');
+      default: break;
+    }
+    
+  }
   return (
     <MainMenuWrap>
       <TopMenu>
-        <div>
+        <div onClick={() => goToLink('duty')}>
           <h2>간편보험가입</h2>
           <p>업종별 의무보험,꼭! 챙기세요</p>
         </div>
       </TopMenu>    
       <BottomMenu>
-        <div>
+        <div onClick={() => goToLink('bizcare')}>
           {width > 767.98 ? (<h2>기업경영건강검진</h2>) : (<h2>기업경영검진</h2>)}
           {width > 767.98 ? (<p>기업도 검진이<br />필요합니다</p>) : (<p>기업, 검진이 필요합니다</p>)}
         </div>
-        <div>
+        <div onClick={() => goToLink('card')}>
           <h2>제휴서비스</h2>
           {width > 767.98 ? (<p>세금환급과<br />혜택이 있는 카드?</p>) : (<p>세금환급, 카드 혜택</p>)}
           

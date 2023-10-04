@@ -2,11 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ContentInner from './ContentInner';
-import logo from '../assets/img/bizroboLogo.png';
+import logo from '../assets/img/mainLogo.png';
 
 const FooterWrap = styled.footer`
   padding-top: 30px;
   padding-bottom: 24px;
+  ${(props) => props.theme.window.mobile} {
+    padding-bottom: 10px;
+  }
 `;
 
 const Gnb = styled.ul`
@@ -19,6 +22,12 @@ const Gnb = styled.ul`
     font-weight: 700;
     position: relative;
     margin-right: 30px;
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    > li > a {
+      margin-right: 20px;
+    }
   }
 `;
 
@@ -36,6 +45,9 @@ const PolicyArea = styled.div`
   font-size: 12px;
   color: #2D2D2D;
   padding-bottom: 51px;
+  ${(props) => props.theme.window.mobile} {
+    padding-bottom: 30px;
+  }
 `;
 
 const Foot = styled.div`
@@ -46,6 +58,14 @@ const Foot = styled.div`
     color: #2D2D2D;
     font-size: 14px;
     font-weight: 500;
+  }
+  ${(props) => props.theme.window.mobile} {
+    > img {
+      width: 81px;
+    }
+    > p {
+      letter-spacing: -0.5px;
+    }
   }
 `;
 
@@ -70,7 +90,7 @@ function Footer() {
           (또는 개별공지)를 통해 공지할 것입니다. 
         </PolicyArea>
         <Foot>
-          <img src={logo} alt='bizrobo' />
+          <img src={logo} alt='insurobo' />
           <p>⒞ INSUROBO All Right Reserved.</p>
         </Foot>
       </FooterWrap>

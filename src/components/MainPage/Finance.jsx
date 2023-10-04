@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TitleSet from '../TitleSet'
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import loan from '../../assets/img/loan.png';
 import card from '../../assets/img/card.png';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +19,7 @@ const GoodsList = styled.ul`
 
   ${(props) => props.theme.window.mobile} {
     flex-direction: column;
+    
   }
 `;
 
@@ -89,12 +90,57 @@ const Card = styled.li`
   }
 
   ${(props) => props.theme.window.mobile} {
-    
+    display: none;
+    width: 100%;
+    padding: 30px 27px;
+    background-position: calc(100% - 7px) bottom;
+    background-size: 100px;
+    > div {
+      > h2 {
+        padding-bottom: 24px;
+      }
+      > div {
+        > span {
+          padding-bottom: 15px;
+        }
+      }
+    }
+    ${props => props.open && css`
+      display: block;
+      
+    `}
   }
 `;
 
+const TabBar = styled.div`
+  display: none;
+  ${(props) => props.theme.window.mobile} {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-top: 5px;
+  }
+`;
+
+const TabMenu = styled.div`
+  ${(props) => props.theme.window.mobile} {
+    width: 50%;
+    border-bottom: 2px solid #F4F4F4;
+    text-align: center;
+    color: #393939;
+    font-weight: 700;
+    line-height: 33px;
+    ${props => props.open && css`
+      border-color: #2EA5FF;
+    `}
+  }
+`;
+
+
 function Finance() {
   const navigate = useNavigate();
+  const [tabNum, setTabNum] = useState(1);
+
   const goToLink = (link) => {
     switch (link) {
       case 'texReturn' :
@@ -115,8 +161,12 @@ function Finance() {
           text='내지말고 이제 돌려 받으세요~'
           label='Ok!'
         />
+        <TabBar>
+          <TabMenu open={tabNum === 1 ? true : false} onClick={() => setTabNum(1)}>소상공인 세금 환급</TabMenu>
+          <TabMenu open={tabNum === 2 ? true : false} onClick={() => setTabNum(2)}>소상공인 전용카드</TabMenu>
+        </TabBar>
         <GoodsList>
-          <Card onClick={() => goToLink('texReturn')}>
+          <Card onClick={() => goToLink('texReturn')} open={tabNum === 1 ? true : false}>
             <div>
               <h2>소상공인 세금환급</h2>
               <div>
@@ -136,7 +186,7 @@ function Finance() {
             </div>
             <p>*대출금액에 따라 상환기간 상이</p>
           </Card>
-          <Card onClick={() => goToLink('card')}>
+          <Card onClick={() => goToLink('card')} open={tabNum === 2 ? true : false}>
             <div>
               <h2>소상공인 전용카드</h2>
               <div>

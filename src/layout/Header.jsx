@@ -10,7 +10,6 @@ import ContentInner from './ContentInner';
 import myPageIcon from '../assets/icon/myPageIcon.png';
 import myPageIconMb from '../assets/icon/myPageIconMb.png';
 import logo from '../assets/img/mainLogo.png';
-import logoMb from '../assets/img/mainLogoMb.png';
 import openToggle from '../assets/icon/toggleBtn.png';
 import closeToggle from '../assets/icon/close_toggleBtn.png';
 import icon1 from '../assets/icon/menuIcon1.png';
@@ -48,6 +47,10 @@ const LogoBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    > img {
+      width: 101.06px;
+      height: 13px;
+    }
   }
 `;
 
@@ -111,6 +114,7 @@ const Menu = styled.div`
       display: block;
       text-align: center;
       padding: 0;
+      margin-bottom: 10px;
     }
     > ul {
       display: none;
@@ -270,7 +274,7 @@ function Header() {
       <ContentInner borderBottom>
         <Nav>
           <LogoBox onClick={() => goToMainPage('/')}>
-            <img src={width > 767.98 ? logo : logoMb} alt='insurobo' />
+            <img src={logo} alt='insurobo' />
           </LogoBox>
           <ToggleBtn onClick={handleClick}>
             <img src={isOpen ? closeToggle : openToggle} alt={isOpen ? '닫기' : '열기'} />

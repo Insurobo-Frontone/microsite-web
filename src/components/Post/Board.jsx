@@ -74,7 +74,7 @@ const CardLink = styled(Link)`
       font-size: 18px;
       margin-right: 12px;
       margin-bottom: 20px;
-      font-weight: 350;
+      font-weight: 300;
     }
   }
 
@@ -109,6 +109,7 @@ const TextArea = styled.div`
 `;
 
 const InfoMoreBtn = styled.div`
+  display: none;
   ${props => props.theme.window.mobile} {
     display: flex;
     justify-content: center;
@@ -179,34 +180,32 @@ function Board() {
 
   return (
     <Wrap>
-      {location.search === `?id=${id}` ? (<View api='infoPlaceDetail' block />) : (
-        <>
-          <StyledSlider 
-            {...settings} ref={sliderRef}>
-              {data.map((dt) => (
-                <Card key={dt.id} className={dt.class}>
-                  <CardLink to={`/board?id=${dt.id}`}>
-                    <div>
-                      <h2>{dt.title}</h2>
-                      <Label 
-                        label={dt.id === 6 ? 'NEW' : 'HOT' }
-                        color={dt.id === 6 ? 'BLUE5' : 'RED'}
-                        bgColor={dt.id === 6 ? 'BLUE_RGBA' : 'RED_RGBA'}
-                      />
-                    </div>
-                    <TextArea>
-                      <div dangerouslySetInnerHTML={{__html: dt.content}}></div>
-                    </TextArea>
-                  </CardLink>
-                </Card>
-              ))}
-              
+      <>
+        <StyledSlider 
+          {...settings} ref={sliderRef}>
+            {data.map((dt) => (
+              <Card key={dt.id} className={dt.class}>
+                <CardLink to={`/board?id=${dt.id}`}>
+                  <div>
+                    <h2>{dt.title}</h2>
+                    <Label 
+                      label={dt.id === 6 ? 'NEW' : 'HOT' }
+                      color={dt.id === 6 ? 'BLUE5' : 'RED'}
+                      bgColor={dt.id === 6 ? 'BLUE_RGBA' : 'RED_RGBA'}
+                    />
+                  </div>
+                  <TextArea>
+                    <div dangerouslySetInnerHTML={{__html: dt.content}}></div>
+                  </TextArea>
+                </CardLink>
+              </Card>
+            ))}
           </StyledSlider> 
           <InfoMoreBtn onClick={next}>
             <p>다양한 정보 더보기</p>
           </InfoMoreBtn>
         </>
-      )}
+      {/* )} */}
     </Wrap>
     )
   }
