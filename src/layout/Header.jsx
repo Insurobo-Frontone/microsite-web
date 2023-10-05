@@ -284,19 +284,19 @@ function Header() {
               <ul className='lnb'>
                 <li>
                   <ListIcon icon={icon1} />
-                  <Link to='#'>간편보험가입</Link>
+                  <Link to='/insuranceInfo?item=duty'>간편보험가입</Link>
                 </li>
                 <li>
                   <ListIcon icon={icon2} />
-                  <Link to='#'>기업경영건강검진</Link>
+                  <a href='http://www.insrb.com:7070/bizcare/short'>기업경영건강검진</a>
                 </li>
                 <li>
                   <ListIcon icon={icon3} />
-                  <Link to='#'>제휴서비스</Link>
+                  <Link to='/insuroboCard'>제휴서비스</Link>
                 </li>
                 <li>
                   <ListIcon icon={icon4} />
-                  <Link to='#'>회사소개</Link>
+                  <a href='https://company.insurobo.co.kr/'>회사소개</a>
                 </li>
               </ul>
               <ul className='windstorm-btn'>
