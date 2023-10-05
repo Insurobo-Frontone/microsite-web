@@ -5,26 +5,26 @@ import { useNavigate } from "react-router-dom";
 import logo from '../../assets/img/insurobo.png';
 
 const Wrap = styled.div`
-  margin: 0 auto;
   width: 800px;
+  margin: 0 auto;
   padding: 127px 0 220px 0;
   border-radius: 20px;
 
   ${(props) => props.theme.window.mobile} {
-    width: 85.33333333333333%;
-    padding: 44px 0 108px 0;
+    width: 100%;
+    padding: 44px 0 127px 0;
   }
 `;
 
 const Content = styled.div`
   background-color: #FFFFFF;
   border: 2px solid #F5F5F5;
-  padding: 42px 33px;
+  padding: 42px 36px;
   margin-bottom: 68px;
   border-radius: 20px;
   overflow: hidden;
   ${(props) => props.theme.window.mobile} {
-    padding: 30px 0 65px 0;
+    padding: 30px 0 57px 0;
   }
 `;
 
