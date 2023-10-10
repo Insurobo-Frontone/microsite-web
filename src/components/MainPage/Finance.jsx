@@ -157,7 +157,7 @@ function Finance() {
     <ContentInner>
       <FinanceWrap>
         <TitleSet
-          title='세무진단 받고 전용카드 발급받으세요!'
+          title='세무진단 받고 전용카드 발급 받으세요!'
           text='내지말고 이제 돌려 받으세요~'
           label='Ok!'
         />

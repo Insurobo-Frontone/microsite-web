@@ -162,6 +162,9 @@ const Menu = styled.div`
           text-align: start;
           margin-right: 0;
           width: 100%;
+          :last-child {
+            border-top: 0;
+          }
         }
       }
       .windstorm-btn {

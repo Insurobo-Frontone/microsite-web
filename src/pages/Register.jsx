@@ -3,20 +3,29 @@ import styled from 'styled-components';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { CommonAPI } from '../api/CommonAPI';
-import { Text } from '../components/Font';
-
 import AuthLayout from '../components/Auth/AuthLayout';
 import CustomButton from '../components/Button/CustomButton';
 import Input from '../components/Input';
 import HookFormCheckbox from '../components/Input/HookFormCheckbox';
-import useWindowSize from '../hooks/useWindowSize';
 import Timer from '../components/Timer';
 
 const ButtonWrap = styled.div`
   padding-top: 50px;
+  > button {
+    > p {
+      color: #FFFFFF;
+      font-weight: 300;
+      font-size: 20px;
+    }
+   }
 
   ${(props) => props.theme.window.mobile} {
     padding-top: 30px;
+    > button {
+      > p {
+        font-size: 15px;
+      }
+    }
   }
 `;
 
@@ -30,47 +39,77 @@ const Form = styled.form`
 
 const InputGroup = styled.div`
   margin-bottom: 30px;
-
+  position: relative;
+   div:nth-child(2) {
+    margin-bottom: 13px;
+  }
   .label {
     display: block;
     margin-bottom: 15px;
     color: #2f2f2f;
+    font-size: 20px;
+    
   }
-  position: relative;
+  input {
+    ::placeholder {
+      font-size: 20px;
+      color: #989898;
+    }
+
+  }
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 20px;
+    .label {
+      font-size: 15px;
+    }
+    input {
+      ::placeholder {
+        font-size: 15px;
+      }
+    }
   }
-  
 `;
 
 const PhoneGroup = styled.div`
   position: relative;
   > div {
-      display: flex;
-      justify-content: space-between;
-    > .button {
-      width: 40%;
+    display: flex;
+    justify-content: space-between;
+    > div {
+      width: 469px;
+    }
+    .button {
+      width: 254px;
       height: 80px;
-      margin-left: 27px;
       background-color: #989898;
       border-radius: 10px;
-      align-self: flex-end;
-      margin-bottom: 25px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-top: 44px;
       cursor: pointer;
+      > p {
+        color: #FFFFFF;
+        font-weight: 300;
+        font-size: 20px;
+      }
     }
-    > .button.disabled {
+    .button.disabled {
        opacity: 0.2;
     }
   }
   ${(props) => props.theme.window.mobile} {
     > div {
+      > div {
+        width: 67.5%;
+      }
       > .button {
-          height: 50px;
-          margin-bottom: 20px;
-          margin-left: 5px;
+        width: 30%;
+        height: 50px;
+        margin-top: 39px;
+        > p {
+          font-size: 15px;
+        }
       }
     }
   }
@@ -79,46 +118,80 @@ const PhoneGroup = styled.div`
 const SmsCheckBox = styled.div`
   display: flex;
   margin-bottom: 20px;
+  position: relative;
   > div {
-    width: 75%;
-    height: 50px;
     border-bottom: 1px solid #989898;
     position: relative;
+    display: flex;
+    flex-direction: column;
     input {
       width: 100%;
+      height: 50px;
+      ::placeholder {
+        font-size: 16px;
+      }
     }
   }
+  > p {
+    position: absolute;
+    top: 55px;
+  }
   .confirmButton {
-    width: 20%;
+    width: 254px;
     height: 50px;
     background-color: #989898;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    > p {
+      color: #FFFFFF;
+      font-weight: 300;
+      font-size: 20px;
+    }
+  }
+  ${props => props.theme.window.mobile} {
+    > div {
+      input {
+        ::placeholder {
+          font-size: 15px;
+        }
+      }
+    }
+    .confirmButton {
+      width: 101px;
+      > p {
+        font-size: 15px;
+      }
+    } 
   }
 `;
 
 
 const ErrorText = styled.p`
-  font-size: 13px;
-  line-height: 13px;
+  font-size: 16px;
+  line-height: 16px;
   padding-top: 5px;
   color: ${(props) => props.theme.color.WARNING_MESSAGE};
-  position: absolute;
-  bottom: -20px;
 
   ${props => props.theme.window.mobile} {
     padding-top: 0px;
     line-height: 20px;
+    font-size: 12px;
+  }
+`;
+
+const WarningMessage = styled.p`
+  font-size: 18px;
+  color: #BA0000;
+  font-weight: 400;
+  ${props => props.theme.window.mobile} {
+    font-size: 15px;
   }
 `;
 
 
-
-
 function Register() {
-  const { width } = useWindowSize();
   const location = useLocation();
   const [codeValidate, setCodeValidate] = useState(false);
   const [button, setButton] = useState(true);
@@ -243,7 +316,7 @@ function Register() {
           <label className='label'>이메일</label>
           <input
             className='primary'
-            placeholder='AAA.@HJJJJ.COM'
+            placeholder='이메일주소를 입력하세요'
             {...register('userId', {
               required: '*필수 입력 사항입니다.',
               pattern: {
@@ -278,9 +351,9 @@ function Register() {
               check: () => passwordCheck() ? true : '비밀번호가 일치하지 않습니다.'
             }}
           />
-            <Text size={width > 768 ? '0.9rem' : '0.86rem'} color='WARNING_MESSAGE'>
+            <WarningMessage>
               *영문 숫자, 특수문자를 조합해 8자리 이상 16자리 이하로 입력해주세요
-            </Text>
+            </WarningMessage>
           </InputGroup>
           <InputGroup>
             <Input
@@ -304,12 +377,12 @@ function Register() {
                 }}
               />
               <div className={button? 'button' : 'button disabled'} onClick={button ? openSmsSend : null}>
-                <Text color='WHITE' bold='200'>인증번호받기</Text>
+                <p>인증번호받기</p>
               </div>
             </div>
             {smsCheckOpen && (
               <SmsCheckBox>
-                <div>
+                <div className='sms-check'>
                   <input
                     type='number'
                     placeholder='인증번호를 입력해주세요'
@@ -323,20 +396,18 @@ function Register() {
                 </div>
                 {errors.confirmCode?.message && (<ErrorText>{errors.confirmCode?.message}</ErrorText>)}
                 <div className='confirmButton' onClick={openSmsCheck}>
-                  <Text color='WHITE' bold='200'>확인</Text>
+                  <p>확인</p>
                 </div>
               </SmsCheckBox>
             )}
           </PhoneGroup>
           <HookFormCheckbox />
-          <Text size={width > 768 ? '0.9rem' : '0.86rem'} color='WARNING_MESSAGE'>
+          <WarningMessage>
             *선택 항목을 동의하지 않아도 가입이 가능합니다.
-          </Text>
+          </WarningMessage>
           <ButtonWrap>
             <CustomButton bgColor='GRAY' width='100%' type='submit'>
-              <Text color='WHITE' bold='200'>
-                이메일로 가입하기
-              </Text>
+              <p>이메일로 가입하기</p>
             </CustomButton>
           </ButtonWrap>
       </Form>

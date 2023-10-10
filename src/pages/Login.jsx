@@ -4,7 +4,6 @@ import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import AuthLayout from '../components/Auth/AuthLayout';
 import LoginFailModal from "../components/Modal/LoginFailModal";
 import Input from '../components/Input';
-import { Text } from '../components/Font';
 import { useFormContext } from 'react-hook-form';
 import CustomButton from '../components/Button/CustomButton';
 import useWindowSize from '../hooks/useWindowSize';
@@ -26,8 +25,15 @@ const SocialLoginGroup = styled.div`
     white-space: nowrap;
     
     > img {
-      margin-right: 1.75vw;
+      margin-right: 34px;
     }
+    > p {
+      font-size: 23px;
+      color: #FFFFFF;
+    }
+  }
+  > button:first-child > p {
+      color: #545454;
   }
 
   ${props => props.theme.window.mobile} {
@@ -35,10 +41,11 @@ const SocialLoginGroup = styled.div`
     padding: 55px 0 24px;
     > button {
       width: 100%;
-      padding: 12px 13% 16px;
+      padding: 0 0 0 42px;
       
       > p {
         line-height: 22px;
+        font-size: 15px;
       }
       > img {
         margin-right: 18.5%;
@@ -65,7 +72,7 @@ const Linear = styled.div`
   align-items: center;
   height: 110px;
   > span {
-    font-size: 1.2vw;
+    font-size: 23px;
     color: #545454;
   }
 
@@ -83,13 +90,25 @@ const Linear = styled.div`
     }
     > span {
       font-size: 1rem;
-      
     }
   }
 `;
 const ButtonWrap = styled.div`
    padding-top: 0;
-
+   > button {
+    > p {
+      color: #FFFFFF;
+      font-weight: 300;
+      font-size: 20px;
+    }
+   }
+   ${props => props.theme.window.mobile} {
+    > button {
+      > p {
+        font-size: 15px;
+      }
+     }
+   }
 `;
 
 const Form = styled.form`
@@ -102,8 +121,10 @@ const TextLink = styled(Link)`
   display: flex;
   justify-content: center;
   padding-top: 22px;
+  font-size: 20px;
   ${props => props.theme.window.mobile} {
     padding-top: 16px;
+    font-size: 15px;
   }
 `;
 
@@ -196,11 +217,11 @@ function Login() {
     <SocialLoginGroup>
       <CustomButton bgColor='YELLOW' onClick={onKakaoLogin}>
         <img src={kakaoIcon} alt='카카오톡' />
-        <Text size={width > 768 ? '1.2vw' : '1rem'} color='BLACK4'>카카오톡 로그인</Text>
+        <p>카카오톡 로그인</p>
       </CustomButton>
       <CustomButton bgColor='GREEN' onClick={onNaverLogin}>
         <img src={naverIcon} alt='네이버' />
-        <Text size={width > 768 ? '1.2vw' : '1rem'} color='WHITE'>네이버 로그인</Text>
+        <p>네이버 로그인</p>
       </CustomButton>
     </SocialLoginGroup>
     <Linear>
@@ -225,9 +246,9 @@ function Login() {
       />
       <ButtonWrap>
         <CustomButton bgColor='GRAY' width='100%' type='submit'>
-          <Text color='WHITE' bold='200'>
+          <p>
             이메일로 계속하기
-          </Text>
+          </p>
         </CustomButton>
       </ButtonWrap>
       <TextLink to='/login/findAccount'>계정정보를 잊으셨나요?</TextLink>

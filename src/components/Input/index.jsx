@@ -8,7 +8,7 @@ const InputWrap = styled.div`
   position: relative;
   margin-bottom: 25px;
   > p {
-    font-size: 0.7rem;
+    font-size: 16px;
   }
 
   ${props => props.theme.window.mobile} {
@@ -26,19 +26,21 @@ const InputBase = styled.input`
   font-size: 13px;
   box-sizing: border-box;
   background: none;
-  font-size: 1rem;
+  font-size: 20px;
   color: #989898;
-  
   
   ::placeholder {
     color: #989898;
-    font-size: 1rem;
+    font-size: 20px
   }
 
   ${props => props.theme.window.mobile} {
     padding: 14px 13px;
     height: 50px;
-    /* margin-bottom: 10px; */
+    font-size: 16px;
+    ::placeholder {
+      font-size: 15px;
+    }
   }
 `;
 
@@ -46,23 +48,21 @@ const Label = styled.label`
   display: block;
   width: 100%;
   color: #2F2F2F;
-  font-size: 1rem;
-  font-weight: 300;
+  font-size: 20px;
   margin-bottom: 15px;
-
+  ${props => props.theme.window.mobile} {
+    font-size: 16px;
+  }
 `;
 
 const ErrorText = styled.p`
-  font-size: 13px;
-  line-height: 13px;
+  font-size: 16px;
+  line-height: 1;
   padding-top: 5px;
   color: ${(props) => props.theme.color.WARNING_MESSAGE};
-  position: absolute;
-  bottom: -17px;
 
   ${props => props.theme.window.mobile} {
-    padding-top: 0px;
-    line-height: 20px;
+    font-size: 13px;
   }
 `;
 

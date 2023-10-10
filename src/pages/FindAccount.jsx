@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CommonAPI } from "../api/CommonAPI";
-import { Text } from "../components/Font";
 import Input from "../components/Input";
 import AuthLayout from "../components/Auth/AuthLayout";
 import CustomButton from "../components/Button/CustomButton";
@@ -22,8 +21,20 @@ const Form = styled.form`
 `;
 
 const ButtonWrap = styled.div`
+  > button {
+    > p {
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 300;
+    }
+  }
   ${(props) => props.theme.window.mobile} {
     padding-top: 0;
+    > button {
+      > p {
+        font-size: 15px;
+      }
+    }
   }
 `;
 
@@ -56,14 +67,17 @@ const PhoneGroup = styled.div`
       width: 40%;
       height: 80px;
       margin-left: 27px;
+      margin-top: 44px;
       background-color: #989898;
       border-radius: 10px;
-      align-self: flex-end;
-      margin-bottom: 25px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      > p {
+        color: #FFFFFF;
+        font-size: 20px;
+      }
     }
     > .button.disabled {
       opacity: 0.2;
@@ -75,6 +89,10 @@ const PhoneGroup = styled.div`
         height: 50px;
         margin-bottom: 20px;
         margin-left: 5px;
+        margin-top: 39px;
+        > p {
+          font-size: 15px;
+        }
       }
     }
   }
@@ -83,36 +101,64 @@ const PhoneGroup = styled.div`
 const SmsCheckBox = styled.div`
   display: flex;
   margin-bottom: 20px;
+  position: relative;
   > div {
-    width: 75%;
+    width: 100%;
     height: 50px;
     border-bottom: 1px solid #989898;
     position: relative;
     input {
       width: 100%;
+      height: 100%;
+      ::placeholder {
+        font-size: 16px;
+        color: #989898;
+      }
     }
   }
   .confirmButton {
-    width: 20%;
+    width: 40%;
     height: 50px;
+    margin-left: 27px;
     background-color: #989898;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    > p {
+      font-size: 20px;
+      color: #FFFFFF;
+    }
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    > div {
+      input {
+        ::placeholder {
+          font-size: 15px;
+        }
+      }
+    }
+    .confirmButton {
+      margin-left: 5px;
+      > p {
+        font-size: 15px;
+      }
+    }
   }
 `;
 
 const ErrorText = styled.p`
-  font-size: 13px;
-  line-height: 13px;
+  font-size: 16px;
+  line-height: 16px;
   padding-top: 5px;
-  color: ${(props) => props.theme.color.WARNING_MESSAGE};
   position: absolute;
-  bottom: -20px;
+  top: 50px;
+  color: ${(props) => props.theme.color.WARNING_MESSAGE};
   ${(props) => props.theme.window.mobile} {
     padding-top: 0px;
     line-height: 20px;
+    font-size: 12px;
   }
 `;
 
@@ -120,11 +166,10 @@ const DataWarp = styled.div`
   margin-top: 32px;
   margin-bottom: 32px;
   width: 100%;
-`
+`;
 
 const DataContent = styled.div`
-
-`
+`;
 
 const DataValue = styled.div`
   &:not(first-child){
@@ -138,7 +183,7 @@ const DataValue = styled.div`
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(229, 229, 229);
   padding: 15px 12px;
-`
+`;
 
 const AccountIcon = styled.div`
   width: 32px;
@@ -151,11 +196,11 @@ const AccountIcon = styled.div`
   -webkit-box-align: center;
   align-items: center;
   flex-shrink: 0;
-`
+`;
 
 const AccTextWarp = styled.div`
   overflow: hidden; 
-`
+`;
 
 const EmailText = styled.div`
   white-space: nowrap;
@@ -165,14 +210,14 @@ const EmailText = styled.div`
   line-height: 26px;
   font-weight: 600;
   color: rgb(33, 35, 34);
-`
+`;
 
 const RegDate = styled.div`
   font-size: 12px;
   line-height: 19px;
   font-weight: 400;
   color: rgb(100, 100, 100);
-`
+`;
 
 function FindAccount() {
   const {
@@ -191,7 +236,7 @@ function FindAccount() {
   const [smsCheckOpen, setSmsCheckOpen] = useState(false);
   const [isActiveTimer, setIsActiveTimer] = useState(false);
   const [codeValidate, setCodeValidate] = useState(false);
-
+  const navigate = useNavigate();
   const openSmsSend = async () => {
     const data = {
       mobile: watch("phoneRole")
@@ -287,12 +332,8 @@ function FindAccount() {
            </DataContent>
           </DataWarp>
           <ButtonWrap>
-            <CustomButton bgColor="GRAY" width="100%">
-              <Link to="/">
-                <Text color="WHITE" bold="200">
-                  메인으로 돌아가기
-                </Text>
-              </Link>
+            <CustomButton bgColor="GRAY" width="100%" onClick={() => navigate('/')}>
+              <p>메인으로 돌아가기</p>
             </CustomButton>
           </ButtonWrap>
         </ResultWrap>
@@ -317,9 +358,7 @@ function FindAccount() {
                 className={button ? "button" : "button disabled"}
                 onClick={button ? handleSubmit(openSmsSend) : null}
               >
-                <Text color="WHITE" bold="200">
-                  인증번호받기
-                </Text>
+                <p>인증번호받기</p>
               </div>
             </div>
             {smsCheckOpen && (
@@ -338,18 +377,14 @@ function FindAccount() {
                   <ErrorText>{errors.confirmCode?.message}</ErrorText>
                 )}
                 <div className="confirmButton" onClick={openSmsCheck}>
-                  <Text color="WHITE" bold="200">
-                    확인
-                  </Text>
+                  <p>확인</p>
                 </div>
               </SmsCheckBox>
             )}
           </PhoneGroup>
           <ButtonWrap>
             <CustomButton bgColor="GRAY" width="100%" type="submit">
-              <Text color="WHITE" bold="200">
-                이메일로 계속하기
-              </Text>
+              <p>이메일로 계속하기</p>
             </CustomButton>
           </ButtonWrap>
         </Form>

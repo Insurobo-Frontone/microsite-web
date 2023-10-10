@@ -22,9 +22,10 @@ const CheckBoxGroup = styled.div`
   label {
     display: flex;
     align-items: center;
-    height: 80px;
+    padding: 25px 0;
     color: #2F2F2F;
-
+    line-height: 30px;
+    font-size: 20px;
     ::before {
       content: '';
       display: block;
@@ -32,14 +33,16 @@ const CheckBoxGroup = styled.div`
       height: 18px;
       border: 1px solid #989898;
       border-radius: 50%;
-      margin-right: 15px;
+      margin-right: 18px;
       margin-left: 3px;
       transition: background-color .3s;
+      box-sizing: border-box;
     }
   }
 
   ${props => props.theme.window.mobile} {
     label {
+      font-size: 15px;
       ::before {
         width: 15px;
         height: 15px;
@@ -50,11 +53,22 @@ const CheckBoxGroup = styled.div`
   }
 `;
 
-const AllChecked = styled.div``;
+const AllChecked = styled.div`
+  > label {
+    font-size: 20px;
+  }
+
+  ${props => props.theme.window.mobile} {
+    > label {
+      font-size: 15px;
+    }
+  }
+`;
 
 const SelectChecked = styled.ul`
   padding: 15px 0;
   background-color: #F9F9F9;
+  border-radius: 10px;
   margin-bottom: 13px;
 
   > li {
@@ -63,33 +77,37 @@ const SelectChecked = styled.ul`
     justify-content: space-between;
     .button {
       content: '';
-      display: block;
+      display: flex;
       width: 20px;
       height: 22px;
       background-image: url(${infoArrow});
       background-size: contain;
       background-repeat: no-repeat;
-      background-position: right;
+      background-position: center;
       cursor: pointer;
     }
   }
 
   ${props => props.theme.window.mobile} {
-    padding: 14px 13px;
+    padding: 14px 0;
     margin-bottom: 10px;
+    > li {
+      .button {
+        width: 18px;
+      }
+    }
   }
 `;
 const ErrorText = styled.p`
-  font-size: 13px;
-  line-height: 13px;
-  padding-top: 5px;
+  font-size: 16px;
+  line-height: 16px;
+  padding-bottom: 10px;
   color: ${(props) => props.theme.color.WARNING_MESSAGE};
-  position: absolute;
-  top: 60px;
+  
   ${props => props.theme.window.mobile} {
     padding-top: 0px;
-    
     line-height: 20px;
+    font-size: 13px;
   }
 
 `;
@@ -275,7 +293,6 @@ const HookFormCheckbox = (props) => {
       setId(id)
     }
 
-
     return (
       <>
         <CheckBoxGroup>
@@ -299,21 +316,19 @@ const HookFormCheckbox = (props) => {
                         }
                       })}
                       onChange={(e) => toggleCheck(e, index)} 
-                      
                     />
                     <label htmlFor={item.label}>{item.title}</label>
                   </div>
                   <div className='button' onClick={() => openModal(item.id)} />
                 </li>
-            )})}
+              )}
+            )}
           </SelectChecked>
-        
-            <ErrorMessage
-              errors={errors}
-              name={'use_agree'}
-              render={({message}) => <ErrorText>{message}</ErrorText>}
-            />
-            
+          <ErrorMessage
+            errors={errors}
+            name={'use_agree'}
+            render={({message}) => <ErrorText>{message}</ErrorText>}
+          />
         </CheckBoxGroup>
         {open && (
           <Modal onClick={() => setOpen(false)}>

@@ -2,10 +2,8 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
-import { Text } from "../components/Font";
 import { CommonAPI } from "../api/CommonAPI";
 import { setUserName } from "../container/Storage/Auth";
-
 import UserContext from "../context/UserContext";
 import AuthLayout from "../components/Auth/AuthLayout";
 import Input from "../components/Input";
@@ -18,7 +16,7 @@ const Form = styled.form`
   padding: 54px 0 147px;
 
   ${(props) => props.theme.window.mobile} {
-    padding-bottom: 0px;
+    padding: 20px 0 0;
   }
 `;
 
@@ -26,9 +24,11 @@ const Label = styled.label`
 	display: block;
   width: 100%;
   color: #2F2F2F;
-  font-size: 1rem;
-  font-weight: 300;
+  font-size: 20px;
   margin-bottom: 15px;
+  ${(props) => props.theme.window.mobile} {
+    font-size: 15px;
+  }
 `;
 
 const InputGroup = styled.div`
@@ -49,6 +49,11 @@ const InputGroup = styled.div`
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      > p {
+        color: #FFFFFF;
+        font-size: 20px;
+        font-weight: 300;
+      }
     }
   }
 
@@ -66,6 +71,9 @@ const InputGroup = styled.div`
         margin-left: 5px;
         height: 50px;
         margin-bottom: 20px;
+        > p {
+          font-size: 15px;
+        }
       }
     }
     .recommender {
@@ -97,9 +105,21 @@ const PasswordGroup = styled.div`
 
 const ButtonWrap = styled.div`
   padding-top: 20px;
+  > button {
+    > p {
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 300;
+    }
+  }
 
   ${(props) => props.theme.window.mobile} {
-    padding-top: 30px;
+    padding-top: 10px;
+    > button {
+      > p {
+        font-size: 15px;
+      }
+    }
   }
 `;
 
@@ -141,7 +161,7 @@ function EditProfile() {
     if(res1.status === 200){
         user.actions.setUser(res1.data.data);
         setData(res1.data.data);
-        console.log(user.state.user);
+        // console.log(user.state.user);
         reset()
     }
     if (res2.status === 200) {
@@ -257,9 +277,7 @@ function EditProfile() {
                 defaultValue={data?.address}
               />
               <div className="button" onClick={onChangeOpenPost}>
-                <Text color="WHITE" bold="200">
-                  주소찾기
-                </Text>
+                <p>주소찾기</p>
               </div>
             </div>
             <Input 
@@ -284,9 +302,7 @@ function EditProfile() {
           </InputGroup>
           <ButtonWrap>
             <CustomButton bgColor="GRAY" width="100%" type="submit">
-              <Text color="WHITE" bold="200">
-                수정하기
-              </Text>
+              <p>수정하기</p>
             </CustomButton>
           </ButtonWrap>
         </Form>

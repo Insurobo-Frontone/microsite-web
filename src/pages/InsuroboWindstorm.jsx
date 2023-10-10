@@ -81,7 +81,7 @@ const InsuroboWindstorm = () => {
       watch('termsA3') === false ||
       watch('termsA4') === false
     ) {
-      alert('개인정보처리 동의 필수체크')
+      alert('개인정보처리 동의 항목은 필수 체크 항목입니다.')
     } else {
       const insurance = StorageGetInsurance();
       // 연락처
@@ -124,7 +124,7 @@ const InsuroboWindstorm = () => {
         const userId = res.data.results.userID;
         window.open(`https://mplatform.hi.co.kr/service.do?m=pipis1000&${userId}`);
         navigate('/');
-      }).catch((e) => console.log(e))
+      }).catch((e) => console.log(e));
     }
   }
 
