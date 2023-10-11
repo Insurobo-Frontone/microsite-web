@@ -1,12 +1,11 @@
 import React, { useRef, useCallback } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { CommonAPI } from '../../api/CommonAPI';
 import useAsync from '../../hooks/useAsync';
-import View from './View';
 import Label from '../Label';
 import ContentInner from '../../layout/ContentInner';
 import icon from '../../assets/icon/infoMoreIcon.png';
@@ -55,7 +54,6 @@ const Card = styled.div`
     border: 2px solid #F4F4F4;
     height: 149px;
     border-radius: 15px;
-    /* box-shadow: 4px 6px 16px 0px rgba(0, 0, 0, 0.25); */
   }
 `;
 
@@ -137,9 +135,6 @@ const InfoMoreBtn = styled.div`
 `;
 
 function Board() {
-  const [searchParams] = useSearchParams();
-  const location = useLocation();
-  const id = searchParams.get('id');
   const [state] = useAsync(getData, []);
   const { loading, data, error } = state;
   const sliderRef = useRef(null);
@@ -205,7 +200,6 @@ function Board() {
             <p>다양한 정보 더보기</p>
           </InfoMoreBtn>
         </>
-      {/* )} */}
     </Wrap>
     )
   }
