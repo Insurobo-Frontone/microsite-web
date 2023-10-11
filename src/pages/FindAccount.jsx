@@ -11,6 +11,8 @@ import Timer from "../components/Timer";
 import insurobo from '../assets/icon/email-svg.svg';
 import kakao from '../assets/img/kakaoIcon.png';
 import naver from '../assets/icon/naver-icon.png';
+import AuthButton from "../components/Auth/AuthButton";
+import SmsCheck from "../components/Auth/SmsCheck";
 
 
 const Form = styled.form`
@@ -63,36 +65,14 @@ const PhoneGroup = styled.div`
   > div {
     display: flex;
     justify-content: space-between;
-    > .button {
-      width: 40%;
-      height: 80px;
-      margin-left: 27px;
-      margin-top: 44px;
-      background-color: #989898;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      > p {
-        color: #FFFFFF;
-        font-size: 20px;
-      }
-    }
-    > .button.disabled {
-      opacity: 0.2;
+    > div {
+      width: 469px;
     }
   }
   ${(props) => props.theme.window.mobile} {
     > div {
-      > .button {
-        height: 50px;
-        margin-bottom: 20px;
-        margin-left: 5px;
-        margin-top: 39px;
-        > p {
-          font-size: 15px;
-        }
+      > div {
+        width: 67.5%;
       }
     }
   }
@@ -327,7 +307,6 @@ function FindAccount() {
                   <RegDate>{data.createdDate} 가입</RegDate>
                 </AccTextWarp>
               </DataValue>
-            // <input value={data.userId} readOnly key={index} />
           ))}
            </DataContent>
           </DataWarp>
@@ -354,32 +333,18 @@ function FindAccount() {
                   message: "규칙에 맞는 휴대폰 번호를 입력해 주세요.",
                 }}
               />
-              <div
-                className={button ? "button" : "button disabled"}
-                onClick={button ? handleSubmit(openSmsSend) : null}
-              >
-                <p>인증번호받기</p>
-              </div>
+              <AuthButton
+                sendType
+                className={button ? 'auth-code' : 'auth-code disabled'}
+                onClick={button ? openSmsSend : null}
+                text='인증번호받기'
+              />
             </div>
             {smsCheckOpen && (
-              <SmsCheckBox>
-                <div>
-                  <input
-                    type="number"
-                    placeholder="인증번호를 입력해주세요"
-                    {...register("confirmCode", {
-                      required: "*필수 입력 사항입니다.",
-                    })}
-                  />
-                  {isActiveTimer && <Timer active={isActiveTimer} />}
-                </div>
-                {errors.confirmCode?.message && (
-                  <ErrorText>{errors.confirmCode?.message}</ErrorText>
-                )}
-                <div className="confirmButton" onClick={openSmsCheck}>
-                  <p>확인</p>
-                </div>
-              </SmsCheckBox>
+              <SmsCheck
+                active={isActiveTimer}
+                onClick={openSmsCheck}
+              />
             )}
           </PhoneGroup>
           <ButtonWrap>

@@ -2,17 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { useFormContext } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import WarningText from '../Auth/WarningText';
 
 const InputWrap = styled.div`
   width: ${props => props.width ? props.width : '100%'};
   position: relative;
   margin-bottom: 25px;
-  > p {
-    font-size: 16px;
-  }
 
   ${props => props.theme.window.mobile} {
-    margin-bottom: 20px;
+    margin-bottom: 0;
   }
 
 `;
@@ -55,17 +53,6 @@ const Label = styled.label`
   }
 `;
 
-const ErrorText = styled.p`
-  font-size: 16px;
-  line-height: 1;
-  padding-top: 5px;
-  color: ${(props) => props.theme.color.WARNING_MESSAGE};
-
-  ${props => props.theme.window.mobile} {
-    font-size: 13px;
-  }
-`;
-
 const Input = ({
   name, placeholder, onChange, label, type, defaultValue,
   readOnly, width, require, validate, pattern, maxLength, minLength
@@ -99,7 +86,7 @@ const Input = ({
       <ErrorMessage
         errors={errors}
         name={name}
-        render={({message}) => <ErrorText>{message}</ErrorText>}
+        render={({message}) => <WarningText text={message} error />}
       />
     </InputWrap>
   )

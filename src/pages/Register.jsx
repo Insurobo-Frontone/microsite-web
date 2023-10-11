@@ -4,36 +4,22 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { CommonAPI } from '../api/CommonAPI';
 import AuthLayout from '../components/Auth/AuthLayout';
-import CustomButton from '../components/Button/CustomButton';
 import Input from '../components/Input';
 import HookFormCheckbox from '../components/Input/HookFormCheckbox';
-import Timer from '../components/Timer';
-
-const ButtonWrap = styled.div`
-  padding-top: 50px;
-  > button {
-    > p {
-      color: #FFFFFF;
-      font-weight: 300;
-      font-size: 20px;
-    }
-   }
-
-  ${(props) => props.theme.window.mobile} {
-    padding-top: 30px;
-    > button {
-      > p {
-        font-size: 15px;
-      }
-    }
-  }
-`;
+import AuthButton from '../components/Auth/AuthButton';
+import WarningText from '../components/Auth/WarningText';
+import SmsCheck from '../components/Auth/SmsCheck';
 
 const Form = styled.form`
   padding-top: 54px;
-  
+  > p {
+    margin-bottom: 50px;
+  }
   ${(props) => props.theme.window.mobile} {
     padding-top: 20px;
+    > p {
+      margin-bottom: 30px;
+    }
   }
 `;
 
@@ -41,7 +27,7 @@ const InputGroup = styled.div`
   margin-bottom: 30px;
   position: relative;
    div:nth-child(2) {
-    margin-bottom: 13px;
+    margin: 10px 0;
   }
   .label {
     display: block;
@@ -78,118 +64,15 @@ const PhoneGroup = styled.div`
     > div {
       width: 469px;
     }
-    .button {
-      width: 254px;
-      height: 80px;
-      background-color: #989898;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 44px;
-      cursor: pointer;
-      > p {
-        color: #FFFFFF;
-        font-weight: 300;
-        font-size: 20px;
-      }
-    }
-    .button.disabled {
-       opacity: 0.2;
-    }
   }
   ${(props) => props.theme.window.mobile} {
     > div {
       > div {
         width: 67.5%;
       }
-      > .button {
-        width: 30%;
-        height: 50px;
-        margin-top: 39px;
-        > p {
-          font-size: 15px;
-        }
-      }
     }
   }
 `;
-
-const SmsCheckBox = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-  position: relative;
-  > div {
-    border-bottom: 1px solid #989898;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    input {
-      width: 100%;
-      height: 50px;
-      ::placeholder {
-        font-size: 16px;
-      }
-    }
-  }
-  > p {
-    position: absolute;
-    top: 55px;
-  }
-  .confirmButton {
-    width: 254px;
-    height: 50px;
-    background-color: #989898;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    > p {
-      color: #FFFFFF;
-      font-weight: 300;
-      font-size: 20px;
-    }
-  }
-  ${props => props.theme.window.mobile} {
-    > div {
-      input {
-        ::placeholder {
-          font-size: 15px;
-        }
-      }
-    }
-    .confirmButton {
-      width: 101px;
-      > p {
-        font-size: 15px;
-      }
-    } 
-  }
-`;
-
-
-const ErrorText = styled.p`
-  font-size: 16px;
-  line-height: 16px;
-  padding-top: 5px;
-  color: ${(props) => props.theme.color.WARNING_MESSAGE};
-
-  ${props => props.theme.window.mobile} {
-    padding-top: 0px;
-    line-height: 20px;
-    font-size: 12px;
-  }
-`;
-
-const WarningMessage = styled.p`
-  font-size: 18px;
-  color: #BA0000;
-  font-weight: 400;
-  ${props => props.theme.window.mobile} {
-    font-size: 15px;
-  }
-`;
-
 
 function Register() {
   const location = useLocation();
@@ -328,7 +211,7 @@ function Register() {
               }
             })}
           />
-          {errors.userId?.message && (<ErrorText>{errors.userId?.message}</ErrorText>)}
+          {errors.userId?.message && (<WarningText text={errors.userId?.message} error />)}
         </InputGroup>
         <InputGroup>
           <Input 
@@ -351,9 +234,7 @@ function Register() {
               check: () => passwordCheck() ? true : '비밀번호가 일치하지 않습니다.'
             }}
           />
-            <WarningMessage>
-              *영문 숫자, 특수문자를 조합해 8자리 이상 16자리 이하로 입력해주세요
-            </WarningMessage>
+          <WarningText text='*영문 숫자, 특수문자를 조합해 8자리 이상 16자리 이하로 입력해주세요' />
           </InputGroup>
           <InputGroup>
             <Input
@@ -376,40 +257,23 @@ function Register() {
                   message: '규칙에 맞는 휴대폰 번호를 입력해 주세요.'
                 }}
               />
-              <div className={button? 'button' : 'button disabled'} onClick={button ? openSmsSend : null}>
-                <p>인증번호받기</p>
-              </div>
+              <AuthButton
+                sendType
+                className={button ? 'auth-code' : 'auth-code disabled'}
+                onClick={button ? openSmsSend : null}
+                text='인증번호받기'
+              />
             </div>
             {smsCheckOpen && (
-              <SmsCheckBox>
-                <div className='sms-check'>
-                  <input
-                    type='number'
-                    placeholder='인증번호를 입력해주세요'
-                    {...register('confirmCode', {
-                      required: '*필수 입력 사항입니다.'
-                    })}
-                  />
-                 {isActiveTimer && (
-                    <Timer active={isActiveTimer} />
-                 )}
-                </div>
-                {errors.confirmCode?.message && (<ErrorText>{errors.confirmCode?.message}</ErrorText>)}
-                <div className='confirmButton' onClick={openSmsCheck}>
-                  <p>확인</p>
-                </div>
-              </SmsCheckBox>
+              <SmsCheck
+                active={isActiveTimer}
+                onClick={openSmsCheck}
+              />
             )}
           </PhoneGroup>
           <HookFormCheckbox />
-          <WarningMessage>
-            *선택 항목을 동의하지 않아도 가입이 가능합니다.
-          </WarningMessage>
-          <ButtonWrap>
-            <CustomButton bgColor='GRAY' width='100%' type='submit'>
-              <p>이메일로 가입하기</p>
-            </CustomButton>
-          </ButtonWrap>
+          <WarningText text='*선택 항목을 동의하지 않아도 가입이 가능합니다.' />
+          <AuthButton text='이메일로 가입하기' />
       </Form>
     </AuthLayout>
   )

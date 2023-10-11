@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const TimerWrap = styled.p`
-  color: #2F2F2F;
-  position: absolute;
-  bottom: 15px;
-  right: 0;
+  color: #BA0000;
+  /* position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0; */
 `;
 
 const Timer = ({ active }) => {

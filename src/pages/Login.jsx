@@ -11,6 +11,7 @@ import { setAccessToken, setUserName } from '../container/Storage/Auth';
 import { CommonAPI } from "../api/CommonAPI";
 import naverIcon from '../assets/img/naverIcon.png';
 import kakaoIcon from '../assets/img/kakaoIcon.png';
+import AuthButton from '../components/Auth/AuthButton';
 
 const SocialLoginGroup = styled.div`
   display: flex;
@@ -93,26 +94,15 @@ const Linear = styled.div`
     }
   }
 `;
-const ButtonWrap = styled.div`
-   padding-top: 0;
-   > button {
-    > p {
-      color: #FFFFFF;
-      font-weight: 300;
-      font-size: 20px;
-    }
-   }
-   ${props => props.theme.window.mobile} {
-    > button {
-      > p {
-        font-size: 15px;
-      }
-     }
-   }
-`;
 
 const Form = styled.form`
   padding: 14px 0 18px;
+  ${props => props.theme.window.mobile} {
+    div:nth-child(2) {
+      margin: 10px 0;
+    }
+  }
+  
 `;
 
 
@@ -244,13 +234,7 @@ function Login() {
         placeholder='비밀번호를 입력하세요'
         require='*필수 입력 사항입니다.'
       />
-      <ButtonWrap>
-        <CustomButton bgColor='GRAY' width='100%' type='submit'>
-          <p>
-            이메일로 계속하기
-          </p>
-        </CustomButton>
-      </ButtonWrap>
+      <AuthButton text='이메일로 계속하기' />
       <TextLink to='/login/findAccount'>계정정보를 잊으셨나요?</TextLink>
     </Form>
       {showPopup &&

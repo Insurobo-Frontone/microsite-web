@@ -8,15 +8,29 @@ import UserContext from "../context/UserContext";
 import AuthLayout from "../components/Auth/AuthLayout";
 import Input from "../components/Input";
 import SelectInput from "../components/Input/SelectInput";
-import CustomButton from "../components/Button/CustomButton";
 import DaumPostcode from 'react-daum-postcode';
 import useWindowSize from "../hooks/useWindowSize";
+import AuthButton from "../components/Auth/AuthButton";
+import CustomButton from "../components/Button/CustomButton";
 
 const Form = styled.form`
-  padding: 54px 0 147px;
+  padding: 54px 0 47px;
+  > button {
+    > p {
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 300;
+    }
+  }
 
   ${(props) => props.theme.window.mobile} {
     padding: 20px 0 0;
+    > button {
+      margin-top: 50px;
+    > p {
+      font-size: 15px;
+    }
+  }
   }
 `;
 
@@ -37,26 +51,25 @@ const InputGroup = styled.div`
   .address {
     display: flex;
     justify-content: space-between;
-    .button {
-      width: 40%;
-      height: 80px;
-      margin-left: 27px;
-      background-color: #989898;
-      border-radius: 10px;
-      align-self: flex-end;
-      margin-bottom: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      > p {
-        color: #FFFFFF;
-        font-size: 20px;
-        font-weight: 300;
-      }
+    > div:first-child {
+      width: 469px;
     }
   }
-
+  .button {
+    width: 254px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 44px;
+    background-color: #989898;
+    > p {
+      font-size: 20px;
+      color: #FFFFFF;
+      font-weight: 300;
+    }
+  }
   .recommender {
     display: flex;
     select {
@@ -67,13 +80,17 @@ const InputGroup = styled.div`
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 20px;
     .address {
-      .button {
-        margin-left: 5px;
-        height: 50px;
-        margin-bottom: 20px;
-        > p {
-          font-size: 15px;
-        }
+      > div:first-child {
+        width: 67.5%;
+        margin-bottom: 10px;
+      }
+    }
+    .button {
+      width: 30%;
+      height: 50px;
+      margin-top: 39px;
+      > p {
+        font-size: 15px;
       }
     }
     .recommender {
@@ -100,26 +117,6 @@ const PasswordGroup = styled.div`
     display: block;
     color: #6f85e3;
     font-weight: 400;
-  }
-`;
-
-const ButtonWrap = styled.div`
-  padding-top: 20px;
-  > button {
-    > p {
-      color: #FFFFFF;
-      font-size: 20px;
-      font-weight: 300;
-    }
-  }
-
-  ${(props) => props.theme.window.mobile} {
-    padding-top: 10px;
-    > button {
-      > p {
-        font-size: 15px;
-      }
-    }
   }
 `;
 
@@ -300,11 +297,9 @@ function EditProfile() {
               />
             </div>
           </InputGroup>
-          <ButtonWrap>
-            <CustomButton bgColor="GRAY" width="100%" type="submit">
-              <p>수정하기</p>
-            </CustomButton>
-          </ButtonWrap>
+          <CustomButton bgColor="GRAY" width="100%" type="submit">
+            <p>수정하기</p>
+          </CustomButton>
         </Form>
       </AuthLayout>
       {isOpenPost  ? (
