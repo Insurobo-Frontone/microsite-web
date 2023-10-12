@@ -1,12 +1,14 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { useFormContext, Controller } from 'react-hook-form';
+
 import store from '../../../assets/icon/insuroboWindstorm/store.png';
 import factory from '../../../assets/icon/insuroboWindstorm/factory.png';
 import circleCheckIcon from '../../../assets/icon/insuroboWindstorm/circleCheckIcon.png';
-import { useFormContext, Controller } from 'react-hook-form';
+
 
 const SelectItems = () => {
-  const {  control } = useFormContext();
+  const { control } = useFormContext();
   const data = [
     {
       idx: '1',
@@ -24,7 +26,6 @@ const SelectItems = () => {
     }
   ]
   return (
-    <Wrap>
       <Controller
         name="objCat"
         control={control}
@@ -60,27 +61,10 @@ const SelectItems = () => {
           );
         }}
         />
-    </Wrap>
   ) 
 }
 
 export default SelectItems;
-
-const Wrap = styled.div`
-
-`;
-
-// const Label = styled.label`
-//   display: block;
-//   font-size: 16px;
-//   line-height: 26px;
-//   font-weight: 700;
-//   color: #808080;
-//   ${props => props.color && css`
-//     color: #2EA5FF;
-//   `}
-// `;
-
 
 const Icon = styled.div`
   width: 84px;

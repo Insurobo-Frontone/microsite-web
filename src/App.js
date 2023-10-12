@@ -22,6 +22,7 @@ import Policy from './pages/Policy';
 import InsuroboWindstorm from './pages/InsuroboWindstorm';
 import InsuroboCard from './pages/InsuroboCard';
 import View from './components/Post/View';
+import InsuroboTravel from './pages/InsuroboTravel';
 
 function App() {
   
@@ -50,6 +51,9 @@ function App() {
                   <Route path='/board' element={<View />} />
                   <Route path='/policy/:pagename' element={<Policy />} />
                   <Route path='/insuroboCard' element={<InsuroboCard />} />
+                  <Route path='/insuroboTravel' element={<InsuroboTravel />} />
+                  <Route path='/insuroboTravel/apply' element={<InsuroboTravel />} />
+                  <Route path='/insuroboTravel/apply?:type' element={<InsuroboTravel />} />
                 </Route>
                 <Route element={<PublicRoute auth={auth} restricted />}>
                   <Route path='/login' element={<Login />} />

@@ -62,7 +62,7 @@ const TopMenu = styled.div`
     background-image: url(${icon1});
     background-repeat: no-repeat;
     background-position: 257px -4px;
-    
+    cursor: pointer;
   }
   ${(props) => props.theme.window.mobile} {
     > div {
@@ -85,6 +85,7 @@ const BottomMenu = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
     &:first-child {
       background-image: url(${icon2});
       background-position: -17px 74px;

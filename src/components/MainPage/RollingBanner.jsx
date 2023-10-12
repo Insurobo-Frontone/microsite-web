@@ -84,6 +84,7 @@ const RollingBannerWrap = styled.div`
   border-radius: 15px;
   padding-left: 20px;
   box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.10);
+  background-color: #FFFFFF;
   ${(props) => props.theme.window.mobile} {
     height: 44px;
   }

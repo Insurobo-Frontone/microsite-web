@@ -33,7 +33,7 @@ const Card = styled.li`
   border-radius: 15px;
   background-repeat: no-repeat;
   background-position: 367px bottom;
-  
+  cursor: pointer;
   :first-child {
     background-image: url(${loan});
   }

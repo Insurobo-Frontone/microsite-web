@@ -40,7 +40,7 @@ const Nav = styled.nav`
 
 const LogoBox = styled.div`
   margin-right: 64px;
-  
+  cursor: pointer;
   ${(props) => props.theme.window.mobile} {
     margin-right: 0;
     height: 54px;
@@ -93,6 +93,7 @@ const Menu = styled.div`
       color: #2d2d2d;
       padding: 0 13px;
       box-sizing: border-box;
+      cursor: pointer;
     }
   }
   .logout {
@@ -138,6 +139,7 @@ const Menu = styled.div`
           font-size: 16px;
           border-top: 1px solid #F0F0F0;
           padding: 0 24px;
+          
           > a {
             color: #2d2d2d;
             font-weight: 500;
@@ -199,6 +201,7 @@ const MyPage = styled.div`
   display: flex;
   align-items: center;
   width: 148px;
+  cursor: pointer;
   > img {
     padding: 0 11.5px;
   }

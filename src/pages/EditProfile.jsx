@@ -64,6 +64,7 @@ const InputGroup = styled.div`
     border-radius: 10px;
     margin-top: 44px;
     background-color: #989898;
+    cursor: pointer;
     > p {
       font-size: 20px;
       color: #FFFFFF;

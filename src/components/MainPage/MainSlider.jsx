@@ -77,6 +77,7 @@ const TextBox = styled.div`
     text-decoration: underline;
     font-weight: 500;
     padding-top: 10px;
+    cursor: pointer;
   }
 
 `;
@@ -99,7 +100,6 @@ const SliderPlayerGroup = styled.div`
 
 const ButtonBox = styled.div`
   display: flex;
-
 `;
 
 const PauseButton = styled.button`
@@ -122,6 +122,7 @@ const NextArrow = styled.div`
   background-size: contain;
   background-position: right;
   margin-left: 12px;
+  cursor: pointer;
 `;
 
 const PrevArrow = styled.div`
@@ -133,6 +134,7 @@ const PrevArrow = styled.div`
   background-position: right;
   margin-right: 12px;
   transform: rotate(-180deg);
+  cursor: pointer;
 `;
 
 const Page = styled.h2`
