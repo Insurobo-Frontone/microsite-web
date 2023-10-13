@@ -1,40 +1,48 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useSearchParams } from "react-router-dom";
 
 const TabMenu = ({ type }) => {
-  const step = [
+  const menu = [
     {
-      id: 1,
+      id: '1',
       title: '간편계산',
     },
     {
-      id: 2,
-      title: '간편계산',
+      id: '2',
+      title: '보험가입',
     },
     {
-      id: 3,
+      id: '3',
       title: '마이페이지',
     },
     {
-      id: 4,
+      id: '4',
       title: 'Q&A',
     },
   ];
 
+  const [searchParams] = useSearchParams();
+  const step = searchParams.get("step");
   return (
     <TabMenuWrap>
-      {step.map((dep) => (
-        <li>
-          <NavLink 
-            to={`/insuroboTravel/apply?${type}=${dep.id}`}
-            style={({isActive}) => {
-              return {
-                backgroundColor: isActive ? '#2EA5FF' : '#FFFFFF',
-                color: isActive ? '#FFFFFF' : '#2EA5FF'
+      {menu.map((dep) => (
+        <li key={dep.id}>
+          <NavLink
+            to={`/insuroboTravel/apply?type=${type}&step=${dep.id}`}
+            style={() => {
+              if (step === dep.id) {
+                return {
+                  backgroundColor: '#2EA5FF',
+                  color: '#FFFFFF'
+                }
+              } else {
+                return {
+                  backgroundColor: '#FFFFFF',
+                  color: '#2EA5FF'
+                }
               }
             }}
-            end
           >{dep.title}</NavLink>
         </li>
       ))}
@@ -46,8 +54,23 @@ export default TabMenu;
 
 const TabMenuWrap = styled.ul`
   display: flex;
+  align-items: flex-end;
   > li {
-    
+    margin-right: 6px;
+    :last-child {
+      margin-right: 0px;
+    }
+
+    > a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 150px;
+      height: 54px;
+      font-size: 20px;
+      border-radius: 5px 5px 0 0;
+      border: 1.5px solid #2EA5FF;
+    }
   }
 
 `;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Step1 = () => {
   return (
     <Wrap>
-      
+      로컬스텝1
     </Wrap>
   )
 }

@@ -3,14 +3,14 @@ import styled from "styled-components";
 import Local from "./Local";
 import Over from "./Over";
 
-const Apply = () => {
+const Apply = ({ query }) => {
   return (
     <ApplyWrap>
-      
+      {query === 'local' ? (
         <Local />
-     
-  
-      
+      ) : query === 'over' && (
+        <Over />
+      )}
     </ApplyWrap>
   )
 }

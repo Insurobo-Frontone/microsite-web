@@ -74,7 +74,7 @@ const SelectChecked = styled.ul`
 `;
 
 
-function CheckBox({data, }) {
+function CheckBox({ data }) {
   const [checkItems, setCheckItems] = useState([]);
 
   const handleSingleCheck = (checked, id) => {

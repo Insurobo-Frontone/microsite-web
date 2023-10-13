@@ -20,8 +20,9 @@ const Wrap = styled.div`
 
 const InsuroboTravel = () => {
   const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const type = searchParams.get("");
+  const [searchParams] = useSearchParams();
+  const type = searchParams.get("type");
+  
   return (
     <Layout>
       <Wrap>
@@ -29,7 +30,7 @@ const InsuroboTravel = () => {
           {location.pathname === '/insuroboTravel' ? (
             <SelectType />
           ) : location.pathname === '/insuroboTravel/apply' && (
-            <Apply query={location.search} />
+            <Apply query={type} />
           )}
         </ContentInner>
         <RollingBanner />

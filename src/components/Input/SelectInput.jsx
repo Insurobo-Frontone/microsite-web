@@ -37,9 +37,6 @@ const InputWrap = styled.div`
 	}
 `;
 
-
-
-
 const SelectInput = ({name, options, defaultValue, required, ...rest}) => {
 	const { register, formState: { errors }} = useFormContext({
 		mode: 'onBlur',
@@ -65,7 +62,7 @@ const SelectInput = ({name, options, defaultValue, required, ...rest}) => {
 			<ErrorMessage
 				errors={errors}
 				name={name}
-				render={({message}) => <WarningText text={message} error/>}
+				render={({message}) => <WarningText text={message} error />}
 			/>
 		</InputWrap>
 	)
