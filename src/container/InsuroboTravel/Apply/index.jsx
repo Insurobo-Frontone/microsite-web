@@ -2,18 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import Local from "./Local";
 import Over from "./Over";
-import TabMenu from "./TabMenu";
 
-
-const Apply = ({ query }) => {
+const Apply = () => {
   return (
     <ApplyWrap>
-      <TabMenu />
-      {query === '?local=1' ? (
+      
         <Local />
-      ) : query === '?over' && (
-        <Over />
-      )}
+     
+  
+      
     </ApplyWrap>
   )
 }

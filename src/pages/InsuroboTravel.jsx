@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import Layout from "../layout";
-import bg_img from '../assets/img/travel/travelBg.png';
 import RollingBanner from "../components/MainPage/RollingBanner";
 import ContentInner from "../layout/ContentInner";
 import SelectType from "../container/InsuroboTravel/SelectType";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import Apply from "../container/InsuroboTravel/Apply";
+import bg_img from '../assets/img/insuroboTravel/travelBg.png';
 
 const Wrap = styled.div`
   padding: 180px 0 191px;
@@ -20,6 +20,8 @@ const Wrap = styled.div`
 
 const InsuroboTravel = () => {
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const type = searchParams.get("");
   return (
     <Layout>
       <Wrap>

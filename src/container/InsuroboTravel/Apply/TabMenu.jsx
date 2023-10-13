@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-const TabMenu = () => {
+const TabMenu = ({ type }) => {
   const step = [
     {
       id: 1,
@@ -22,16 +22,21 @@ const TabMenu = () => {
     },
   ];
 
-  const navigate = useNavigate();
-  const location = useLocation();
-
   return (
     <TabMenuWrap>
       {step.map((dep) => (
-        // <li onClick={() => navigate(`/insuroboTravel/apply${location.search}${dep.id}`)}>
-        //   {dep.title}
-        <li></li>
-        // </li>
+        <li>
+          <NavLink 
+            to={`/insuroboTravel/apply?${type}=${dep.id}`}
+            style={({isActive}) => {
+              return {
+                backgroundColor: isActive ? '#2EA5FF' : '#FFFFFF',
+                color: isActive ? '#FFFFFF' : '#2EA5FF'
+              }
+            }}
+            end
+          >{dep.title}</NavLink>
+        </li>
       ))}
     </TabMenuWrap>
   )

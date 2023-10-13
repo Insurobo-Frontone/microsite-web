@@ -6,8 +6,7 @@ import Step1 from "./Step1";
 const Local= () => {
   return (
     <Wrap>
-      
-      <Step1 />
+      국내여행
     </Wrap>
   )
 }
