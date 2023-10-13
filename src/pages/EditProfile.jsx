@@ -2,23 +2,35 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
-import { Text } from "../components/Font";
 import { CommonAPI } from "../api/CommonAPI";
 import { setUserName } from "../container/Storage/Auth";
-
 import UserContext from "../context/UserContext";
 import AuthLayout from "../components/Auth/AuthLayout";
 import Input from "../components/Input";
 import SelectInput from "../components/Input/SelectInput";
-import CustomButton from "../components/Button/CustomButton";
 import DaumPostcode from 'react-daum-postcode';
 import useWindowSize from "../hooks/useWindowSize";
+import AuthButton from "../components/Auth/AuthButton";
+import CustomButton from "../components/Button/CustomButton";
 
 const Form = styled.form`
-  padding: 54px 0 147px;
+  padding: 54px 0 47px;
+  > button {
+    > p {
+      color: #FFFFFF;
+      font-size: 20px;
+      font-weight: 300;
+    }
+  }
 
   ${(props) => props.theme.window.mobile} {
-    padding-bottom: 0px;
+    padding: 20px 0 0;
+    > button {
+      margin-top: 50px;
+    > p {
+      font-size: 15px;
+    }
+  }
   }
 `;
 
@@ -26,9 +38,11 @@ const Label = styled.label`
 	display: block;
   width: 100%;
   color: #2F2F2F;
-  font-size: 1rem;
-  font-weight: 300;
+  font-size: 20px;
   margin-bottom: 15px;
+  ${(props) => props.theme.window.mobile} {
+    font-size: 15px;
+  }
 `;
 
 const InputGroup = styled.div`
@@ -37,21 +51,26 @@ const InputGroup = styled.div`
   .address {
     display: flex;
     justify-content: space-between;
-    .button {
-      width: 40%;
-      height: 80px;
-      margin-left: 27px;
-      background-color: #989898;
-      border-radius: 10px;
-      align-self: flex-end;
-      margin-bottom: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+    > div:first-child {
+      width: 469px;
     }
   }
-
+  .button {
+    width: 254px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 44px;
+    background-color: #989898;
+    cursor: pointer;
+    > p {
+      font-size: 20px;
+      color: #FFFFFF;
+      font-weight: 300;
+    }
+  }
   .recommender {
     display: flex;
     select {
@@ -62,10 +81,17 @@ const InputGroup = styled.div`
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 20px;
     .address {
-      .button {
-        margin-left: 5px;
-        height: 50px;
-        margin-bottom: 20px;
+      > div:first-child {
+        width: 67.5%;
+        margin-bottom: 10px;
+      }
+    }
+    .button {
+      width: 30%;
+      height: 50px;
+      margin-top: 39px;
+      > p {
+        font-size: 15px;
       }
     }
     .recommender {
@@ -92,14 +118,6 @@ const PasswordGroup = styled.div`
     display: block;
     color: #6f85e3;
     font-weight: 400;
-  }
-`;
-
-const ButtonWrap = styled.div`
-  padding-top: 20px;
-
-  ${(props) => props.theme.window.mobile} {
-    padding-top: 30px;
   }
 `;
 
@@ -141,7 +159,7 @@ function EditProfile() {
     if(res1.status === 200){
         user.actions.setUser(res1.data.data);
         setData(res1.data.data);
-        console.log(user.state.user);
+        // console.log(user.state.user);
         reset()
     }
     if (res2.status === 200) {
@@ -257,9 +275,7 @@ function EditProfile() {
                 defaultValue={data?.address}
               />
               <div className="button" onClick={onChangeOpenPost}>
-                <Text color="WHITE" bold="200">
-                  주소찾기
-                </Text>
+                <p>주소찾기</p>
               </div>
             </div>
             <Input 
@@ -282,13 +298,9 @@ function EditProfile() {
               />
             </div>
           </InputGroup>
-          <ButtonWrap>
-            <CustomButton bgColor="GRAY" width="100%" type="submit">
-              <Text color="WHITE" bold="200">
-                수정하기
-              </Text>
-            </CustomButton>
-          </ButtonWrap>
+          <CustomButton bgColor="GRAY" width="100%" type="submit">
+            <p>수정하기</p>
+          </CustomButton>
         </Form>
       </AuthLayout>
       {isOpenPost  ? (

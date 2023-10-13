@@ -4,7 +4,6 @@ import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import AuthLayout from '../components/Auth/AuthLayout';
 import LoginFailModal from "../components/Modal/LoginFailModal";
 import Input from '../components/Input';
-import { Text } from '../components/Font';
 import { useFormContext } from 'react-hook-form';
 import CustomButton from '../components/Button/CustomButton';
 import useWindowSize from '../hooks/useWindowSize';
@@ -12,6 +11,7 @@ import { setAccessToken, setUserName } from '../container/Storage/Auth';
 import { CommonAPI } from "../api/CommonAPI";
 import naverIcon from '../assets/img/naverIcon.png';
 import kakaoIcon from '../assets/img/kakaoIcon.png';
+import AuthButton from '../components/Auth/AuthButton';
 
 const SocialLoginGroup = styled.div`
   display: flex;
@@ -26,8 +26,15 @@ const SocialLoginGroup = styled.div`
     white-space: nowrap;
     
     > img {
-      margin-right: 1.75vw;
+      margin-right: 34px;
     }
+    > p {
+      font-size: 23px;
+      color: #FFFFFF;
+    }
+  }
+  > button:first-child > p {
+      color: #545454;
   }
 
   ${props => props.theme.window.mobile} {
@@ -35,10 +42,11 @@ const SocialLoginGroup = styled.div`
     padding: 55px 0 24px;
     > button {
       width: 100%;
-      padding: 12px 13% 16px;
+      padding: 0 0 0 42px;
       
       > p {
         line-height: 22px;
+        font-size: 15px;
       }
       > img {
         margin-right: 18.5%;
@@ -65,7 +73,7 @@ const Linear = styled.div`
   align-items: center;
   height: 110px;
   > span {
-    font-size: 1.2vw;
+    font-size: 23px;
     color: #545454;
   }
 
@@ -83,17 +91,18 @@ const Linear = styled.div`
     }
     > span {
       font-size: 1rem;
-      
     }
   }
-`;
-const ButtonWrap = styled.div`
-   padding-top: 0;
-
 `;
 
 const Form = styled.form`
   padding: 14px 0 18px;
+  ${props => props.theme.window.mobile} {
+    div:nth-child(2) {
+      margin: 10px 0;
+    }
+  }
+  
 `;
 
 
@@ -102,8 +111,10 @@ const TextLink = styled(Link)`
   display: flex;
   justify-content: center;
   padding-top: 22px;
+  font-size: 20px;
   ${props => props.theme.window.mobile} {
     padding-top: 16px;
+    font-size: 15px;
   }
 `;
 
@@ -140,11 +151,10 @@ function Login() {
         const name = searchParams.get("name");
         setAccessToken(accessToken);
         setUserName(name)
-        if (path) {
-          navigate('/freeApply')
-        } else {
+        // if (path) {
+        //   navigate('/freeApply')
+        // } else {
           navigate('/')
-        }
     }
   }, []);
 
@@ -197,11 +207,11 @@ function Login() {
     <SocialLoginGroup>
       <CustomButton bgColor='YELLOW' onClick={onKakaoLogin}>
         <img src={kakaoIcon} alt='카카오톡' />
-        <Text size={width > 768 ? '1.2vw' : '1rem'} color='BLACK4'>카카오톡 로그인</Text>
+        <p>카카오톡 로그인</p>
       </CustomButton>
       <CustomButton bgColor='GREEN' onClick={onNaverLogin}>
         <img src={naverIcon} alt='네이버' />
-        <Text size={width > 768 ? '1.2vw' : '1rem'} color='WHITE'>네이버 로그인</Text>
+        <p>네이버 로그인</p>
       </CustomButton>
     </SocialLoginGroup>
     <Linear>
@@ -224,13 +234,7 @@ function Login() {
         placeholder='비밀번호를 입력하세요'
         require='*필수 입력 사항입니다.'
       />
-      <ButtonWrap>
-        <CustomButton bgColor='GRAY' width='100%' type='submit'>
-          <Text color='WHITE' bold='200'>
-            이메일로 계속하기
-          </Text>
-        </CustomButton>
-      </ButtonWrap>
+      <AuthButton text='이메일로 계속하기' />
       <TextLink to='/login/findAccount'>계정정보를 잊으셨나요?</TextLink>
     </Form>
       {showPopup &&

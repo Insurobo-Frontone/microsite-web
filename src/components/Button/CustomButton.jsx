@@ -9,7 +9,7 @@ const ButtonWrap = styled.button`
   width: ${props => props.width};
   display: block;
   font-weight: 100;
-
+  
   ${(props) => props.theme.window.mobile} {
     height: 50px;
   }

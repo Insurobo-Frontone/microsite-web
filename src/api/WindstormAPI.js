@@ -2,8 +2,6 @@ import axios from "axios";
 
 export const WindstormAPI = axios.create({
   baseURL: process.env.REACT_APP_HIAPI_SERVER_HOST,
-  // baseURL: 'http://210.179.175.150:80'
-
 });
 
 // 주소검색

@@ -9,7 +9,6 @@ import Home from './pages/Home';
 import Event from './pages/Event';
 import BizSupport from './pages/BizSupport';
 import List from './pages/List';
-import Board from './components/Post/Board';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import FindAccount from './pages/FindAccount';
@@ -22,6 +21,8 @@ import EditPassword from './pages/EditPassword';
 import Policy from './pages/Policy';
 import InsuroboWindstorm from './pages/InsuroboWindstorm';
 import InsuroboCard from './pages/InsuroboCard';
+import View from './components/Post/View';
+import InsuroboTravel from './pages/InsuroboTravel';
 
 function App() {
   
@@ -47,9 +48,12 @@ function App() {
                   <Route path='/insuranceInfo' element={<InsuranceInfo />} />
                   <Route path='/freeApply' element={<FreeApply />} />
                   <Route path='/freeApply/insuroboWindstorm' element={<InsuroboWindstorm />} />
-                  <Route path='/board' element={<Board />} />
+                  <Route path='/board' element={<View />} />
                   <Route path='/policy/:pagename' element={<Policy />} />
                   <Route path='/insuroboCard' element={<InsuroboCard />} />
+                  {/* <Route path='/insuroboTravel' element={<InsuroboTravel />} />
+                  <Route path='/insuroboTravel/apply' element={<InsuroboTravel />} />
+                  <Route path='/insuroboTravel/apply?:type' element={<InsuroboTravel />} /> */}
                 </Route>
                 <Route element={<PublicRoute auth={auth} restricted />}>
                   <Route path='/login' element={<Login />} />

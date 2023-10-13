@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
-import { Text } from '../components/Font';
 import Layout from '../layout';
 import InfoContent from '../components/Content/InfoContent';
 import CustomButton from '../components/Button/CustomButton';
 import ApplyModal from '../components/Modal/ApplyModal';
-import useWindowSize from '../hooks/useWindowSize';
-// import hyd from '../assets/img/insurance/hyd.png';
-// import imgPlace from '../assets/img/insurance/imagePlace.png';
-import duty_main from '../assets/img/insurance/dutyMain.png';
-import must_main from '../assets/img/insurance/mustMain.png';
-import invest_main from '../assets/img/insurance/investMain.png';
+import duty_main from '../assets/img/insuranceInfo/dutyMain.png';
+import must_main from '../assets/img/insuranceInfo/mustMain.png';
+import invest_main from '../assets/img/insuranceInfo/investMain.png';
 import d_icon1 from '../assets/icon/dutyIcon1.png';
 import d_icon2 from '../assets/icon/dutyIcon2.png';
 import d_icon3 from '../assets/icon/dutyIcon3.png';
@@ -126,6 +122,16 @@ const Banner = styled.div`
       span {
         color: #212A5D;
         font-weight: 700;
+        font-size: 14px;
+      }
+      p {
+        font-size: 30px;
+        font-weight: 700;
+        color: #FFFFFF;
+      }
+      b {
+        font-weight: 700;
+        color: #212A5D;
       }
     }
     .duty {
@@ -154,6 +160,12 @@ const Banner = styled.div`
 
     &.banner-text-box {
       position: static;
+      span {
+        font-size: 10px;
+      }
+      p {
+        font-size: 18px;
+      }
       > br {
         display: none;
       }
@@ -392,20 +404,18 @@ export default InsuranceInfo
 function Item() {
   const location = useLocation();
   const [showPopup, setShowPopup] = useState(false);
-  const { width } = useWindowSize();
-
   if (location.search === '?item=duty') {
     return (
       <InfoContent>
         <Banner color='#2EA5FF' shadow> 
           <div className='banner-text-box'>
-            <Text size={width > 768 ? '1.5rem' : '1.25rem'} color='WHITE' bold='700'>
+            <p>
               사장님!!!<br />
               사업장 안정을 위해<br />
               필수 가입하실 보험입니다.
-            </Text>
+            </p>
             <br />
-            <Text size='0.7rem' color='BLACK2' bold='700'>**미가입시 과태로 부과 대상입니다.</Text>
+            <span>**미가입시 과태로 부과 대상입니다.</span>
           </div>
           <div>
             <img src={duty_main} alt='의무보험' className='duty'/>
@@ -435,11 +445,11 @@ function Item() {
       <InfoContent>
         <Banner color='#176FFF' shadow>
           <div className='banner-text-box'>
-            <Text size='1.5rem' color='WHITE' bold='700'>
+            <p>
               사장님!!!<br />
-              사업장 <span>안전</span>을 위해<br />
+              사업장 <b>안전</b>을 위해<br />
               필수 가입하실 보험입니다.
-            </Text>
+            </p>
           </div>
           <div>
             <img src={must_main} alt='필수 보험' className='must'/>
@@ -463,22 +473,6 @@ function Item() {
             ))}
           </ItemList>
         </ItemListWrap>
-        {/* <Banner color='#FFFFFF' shadow>
-          <div className='sub-banner'>
-            <h3>
-              뜻하지 않게 발생하는 재산손해와 배상책임!<br />
-              종합보장으로 안전하게 대비하세요.
-            </h3>
-            <img src={imgPlace} alt='필수 보험' style={{width: '200px'}}/>
-          </div>
-          <StyledLink>알아보기</StyledLink>
-        </Banner>
-        <Banner color='#FFFFFF' shadow>
-          <div className='sub-banner'>
-            <img src={hyd} alt='필수 보험' style={{width: '200px'}}/>
-          </div>
-          <StyledLink>알아보기</StyledLink>
-        </Banner> */}
       </InfoContent>
     )
   }
@@ -487,10 +481,10 @@ function Item() {
       <InfoContent>
         <Banner color='#4575F5' shadow>
           <div className='banner-text-box'>
-            <Text size='1.5rem' bold='700' color="WHITE">
+            <p>
               사장님!!!<br />
-              <span>목돈 마련</span>을 위해 적합한 보험입니다.
-            </Text>
+              <b>목돈 마련</b>을 위해 적합한 보험입니다.
+            </p>
           </div>
           <div>
             <img src={invest_main} alt='재태크보험' className='invest'/>
@@ -535,7 +529,7 @@ function Item() {
           width='100%'
           bgColor='PRIMARY'
         >
-          <Text color='WHITE'>목돈마련 상담신청</Text>
+          <p style={{ color: '#FFFFFF' }}>목돈마련 상담신청</p>
         </CustomButton>
         {showPopup && (
           <ApplyModal onClick={() => setShowPopup(false)} />

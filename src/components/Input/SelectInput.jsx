@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ErrorMessage } from "@hookform/error-message";
 import { useFormContext } from "react-hook-form";
 import moreBtnReverse from '../../assets/icon/moreBtnReverse.png';
+import WarningText from "../Auth/WarningText";
 
 const InputWrap = styled.div`
 	> select {
@@ -36,7 +37,7 @@ const InputWrap = styled.div`
 	}
 `;
 
-const ErrorText = styled.p``;
+
 
 
 const SelectInput = ({name, options, defaultValue, required, ...rest}) => {
@@ -64,7 +65,7 @@ const SelectInput = ({name, options, defaultValue, required, ...rest}) => {
 			<ErrorMessage
 				errors={errors}
 				name={name}
-				render={({message}) => <ErrorText>{message}</ErrorText>}
+				render={({message}) => <WarningText text={message} error/>}
 			/>
 		</InputWrap>
 	)

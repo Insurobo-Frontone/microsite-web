@@ -3,122 +3,78 @@ import styled from 'styled-components';
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { CommonAPI } from '../api/CommonAPI';
-import { Text } from '../components/Font';
-
 import AuthLayout from '../components/Auth/AuthLayout';
-import CustomButton from '../components/Button/CustomButton';
 import Input from '../components/Input';
 import HookFormCheckbox from '../components/Input/HookFormCheckbox';
-import useWindowSize from '../hooks/useWindowSize';
-import Timer from '../components/Timer';
-
-const ButtonWrap = styled.div`
-  padding-top: 50px;
-
-  ${(props) => props.theme.window.mobile} {
-    padding-top: 30px;
-  }
-`;
+import AuthButton from '../components/Auth/AuthButton';
+import WarningText from '../components/Auth/WarningText';
+import SmsCheck from '../components/Auth/SmsCheck';
 
 const Form = styled.form`
   padding-top: 54px;
-  
+  > p {
+    margin-bottom: 50px;
+  }
   ${(props) => props.theme.window.mobile} {
     padding-top: 20px;
+    > p {
+      margin-bottom: 30px;
+    }
   }
 `;
 
 const InputGroup = styled.div`
   margin-bottom: 30px;
-
+  position: relative;
+   div:nth-child(2) {
+    margin: 10px 0;
+  }
   .label {
     display: block;
     margin-bottom: 15px;
     color: #2f2f2f;
+    font-size: 20px;
+    
   }
-  position: relative;
+  input {
+    ::placeholder {
+      font-size: 20px;
+      color: #989898;
+    }
+
+  }
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 20px;
-  }
-  
-`;
-
-const PhoneGroup = styled.div`
-  position: relative;
-  > div {
-      display: flex;
-      justify-content: space-between;
-    > .button {
-      width: 40%;
-      height: 80px;
-      margin-left: 27px;
-      background-color: #989898;
-      border-radius: 10px;
-      align-self: flex-end;
-      margin-bottom: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
+    .label {
+      font-size: 15px;
     }
-    > .button.disabled {
-       opacity: 0.2;
-    }
-  }
-  ${(props) => props.theme.window.mobile} {
-    > div {
-      > .button {
-          height: 50px;
-          margin-bottom: 20px;
-          margin-left: 5px;
+    input {
+      ::placeholder {
+        font-size: 15px;
       }
     }
   }
 `;
 
-const SmsCheckBox = styled.div`
-  display: flex;
-  margin-bottom: 20px;
+const PhoneGroup = styled.div`
+  position: relative;
   > div {
-    width: 75%;
-    height: 50px;
-    border-bottom: 1px solid #989898;
-    position: relative;
-    input {
-      width: 100%;
+    display: flex;
+    justify-content: space-between;
+    > div {
+      width: 469px;
     }
   }
-  .confirmButton {
-    width: 20%;
-    height: 50px;
-    background-color: #989898;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  ${(props) => props.theme.window.mobile} {
+    > div {
+      > div {
+        width: 67.5%;
+      }
+    }
   }
 `;
-
-
-const ErrorText = styled.p`
-  font-size: 13px;
-  line-height: 13px;
-  padding-top: 5px;
-  color: ${(props) => props.theme.color.WARNING_MESSAGE};
-  position: absolute;
-  bottom: -20px;
-
-  ${props => props.theme.window.mobile} {
-    padding-top: 0px;
-    line-height: 20px;
-  }
-`;
-
-
-
 
 function Register() {
-  const { width } = useWindowSize();
   const location = useLocation();
   const [codeValidate, setCodeValidate] = useState(false);
   const [button, setButton] = useState(true);
@@ -243,7 +199,7 @@ function Register() {
           <label className='label'>이메일</label>
           <input
             className='primary'
-            placeholder='AAA.@HJJJJ.COM'
+            placeholder='이메일주소를 입력하세요'
             {...register('userId', {
               required: '*필수 입력 사항입니다.',
               pattern: {
@@ -255,7 +211,7 @@ function Register() {
               }
             })}
           />
-          {errors.userId?.message && (<ErrorText>{errors.userId?.message}</ErrorText>)}
+          {errors.userId?.message && (<WarningText text={errors.userId?.message} error />)}
         </InputGroup>
         <InputGroup>
           <Input 
@@ -278,9 +234,7 @@ function Register() {
               check: () => passwordCheck() ? true : '비밀번호가 일치하지 않습니다.'
             }}
           />
-            <Text size={width > 768 ? '0.9rem' : '0.86rem'} color='WARNING_MESSAGE'>
-              *영문 숫자, 특수문자를 조합해 8자리 이상 16자리 이하로 입력해주세요
-            </Text>
+          <WarningText text='*영문 숫자, 특수문자를 조합해 8자리 이상 16자리 이하로 입력해주세요' />
           </InputGroup>
           <InputGroup>
             <Input
@@ -303,42 +257,23 @@ function Register() {
                   message: '규칙에 맞는 휴대폰 번호를 입력해 주세요.'
                 }}
               />
-              <div className={button? 'button' : 'button disabled'} onClick={button ? openSmsSend : null}>
-                <Text color='WHITE' bold='200'>인증번호받기</Text>
-              </div>
+              <AuthButton
+                sendType
+                className={button ? 'auth-code' : 'auth-code disabled'}
+                onClick={button ? openSmsSend : null}
+                text='인증번호받기'
+              />
             </div>
             {smsCheckOpen && (
-              <SmsCheckBox>
-                <div>
-                  <input
-                    type='number'
-                    placeholder='인증번호를 입력해주세요'
-                    {...register('confirmCode', {
-                      required: '*필수 입력 사항입니다.'
-                    })}
-                  />
-                 {isActiveTimer && (
-                    <Timer active={isActiveTimer} />
-                 )}
-                </div>
-                {errors.confirmCode?.message && (<ErrorText>{errors.confirmCode?.message}</ErrorText>)}
-                <div className='confirmButton' onClick={openSmsCheck}>
-                  <Text color='WHITE' bold='200'>확인</Text>
-                </div>
-              </SmsCheckBox>
+              <SmsCheck
+                active={isActiveTimer}
+                onClick={openSmsCheck}
+              />
             )}
           </PhoneGroup>
           <HookFormCheckbox />
-          <Text size={width > 768 ? '0.9rem' : '0.86rem'} color='WARNING_MESSAGE'>
-            *선택 항목을 동의하지 않아도 가입이 가능합니다.
-          </Text>
-          <ButtonWrap>
-            <CustomButton bgColor='GRAY' width='100%' type='submit'>
-              <Text color='WHITE' bold='200'>
-                이메일로 가입하기
-              </Text>
-            </CustomButton>
-          </ButtonWrap>
+          <WarningText text='*선택 항목을 동의하지 않아도 가입이 가능합니다.' />
+          <AuthButton text='이메일로 가입하기' />
       </Form>
     </AuthLayout>
   )

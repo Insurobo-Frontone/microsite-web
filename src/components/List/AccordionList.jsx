@@ -8,6 +8,7 @@ const AccordionListWrap = styled.ul`
     display: flex;
     flex-direction: column;
     margin-bottom: 60px;
+    cursor: pointer;
     &.active .answer {
       height: auto;
       padding: 35px 0 31px;

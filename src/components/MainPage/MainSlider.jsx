@@ -1,315 +1,208 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Title } from '../Font';
 
 import slider1 from '../../assets/img/slider1.png';
-import slider3 from '../../assets/img/slider3.png';
-import mb_slider1 from '../../assets/img/mb_slider1.png';
-import mb_slider3 from '../../assets/img/mb_slider3.png';
-// import play from '../../assets/img/playIcon.png';
-// import pause from '../../assets/img/pauseIcon.png';
-import { Link } from 'react-router-dom';
+import slider2 from '../../assets/img/slider2.png';
+import theme from '../../style/Theme';
+
+import play from '../../assets/icon/playIcon.png';
+import pause from '../../assets/icon/pauseIcon.png';
 
 const data = [
   {
     id: 1,
-    t_line1: '소상공인',
-    t_line2: '풍수해보험',
-    t_line3: 'EVENT',
+    title: '소상공인 풍수해보험',
     link: '/freeApply',
-    bg_img: slider1,
-    mb_bg_img: mb_slider1,
-    color: 'PRIMARY',
+    bgImg: slider1,
+    className: 'slider1',
+    color: 'BLUE',
   },
   {
     id: 2,
-    t_line1: '2023년',
-    t_line2: '소상공인',
-    t_line3: '지원정책',
+    title: '2023년 소상공인\n지원정책',
     link: '/bizsupport',
-    bg_img: slider3,
-    mb_bg_img: mb_slider3,
-    color: 'POINT',
+    bgImg: slider2,
+    className: 'slider2',
+    color: 'SKY_BLUE',
   }
 ];
 
 const Wrap = styled.div`
   position: relative;
+  ${(props) => props.theme.window.mobile} {
+    display: none;
+  }
 `;
 
 const StyledSlider = styled(Slider)`
-  width: 100%;
+  width: 724px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.25);
 `;
 
 const Banner = styled.div`
+  height: 365px;
   background-image: url(${(props) => props.bgImg});
+  background-color: ${(props) => theme.color[props.color]};
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: left;
-  padding: 10.03% 12.5% 21.17%;
-  
-  ${(props) => props.theme.window.mobile} {
-    background-image: url(${(props) => props.mbBgImg});
-    padding: 33.2% 7.466666666666667% 129.4%;
-   
+  background-size: contain;
+
+  &.slider1 {
+    background-position: 430px 27px;
+  }
+  &.slider2 {
+    background-position: 312px 27px;
   }
 `;
 
-const StyleLink = styled(Link)`
-  font-family: 'SCoreDream';
-  color: ${props => props.theme.color[props.color]};
-  background-color: #FFFFFF;
-  font-size: 1.05vw;
-  border-radius: 5rem;
-  margin-top: 3.7%;
-  width: 10.45vw;
-  height: 2.61vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  ${(props) => props.theme.window.mobile} {
-    font-size: 15px;
-    margin-top: 20px;
-    width: 122px;
-    height: 35px;
-  }
-`;
- 
+
 const TextBox = styled.div`
-  
-  > h1 {
-    color: #FFFFFF;
-    line-height: 1.25;
-    font-size: 3.1vw;
-  }
-
-  ${(props) => props.theme.window.mobile} {
-    > h1 {
-      font-size: 28px;
-    }
-  }
-
-`;
-
-// 재생버튼은 px로 고정해야함
-// const SliderPlayerGroup = styled.div`
-//   position: absolute;
-//   bottom: 10%;
-//   left: 12.5%;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   width: 350px;
-//   height: 2.75rem;
-
-//   ${(props) => props.theme.window.mobile} {
-//     width: 200px;
-//     left: 7.466666666666667%;
-//     bottom: 50%;
-//   }
-// `;
-
-
-// const ButtonBox = styled.div`
-//   width: 46px;
-//   display: flex;
-//   justify-content: space-between;
-
-//   ${(props) => props.theme.window.mobile} {
-//     width: 31px;
-//   }
-// `;
-
-// const PlayButton = styled.button`
-//   width: 22px;
-//   height: 22px;
-//   background-image: url(${play});
-//   background-repeat: no-repeat;
-//   background-size: contain;
-//   ${(props) => props.theme.window.mobile} {
-//     width: 15px;
-//     height: 15px;
-//   } 
-// `;
-// const PauseButton = styled.button`
-//   width: 12px;
-//   height: 22px;
-//   background-image: url(${pause});
-//   background-repeat: no-repeat;
-//   background-size: contain;
-//   ${(props) => props.theme.window.mobile} {
-//     width: 10px;
-//     height: 15px;
-//   } 
-// `;
-
-// const ProgressWrap = styled.div`
-//   display: flex;
-//   align-items: center;
-// `;
-
-// const ProgressBar = styled.div`
-//   width: 230px;
-//   background-color: rgba(255, 255, 255, 0.5);
-//   margin-right: 21px;
-//   .progress-bar {
-//     background-color: #FFFFFF;
-//     height: 3px;
-//     transition: 1s ease-in-out;
-//   }
-//   ${(props) => props.theme.window.mobile} {
-//     width: 120px;
-//     margin-right: 14px;
-//     .progress-bar {
-//       height: 2px;
-//     }
-//   }
-
-// `;
-// const Page = styled.h2`
-//   font-size: 0.75rem;
-//   font-weight: 200;
-//   color: #FFFFFF;
-//   white-space: nowrap;
-
-//   ${(props) => props.theme.window.mobile} {
-//     font-size: 0.9333333333333333rem;
-//   }
-// `;
-
-/////////////////////////////////////
-
-const CustomDot = styled.div`
-  width: 100%;
-  position: absolute;
-  bottom: 35px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  > ul {
-    display: flex;
-    > li {
-      list-style: none;
-      cursor: pointer;
-      display: inline-block;
-      margin: 0 15px;
-      padding: 0;
-      
-      button {
-        border: none;
-        background: #FFFFFF;
-        color: transparent;
-        cursor: pointer;
-        display: block;
-        height: 0.78vw;
-        width: 0.78vw;
-        border-radius: 100%;
-        padding: 0;
-        opacity: .5;
-      }
-      &.slick-active button {
-        opacity: 1;
-      }
-    }
+  height: 100%;
+  padding: 0 0 114px 40px;
+  flex-direction: column;
+  justify-content: flex-end;
+  > h1 {
+    white-space: pre-wrap;
+  }
+  > p {
+    font-size: 24px;
+    color: #FFFFFF;
+    text-decoration: underline;
+    font-weight: 500;
+    padding-top: 10px;
+    cursor: pointer;
   }
 
-  ${(props) => props.theme.window.mobile} {
-    bottom: 20px;
-    > ul {
-      > li {
-        margin: 10px;
-        button {
-          width: 10px;
-          height: 10px;
-        }
-      }
-    }
-  }
 `;
 
-// const Progress = ({ currentSlide, totalSlides }) => {
-//   const progress = ((currentSlide + 1) / totalSlides) * 100;
-//   return (
-//     <ProgressWrap>
-//       <ProgressBar>
-//         <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-//       </ProgressBar>
-//       <Page>{`${currentSlide + 1} / ${totalSlides}`}</Page>
-//     </ProgressWrap>
-//   )
-// }
+//재생버튼은 px로 고정해야함
+const SliderPlayerGroup = styled.div`
+  width: 156px;
+  height: 44px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 11px 19px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .4);
+  border-radius: 20px;
+`;
 
-function MainSlider({ref}) {
-  // const { width } = useWindowSize();
-  
-  // const [currentSlide, setCurrentSlide] = useState(0);
 
-  // const handleBeforeChange = (oldIndex, newIndex) => {
-  //   setCurrentSlide(newIndex);
-  // };
-  // const handleAfterChange = () => {};
+const ButtonBox = styled.div`
+  display: flex;
+`;
 
-  // const pause = () => {
-  //   sliderRef.current.slickPause();
-  // };
+const PauseButton = styled.button`
+  width: 12px;
+  height: 22px;
+  background-image: url(${pause});
+  background-repeat: no-repeat;
+  background-size: contain;
+  ${(props) => props.theme.window.mobile} {
+    width: 10px;
+    height: 15px;
+  } 
+`;
 
-  // const play = () => {
-  //   sliderRef.current.slickPlay();
-  // };
-  const mainRef = useRef(null);
+const NextArrow = styled.div`
+  width: 22px;
+  height: 22px;
+  background-image: url(${play});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
+  margin-left: 12px;
+  cursor: pointer;
+`;
+
+const PrevArrow = styled.div`
+   width: 22px;
+  height: 22px;
+  background-image: url(${play});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
+  margin-right: 12px;
+  transform: rotate(-180deg);
+  cursor: pointer;
+`;
+
+const Page = styled.h2`
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 300;
+  color: #FFFFFF;
+  letter-spacing: -1.1px;
+`;
+
+
+
+const Paging = ({ currentSlide, totalSlides }) => {
+  return (
+    <Page>{`${currentSlide + 1} / ${totalSlides}`}</Page>
+  )
+}
+
+function MainSlider() {
+  const [currentSlide] = useState(0);
+  const sliderRef = useRef(null);
 
   const settings = {
-    dots: true,
-    speed: 2000,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: false,
     autoplay: true,
     infinite: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 3000,
     pauseOnHover: false,
-    appendDots: (dots) => (
-      <CustomDot>
-        <ul> {dots} </ul>
-      </CustomDot>
-    ),
-    dotsClass: 'dots_custom'
   }
+  const pause = () => {
+    sliderRef.current.slickPause();
+  };
+  const previous = useCallback(() => sliderRef.current.slickPrev(), []);
+  const next = useCallback(() => sliderRef.current.slickNext(), []);
 
-
-
+  const navigate = useNavigate()
   return (
       <Wrap>
         <StyledSlider
-          ref={mainRef}
+          ref={sliderRef}
           {...settings}
-          // beforeChange={handleBeforeChange}
-          // afterChange={handleAfterChange}
         >
           {data.map((dt) => (
-            <Banner key={dt.id} bgImg={dt.bg_img} mbBgImg={dt.mb_bg_img}>
+            <Banner 
+              key={dt.id}
+              color={dt.color}
+              bgImg={dt.bgImg}
+              className={dt.className}
+            >
               <TextBox>
-                <Title bold='300'>{dt.t_line1}</Title>
-                <Title bold='300'>{dt.t_line2}</Title>
-                <Title>{dt.t_line3}</Title>
-                <StyleLink to={dt.link} color={dt.color}>
-                  자세히보기
-                </StyleLink>
+                <Title bold='700' color='WHITE' size='36px'>{dt.title}</Title>
+                <p onClick={() => navigate(dt.link)}>자세히보기</p>
               </TextBox>
             </Banner>
           ))}
         </StyledSlider>
-      
-        {/* <SliderPlayerGroup> 
+        <SliderPlayerGroup> 
           <ButtonBox>
+            <PrevArrow onClick={previous}/>
             <PauseButton onClick={pause} />
-            <PlayButton onClick={play} />
+            <NextArrow onClick={next} />
           </ButtonBox>
-          <Progress currentSlide={currentSlide} totalSlides={'3'} />
-        </SliderPlayerGroup> */}
+          <Paging currentSlide={currentSlide} totalSlides={'2'} />
+        </SliderPlayerGroup>
+        
       </Wrap>
   );
 }

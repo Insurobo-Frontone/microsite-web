@@ -1,26 +1,20 @@
 import React from 'react';
-import Community from '../components/MainPage/Community';
-import FinanceGoods from '../components/MainPage/FinanceGoods';
-import Infomation from '../components/MainPage/Infomation';
-import MainSlider from '../components/MainPage/MainSlider';
+import Finance from '../components/MainPage/Finance';
+import InfoPlace from '../components/MainPage/InfoPlace';
 import Plaza from '../components/MainPage/Plaza';
-import TaxReturn from '../components/MainPage/TaxReturn';
-import useWindowSize from '../hooks/useWindowSize';
 import Layout from '../layout/index';
+import MainBanner from '../components/MainPage/MainBanner';
+import RollingBanner from '../components/MainPage/RollingBanner';
+
 function Home() {
-  const { width } = useWindowSize();
   return (
     <>
-      <Layout quickScrollY={800}>
-        <MainSlider />
-        <Plaza scrollY={width > 700 ? 0 : 0} />
-        <Infomation 
-          scrollY1={width > 768 ? 0 : 0}
-          scrollY2={width > 768 ? 0 : 0}
-        />
-        <Community />
-        <TaxReturn />
-        <FinanceGoods />
+      <Layout>
+        <MainBanner />
+        <RollingBanner />
+        <Plaza />
+        <InfoPlace />
+        <Finance />
       </Layout>
     </>
   )

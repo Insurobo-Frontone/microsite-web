@@ -1,17 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import useWindowSize from '../../hooks/useWindowSize';
 import Layout from '../../layout';
-import Content from '../Content';
-import { Title } from '../Font';
+import ContentInner from '../../layout/ContentInner';
 
 const Wrap = styled.div`
   background-color: #FFFFFF;
-  width: 52.08333333333333%;
+  width: 750px;
+  padding: 65px 0 100px 0;
   margin: 0 auto;
 
   ${(props) => props.theme.window.mobile} {
     width: 100%;
+    padding: 42px 0 90px 0;
   }
 `;
 
@@ -19,15 +19,19 @@ const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
   > h1 {
+    font-size: 30px;
     white-space: pre-wrap;
     text-align: center;
+    color: #2F2F2F;
     :nth-child(2) {
       margin-top: 60px;
+      color: #6F85E3;
     }     
   }
 
   ${props => props.theme.window.mobile} {
     > h1 {
+      font-size: 20px;
       :nth-child(2) {
         margin-top: 20px;
       }     
@@ -36,20 +40,19 @@ const TitleBox = styled.div`
 `;
 
 function AuthLayout({children, title, subTitle}) {
-  const { width } = useWindowSize();
   return (
     <Layout>
-      <Content top={width > 768 ? '65px' : '42px'} bottom={width > 768 ? '300px' : '91px'}>
+      <ContentInner>
         <Wrap>
           <TitleBox>
-            <Title size={width > 768 ? '1.5rem' : '1.33rem'} color='BLACK2'>{title}</Title>
+            <h1>{title}</h1>
             {subTitle && (
-              <Title size={width > 768 ? '1.5rem' : '1.33rem'} color='SECONDARY'>{subTitle}</Title>
+              <h1>{subTitle}</h1>
             )}
           </TitleBox>
             {children}
         </Wrap>
-      </Content>
+      </ContentInner>
     </Layout>
   )
 }

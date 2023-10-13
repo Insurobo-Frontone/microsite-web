@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components";
 
 const Layer = styled.div`
-  z-index: 1500;
+  z-index: 99;
   display: block;
   background: transparent;
   position: fixed;

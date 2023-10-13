@@ -1,40 +1,60 @@
-import React from 'react'
-import styled from 'styled-components'
-import useWindowSize from '../../hooks/useWindowSize';
-import { Title } from '../Font';
+import React from 'react';
+import styled from 'styled-components';
 
 const Wrap = styled.div`
   display: flex;
-  > h1 {
+  padding-top: 90px;
+  padding-bottom: 118px;
+  > h2 {
+    font-size: 100px;
     line-height: 1;
+    color: #FF9243;
   }
   > div {
     margin-left: 1.3%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    > h2 {
+      font-size: 50px;
+      color: #FF9243;
+    }
+    > p {
+      font-size: 20px;
+      color: #2F2F2F;
+      font-weight: 300;
+    }
   }
   ${(props) => props.theme.window.mobile} {
-    > h1 {
-      line-height: 1.5;
+    padding-top: 0;
+    padding-bottom: 0;
+    > h2 {
+      font-size: 28px;
+      line-height: 1;
+      padding-bottom: 10px;
     }
     > div {
       white-space: pre-wrap;
+      > h2 {
+        font-size: 15px;
+      }
+      > p {
+        font-size: 13px;
+      }
     }
   }
 `;
 
 function ListTitle({page, title, desc}) {
-  const { width } = useWindowSize();
   return (
     <Wrap>
-      <Title color='ORANGE' size={width > 768 ? '5rem' : '1.866666666666667rem'} bold='800'>{page}</Title>
+      <h2>{page}</h2>
       <div>
-        <Title color='ORANGE' size={width > 768 ? '2.5rem' : '1rem'} bold='600'>{title}</Title>
-        <Title color='BLACK2' size={width > 768 ? '1rem' : '0.8666666666666667rem' } bold='200'>{desc}</Title>
+        <h2>{title}</h2>
+        <p>{desc}</p>
       </div>
     </Wrap>
   )
 }
 
-export default ListTitle
+export default ListTitle;

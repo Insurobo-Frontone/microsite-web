@@ -1,75 +1,59 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import myPageIcon from '../../../assets/img/myPageIcon.png';
-import { Link } from "react-router-dom";
-import UserContext from "../../../context/UserContext";
 
-const MyPageNav = styled.ul`
+import { Link } from "react-router-dom";
+
+const MyPageNav = styled.div`
+  width: 148px;
   position: absolute;
-  width: 23.45vw;
-  height: 18.8vw;
   background-color: #FFFFFF;
-  top: 100%;
-  right: 0;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  > li {
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.10);
+  z-index: 1000;
+  top: 96px;
+  > p, a {
+    height: 63px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 120px;
-    position: relative;
-    margin: 0 25px;
-    border-bottom: 1px solid #F5F5F5;
-    :last-child {
-      border: none;
-    }
-    > p {
-      font-size: 1.2vw;
-    }
-    > img {
-      position: absolute;
-      left: 0;
-      width: 4.2vw;
-    }
+    justify-content: center;
+    color: #2D2D2D;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  > p:first-child {
+    border-bottom: 1px solid #F0F0F0;
   }
 
   ${(props) => props.theme.window.mobile} {
-    top: 160px;
+    left: 0;
+    top: 61px;
+    box-shadow: none;
     width: 100%;
-    height: 100%;
-    > li {
-      height: 80px;
-      border: 0;
-      width: 120px;
-      margin: 0 auto;
-      justify-content: center;
-      > p {
-        font-size: 17px;
-      }
-      > img {
-        width: 40px;
-        height: 40px;
-        position: static;
-        margin-right: 14px;
-      }
+    > p {
+      padding: 0 24px;
     }
-  }  
+    > p , a {
+      justify-content: flex-start;
+      font-size: 14px;
+      font-weight: 300;
+      height: 60px;
+    }
+    > p:first-child {
+      border-bottom: none;
+      border-top: 1px solid #F0F0F0;
+    }
+    > p:last-child {
+      border-bottom: 1px solid #F0F0F0;
+    }
+  }
 `;
-const Profile = ({onClick, userName}) => {
+
+const Profile = ({ onClick }) => {
   return (
     <MyPageNav>
-      <li>
-        <img src={myPageIcon} alt='프로필'/>
-          <p>{userName}</p>
-      </li>
-      <li>
-        <p><Link to='/myProfile'>프로필 수정</Link></p>
-      </li>
-      <li>
-        <p onClick={onClick}>로그아웃</p>
-      </li>
+      <p><Link to='/myProfile'>프로필 수정</Link></p>
+      <p onClick={onClick}>로그아웃</p>
     </MyPageNav>
   )
 }
