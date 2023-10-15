@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Calendar from "../../Input/Calender";
-import { useState } from "react";
+import Input from "../../Input";
 
 const Step1 = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -9,11 +9,15 @@ const Step1 = () => {
 
   return (
     <Wrap>
+      <Input>
+        <Calendar
+          name='overStart'
+          placeholder='가는날짜'
+          startDate={startDate}
+          setStartDate={setStartDate}
+        />
+      </Input>
       
-      <Calendar
-        name='overStart'
-        placeholder='가는날짜'
-      />
     </Wrap>
   )
 }
@@ -21,5 +25,6 @@ const Step1 = () => {
 export default Step1;
 
 const Wrap = styled.div`
+  
 `;
 
