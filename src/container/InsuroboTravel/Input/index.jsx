@@ -24,7 +24,24 @@ const InputBox = styled.div`
   border: 1px solid #CECECE;
   border-radius: 10px;
   width: 492px;
+  height: 66px;
+  position: relative;
+  input {
+    color: #333333;
+  }
+  input, select {
+    width: 100%;
+    font-size: 20px;
+    padding: 21px 28px;
+    background-color: transparent;
+    font-weight: 300;
+    line-height: 100%;
+    ::placeholder {
+      color: #989898;
+    } 
+  }
 `;
+
 const Label = styled.p`
   margin-bottom: 10px;
   color: #333333;

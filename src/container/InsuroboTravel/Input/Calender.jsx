@@ -1,29 +1,25 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { Controller, useFormContext } from "react-hook-form";
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { getYear, getMonth } from "date-fns";
 import { ko } from 'date-fns/esm/locale';
+import arrowIconPrev from '../../../assets/icon/calenderArrowPrev.svg';
+import arrowIconNext from '../../../assets/icon/calenderArrowNext.svg';
+import closeIcon from '../../../assets/icon/calenderClose.png';
+import inputIcon from '../../../assets/icon/calenderInputIcon.svg';
 
 const Calendar = ({ 
   minDate,
   maxDate,
   name, 
   placeholder,
-  excludeDates,
-  cancle,
-  close,
-  open,
-  ref
+  title,
 }) => {
   registerLocale("ko", ko)
-  const { control } = useFormContext();
-  
-  
-  const _ = require('lodash');
-  const years = _.range(1990, getYear(new Date()) + 1, 1);
-  
+  const { control } = useFormContext(); 
+  const ref = useRef(null);
   const months = [
     "1월",
     "2월",
@@ -39,25 +35,25 @@ const Calendar = ({
     "12월",
   ];
   return (
-    <Controller
-      name={name}
-      control={control}
-      render={({ field: { value, onChange }}) => (
-        <StyledDatePicker
+    <Wrap>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field: { value, onChange }}) => (
+        <DatePicker
+          ref={ref}
           locale={ko}
           minDate={minDate}
           maxDate={maxDate}
-          dateFormat="yyyy.MM.dd"
-          shouldCloseOnSelect={false}
-          useWeekdaysShort={true}
-          excludeDates={excludeDates}
+          dateFormat="yyyy-MM-dd"
+          shouldCloseOnSelect={true}
+          useWeekdaysShort={false}
           selected={value}
-          closeOnScroll={true}
           onChange={(data) => onChange(data)}
           placeholderText={placeholder}
           withPortal
-          ref={ref}
-          onInputClick={open}
+          showIcon
+          icon={<CalenderInput />}
           renderCustomHeader={({
             date,
             prevMonthButtonDisabled,
@@ -65,81 +61,153 @@ const Calendar = ({
             decreaseMonth,
             increaseMonth,
           }) => (
-            <div
-              style={{
-                margin: 10,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
+            <>
+              <ButtonContainer>
+                <h2>{title}</h2>
+                <div className="btn_ctrl btn_ctrl-cancel" onClick={() => {ref.current?.setOpen(false)}} />
+              </ButtonContainer>
+            <div className='month-wrap'>
               <div
                 className="btn_month btn_month-prev"
                 onClick={decreaseMonth}
                 disabled={prevMonthButtonDisabled}
               >
-                <img src="/static/images/arrow-black-left.png" />
+                <img src={arrowIconPrev} alt='이전' />
               </div>
               <div className="month-day">
-                {getYear(date)}.{months[getMonth(date)]}
+                {getYear(date)}년 {months[getMonth(date)]}
               </div>
-        
               <div
                 className="btn_month btn_month-next"
                 onClick={increaseMonth}
                 disabled={nextMonthButtonDisabled}
               >
-                <img src="/static/images/arrow-black-right.png" />
+                <img src={arrowIconNext} alt='다음' />
               </div>
             </div>
+            </>
           )}
         >
-          <div className="button-container">
-            <div className="btn_ctrl btn_ctrl-cancel" onClick={cancle}>
-              {" "}
-              취소
-            </div>
-            <div className="btn_ctrl btn_ctrl-confirm" onClick={close}>
-              선택
-            </div>
-          </div>
-        </StyledDatePicker>
-        
+        </DatePicker>
       )}
     />
+    </Wrap>
   );
 };
   
 export default Calendar;
 
-
-const StyledDatePicker = styled(DatePicker)`
-  width: 100%;
-  height: 48px;
-  border: none;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 100%;
-  padding: 20px;
-  background-color: transparent;
-  color: #707070;
-  ::placeholder {
-    color: #989898;
+const ButtonContainer = styled.div`
+  background-color: #2EA5FF;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  > h2 {
+    color: #FFFFFF;
+    font-size: 20px;
   }
-
-  ::before {
-    content: '';
-    display: block;
-    width: 20px;
-    height: 20px;
-    background-color: #707070;
-  }
-
-  .react-datepicker__portal {
-    width: 512px !important;
-  }
-  
-
-
 `;
 
+const Wrap = styled.div`
+  .react-datepicker {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 512px;
+    height: auto;
+    
+  }
+  .react-datepicker__portal {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .react-datepicker__month-container {
+    width: 100%;
+  }
+  .react-datepicker__header {
+    padding: 0;
+    background-color: #FFFFFF;
+    border-bottom: 0;
+  }
 
+  .btn_ctrl.btn_ctrl-cancel {
+    width: 32px;
+    height: 32px;
+    background-image: url(${closeIcon});
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .month-wrap {
+    padding: 45px 30px 38px;
+    display: flex;
+    justify-content: space-between;
+    .btn_month {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .month-day {
+      font-size: 24px;
+      color: #333333;
+      font-weight: 700;
+    }
+  }
+  .react-datepicker__day-names {
+    margin-bottom: 0;
+    .react-datepicker__day-name {
+      width: 60px;
+      height: 46px;
+      font-size: 16px;
+      margin: 0;
+    }
+  }
+  .react-datepicker__month {
+    margin: 0;
+    padding-bottom: 45px;
+    .react-datepicker__week {
+      .react-datepicker__day {
+        width: 60px;
+        height: 36px;
+        margin: 0;
+        line-height: 36px;
+        font-size: 16px;
+        box-sizing: content-box;
+        font-weight: 400;
+      }
+    }
+  }
+  .react-datepicker__day.react-datepicker__day--selected {
+    width: 30px !important;
+    height: 30px !important;
+    margin: 4px 15px 2px !important;
+    line-height: 30px !important;
+    color: #FFFFFF;
+    border-radius: 50%;
+    background-color: #2EA5FF;
+    
+  }
+  .react-datepicker__day--disabled {
+    color: #B4B4B4;
+  }
+
+  .react-datepicker__input-container {
+    .react-datepicker__calendar-icon {
+      top: 21px;
+      right: 28px;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+`;
+
+const CalenderInput = styled.div`
+  background-image: url(${inputIcon});
+  background-repeat: no-repeat;
+  background-position: center;
+
+  
+`;

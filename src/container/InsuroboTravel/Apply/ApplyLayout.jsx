@@ -19,10 +19,7 @@ const ApplyLayout = ({ type, children }) => {
         </TitleWrap>
         <TabMenu type={type} />
       </Header>
-      <ContentBox>
-        {children}
-      </ContentBox>
-      
+      {children}
     </Wrap>
   )
 }
@@ -65,6 +62,3 @@ const TextBox = styled.div`
   }
 `;
 
-const ContentBox = styled.div`
-  padding: 40px 80px;
-`;

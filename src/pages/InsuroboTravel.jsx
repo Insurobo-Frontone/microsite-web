@@ -9,9 +9,10 @@ import Apply from "../container/InsuroboTravel/Apply";
 import bg_img from '../assets/img/insuroboTravel/travelBg.png';
 
 const Wrap = styled.div`
-  padding: 180px 0 191px;
+  padding: 60px 0 52px;
   background-image: url(${bg_img});
-  background-position: 0 324px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
   ${(props) => props.theme.window.mobile} {
     
   }

@@ -320,8 +320,8 @@ function FreeApply() {
   // const { pathname } = useLocation();
   const navigate = useNavigate();
   const checkLogin = () => {
-    window.open('https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo');
-    // navigate('/freeApply/insuroboWindstorm');
+    // window.open('https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo');
+    navigate('/freeApply/insuroboWindstorm');
   }
 
   return (
