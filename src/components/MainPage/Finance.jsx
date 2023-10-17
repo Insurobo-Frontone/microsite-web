@@ -168,23 +168,23 @@ function Finance() {
         <GoodsList>
           <Card onClick={() => goToLink('texReturn')} open={tabNum === 1 ? true : false}>
             <div>
-              <h2>소상공인 세금환급</h2>
+              <h2>소상공인 세금 환급</h2>
               <div>
                 <p>
-                  대출 조건 <b>깐</b><b>깐</b>하게<br />
-                  따지는 소상공인이라면
+                  세제 혜택 변동도,<br />
+                  바뀌는 사업 상황에도 걱정없어요!
                 </p>
                 <span>
-                  연 금리 5.90% ~ 20.90%<br />
-                  중도상환수수료 0.0% ~ 1.0%<br />
-                  대출기관 최대 10년
+                  개인.법인사업자,<br />
+                  그리고 폐업자도 환급 받으실 수 있습니다.<br />
+                  환급액 조회, 30초면 충분해요.
                 </span>
                 <div>
-                  <span>대출</span>도<br />남달라야합니다!
+                  <span>세금환급</span>도<br />지금 바로 확인하세요!
                 </div>
               </div>
             </div>
-            <p>*대출금액에 따라 상환기간 상이</p>
+            <p>*법인사업자는 공동인증서로 가능</p>
           </Card>
           <Card onClick={() => goToLink('card')} open={tabNum === 2 ? true : false}>
             <div>

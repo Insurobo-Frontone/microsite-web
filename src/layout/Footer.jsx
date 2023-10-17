@@ -91,7 +91,7 @@ function Footer() {
         </PolicyArea>
         <Foot>
           <img src={logo} alt='insurobo' />
-          <p>⒞ INSUROBO All Right Reserved.</p>
+          <p>⒞ INSUROBO All Rights Reserved.</p>
         </Foot>
       </FooterWrap>
     </ContentInner>

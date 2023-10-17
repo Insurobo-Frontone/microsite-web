@@ -6,8 +6,7 @@ import BasicInput from "../../Input/BasicInput";
 import SelectInput from "../../Input/SelectInput";
 import Button from "../Button";
 
-
-const Step1 = () => {
+const InsuInfo = () => {
   const gender = [
     {
       id: 1,
@@ -19,7 +18,7 @@ const Step1 = () => {
     },
   ]
   return (
-    <Wrap>
+    <>
       <InputWrap>
         <Input label='여행시작일'>
           <Calendar
@@ -68,15 +67,12 @@ const Step1 = () => {
           title='보험료 확인'
         />
       </ButtonWrap>
-    </Wrap>
-  )
+    </>
+  );
 }
 
-export default Step1;
+export default InsuInfo;
 
-const Wrap = styled.div`
-  padding: 40px 80px;
-`;
 
 const InputWrap = styled.div`
   display: flex;
@@ -108,11 +104,9 @@ const TipText = styled.div`
 `;
 
 const ButtonWrap = styled.div`
-  position: relative;
-  padding-top: 44px;
-  > button {
-    position: absolute;
-    top: 50px;
-    left: calc(50% / 2);
-  }
+  position: absolute;
+  bottom: -34px;
+  left: 340px;
+  
+  
 `;
