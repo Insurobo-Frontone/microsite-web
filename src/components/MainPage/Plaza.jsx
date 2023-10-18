@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import TitleSet from '../TitleSet';
 import { Title } from '../Font';
 
@@ -8,6 +8,7 @@ import duty from '../../assets/img/duty.png';
 import must from '../../assets/img/must.png';
 import invest from '../../assets/img/invest.png';
 import ContentInner from '../../layout/ContentInner';
+import windstorm from '../../assets/icon/freeApplyBtnIcon.png';
 
 const data = [
   {
@@ -43,6 +44,39 @@ const PlazaWrap = styled.div`
 
   ${(props) => props.theme.window.mobile} {
     padding: 30px 0;
+  }
+`;
+
+const TitleWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  > a {
+    width: 184px;
+    height: 46px;
+    padding: 10px 12px;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2EA5FF;
+    border-radius: 5px;
+    color: #FFFFFF;
+    > span {
+      display: block;
+      width: 36px;
+      height: 36px;
+      background-image: url(${windstorm});
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    display: block;
+    > a {
+      display: none;
+    }
   }
 `;
 
@@ -136,16 +170,17 @@ const Overlay = styled.div`
 
 
 function Plaza() {
-  let navigate = useNavigate();
-
   return (
     <ContentInner>
       <PlazaWrap>
-        <TitleSet
-          title='사장님! 어떤 보험에 관심이 있으신가요?'
-          text='다양한 보험을 직접 확인하고 비교해보세요!'
-          label='Go!'
-        />
+        <TitleWrap>
+          <TitleSet
+            title='사장님! 어떤 보험에 관심이 있으신가요?'
+            text='다양한 보험을 직접 확인하고 비교해보세요!'
+            label='Go!'
+          />
+          <Link to='/freeApply'><span />풍수해보험 가입</Link>
+        </TitleWrap>
         <CardList>
           {data.map((dt) => (
           <Link to={dt.link}>
@@ -169,4 +204,4 @@ function Plaza() {
   )
 }
 
-export default Plaza
+export default Plaza;

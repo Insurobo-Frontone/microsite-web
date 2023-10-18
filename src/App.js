@@ -23,6 +23,7 @@ import InsuroboWindstorm from './pages/InsuroboWindstorm';
 import InsuroboCard from './pages/InsuroboCard';
 import View from './components/Post/View';
 import InsuroboTravel from './pages/InsuroboTravel';
+import { TravelPageProvider } from './context/travelPageContext';
 
 function App() {
   
@@ -34,39 +35,43 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
-        <FormProvider {...methods}>
-          <GlobalStyle />
-            <Router>
-              <Routes>
-                <Route element={<PublicRoute />}>
-                  <Route path='/' element={<Home />} />
-                  <Route path='?:category'  element={<Home />} />
-                  <Route path='?:page'  element={<Home />} />
-                  <Route path='/event' element={<Event />} />
-                  <Route path='/bizsupport/*' element={<BizSupport />} />
-                  <Route path='/bizsupport/:list' element={<List />} />
-                  <Route path='/insuranceInfo' element={<InsuranceInfo />} />
-                  <Route path='/freeApply' element={<FreeApply />} />
-                  <Route path='/freeApply/insuroboWindstorm' element={<InsuroboWindstorm />} />
-                  <Route path='/board' element={<View />} />
-                  <Route path='/policy/:pagename' element={<Policy />} />
-                  <Route path='/insuroboCard' element={<InsuroboCard />} />
-                  {/* <Route path='/insuroboTravel' element={<InsuroboTravel />} />
-                  <Route path='/insuroboTravel/apply' element={<InsuroboTravel apply />} />
-                  <Route path='/insuroboTravel/apply?:type' element={<InsuroboTravel apply />} /> */}
+        
+          <FormProvider {...methods}>
+          <TravelPageProvider>
+            <GlobalStyle />
+              <Router>
+                <Routes>
+                  <Route element={<PublicRoute />}>
+                    <Route path='/' element={<Home />} />
+                    <Route path='?:category'  element={<Home />} />
+                    <Route path='?:page'  element={<Home />} />
+                    <Route path='/event' element={<Event />} />
+                    <Route path='/bizsupport/*' element={<BizSupport />} />
+                    <Route path='/bizsupport/:list' element={<List />} />
+                    <Route path='/insuranceInfo' element={<InsuranceInfo />} />
+                    <Route path='/freeApply' element={<FreeApply />} />
+                    <Route path='/freeApply/insuroboWindstorm' element={<InsuroboWindstorm />} />
+                    <Route path='/board' element={<View />} />
+                    <Route path='/policy/:pagename' element={<Policy />} />
+                    <Route path='/insuroboCard' element={<InsuroboCard />} />
+                    {/* <Route path='/insuroboTravel' element={<InsuroboTravel />} />
+                    <Route path='/insuroboTravel/apply' element={<InsuroboTravel apply />} />
+                    <Route path='/insuroboTravel/apply?:type' element={<InsuroboTravel apply />} /> */}
+                  </Route>
+                  <Route element={<PublicRoute auth={auth} restricted />}>
+                    <Route path='/login' element={<Login />} />
+                    <Route path='/login/findAccount' element={<FindAccount />} />
+                    <Route path='/register' element={<Register />} />
+                  </Route>
+                  <Route element={<PrivateRoute auth={auth} />}>
+                  <Route path='/myProfile' element={<EditProfile  />} />
+                  <Route path='/myProfile/password' element={<EditPassword />} />
                 </Route>
-                <Route element={<PublicRoute auth={auth} restricted />}>
-                  <Route path='/login' element={<Login />} />
-                  <Route path='/login/findAccount' element={<FindAccount />} />
-                  <Route path='/register' element={<Register />} />
-                </Route>
-                <Route element={<PrivateRoute auth={auth} />}>
-                <Route path='/myProfile' element={<EditProfile  />} />
-                <Route path='/myProfile/password' element={<EditPassword />} />
-              </Route>
-            </Routes>
-          </Router>
-        </FormProvider>
+              </Routes>
+            </Router>
+            </TravelPageProvider>
+          </FormProvider>
+        
       </UserProvider>
     </ThemeProvider>
   );

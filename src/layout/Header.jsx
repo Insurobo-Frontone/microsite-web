@@ -112,10 +112,18 @@ const Menu = styled.div`
     }
     .windstorm-btn {
       width: 100%;
-      display: block;
+      display: flex;
+      justify-content: space-between;
       text-align: center;
       padding: 0;
       margin-bottom: 10px;
+      > li {
+        width: 48.3974358974359%;
+        &.theme-reverse {
+          background-color: #2EA5FF;
+          color: #FFFFFF;
+        }
+      }
     }
     > ul {
       display: none;
@@ -258,7 +266,7 @@ function Header() {
     navigate('/');
     //  window.location.reload()
   }
-  function goToMainPage(link) {
+  function goToPage(link) {
     navigate(link);
   }
   const handleClick = () => {
@@ -279,7 +287,7 @@ function Header() {
     <Wrap>
       <ContentInner borderBottom>
         <Nav>
-          <LogoBox onClick={() => goToMainPage('/')}>
+          <LogoBox onClick={() => goToPage('/')}>
             <img src={logo} alt='insurobo' />
           </LogoBox>
           <ToggleBtn onClick={handleClick}>
@@ -307,8 +315,13 @@ function Header() {
               </ul>
               <ul className='windstorm-btn'>
                 <li onClick={() => setShowPopup(true)}>
-                  풍수해보험 가입확인
+                  {width > 767.98 ? '풍수해보험 가입확인' : '풍수해보험 확인'}
                 </li>
+                {width < 767.98 && 
+                  <li onClick={() => goToPage('/freeApply')} className='theme-reverse'>
+                    풍수해보험 가입
+                  </li>
+                }
               </ul>
             </div>
             {auth ? (

@@ -3,16 +3,30 @@ import styled from 'styled-components';
 
 
 
-const Input = ({ children, label }) => {
+const Input = ({ children, label, bracket, twoInput }) => {
   return (
-    <InputWrap>
-      {label && <Label>{label}</Label>}
-      <InputBox>
-        {children}
-      </InputBox>
-    </InputWrap>
+    <>
+      {twoInput ? (
+        <>
+        {label && <Label>{label}{bracket && <span>{`(${bracket})`}</span>}</Label>}
+          <InputBox>
+            {children}
+          </InputBox>
+        </>
+      ) : (
+        <InputWrap>
+        {label && <Label>{label}{bracket && <span>{`(${bracket})`}</span>}</Label>}
+          <InputBox>
+            {children}
+          </InputBox>
+        </InputWrap>
+      )}
+    </>
+    
   )
 }
+
+
 export default Input;
 
 const InputWrap = styled.div`
@@ -46,5 +60,10 @@ const Label = styled.p`
   margin-bottom: 10px;
   color: #333333;
   font-size: 20px;
+  width: 100%;
+  > span {
+    color: #989898;
+    font-size: 18px;
+  }
 `;
 

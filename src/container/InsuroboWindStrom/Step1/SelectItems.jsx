@@ -36,7 +36,7 @@ const SelectItems = () => {
                 return (
                   <label htmlFor={item.idx.toString()}>
                     <Icon color={field.value == item.value}>
-                    <img src={item.icon} alt='일반상가' />
+                    <img src={item.icon} alt={item.title} />
                     {field.value == item.value && (
                       <CircleIcon />
                     )}

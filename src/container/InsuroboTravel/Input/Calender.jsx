@@ -13,6 +13,7 @@ import inputIcon from '../../../assets/icon/calenderInputIcon.svg';
 const Calendar = ({ 
   minDate,
   maxDate,
+  startDate,
   name, 
   placeholder,
   title,
@@ -49,6 +50,7 @@ const Calendar = ({
           shouldCloseOnSelect={true}
           useWeekdaysShort={false}
           selected={value}
+          startDate={startDate}
           onChange={(data) => onChange(data)}
           placeholderText={placeholder}
           withPortal
@@ -178,6 +180,7 @@ const Wrap = styled.div`
       }
     }
   }
+  .react-datepicker__day--keyboard-selected ,
   .react-datepicker__day.react-datepicker__day--selected {
     width: 30px !important;
     height: 30px !important;

@@ -1,55 +1,60 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import TabMenu from "./TabMenu";
-import local from '../../../assets/img/insuroboTravel/local_trip.png';
+import local from '../../../assets/img/insuroboTravel/Apply_local_trip.png';
 import over from '../../../assets/img/insuroboTravel/overseas_trip.png';
 
-const ApplyLayout = ({ type, children }) => {
+const ApplyHeader = ({ type }) => {
   return (
-    <Wrap>
+    <>
       <Header>
         <TitleWrap>
           <TitleImage type={type}>
             <img src={type === 'local' ? local : over} alt='icon' />
           </TitleImage>
-          <TextBox>
+          <TextBox style={type === 'local' ? {
+            marginTop: '6px'
+          }: { marginTop: 0 }}>
             <h2>{type === 'local' ? '국내 여행자 보험' : '해외 여행자 보험'}</h2>
-            <p>{type === 'local' ? '보험료 간편 조회 후 결제까지!' : '태풍/지진 등 천재지변도 보상!'}</p>
+            <p>{type === 'local' ? '여행출발 1시간 전까지 가입가능!' : '태풍/지진 등 천재지변도 보상!'}</p>
           </TextBox>
         </TitleWrap>
         <TabMenu type={type} />
       </Header>
-      {children}
-    </Wrap>
-  )
+    </>
+  );
 }
 
-export default ApplyLayout;
-
-const Wrap = styled.div`
-  
-`;
+export default ApplyHeader;
 
 const Header = styled.div`
   display: flex;
-  padding: 40px 0 0 40px;
+  justify-content: space-between;
   border-bottom: 1px solid #F0F0F0;
+  height: 183px;
+  padding-right: 80px;
 `;
 
 const TitleWrap = styled.div`
   display: flex;
   align-items: center;
-  padding-bottom: 29px;
-  padding-right: 124px;
 `;
 
 const TitleImage = styled.div`
-  margin-right: 10px;
-  transform: ${props => props.type === 'local' ? 'translateY(-10px)' : ''};
+  margin: 0 10px 0 40px;
+
   > img {
     width: 114px;
     height: 114px;
   }
+  ${props => props.type === 'local' && css`
+    transform: translateY(-15px);
+    margin: 0 4px 0 33px;
+    > img {
+      width: 127px;
+      height: 127px;
+    }
+  `}
 `;
 
 const TextBox = styled.div`

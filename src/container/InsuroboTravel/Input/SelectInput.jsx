@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import styled, { css } from "styled-components";
 import selectIcon from '../../../assets/icon/insuroboTravelSelectIcon.png';
 
-const Select = ({name, defaultValue, placeholder, required, children, ...rest}) => {
+const Select = ({name, defaultValue, placeholder, required, validate, children, ...rest}) => {
   const { register } = useFormContext({
 		mode: 'onBlur',
 	});
@@ -15,7 +15,8 @@ const Select = ({name, defaultValue, placeholder, required, children, ...rest}) 
         key={defaultValue}
         defaultValue={defaultValue}
         {...register(name, {
-					required: required
+					required: required,
+          validate: validate,
 				})}
         {...rest}
       >

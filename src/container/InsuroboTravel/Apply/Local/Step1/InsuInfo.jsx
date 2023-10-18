@@ -1,20 +1,24 @@
 import React from "react";
 import styled from "styled-components";
-import Calendar from "../../Input/Calender";
-import Input from "../../Input";
-import BasicInput from "../../Input/BasicInput";
-import SelectInput from "../../Input/SelectInput";
-import Button from "../Button";
+import { useFormContext } from "react-hook-form";
+import Calendar from "../../../Input/Calender";
+import Input from "../../../Input";
+import BasicInput from "../../../Input/BasicInput";
+import SelectInput from "../../../Input/SelectInput";
+import Button from "../../Button";
 
-const InsuInfo = () => {
+const InsuInfo = ({ onClickCalc }) => {
+  const { watch } = useFormContext()
   const gender = [
     {
       id: 1,
-      value: '남자'
+      value: 'M',
+      text: '남자',
     },
     {
       id: 2,
-      value: '여자'
+      value: 'F',
+      text: '여자',
     },
   ]
   return (
@@ -33,25 +37,27 @@ const InsuInfo = () => {
             name='localEnd'
             placeholder='도착일'
             title='여행종료일'
+            minDate={watch('localStart')}
+            startDate={watch('localStart')}
           />
         </Input>
       </InputWrap>
       <InputWrap>
         <Input label='주민번호 6자리'>
           <BasicInput
-            name='TravelerReg'
+            name='birthRep'
             placeholder='주민번호 앞 6자리'
           />
         </Input>
         <Input label='성별'>
           <SelectInput
-            name='TravelerGender'
+            name='genderRep'
             placeholder='성별'
           >
             {gender.map((cur, index) => {
               return (
                 <option value={cur.value} key={index}>
-                  {cur.value}
+                  {cur.text}
                 </option>
               )
             })}
@@ -65,6 +71,7 @@ const InsuInfo = () => {
       <ButtonWrap>
         <Button
           title='보험료 확인'
+          onClick={onClickCalc}
         />
       </ButtonWrap>
     </>
@@ -76,13 +83,14 @@ export default InsuInfo;
 
 const InputWrap = styled.div`
   display: flex;
-  justify-content: space-between ;
+  justify-content: space-between;
   margin-bottom: 20px;
 `;
 
 const TipText = styled.div`
   display: flex;
   align-items: center;
+  padding-bottom: 34px;
   > div {
     width: 40px;
     height: 27px;
@@ -107,6 +115,5 @@ const ButtonWrap = styled.div`
   position: absolute;
   bottom: -34px;
   left: 340px;
-  
-  
+  z-index: 9999;
 `;

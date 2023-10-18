@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ApplyLayout from "../ApplyLayout";
+import ApplyLayout from "../ApplyHeader";
 import Step1 from "./Step1";
 
 const Over = () => {

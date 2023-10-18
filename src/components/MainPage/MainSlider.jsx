@@ -202,7 +202,6 @@ function MainSlider() {
           </ButtonBox>
           <Paging currentSlide={currentSlide} totalSlides={'2'} />
         </SliderPlayerGroup>
-        
       </Wrap>
   );
 }
