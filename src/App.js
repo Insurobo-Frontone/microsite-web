@@ -54,9 +54,9 @@ function App() {
                     <Route path='/board' element={<View />} />
                     <Route path='/policy/:pagename' element={<Policy />} />
                     <Route path='/insuroboCard' element={<InsuroboCard />} />
-                    {/* <Route path='/insuroboTravel' element={<InsuroboTravel />} />
+                    <Route path='/insuroboTravel' element={<InsuroboTravel />} />
                     <Route path='/insuroboTravel/apply' element={<InsuroboTravel apply />} />
-                    <Route path='/insuroboTravel/apply?:type' element={<InsuroboTravel apply />} /> */}
+                    <Route path='/insuroboTravel/apply?:type' element={<InsuroboTravel apply />} />
                   </Route>
                   <Route element={<PublicRoute auth={auth} restricted />}>
                     <Route path='/login' element={<Login />} />

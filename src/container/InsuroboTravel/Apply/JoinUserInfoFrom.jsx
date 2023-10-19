@@ -18,23 +18,21 @@ const JoinUserInfoForm = ({ type }) => {
   ]
   return (
     <Form>
-      {watch('personType') === '1' ? (
-        <>
-          {/* 1인 가입폼 */}
-          <LeftContent>
-            <div>
-              <InputGroup>
-                <Input label='이름'>
-                  <BasicInput
-                    type='text'
-                    name={type === 'local' ? 'nameLocalRep' : 'nameOverRep'}
-                    placeholder='이름'
-                  /> 
-                </Input>
-              </InputGroup>
-              <InputGroup className="second-input-wrap">
-                <Input label='주민번호' bracket='외국인번호' twoInput>
-                  <BasicInput
+      {/* 1인 가입폼 */}
+      <LeftContent>
+        <div>
+          <InputGroup>
+            <Input label={watch('personType') === '1' ? '이름' : '대표 가입자 이름'}>
+              <BasicInput
+                type='text'
+                name={type === 'local' ? 'nameLocalRep' : 'nameOverRep'}
+                placeholder='이름'
+              /> 
+            </Input>
+          </InputGroup>
+          <InputGroup className="second-input-wrap">
+            <Input label='주민번호' bracket='외국인번호' twoInput>
+              <BasicInput
                     type='text'
                     name='birthRep'
                   /> 
@@ -93,30 +91,20 @@ const JoinUserInfoForm = ({ type }) => {
                 </InputGroup>
               )}
             </div>
+            {watch('personType') === '1' ? (
+              <div></div>
+            ) : (
+              <AddUserForm>
+
+              </AddUserForm>
+            )}
           </LeftContent>
           <RightContent>
             
           </RightContent>
-        </>
-      ) : (
-        <>
-        {/* 2인 이상가입폼 */}
-          <LeftContent>
-            <InputGroup>
-              <Input label='대표 가입자 이름'>
-                <BasicInput
-                  type='text'
-                  name={type === 'local' ? 'nameLocalRep' : 'nameOverRep'}
-                  placeholder='이름'
-                />
-              </Input>
-            </InputGroup> 
-          </LeftContent>
-          <RightContent>
-            
-          </RightContent>
-        </>
-      )}
+    
+     
+
       
       
       
@@ -126,7 +114,7 @@ const JoinUserInfoForm = ({ type }) => {
 
 export default JoinUserInfoForm;
 
-const Form = styled.div` 
+const Form = styled.form` 
 `;
 
 const LeftContent = styled.div`
@@ -163,3 +151,4 @@ const InputGroup = styled.div`
   }
 `;
 
+const AddUserForm = styled.div``;

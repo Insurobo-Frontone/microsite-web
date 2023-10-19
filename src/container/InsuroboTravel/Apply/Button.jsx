@@ -3,7 +3,10 @@ import styled, { css } from "styled-components";
 
 const Button = ({ onClick, disabled, type, title }) => {
   return (
-    <BasicButton onClick={onClick} disabled={disabled} type={type}>
+    <BasicButton 
+      onClick={onClick} 
+      disabled={disabled} 
+      type={type} >
       {title}
     </BasicButton>
   )

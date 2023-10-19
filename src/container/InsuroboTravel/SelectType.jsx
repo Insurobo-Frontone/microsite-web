@@ -11,14 +11,14 @@ const SelectType = () => {
       title: '국내 여행자 보험',
       text: '보험료 간편 조회 후 결제까지!',
       img: local,
-      link: '/insuroboTravel/apply?type=local'
+      link: '/insuroboTravel/apply?type=local&step=1'
     },
     {
       idx: '2',
       title: '해외 여행자 보험',
       text: '태풍/지진 등 천재지변도 보상!',
       img: over,
-      link: '/insuroboTravel/apply?type=over'
+      link: '/insuroboTravel/apply?type=over&step=1'
     }
   ];
 

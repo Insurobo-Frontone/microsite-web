@@ -26,22 +26,21 @@ const TabMenu = ({ type }) => {
   const [searchParams] = useSearchParams();
   const step = searchParams.get("step");
   const navigate = useNavigate();
-  const { state, actions } = useContext(TravelPageContext);
   const nextStep = (step) => {
     switch (step) {
       case '1' :
-        actions.setPage(1);
         navigate(`/insuroboTravel/apply?type=${type}&step=1`);
       break;
       case '2' :
-        if (state.page === 1) {
+        if (step === 1) {
           alert('간편계산을 먼저 진행해주세요');
         } else {
-          actions.setPage(2);
           navigate(`/insuroboTravel/apply?type=${type}&step=2`);
         }
          
       break;
+      default :
+      break
     }
   }
   return (

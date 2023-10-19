@@ -6,10 +6,21 @@ import TargetPlanResult from "./Local/Step1/TargetPlanResult";
 
 const InsuCalc = ({ type }) => {
   const { watch } = useFormContext();
+
   const gap = watch('localEnd') - watch('localStart');
   const date = Math.ceil(gap / (1000 * 60 * 60 * 24) + 1);
-  // const today = new Date();
-  // const birthDate = new Date(2000, 7, 10)
+
+  const conDay = watch('localStart');
+  const conDayYear = conDay.getFullYear();
+  const conDayMonth =  conDay.getMonth() + 1 < 10 ? '0' + (conDay.getMonth() + 1) : conDay.getMonth() + 1;
+  const conDayDate =  conDay.getDate() < 10 ? '0' + conDay.getDate() : conDay.getDate();
+  const birth = watch('birthRep').substring(0, 2);
+  const birthMonth = watch('birthRep').substring(2, 4);
+  const birthDay = watch('birthRep').substring(4, 6);
+  const birthYear = birth > 23 ? 19 + birth : 20 + birth;
+  const korAge = conDayMonth < Number(birthMonth) + 6 ? 0 : conDayDate < Number(birthDay) ? 0 : 1;
+  const insuAge = (conDayYear - birthYear) + korAge;
+  
   const insuInfodata = [
     {
       id: 1,
@@ -19,14 +30,15 @@ const InsuCalc = ({ type }) => {
     {
       id: 2,
       title: '보험나이',
-      data: '31세'
+      data: `${insuAge}세`
     },
     {
       id: 1,
       title: '성별',
       data: `${watch('genderRep') === 'M' ? '남자' : '여자'}`
     },
-  ]
+  ];
+  
   return (
     <>
       <InsuInfoLabelWrap>

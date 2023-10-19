@@ -1,20 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import ApplyHeader from "../ApplyHeader";
-import TravelPageContext from "../../../../context/travelPageContext";
 import InsuInfo from "./Step1/InsuInfo";
 import InsuCalc from "../InsuCalc";
 import RadioInput from "../../Input/RadioInput";
 import InsuJoin from "../InsuJoin";
+import TravelPageContext from "../../../../context/travelPageContext";
+
 
 const Local= () => {
-  const [open, setOpen] = useState(false);
-  const { watch, setFocus } = useFormContext()
-  const { state, actions } = useContext(TravelPageContext);
+  // const [open, setOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+  const { watch, setFocus } = useFormContext();
+  const step = searchParams.get("step");
+  const { state, actions } = useContext(TravelPageContext)
   const navigate = useNavigate();
-
   const pepelSelect = [
     {
       id: 1,
@@ -29,7 +31,8 @@ const Local= () => {
   ];
 
   useEffect(() => {
-    navigate(`/insuroboTravel/apply?type=local&step=${state.page}`);
+    
+    
   }, []);
 
   const onClickCalc = (step) => {
@@ -41,42 +44,43 @@ const Local= () => {
           watch('birthRep') &&
           watch('genderRep')
         ) {
-          setOpen(true);
+          actions.setOpen(true);
+          window.scrollTo({top: 700, left: 0, behavior: 'smooth'})
+
         } else {
           alert('입력값을 확인하세요.');
         }
         break;
         case 'step1-2' :
-        actions.setPage(2);
         navigate(`/insuroboTravel/apply?type=local&step=2&join=1`);
-        setOpen(false)
+
         break;
       default: break;
     }
   }
   return (
     <>
-      <Wrap info={state.page === 1 && !open}>
+      <Wrap info={step === '1' && ! state.open}>
         <ApplyHeader type='local' />
         <ReqContent>
-          {state.page === 1 ? (
+          {step === '1' ? (
             <InsuInfo onClickCalc={() => onClickCalc('step1-1')} />
-          ) : state.page === 2 ? (
+          ) : step === '2' ? (
             <InsuJoin type='local' />
           ) : '마이페이지'} 
         </ReqContent>
       </Wrap>
-      {open && (
+      {state.open && (
         <>
           <Wrap>
             <ResContent>
-              {state.page === 1 ? (
+              {step === '1' ? (
                 <InsuCalc type='local' />
               ) : 'page2'}
             </ResContent>
           </Wrap>
           <NextStepButton>
-            {state.page === 1 ? (
+            {step === '1' ? (
               <RadioInput
                 name='personType'
                 data={pepelSelect}

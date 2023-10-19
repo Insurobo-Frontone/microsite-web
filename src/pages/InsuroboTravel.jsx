@@ -26,7 +26,7 @@ const InsuroboTravel = ({ apply }) => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
-  
+ 
   return (
     <Layout>
       <Wrap apply={apply}>
