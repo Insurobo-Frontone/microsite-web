@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, useController } from "react-hook-form";
 import { UserProvider } from './context/UserContext';
 import GlobalStyle from './style/GlobalStyle';
 import theme from './style/Theme';
@@ -28,15 +28,14 @@ import { TravelPageProvider } from './context/travelPageContext';
 function App() {
   
   const methods = useForm({
-    mode: 'onBlur'
+    mode: 'onBlur',
   });
 
   const auth = localStorage.getItem("@access-Token");
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
-        
-          <FormProvider {...methods}>
+        <FormProvider {...methods}>
           <TravelPageProvider>
             <GlobalStyle />
               <Router>
@@ -69,9 +68,8 @@ function App() {
                 </Route>
               </Routes>
             </Router>
-            </TravelPageProvider>
-          </FormProvider>
-        
+          </TravelPageProvider>
+        </FormProvider>
       </UserProvider>
     </ThemeProvider>
   );

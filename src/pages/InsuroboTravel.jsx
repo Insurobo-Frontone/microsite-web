@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import Layout from "../layout";
 import RollingBanner from "../components/MainPage/RollingBanner";
@@ -26,7 +26,11 @@ const InsuroboTravel = ({ apply }) => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const type = searchParams.get("type");
- 
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.search]);
+
   return (
     <Layout>
       <Wrap apply={apply}>

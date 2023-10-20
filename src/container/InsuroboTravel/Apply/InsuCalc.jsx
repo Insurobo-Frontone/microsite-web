@@ -52,7 +52,6 @@ const InsuCalc = ({ type }) => {
         <SelectPlan />
       </InsuPlanTypelWrap>
       {type === 'local' ? (<TargetPlanResult />) : ''}
-      
     </>
   );
 }

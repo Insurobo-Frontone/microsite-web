@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
@@ -11,7 +11,6 @@ import TravelPageContext from "../../../../context/travelPageContext";
 
 
 const Local= () => {
-  // const [open, setOpen] = useState(false);
   const [searchParams] = useSearchParams();
   const { watch, setFocus } = useFormContext();
   const step = searchParams.get("step");
@@ -23,13 +22,24 @@ const Local= () => {
       value: '1',
       title: '1인 가입'
     },
+    // {
+    //   id: 2,
+    //   value: '2',
+    //   title: '2인 이상 가입'
+    // },
+  ];
+  const paySelect = [
+    {
+      id: 1,
+      value: '1',
+      title: '아니요'
+    },
     {
       id: 2,
       value: '2',
-      title: '2인 이상 가입'
+      title: '위 내용 확인 후 결제하기'
     },
   ];
-
   useEffect(() => {
     
     
@@ -53,6 +63,7 @@ const Local= () => {
         break;
         case 'step1-2' :
         navigate(`/insuroboTravel/apply?type=local&step=2&join=1`);
+        actions.setOpen(false);
 
         break;
       default: break;
@@ -82,12 +93,18 @@ const Local= () => {
           <NextStepButton>
             {step === '1' ? (
               <RadioInput
+                tep
                 name='personType'
                 data={pepelSelect}
-                defaultValue='2'
+                defaultValue='1'
                 onClick={() => onClickCalc('step1-2')}
               /> 
-            ) : 'page2'}
+            ) : <RadioInput
+                  name='goPay'
+                  data={paySelect}
+                  defaultValue='2'
+                  onClick={() => onClickCalc('step1-2')}
+                />}
           </NextStepButton>
         </>
         

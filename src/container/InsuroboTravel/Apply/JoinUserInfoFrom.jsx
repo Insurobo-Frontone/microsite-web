@@ -1,13 +1,19 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import styled, { css } from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import Input from "../Input";
 import BasicInput from "../Input/BasicInput";
 import SelectInput from "../Input/SelectInput";
-
+import Button from "./Button";
+import bgImgLocal from '../../../assets/img/insuroboTravel/Join_1_localImg.png';
+import bgImgOver from '../../../assets/img/insuroboTravel/Join_1_overImg.png';
+// import UserAddForm from "./UserAddForm";
 
 const JoinUserInfoForm = ({ type }) => {
-  const { watch } = useFormContext();
+  const [disabled, setDisabled] = useState(true);
+  const { watch, formState: { isdirty, isvalid, dirtyFields } } = useFormContext();
+  const navigate = useNavigate();
   const emailTem = [
     { id: 1, value: 'naver.com' },
     { id: 2, value: 'daum.net' },
@@ -16,11 +22,36 @@ const JoinUserInfoForm = ({ type }) => {
     { id: 5, value: 'nate.com' },
     { id: 6, value: 'myself' },
   ]
+  
+
+  // useEffect(() => {
+    
+  //     switch (type) {
+  //       case 'local' :
+  //        if ( 
+  //         watch('nameLocalRep') &&
+  //         watch('LastRegRep') &&
+  //         watch('mobileRep') &&
+  //        watch('emailRep') &&
+  //        watch('emailRep2') || watch('emailRep2Change')) {
+  //         setDisabled(false)
+  //        }
+
+  //       break;
+  //       default: break;
+  //     }
+  //   if (type === 'local' ) {
+      
+  //    } 
+    
+  // })
   return (
     <Form>
       {/* 1인 가입폼 */}
-      <LeftContent>
-        <div>
+      <LeftContent type={type}>
+        <div style={{
+          borderBottom: watch('personType') === '2'  && '1px solid #F0F0F0'
+        }}>
           <InputGroup>
             <Input label={watch('personType') === '1' ? '이름' : '대표 가입자 이름'}>
               <BasicInput
@@ -33,19 +64,20 @@ const JoinUserInfoForm = ({ type }) => {
           <InputGroup className="second-input-wrap">
             <Input label='주민번호' bracket='외국인번호' twoInput>
               <BasicInput
-                    type='text'
-                    name='birthRep'
-                  /> 
-                </Input>
-                <span>-</span>
-                <Input twoInput>
-                  <BasicInput
-                    type='text'
-                    name='LastRegRep'
-                    placeholder='주민번호 뒷자리'
-                  /> 
-                </Input>
-              </InputGroup>
+                type='text'
+                name='birthRep'
+                disabled
+              /> 
+            </Input>
+            <span>-</span>
+            <Input twoInput>
+              <BasicInput
+                type='text'
+                name='LastRegRep'
+                placeholder='주민번호 뒷자리'
+              /> 
+            </Input>
+          </InputGroup>
               <InputGroup>
                 <Input label='휴대폰번호'>
                   <BasicInput
@@ -91,30 +123,31 @@ const JoinUserInfoForm = ({ type }) => {
                 </InputGroup>
               )}
             </div>
-            {watch('personType') === '1' ? (
-              <div></div>
+            <Button
+              title='확인'
+              disabled={isdirty || !isvalid}
+              onClick={() => navigate(`/insuroboTravel/apply?type=${type}&step=2&join=2`)}
+            /> 
+            {/* {watch('personType') === '1' ? (
+              <Button
+                title='확인'
+                disabled={true}
+              /> 
             ) : (
-              <AddUserForm>
-
-              </AddUserForm>
-            )}
+              <UserAddForm />
+            )} */}
           </LeftContent>
-          <RightContent>
-            
+          <RightContent type={type}>
+            <img src={type === 'local' ? bgImgLocal : bgImgOver} alt="imageBg" />
           </RightContent>
-    
-     
-
-      
-      
-      
     </Form>
   )
 }
 
 export default JoinUserInfoForm;
 
-const Form = styled.form` 
+const Form = styled.form`
+  display: flex;
 `;
 
 const LeftContent = styled.div`
@@ -132,8 +165,14 @@ const LeftContent = styled.div`
 
 
 const RightContent = styled.div`
-
+  position: absolute;
+    right: 0;
+    top: 330px;
+  ${props => props.type === 'local' && css`
+    top: 406px;
+  `}
 `;
+
 const InputGroup = styled.div`
   margin-bottom: 20px;
   
@@ -145,10 +184,17 @@ const InputGroup = styled.div`
     > div {
       width: 232px;
     }
+    > span {
+      font-size: 20px;
+      color: #333333;
+      font-weight: 300;
+    }
   }
   &.second-input-wrap.child {
     justify-content: flex-end;
   }
 `;
 
-const AddUserForm = styled.div``;
+
+
+

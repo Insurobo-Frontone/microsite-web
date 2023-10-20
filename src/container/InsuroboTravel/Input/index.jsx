@@ -12,7 +12,7 @@ const Input = ({ children, label, bracket, twoInput }) => {
           </InputBox>
         </>
       ) : (
-        <InputWrap>
+      <InputWrap>
         {label && <Label>{label}{bracket && <span>{`(${bracket})`}</span>}</Label>}
           <InputBox>
             {children}

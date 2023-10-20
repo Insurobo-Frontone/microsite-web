@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import styled, { css } from "styled-components";
 import { useSearchParams, useNavigate } from "react-router-dom";
+
 import TravelPageContext from "../../../context/travelPageContext";
+import { useFormContext } from "react-hook-form";
 
 const TabMenu = ({ type }) => {
   const menu = [
@@ -24,20 +26,27 @@ const TabMenu = ({ type }) => {
   ];
 
   const [searchParams] = useSearchParams();
-  const step = searchParams.get("step");
+  const stepNum = searchParams.get("step");
   const navigate = useNavigate();
+  const { reset } = useFormContext();
   const nextStep = (step) => {
     switch (step) {
       case '1' :
-        navigate(`/insuroboTravel/apply?type=${type}&step=1`);
+        if (stepNum === '2') {
+          alert('간편계산을 다시 시작하면\n모든 정보가 초기화됩니다\n그래도 진행하시겠습니까?');
+          reset();
+          navigate(`/insuroboTravel/apply?type=${type}&step=1`);
+        } else {
+          navigate(`/insuroboTravel/apply?type=${type}&step=1`);
+        }
+        
       break;
       case '2' :
-        if (step === 1) {
+        if (stepNum === '1') {
           alert('간편계산을 먼저 진행해주세요');
         } else {
           navigate(`/insuroboTravel/apply?type=${type}&step=2`);
         }
-         
       break;
       default :
       break
@@ -49,7 +58,7 @@ const TabMenu = ({ type }) => {
         <MenuButton 
           key={dep.id} 
           onClick={() => nextStep(dep.id)}
-          active={step === dep.id}
+          active={stepNum  === dep.id}
         >
           {dep.title}  
         </MenuButton>

@@ -41,7 +41,7 @@ const InsuJoin = ({ type }) => {
     <>
 
       <JoinStepNav>
-        <PrevButton><span />이전</PrevButton>
+        <PrevButton onClick={() => navigate(-1)}><span />이전</PrevButton>
         <ul>
           {menu.map((dep) => (
             <MenuButton 
@@ -54,7 +54,10 @@ const InsuJoin = ({ type }) => {
           ))}
         </ul>
       </JoinStepNav>
-      <JoinUserInfoForm type='local' />    
+      {join === '1' ? (
+        <JoinUserInfoForm type='local' />  
+      ) : (<div>dsdsd</div>)}
+        
     </>
   );
 }
