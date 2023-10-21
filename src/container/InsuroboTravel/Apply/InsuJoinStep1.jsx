@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
@@ -10,9 +10,8 @@ import bgImgLocal from '../../../assets/img/insuroboTravel/Join_1_localImg.png';
 import bgImgOver from '../../../assets/img/insuroboTravel/Join_1_overImg.png';
 // import UserAddForm from "./UserAddForm";
 
-const JoinUserInfoForm = ({ type }) => {
-  const [disabled, setDisabled] = useState(true);
-  const { watch, formState: { isdirty, isvalid, dirtyFields } } = useFormContext();
+const InsuJoinStep1 = ({ type }) => {
+  const { watch, formState: { isValid, isDirty } } = useFormContext();
   const navigate = useNavigate();
   const emailTem = [
     { id: 1, value: 'naver.com' },
@@ -21,30 +20,8 @@ const JoinUserInfoForm = ({ type }) => {
     { id: 4, value: 'gmail.com' },
     { id: 5, value: 'nate.com' },
     { id: 6, value: 'myself' },
-  ]
+  ];
   
-
-  // useEffect(() => {
-    
-  //     switch (type) {
-  //       case 'local' :
-  //        if ( 
-  //         watch('nameLocalRep') &&
-  //         watch('LastRegRep') &&
-  //         watch('mobileRep') &&
-  //        watch('emailRep') &&
-  //        watch('emailRep2') || watch('emailRep2Change')) {
-  //         setDisabled(false)
-  //        }
-
-  //       break;
-  //       default: break;
-  //     }
-  //   if (type === 'local' ) {
-      
-  //    } 
-    
-  // })
   return (
     <Form>
       {/* 1인 가입폼 */}
@@ -58,6 +35,7 @@ const JoinUserInfoForm = ({ type }) => {
                 type='text'
                 name={type === 'local' ? 'nameLocalRep' : 'nameOverRep'}
                 placeholder='이름'
+                required={true}
               /> 
             </Input>
           </InputGroup>
@@ -67,6 +45,7 @@ const JoinUserInfoForm = ({ type }) => {
                 type='text'
                 name='birthRep'
                 disabled
+                required={true}
               /> 
             </Input>
             <span>-</span>
@@ -75,6 +54,7 @@ const JoinUserInfoForm = ({ type }) => {
                 type='text'
                 name='LastRegRep'
                 placeholder='주민번호 뒷자리'
+                required={true}
               /> 
             </Input>
           </InputGroup>
@@ -84,6 +64,7 @@ const JoinUserInfoForm = ({ type }) => {
                     type='phone'
                     name='mobileRep'
                     placeholder='‘-’없이 입력'
+                    required={true}
                   /> 
                 </Input>
               </InputGroup>
@@ -93,14 +74,16 @@ const JoinUserInfoForm = ({ type }) => {
                     type='text'
                     name='emailRep'
                     placeholder='‘-’없이 입력'
+                    required={true}
                   /> 
                 </Input>
                 <span>@</span>
                 <Input twoInput>
                   <SelectInput
                     type='text'
-                    name='emailRep2Change'
+                    name='emailRep2'
                     placeholder='선택'
+                    required={true}
                   >
                     {emailTem.map((cur, index) => {
                       return (
@@ -112,12 +95,13 @@ const JoinUserInfoForm = ({ type }) => {
                   </SelectInput>
                 </Input>
               </InputGroup>
-              {watch('emailRep2Change') === 'myself' && (
+              {watch('emailRep2') === 'myself' && (
                 <InputGroup className="second-input-wrap child">
                   <Input twoInput>
                     <BasicInput
                       type='text'
-                      name='emailRep2'
+                      name='emailRep2Change'
+                      required={true}
                     /> 
                   </Input>
                 </InputGroup>
@@ -125,13 +109,18 @@ const JoinUserInfoForm = ({ type }) => {
             </div>
             <Button
               title='확인'
-              disabled={isdirty || !isvalid}
-              onClick={() => navigate(`/insuroboTravel/apply?type=${type}&step=2&join=2`)}
+              disabled={!isDirty || !isValid}
+              onClick={() => 
+                navigate(`/insuroboTravel/apply?type=${type}&step=2&join=2`)
+              }
             /> 
             {/* {watch('personType') === '1' ? (
               <Button
                 title='확인'
-                disabled={true}
+                disabled={!isDirty || !isValid}
+                onClick={() => 
+                  navigate(`/insuroboTravel/apply?type=${type}&step=2&join=2`)
+                }
               /> 
             ) : (
               <UserAddForm />
@@ -144,7 +133,7 @@ const JoinUserInfoForm = ({ type }) => {
   )
 }
 
-export default JoinUserInfoForm;
+export default InsuJoinStep1;
 
 const Form = styled.form`
   display: flex;

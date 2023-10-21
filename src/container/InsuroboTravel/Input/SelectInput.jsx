@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import selectIcon from '../../../assets/icon/insuroboTravelSelectIcon.png';
 
 const Select = ({name, defaultValue, placeholder, required, validate, children, ...rest}) => {

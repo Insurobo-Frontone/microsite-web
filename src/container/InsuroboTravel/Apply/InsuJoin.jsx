@@ -3,7 +3,8 @@ import styled, { css } from "styled-components";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import prevIcon from "../../../assets/icon/insuJoinPrevIcon.png";
-import JoinUserInfoForm from "./JoinUserInfoFrom";
+import InsuJoinStep1 from "./InsuJoinStep1";
+import InsuJoinStep2 from "./InsuJoinStep2";
 
 const InsuJoin = ({ type }) => {
   const { watch } = useFormContext();
@@ -39,7 +40,6 @@ const InsuJoin = ({ type }) => {
 
   return (
     <>
-
       <JoinStepNav>
         <PrevButton onClick={() => navigate(-1)}><span />이전</PrevButton>
         <ul>
@@ -55,13 +55,21 @@ const InsuJoin = ({ type }) => {
         </ul>
       </JoinStepNav>
       {join === '1' ? (
-        <JoinUserInfoForm type='local' />  
-      ) : (<div>dsdsd</div>)}
+        // 신청
+        <InsuJoinStep1 type='local' />  
+      ) : (
+        // 확인
+        join === '2' ? (
+          <InsuJoinStep2 type='local' />
+        ) : (
+          <div>결제</div>
+        )
+      )}
         
     </>
   );
 }
-
+ 
 export default InsuJoin;
 
 const JoinStepNav = styled.div`

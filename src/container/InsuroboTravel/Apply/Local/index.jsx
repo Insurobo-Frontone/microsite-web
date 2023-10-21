@@ -77,6 +77,7 @@ const Local= () => {
           {step === '1' ? (
             <InsuInfo onClickCalc={() => onClickCalc('step1-1')} />
           ) : step === '2' ? (
+            // 신청 - 확인 - 결제
             <InsuJoin type='local' />
           ) : '마이페이지'} 
         </ReqContent>
@@ -87,7 +88,7 @@ const Local= () => {
             <ResContent>
               {step === '1' ? (
                 <InsuCalc type='local' />
-              ) : 'page2'}
+              ) : step === '2' === <div>가입인원 2명 총보험료</div>}
             </ResContent>
           </Wrap>
           <NextStepButton>
@@ -106,6 +107,7 @@ const Local= () => {
                   onClick={() => onClickCalc('step1-2')}
                 />}
           </NextStepButton>
+          
         </>
         
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const Input = ({ children, label, bracket, twoInput }) => {
+const Input = ({ children, label, bracket, twoInput, type, onClick }) => {
   return (
     <>
       {twoInput ? (
@@ -12,9 +12,9 @@ const Input = ({ children, label, bracket, twoInput }) => {
           </InputBox>
         </>
       ) : (
-      <InputWrap>
-        {label && <Label>{label}{bracket && <span>{`(${bracket})`}</span>}</Label>}
-          <InputBox>
+        <InputWrap onClick={onClick}>
+          {label && <Label>{label}{bracket && <span>{`(${bracket})`}</span>}</Label>}
+          <InputBox type={type}>
             {children}
           </InputBox>
         </InputWrap>
@@ -52,6 +52,11 @@ const InputBox = styled.div`
       color: #989898;
     } 
   }
+
+  ${props => props.type === 'button' && css`
+    width: 100%;
+    border: 1.5px solid #CECECE;
+  `}
 `;
 
 const Label = styled.p`

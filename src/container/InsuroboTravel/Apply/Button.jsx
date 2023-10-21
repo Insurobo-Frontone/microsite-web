@@ -6,7 +6,8 @@ const Button = ({ onClick, disabled, type, title }) => {
     <BasicButton 
       onClick={onClick} 
       disabled={disabled} 
-      type={type} >
+      type={type} 
+    >
       {title}
     </BasicButton>
   )
