@@ -24,7 +24,7 @@ const RadioInput = ({ name, data, defaultValue, onClick, tep, list }) => {
                       id={item.id.toString()}
                       name={field.name}
                       value={item.value}
-                      checked={field.value == item.value}
+                      checked={field.value === item.value}
                       onClick={(e) => {
                         field.onChange(e.target.value)
                         onClick()

@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import prevIcon from "../../../assets/icon/insuJoinPrevIcon.png";
 import InsuJoinStep1 from "./InsuJoinStep1";
 import InsuJoinStep2 from "./InsuJoinStep2";
+import InsuJoinStep3 from "./InsuJoinStep3";
 
 const InsuJoin = ({ type }) => {
   const { watch } = useFormContext();
@@ -62,7 +63,9 @@ const InsuJoin = ({ type }) => {
         join === '2' ? (
           <InsuJoinStep2 type='local' />
         ) : (
-          <div>결제</div>
+          join === '3' && (
+            <InsuJoinStep3 type='local' />
+          )
         )
       )}
         

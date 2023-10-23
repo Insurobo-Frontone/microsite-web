@@ -28,7 +28,7 @@ const SelectType = () => {
     <SelectTypeWrap>
       {data.map((type) => {
         return (
-          <SelectCard onClick={() => navigate(type.link)}>
+          <SelectCard key={type.idx} onClick={() => navigate(type.link)}>
             <div>
               <h2>{type.title}</h2>
               <p>{type.text}</p>

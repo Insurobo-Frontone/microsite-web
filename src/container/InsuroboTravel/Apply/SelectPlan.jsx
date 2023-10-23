@@ -32,10 +32,10 @@ const SelectPlan = () => {
             <>
               {data.map((item) => {
                 return (
-                  <ButtonWrap {...field}>
-                    <Label htmlFor={item.value} color={field.value == item.value}>
+                  <ButtonWrap {...field} key={item.id}>
+                    <Label htmlFor={item.value} active={field.value === item.value}>
                       <p>{item.title}<span>{item.pay}원</span></p>
-                      <Icon color={field.value == item.value} />
+                      <Icon active={field.value === item.value} />
                     </Label>
                     <input
                       key={item.id}
@@ -43,7 +43,7 @@ const SelectPlan = () => {
                       id={item.value}
                       name={field.name}
                       value={item.value} 
-                      checked={field.value == item.value}
+                      checked={field.value === item.value}
                       onChange={(e) => {
                         field.onChange(e.target.value);
                       }}
@@ -92,7 +92,7 @@ const Label = styled.label`
     }
   }
 
-  ${props => props.color && css`
+  ${props => props.active && css`
     > p {
       color: #333333;
       > span {
@@ -108,7 +108,7 @@ const Icon = styled.div`
   height: 50px;
   border-radius: 50%;
   border: 2px solid #B4B4B4;
-  ${props => props.color && css`
+  ${props => props.active && css`
     border: none;
     background-color: #5974FF;
     position: relative;

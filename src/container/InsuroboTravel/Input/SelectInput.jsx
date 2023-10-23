@@ -20,7 +20,7 @@ const Select = ({name, defaultValue, placeholder, required, validate, children, 
 				})}
         {...rest}
       >
-        <option value="" disabled selected>
+        <option value="" disabled>
           {placeholder}
         </option>
         <>{children}</>

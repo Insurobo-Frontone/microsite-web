@@ -33,7 +33,7 @@ const InsuCalc = ({ type }) => {
       data: `${insuAge}세`
     },
     {
-      id: 1,
+      id: 3,
       title: '성별',
       data: `${watch('genderRep') === 'M' ? '남자' : '여자'}`
     },
@@ -43,7 +43,7 @@ const InsuCalc = ({ type }) => {
     <>
       <InsuInfoLabelWrap>
         {insuInfodata.map((dt) => (
-          <li>
+          <li key={dt.id}>
             {dt.title}&nbsp;&nbsp;<span>{dt.data}</span>
           </li>
         ))}

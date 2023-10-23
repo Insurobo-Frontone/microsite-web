@@ -20,7 +20,6 @@ const Input = ({ children, label, bracket, twoInput, type, onClick }) => {
         </InputWrap>
       )}
     </>
-    
   )
 }
 
@@ -36,18 +35,21 @@ const InputBox = styled.div`
   border: 1px solid #CECECE;
   border-radius: 10px;
   width: 492px;
-  height: 66px;
+  padding: 17px 28px;
   position: relative;
+
   input {
     color: #333333;
   }
   input, select {
     width: 100%;
+    display: block;
     font-size: 20px;
-    padding: 21px 28px;
+    line-height: 30px;
+    
     background-color: transparent;
     font-weight: 300;
-    line-height: 100%;
+    
     ::placeholder {
       color: #989898;
     } 

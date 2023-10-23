@@ -30,4 +30,12 @@ const BasicButton = styled.button`
     
   `}
 
+  ${props => props.type === 'terms' && css`
+    background-color: #FFFFFF;
+    border: 1px solid #2EA5FF;
+    width: 100%;
+    color: #2EA5FF;
+    font-weight: 400;
+  `}
+  
 `;

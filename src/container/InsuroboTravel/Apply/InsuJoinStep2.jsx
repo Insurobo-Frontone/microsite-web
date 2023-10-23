@@ -1,16 +1,13 @@
-import React, { useEffect } from "react";
-import styled, { css } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import styled from "styled-components";
 import { useFormContext, useFieldArray } from "react-hook-form";
-import SelectInput from "../Input/SelectInput";
 import RadioInput from "../Input/RadioInput";
 import SelectButton from "../Input/SelectButton";
 
 const InsuJoinStep2 = ({ type }) => {
-  const navigate = useNavigate();
   const methods = useFormContext();
-  const { register, control, setValue, formState: { isValid, isDirty } } = methods;
-  const { fields, append, remove, update } = useFieldArray({
+  const { control, formState: { isValid, isDirty } } = methods;
+  useFieldArray({
     control,
     name: "checkGroup"
   });
@@ -58,7 +55,7 @@ const InsuJoinStep2 = ({ type }) => {
               list
               name={`checkGroup.${list.id}.list`}
               data={radioData}
-              defaultValue={list.id == 1 ? 'no' : ''}
+              defaultValue={'no'}
             />
           )}
         </li>

@@ -53,10 +53,11 @@ const InsuInfo = ({ onClickCalc }) => {
           <SelectInput
             name='genderRep'
             placeholder='성별'
+            defaultValue=''
           >
-            {gender.map((cur, index) => {
+            {gender.map((cur) => {
               return (
-                <option value={cur.value} key={index}>
+                <option value={cur.value} key={cur.id}>
                   {cur.text}
                 </option>
               )

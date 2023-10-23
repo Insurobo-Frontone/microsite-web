@@ -26,13 +26,15 @@ const SelectButton = ({ name }) => {
     { id: 10, value: '체육대회' },
     { id: 11, value: '수련회' },
     { id: 12, value: '세미나' },
-    { id: 13, value: '골프' },
-    { id: 14, value: '등산' },
-    { id: 15, value: '낚시' },
-    { id: 16, value: '캠핑' },
-    { id: 17, value: '레저' },
-    { id: 18, value: '기타' },
+    { id: 13, value: '국내출장' },
+    { id: 14, value: '골프' },
+    { id: 15, value: '등산' },
+    { id: 16, value: '낚시' },
+    { id: 17, value: '캠핑' },
+    { id: 18, value: '레저' },
+    { id: 19, value: '기타' },
   ];
+
 
   return (
     <>
