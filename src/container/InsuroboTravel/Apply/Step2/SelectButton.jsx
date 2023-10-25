@@ -1,10 +1,10 @@
 import React, { useState, useEffect }  from "react";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
-import Input from ".";
-import BasicInput from "./BasicInput";
-import SelectPopup from "../Apply/SelectPopup";
-import selectIcon from '../../../assets/icon/insuroboTravelSelectIcon.png';
+import Input from "../../Input";
+import BasicInput from "../../Input/BasicInput";
+import SelectPopup from "./SelectPopup";
+import selectIcon from '../../../../assets/icon/insuroboTravelSelectIcon.png';
 
 const SelectButton = ({ name }) => {
   const [showPopup, setShowPopup] = useState(false);

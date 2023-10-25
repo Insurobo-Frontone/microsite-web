@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import SelectPlan from "./SelectPlan";
-import TargetPlanResult from "./Local/Step1/TargetPlanResult";
+import TargetPlanResult from "../Local/Step1/TargetPlanResult";
 
 const InsuCalc = ({ type }) => {
   const { watch } = useFormContext();

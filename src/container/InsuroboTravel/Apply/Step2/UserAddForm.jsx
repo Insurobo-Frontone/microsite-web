@@ -11,7 +11,8 @@ const UserAddForm = () => {
   });
   useEffect(() => {
     update(0, { name: '',  })
-  }, [])
+  }, []);
+  
   return (
     <>
       {fields.map((item, index) => {

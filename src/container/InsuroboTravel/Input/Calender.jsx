@@ -111,6 +111,12 @@ const ButtonContainer = styled.div`
 `;
 
 const Wrap = styled.div`
+  .react-datepicker__view-calendar-icon {
+    padding: 0;
+    > input {
+      padding: 0;
+    }
+  }
   .react-datepicker {
     border: none;
     border-radius: 15px;
@@ -197,8 +203,8 @@ const Wrap = styled.div`
 
   .react-datepicker__input-container {
     .react-datepicker__calendar-icon {
-      top: 21px;
-      right: 28px;
+      top: 3px;
+      right: 0;
       padding: 0;
       width: 24px;
       height: 24px;

@@ -2,12 +2,12 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
-import Input from "../Input";
-import BasicInput from "../Input/BasicInput";
-import SelectInput from "../Input/SelectInput";
-import Button from "./Button";
-import bgImgLocal from '../../../assets/img/insuroboTravel/Join_1_localImg.png';
-import bgImgOver from '../../../assets/img/insuroboTravel/Join_1_overImg.png';
+import Input from "../../Input";
+import BasicInput from "../../Input/BasicInput";
+import SelectInput from "../../Input/SelectInput";
+import Button from "../Button";
+import bgImgLocal from '../../../../assets/img/insuroboTravel/Join_1_localImg.png';
+import bgImgOver from '../../../../assets/img/insuroboTravel/Join_1_overImg.png';
 // import UserAddForm from "./UserAddForm";
 
 const InsuJoinStep1 = ({ type }) => {
@@ -24,7 +24,7 @@ const InsuJoinStep1 = ({ type }) => {
   
   return (
     <Form>
-      {/* 1인 가입폼 */}
+      {/* 보험가입 -> 신청 */} 
       <LeftContent type={type}>
         <div style={{
           borderBottom: watch('personType') === '2'  && '1px solid #F0F0F0'
@@ -112,7 +112,13 @@ const InsuJoinStep1 = ({ type }) => {
           title='확인'
           disabled={!isDirty || !isValid}
           onClick={() => 
-            navigate(`/insuroboTravel/apply?type=${type}&step=2&join=2`)
+            navigate(`/insuroboTravel/apply?step=2&join=2`, {
+              state: {
+                type: type,
+                step: '2',
+                join: '2'
+              }
+            })
           }
         /> 
         {/* {watch('personType') === '1' ? (

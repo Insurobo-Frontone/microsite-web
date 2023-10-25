@@ -11,14 +11,16 @@ const SelectType = () => {
       title: '국내 여행자 보험',
       text: '보험료 간편 조회 후 결제까지!',
       img: local,
-      link: '/insuroboTravel/apply?type=local&step=1'
+      link: '/insuroboTravel/apply?step=1',
+      type: 'local',
     },
     {
       idx: '2',
       title: '해외 여행자 보험',
       text: '태풍/지진 등 천재지변도 보상!',
       img: over,
-      link: '/insuroboTravel/apply?type=over&step=1'
+      link: '/insuroboTravel/apply?step=1',
+      type: 'over'
     }
   ];
 
@@ -28,7 +30,13 @@ const SelectType = () => {
     <SelectTypeWrap>
       {data.map((type) => {
         return (
-          <SelectCard key={type.idx} onClick={() => navigate(type.link)}>
+          <SelectCard key={type.idx} onClick={() => navigate(type.link, {
+            state: {
+              type: type.type,
+              step: '1',
+              join: ''
+            }
+          })}>
             <div>
               <h2>{type.title}</h2>
               <p>{type.text}</p>

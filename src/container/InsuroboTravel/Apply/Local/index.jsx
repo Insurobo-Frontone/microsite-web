@@ -1,41 +1,30 @@
 import React, { useContext, useState } from "react";
 import styled, { css } from "styled-components";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import ApplyHeader from "../ApplyHeader";
 import InsuInfo from "./Step1/InsuInfo";
-import InsuCalc from "../InsuCalc";
+import InsuCalc from "../Step1/InsuCalc";
 import RadioInput from "../../Input/RadioInput";
-import InsuJoin from "../InsuJoin";
+import InsuJoin from "../Step2/InsuJoin";
 import TravelPageContext from "../../../../context/travelPageContext";
 import CheckInput from "../../Input/CheckInput";
-import privacy from "../../PolicyData/PrivacyData";
+import privacy from "../../TravelData/PrivacyData";
 import PolicyButton from "../../Input/PolicyButton";
 import Button from "../Button";
+import MyPage from "../Step3/MyPage";
+import Qna from "../Step4/Qna";
 
-const Local= () => {
-  const [searchParams] = useSearchParams();
+const Local= ({ type }) => {
   const navigate = useNavigate();
-  const step = searchParams.get("step");
-  const join = searchParams.get("join");
+  const location = useLocation();
+  const pageState = location.state
 
   const { state, actions } = useContext(TravelPageContext);
   const { watch, formState: { isValid, isDirty } } = useFormContext();
   const [policyOpen, setPolicyOpen] = useState(false);
   const [policyId, setPolicyId] = useState(1);
 
-  const pepelSelect = [
-    {
-      id: 1,
-      value: '1',
-      title: '1인 가입'
-    },
-    // {
-    //   id: 2,
-    //   value: '2',
-    //   title: '2인 이상 가입'
-    // },
-  ];
   const paySelect = [
     {
       id: 1,
@@ -48,9 +37,24 @@ const Local= () => {
       title: '위 내용 확인 후 결제하기'
     },
   ];
+  const pepelSelect = [
+    {
+      id: 1,
+      value: '1',
+      title: '1인 가입'
+    },
+    // {
+    //   id: 2,
+    //   value: '2',
+    //   title: '2인 이상 가입'
+    // },
+  ];
 
+  
+  // 
   const onClickCalc = (step) => {
     switch (step) {
+      // 간편계산 보험료 확인 클릭
       case 'step1-1' :
         if (
           watch('localStart') &&
@@ -60,40 +64,63 @@ const Local= () => {
         ) {
           actions.setOpen(true);
           window.scrollTo({top: 700, left: 0, behavior: 'smooth'})
-
         } else {
           alert('입력값을 확인하세요.');
         }
         break;
+        // 간편계산 1인가입버튼 클릭
         case 'step1-2' :
-        navigate(`/insuroboTravel/apply?type=local&step=2&join=1`);
+        navigate(`/insuroboTravel/apply?step=2&join=1`, {
+          state: {
+            type: type,
+            step: '2',
+            join: '1'
+          }
+        });
         actions.setOpen(false);
-
         break;
+         
+        // 보험가입 위 내용 확인 후 결제하기 버튼 클릭
+        // case 'step2-3' :
+        //   if (watch('goPay') === '2') {
+        //     navigate(`/insuroboTravel/apply/payment`);
+        //   }
+
       default: break;
+
     }
   }
   return (
     <>
-      <Wrap info={step === '1' && ! state.open}>
-        <ApplyHeader type='local' />
-        <ReqContent>
-          {step === '1' ? (
+      <Wrap info={pageState.step === '1' && !state.open}>
+        <ApplyHeader type={type} />
+        <ReqContent scroll={pageState.step === '4' ? true : false}>
+          {pageState.step === '1' ? (
+            //간편계산
             <InsuInfo onClickCalc={() => onClickCalc('step1-1')} />
-          ) : step === '2' ? (
-            // 신청 - 확인 - 결제 첫번째 화면 
-            <InsuJoin type='local' />
-          ) : '마이페이지'} 
+            //보험가입
+          ) : pageState.step === '2' ? (
+            <InsuJoin type={type} />
+            //마이페이지
+          ) : pageState.step === '3' ? (
+            <MyPage />
+            // Q&A
+          ) : pageState.step === '4' && (
+            <Qna type={type} />
+          )} 
         </ReqContent>
       </Wrap>
-      {state.open && step === '1' (
+      {/* 2번째 박스 있는 경우 */}
+      {/* 보험료 확인 */}
+      {state.open && pageState.step === '1' && (
         <>
           <Wrap>
             <ResContent>
-              <InsuCalc type='local' />
+              <InsuCalc type={type} />
             </ResContent>
           </Wrap>
           <NextStepButton>
+            {/* 1인 가입 */}
             <RadioInput
               tep
               name='personType'
@@ -104,8 +131,8 @@ const Local= () => {
           </NextStepButton>
         </>
       )}
-      {/* 보험가입 -> 확인 화면 2번째 박스 */}
-      {step === '2' && join === '2' && (
+      {/* 보험가입 -> 2번째 단계 2번째 박스 */}
+      {pageState.step === '2' && pageState.join === '2' && (
         <form>
           <Wrap>
             <NoticeWrap>
@@ -133,9 +160,7 @@ const Local= () => {
                 {privacy.map((dt) => (
                   <li key={dt.id}>
                     <PolicyButton
-                      name={`policy${dt.id}`}
-                      value={dt.title}
-                      readOnly
+                      title={dt.title}
                       onClick={() => setPolicyId(dt.id)}
                       active={dt.id === policyId}
                     />
@@ -149,7 +174,7 @@ const Local= () => {
                 </li>
               </ul>
               <div dangerouslySetInnerHTML={{
-                __html: privacy.find((cur) => cur.id === policyId).textData
+                  __html: privacy.find((cur) => cur.id === policyId).textData
                 }} 
               />
             </PolicyWrap>
@@ -159,22 +184,28 @@ const Local= () => {
               title='확인'
               disabled={!isDirty || !isValid}
               onClick={() => 
-                navigate(`/insuroboTravel/apply?type=local&step=2&join=3`)
+                navigate(`/insuroboTravel/apply?step=2&join=3`, {
+                  state: {
+                    type: type,
+                    step: '2',
+                    join: '3'
+                  }
+                })
               }
             />
           </ButtonWrap>
         </form>
       )}
-    
-
-      {/* {step === '2' && join === '3' (
-        <RadioInput
-          name='goPay'
-          data={paySelect}
-          defaultValue='2'
-          onClick={() => onClickCalc('step1-2')}
-        />
-      )} */}
+      {pageState.step === '2' && pageState.join === '3' && (
+        <ButtonWrap>
+          <RadioInput
+            name='goPay'
+            data={paySelect}
+            defaultValue='2'
+            onClick={() => navigate('/insuroboTravel/apply/payment')}
+          />
+        </ButtonWrap>
+      )}
     </>
   );
 }
@@ -194,6 +225,10 @@ const Wrap = styled.div`
 
 const ReqContent = styled.div`
   padding: 40px 80px 50px;
+
+  ${props => props.scroll && css`
+    padding: 0;
+  `}
 `;
 
 const ResContent = styled.div`

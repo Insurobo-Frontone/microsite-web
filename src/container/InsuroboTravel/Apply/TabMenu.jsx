@@ -1,8 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
-import { useSearchParams, useNavigate } from "react-router-dom";
-
-import TravelPageContext from "../../../context/travelPageContext";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 
 const TabMenu = ({ type }) => {
@@ -25,19 +23,33 @@ const TabMenu = ({ type }) => {
     },
   ];
 
-  const [searchParams] = useSearchParams();
-  const stepNum = searchParams.get("step");
+  const location = useLocation();
+  const stepNum = location.state.step;
   const navigate = useNavigate();
   const { reset } = useFormContext();
+
+  // apply nav에서 페이지 이동
   const nextStep = (step) => {
     switch (step) {
       case '1' :
         if (stepNum === '2') {
           alert('간편계산을 다시 시작하면\n모든 정보가 초기화됩니다\n그래도 진행하시겠습니까?');
           reset();
-          navigate(`/insuroboTravel/apply?type=${type}&step=1`);
+          navigate(`/insuroboTravel/apply?step=1`, {
+            state: {
+              type: type,
+              step: '1',
+              join: ''
+            }
+          });
         } else {
-          navigate(`/insuroboTravel/apply?type=${type}&step=1`);
+          navigate(`/insuroboTravel/apply?step=1`, {
+            state: {
+              type: type,
+              step: '1',
+              join: ''
+            }
+          });
         }
         
       break;
@@ -45,8 +57,36 @@ const TabMenu = ({ type }) => {
         if (stepNum === '1') {
           alert('간편계산을 먼저 진행해주세요');
         } else {
-          navigate(`/insuroboTravel/apply?type=${type}&step=2`);
+          navigate(`/insuroboTravel/apply?step=2`, {
+            state: {
+              type: type,
+              step: '2',
+              join: ''
+            }
+          });
         }
+      break;
+      case '3' :
+        if (stepNum === '1' || '2') {
+          navigate(`/insuroboTravel/apply/myPage/login`)
+        } else {
+          navigate(`/insuroboTravel/apply/myPage`, {
+            state: {
+              type: type,
+              step: '3',
+            }
+          });
+        }
+        
+        
+      break;
+      case '4' :
+        navigate(`/insuroboTravel/apply/qna`, {
+          state: {
+            type: type,
+            step: '4'
+          }
+        });
       break;
       default :
       break
@@ -58,7 +98,7 @@ const TabMenu = ({ type }) => {
         <MenuButton 
           key={dep.id} 
           onClick={() => nextStep(dep.id)}
-          active={stepNum  === dep.id}
+          active={stepNum === dep.id}
         >
           {dep.title}  
         </MenuButton>

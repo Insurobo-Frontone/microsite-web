@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
+import { useLocation } from "react-router-dom";
 import Layout from "../layout";
 import RollingBanner from "../components/MainPage/RollingBanner";
 import ContentInner from "../layout/ContentInner";
 import SelectType from "../container/InsuroboTravel/SelectType";
-import { useLocation, useSearchParams } from "react-router-dom";
 import Apply from "../container/InsuroboTravel/Apply";
 import bg_img from '../assets/img/insuroboTravel/travelBg.png';
 
@@ -21,13 +21,11 @@ const Wrap = styled.div`
   }
 `;
 
-
 const InsuroboTravel = ({ apply }) => {
   const location = useLocation();
-  const [searchParams] = useSearchParams();
-  const type = searchParams.get("type");
-
+  const pageState = location.state
   useEffect(() => {
+    console.log(pageState)
     window.scrollTo(0, 0);
   }, [location.search]);
 
@@ -37,9 +35,9 @@ const InsuroboTravel = ({ apply }) => {
         <ContentInner>
           {location.pathname === '/insuroboTravel' ? (
             <SelectType />
-          ) : location.pathname === '/insuroboTravel/apply' && (
-            <Apply query={type} />
-          )}
+            ) : (
+              <Apply type={pageState.type} />
+            )}
         </ContentInner>
         <RollingBanner />
       </Wrap>

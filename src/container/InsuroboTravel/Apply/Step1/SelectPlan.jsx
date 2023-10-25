@@ -1,7 +1,7 @@
 import React,{ useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
-import checkedIcon from '../../../assets/icon/planCheckedIcon.png';
+import checkedIcon from '../../../../assets/icon/planCheckedIcon.png';
 
 const SelectPlan = () => {
   const { control, setValue } = useFormContext();

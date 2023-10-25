@@ -24,6 +24,7 @@ import InsuroboCard from './pages/InsuroboCard';
 import View from './components/Post/View';
 import InsuroboTravel from './pages/InsuroboTravel';
 import { TravelPageProvider } from './context/travelPageContext';
+import InsuroboTravelLogin from './pages/InsuroboTravelLogin';
 
 function App() {
   
@@ -53,9 +54,12 @@ function App() {
                     <Route path='/board' element={<View />} />
                     <Route path='/policy/:pagename' element={<Policy />} />
                     <Route path='/insuroboCard' element={<InsuroboCard />} />
-                    <Route path='/insuroboTravel' element={<InsuroboTravel />} />
-                    <Route path='/insuroboTravel/apply' element={<InsuroboTravel apply />} />
-                    <Route path='/insuroboTravel/apply?:type' element={<InsuroboTravel apply />} />
+                    {/* <Route path='/insuroboTravel' element={<InsuroboTravel />} /> */}
+                    <Route path='/insuroboTravel/*' element={<InsuroboTravel />} />
+                    <Route path='/insuroboTravel/apply?:page' element={<InsuroboTravel apply />} />
+                    <Route path='/insuroboTravel/apply/*' element={<InsuroboTravel apply />} />
+                    <Route path='/insuroboTravel/apply/myPage' element={<InsuroboTravel apply />} />
+                    <Route path='/insuroboTravel/apply/myPage/login' element={<InsuroboTravelLogin />} />
                   </Route>
                   <Route element={<PublicRoute auth={auth} restricted />}>
                     <Route path='/login' element={<Login />} />

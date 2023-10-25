@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
 
-const RadioInput = ({ name, data, defaultValue, onClick, tep, list }) => {
+const RadioInput = ({ name, data, defaultValue, onClick, tep, list, myPage }) => {
   const { control, setValue } = useFormContext();
   useEffect(() => {
     setValue(name, defaultValue);
@@ -14,7 +14,7 @@ const RadioInput = ({ name, data, defaultValue, onClick, tep, list }) => {
         control={control}
         render={({ field }) => {
           return (
-            <RadioBasic {...field} tep={tep} list={list}>
+            <RadioBasic {...field} tep={tep} list={list} myPage={myPage}>
               {data.map((item) => {
                 return (
                   <>
@@ -66,8 +66,15 @@ const RadioBasic = styled.div`
   > input:checked + label {
     color: #FFFFFF;
     background-color:#2EA5FF;
+    border: none;
   }
-  
+  ${props => props.myPage  && css`
+    > label {
+      width: 491px;
+      color: #FF2C2C;
+      border-color: #FF2C2C;
+    }
+  `}
 
   ${props => props.tep && css`
     > label {
@@ -83,8 +90,11 @@ const RadioBasic = styled.div`
     }
     > input:checked + label {
       color: #2EA5FF;
-      border-color:#CECECE;
+      border:1px solid #CECECE;
       background-color: #FFFFFF;
     }
   `}
+
+  
+    
 `;

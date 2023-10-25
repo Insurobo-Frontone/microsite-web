@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { useFormContext, useFieldArray } from "react-hook-form";
-import RadioInput from "../Input/RadioInput";
-import SelectButton from "../Input/SelectButton";
+import RadioInput from "../../Input/RadioInput";
+import SelectButton from "./SelectButton";
 
-const InsuJoinStep2 = ({ type }) => {
+const InsuJoinStep2 = () => {
   const methods = useFormContext();
   const { control, formState: { isValid, isDirty } } = methods;
   useFieldArray({

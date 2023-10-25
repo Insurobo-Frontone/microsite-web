@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useFormContext, Controller } from "react-hook-form";
-import closeIcon from '../../../assets/icon/calenderClose.png';
-import checkedIcon from '../../../assets/icon/popupCheckedIcon.png';
+import closeIcon from '../../../../assets/icon/calenderClose.png';
+import checkedIcon from '../../../../assets/icon/popupCheckedIcon.png';
 
 const SelectPopup = ({ data, close }) => {
   const { control, setValue } = useFormContext();

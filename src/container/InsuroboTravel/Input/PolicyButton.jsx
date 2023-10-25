@@ -1,18 +1,13 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Input from ".";
-import BasicInput from "./BasicInput";
 import selectIcon from '../../../assets/icon/insuroboTravelSelectIcon.png';
 
-const PolicyButton = ({ name, onClick, value, active }) => {
+const PolicyButton = ({ onClick, title, active }) => {
   return (
     <>
       <Input onClick={onClick} type='button'>
-        <BasicInput
-          name={name}
-          value={value}
-          readOnly
-        />
+        <Title>{title}</Title>
         <SelectArrow active={active} />
       </Input>
     </>
@@ -20,6 +15,14 @@ const PolicyButton = ({ name, onClick, value, active }) => {
 }
 
 export default PolicyButton;
+
+const Title = styled.p`
+  font-size: 20px;
+  color: #333333;
+  font-weight: 300;
+  line-height: 30px;
+  width: 427px;
+`;
 
 const SelectArrow = styled.div`
   width: 24px;
@@ -30,4 +33,10 @@ const SelectArrow = styled.div`
   position: absolute;
   right: 28px;
   top: 21px;
+
+  ${props => props.active && css`
+    transform: rotate(-90deg);
+  `}
 `;
+
+
