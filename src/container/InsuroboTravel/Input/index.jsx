@@ -7,7 +7,7 @@ const Input = ({ children, label, bracket, twoInput, type, onClick }) => {
       {twoInput ? (
         <>
         {label && <Label>{label}{bracket && <span>{`(${bracket})`}</span>}</Label>}
-          <InputBox>
+          <InputBox type={type}>
             {children}
           </InputBox>
         </>
@@ -41,24 +41,35 @@ const InputBox = styled.div`
   input {
     color: #333333;
   }
+
   input, select {
     width: 100%;
     display: block;
     font-size: 20px;
     line-height: 30px;
-    
+    font-weight: 400; 
     background-color: transparent;
-    font-weight: 300;
     
     ::placeholder {
       color: #989898;
     } 
   }
 
+
   ${props => props.type === 'button' && css`
     width: 100%;
     border: 1.5px solid #CECECE;
   `}
+  ${props => props.type === 'select' && css`
+    padding: 0;
+
+    select {
+      padding: 17px 28px;
+      height: 66px;
+      
+    }
+  `}
+
 `;
 
 const Label = styled.p`

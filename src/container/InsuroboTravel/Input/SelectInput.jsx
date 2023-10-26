@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import selectIcon from '../../../assets/icon/insuroboTravelSelectIcon.png';
 
-const Select = ({name, defaultValue, placeholder, required, validate, children, ...rest}) => {
-  const { register } = useFormContext({
+
+const Select = ({name, className, defaultValue, placeholder, required, validate, children, ...rest}) => {
+  const { register, watch } = useFormContext({
 		mode: 'onBlur',
 	});
-
   return (
     <>
       <SelectBase
+        className={watch(name) === '' ? 'selected' : ''}
         name={name}
         key={defaultValue}
         defaultValue={defaultValue}
@@ -20,35 +21,35 @@ const Select = ({name, defaultValue, placeholder, required, validate, children, 
 				})}
         {...rest}
       >
-        <option value="" disabled>
+        <option value="" disabled hidden selected>
           {placeholder}
         </option>
         <>{children}</>
       </SelectBase>
-      <SelectArrow />
     </>
   );
 }
 
 export default Select;
 
-const SelectBase = styled.select`
-  -webkit-appearance: none;
-  background-color: transparent;
-  color: #333333;
 
+const SelectBase = styled.select`
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  background-image: url(${selectIcon});
+  background-position: calc(100% - 32px) center;
+  background-repeat: no-repeat;
+  color: #333333;
+  &.selected {
+    color: #989898;
+  }
   > option[value=""][disabled] {
 	  display: none;
   }
+
+
 `;
 
-const SelectArrow = styled.div`
-  width: 24px;
-  height: 24px;
-  background-image: url(${selectIcon});
-  background-repeat: no-repeat;
-  background-position: center;
-  position: absolute;
-  right: 28px;
-  top: 21px;
-`;

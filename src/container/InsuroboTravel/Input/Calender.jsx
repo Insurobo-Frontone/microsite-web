@@ -10,10 +10,16 @@ import arrowIconNext from '../../../assets/icon/calenderArrowNext.svg';
 import closeIcon from '../../../assets/icon/calenderClose.png';
 import inputIcon from '../../../assets/icon/calenderInputIcon.svg';
 
+
 const Calendar = ({ 
   minDate,
   maxDate,
   startDate,
+  endDate,
+  required,
+  onFocus,
+  readOnly,
+  validate,
   name, 
   placeholder,
   title,
@@ -36,64 +42,72 @@ const Calendar = ({
     "12월",
   ];
   return (
-    <Wrap>
-      <Controller
-        name={name}
-        control={control}
-        render={({ field: { value, onChange }}) => (
-        <DatePicker
-          ref={ref}
-          locale={ko}
-          minDate={minDate}
-          maxDate={maxDate}
-          dateFormat="yyyy-MM-dd"
-          shouldCloseOnSelect={true}
-          useWeekdaysShort={false}
-          selected={value}
-          startDate={startDate}
-          onChange={(data) => onChange(data)}
-          placeholderText={placeholder}
-          withPortal
-          showIcon
-          icon={<CalenderInput />}
-          renderCustomHeader={({
-            date,
-            prevMonthButtonDisabled,
-            nextMonthButtonDisabled,
-            decreaseMonth,
-            increaseMonth,
-          }) => (
-            <>
-              <ButtonContainer>
-                <h2>{title}</h2>
-                <div className="btn_ctrl btn_ctrl-cancel" onClick={() => {ref.current?.setOpen(false)}} />
-              </ButtonContainer>
-            <div className='month-wrap'>
-              <div
-                className="btn_month btn_month-prev"
-                onClick={decreaseMonth}
-                disabled={prevMonthButtonDisabled}
-              >
-                <img src={arrowIconPrev} alt='이전' />
+    <>
+      <Wrap>
+        <Controller
+          name={name}
+          control={control}
+          rules={{ required: required
+          }}
+          render={({ field: { value, onChange }}) => (
+          <DatePicker
+            readOnly={readOnly}
+            ref={ref}
+            locale={ko}
+            minDate={minDate}
+            maxDate={maxDate}
+            dateFormat="yyyy-MM-dd"
+            shouldCloseOnSelect={true}
+            useWeekdaysShort={false}
+            selected={value}
+            startDate={startDate}
+            endDate={endDate}
+            onChange={(data) => onChange(data)}
+            onFocus={onFocus}
+            placeholderText={placeholder}
+            withPortal
+            showIcon
+            icon={<CalenderInput />}
+            renderCustomHeader={({
+              date,
+              prevMonthButtonDisabled,
+              nextMonthButtonDisabled,
+              decreaseMonth,
+              increaseMonth,
+            }) => (
+              <>
+                <ButtonContainer>
+                  <h2>{title}</h2>
+                  <div className="btn_ctrl btn_ctrl-cancel" onClick={() => {ref.current?.setOpen(false)}} />
+                </ButtonContainer>
+              <div className='month-wrap'>
+                <div
+                  className="btn_month btn_month-prev"
+                  onClick={decreaseMonth}
+                  disabled={prevMonthButtonDisabled}
+                >
+                  <img src={arrowIconPrev} alt='이전' />
+                </div>
+                <div className="month-day">
+                  {getYear(date)}년 {months[getMonth(date)]}
+                </div>
+                <div
+                  className="btn_month btn_month-next"
+                  onClick={increaseMonth}
+                  disabled={nextMonthButtonDisabled}
+                >
+                  <img src={arrowIconNext} alt='다음' />
+                </div>
               </div>
-              <div className="month-day">
-                {getYear(date)}년 {months[getMonth(date)]}
-              </div>
-              <div
-                className="btn_month btn_month-next"
-                onClick={increaseMonth}
-                disabled={nextMonthButtonDisabled}
-              >
-                <img src={arrowIconNext} alt='다음' />
-              </div>
-            </div>
-            </>
-          )}
-        >
-        </DatePicker>
-      )}
-    />
-    </Wrap>
+              </>
+            )}
+          >
+          </DatePicker>
+          
+        )}
+      />
+      </Wrap>
+    </>
   );
 };
   

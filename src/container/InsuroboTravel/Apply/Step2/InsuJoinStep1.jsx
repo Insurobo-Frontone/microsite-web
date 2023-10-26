@@ -78,9 +78,8 @@ const InsuJoinStep1 = ({ type }) => {
               /> 
             </Input>
             <span>@</span>
-            <Input twoInput>
+            <Input twoInput type='select'>
               <SelectInput
-                type='text'
                 name='emailRep2'
                 placeholder='선택'
                 required={true}
