@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import TabMenu from "./TabMenu";
 import local from '../../../assets/img/insuroboTravel/Apply_local_trip.png';
 import over from '../../../assets/img/insuroboTravel/overseas_trip.png';
-
 const ApplyHeader = ({ type }) => {
   return (
     <>
@@ -33,6 +32,11 @@ const Header = styled.div`
   border-bottom: 1px solid #F0F0F0;
   height: 183px;
   padding-right: 80px;
+
+  ${(props) => props.theme.window.mobile} {
+    height: 54px;
+    background-color: #2EA5FF;
+  }
 `;
 
 const TitleWrap = styled.div`

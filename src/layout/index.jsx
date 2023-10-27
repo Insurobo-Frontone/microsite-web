@@ -13,13 +13,13 @@ const Wrap = styled.div`
 `;
 
 
-const Layout = ({children}) => {
+const Layout = ({children, windStormHide}) => {
   return (
     <>
       <ScrollToTop />
       <PageScrollToTop />
       <Wrap>
-        <Header/>
+        <Header windStormHide={windStormHide}/>
         <Outlet />
           {children}
         <Footer />

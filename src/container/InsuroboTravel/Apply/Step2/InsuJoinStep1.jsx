@@ -40,7 +40,7 @@ const InsuJoinStep1 = ({ type }) => {
           </Input>
         </InputGroup>
         <InputGroup className="second-input-wrap">
-          <Input label='주민번호' bracket='외국인번호' twoInput>
+          <Input label='주민번호' bracket='외국인번호' twoInput disabled>
             <BasicInput
               type='text'
               name='birthRep'

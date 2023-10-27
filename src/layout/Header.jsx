@@ -129,6 +129,11 @@ const Menu = styled.div`
       display: none;
     }
     
+    ${props => props.windStormHide && css`
+      .windstorm-btn {
+        display: none;
+      }
+    `}
     ${props => props.isOpen && css`
       position: fixed;
       height: 100%;
@@ -246,7 +251,7 @@ const ListIcon = styled.div`
   }
 `;
 
-function Header() {
+function Header({ windStormHide }) {
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [myPageOpne, setMyPageOpen] = useState(false);
@@ -293,7 +298,7 @@ function Header() {
           <ToggleBtn onClick={handleClick}>
             <img src={isOpen ? closeToggle : openToggle} alt={isOpen ? '닫기' : '열기'} />
           </ToggleBtn>
-          <Menu isOpen={isOpen}>
+          <Menu isOpen={isOpen} windStormHide={windStormHide}>
             <div>
               <ul className='lnb'>
                 <li>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import local from '../../assets/img/insuroboTravel/local_trip.png';
 import over from '../../assets/img/insuroboTravel/overseas_trip.png';
+import messageTail from '../../assets/img/insuroboTravel/messageBoxTail.png';
 
 const SelectType = () => {
   const data = [
@@ -17,7 +18,7 @@ const SelectType = () => {
     {
       idx: '2',
       title: '해외 여행자 보험',
-      text: '태풍/지진 등 천재지변도 보상!',
+      text: '서비스 준비중',
       img: over,
       link: '/insuroboTravel/apply?step=1',
       type: 'over'
@@ -27,7 +28,11 @@ const SelectType = () => {
   const navigate = useNavigate();
 
   return (
+    
     <SelectTypeWrap>
+      <MessageBox>
+        간단한 보험료 조회,&nbsp;<span>걱정없이 떠나세요!</span>
+      </MessageBox>
       {data.map((type) => {
         return (
           <SelectCard key={type.idx} onClick={() => navigate(type.link, {
@@ -48,9 +53,7 @@ const SelectType = () => {
     </SelectTypeWrap>
   );
 }
-
 export default SelectType;
-
 
 const SelectTypeWrap = styled.div`
   display: flex;
@@ -59,15 +62,63 @@ const SelectTypeWrap = styled.div`
   background-color: #FFFFFF;
   border-radius: 15px;
   margin-bottom: 20px;
-  > div:first-child > img {
-    bottom: 30px;
-    right: 10px;
-  }
-  > div:last-child > img {
-    top: 0;
-    right: 14px;
+  position: relative;
+
+  ${(props) => props.theme.window.mobile} {
+    flex-direction: column;
+    padding: 0;
+    background-color: transparent;
+    margin-bottom: 40px;
   }
 `;
+const MessageBox = styled.p`
+  background-color: #2EA5FF;
+  border-radius: 15px;
+  color: #FFFFFF;
+  width: 446px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -129px;
+  right: 31px;
+  font-size: 24px;
+  z-index: 1;
+  > span {
+    color: #FFFFFF;
+    font-weight: 300;
+  }
+
+  ::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    width: 36px;
+    height: 38px;
+    background-image: url(${messageTail});
+    bottom: -30px;
+    left: 371px;
+    z-index: 0;
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    height: 50.91px;
+    top: -74px;
+    right: 0;
+    font-size: 16px;
+   
+    ::after {
+      width: 25.19px;
+      height: 26.82px;
+      background-size: contain;
+      bottom: -20px;
+      left: 85%;
+    }
+  }
+`;
+
 
 const SelectCard = styled.div`
   display: flex;
@@ -90,6 +141,8 @@ const SelectCard = styled.div`
   }
   > img {
     position: absolute;
+    right: 14px;
+    top: 0;
   }
   :hover {
     background-color: #2EA5FF;
@@ -99,6 +152,35 @@ const SelectCard = styled.div`
       }
 
     } 
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    height: 86px;
+    box-shadow: none;
+    padding: 20px 16px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    :last-child {
+      margin-bottom: 0;
+    }
+    > div {
+      > h2 {
+        font-size: 18px;
+      }
+      > p {
+        font-size: 12px;
+      }
+    }
+    > img {
+      width: 137px;
+      right: -10px;
+      top: -19px;
+    }
+    > img:first-child {
+      right: 10px;
+    }
+    
   }
 `;
 

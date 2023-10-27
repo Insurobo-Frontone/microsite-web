@@ -8,11 +8,13 @@ import SelectInput from "../../../Input/SelectInput";
 import Button from "../../Button";
 import { useState } from "react";
 import Popup from "../../Popup";
+import { addMonths } from "date-fns";
 
 const InsuInfo = ({ onClickCalc }) => {
   const { setValue, watch, setError, formState: { errors } } = useFormContext();
   const [readOnly, setReadOnly] = useState(true);
   const [close, setClose] = useState(true);
+
 
   const endDataState = () => {
     if (watch('localStart') === undefined) {
@@ -59,6 +61,7 @@ const InsuInfo = ({ onClickCalc }) => {
             placeholder='종료일'
             title='여행종료일'
             minDate={watch('localStart')}
+            maxDate={addMonths(watch('localStart'), 1) - 1}
             startDate={watch('localStart')}
             endDate={watch('localEnd') !== '' && 
               watch('localStart') > watch('localEnd') && 

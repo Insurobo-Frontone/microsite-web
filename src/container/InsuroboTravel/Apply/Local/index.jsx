@@ -14,6 +14,7 @@ import PolicyButton from "../../Input/PolicyButton";
 import Button from "../Button";
 import MyPage from "../Step3/MyPage";
 import Qna from "../Step4/Qna";
+import Popup from "../Popup";
 
 const Local= ({ type }) => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const Local= ({ type }) => {
 
   const { state, actions } = useContext(TravelPageContext);
   const { watch, formState: { isValid, isDirty } } = useFormContext();
+  const [close, setClose] = useState(true);
   const [policyOpen, setPolicyOpen] = useState(false);
   const [policyId, setPolicyId] = useState(1);
 
@@ -138,7 +140,7 @@ const Local= ({ type }) => {
             <NoticeWrap>
               <div>
                 <ul>
-                  <li><span>기왕증[보기]</span>&nbsp;및 현장작업 중 발생된 사고는 보상되지 않습니다.</li>
+                  <li><span onClick={() => setClose(false)}>기왕증[보기]</span>&nbsp;및 현장작업 중 발생된 사고는 보상되지 않습니다.</li>
                   <li>외국인은 가입대상이 아닙니다.</li>
                 </ul>
                 <CheckInput
@@ -155,30 +157,40 @@ const Local= ({ type }) => {
                 />
               </div>
             </NoticeWrap>
-            <PolicyWrap>
-              <ul>
-                {privacy.map((dt) => (
-                  <li key={dt.id}>
-                    <PolicyButton
-                      title={dt.title}
-                      onClick={() => setPolicyId(dt.id)}
-                      active={dt.id === policyId}
+            {policyOpen && (
+              <PolicyWrap>
+                <ul>
+                  {privacy.map((dt) => (
+                    <li key={dt.id}>
+                      <PolicyButton
+                        title={dt.title}
+                        onClick={() => setPolicyId(dt.id)}
+                        active={dt.id === policyId}
+                      />
+                    </li>
+                  ))}
+                  <li>
+                    <Button 
+                      type='terms'
+                      title='보험약관'
                     />
                   </li>
-                ))}
-                <li>
-                  <Button 
-                    type='terms'
-                    title='보험약관'
-                  />
-                </li>
-              </ul>
-              <div dangerouslySetInnerHTML={{
-                  __html: privacy.find((cur) => cur.id === policyId).textData
-                }} 
-              />
-            </PolicyWrap>
+                </ul>
+                <div dangerouslySetInnerHTML={{
+                    __html: privacy.find((cur) => cur.id === policyId).textData
+                  }} 
+                />
+              </PolicyWrap>
+            )}
           </Wrap>
+          {!close && (
+            <Popup type='info' close={() => setClose(true)}>
+              <h2>기왕증</h2>
+              <div>
+                과거의 질병이나 부상이 완치되지 않아 현재까지도 치료, 관리가 필요한 질병, 상해를 말하며, 충치, 습관성 탈구 등도 이에 해당합니다
+              </div>
+            </Popup>
+          )}
           <ButtonWrap>
             <Button
               title='확인'
@@ -221,6 +233,12 @@ const Wrap = styled.div`
   ${props => props.info && css`
     margin-bottom: 50px;
   `}
+
+  ${(props) => props.theme.window.mobile} {
+    box-shadow: none;
+    border-radius: 0;
+    width: 100%;
+  }
 `;
 
 const ReqContent = styled.div`

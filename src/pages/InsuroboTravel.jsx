@@ -17,7 +17,13 @@ const Wrap = styled.div`
     padding: 60px 0 70px;
   `}
   ${(props) => props.theme.window.mobile} {
-    
+    padding: 128px 0 24px;
+    background-size: 984px;
+    background-position: -80px 0;
+
+    ${props => props.apply && css`
+      padding-top: 0;
+    `}
   }
 `;
 
@@ -27,12 +33,12 @@ const InsuroboTravel = ({ apply }) => {
   useEffect(() => {
     console.log(pageState)
     window.scrollTo(0, 0);
-  }, [location.search]);
+  }, [location.search, pageState]);
 
   return (
-    <Layout>
+    <Layout windStormHide>
       <Wrap apply={apply}>
-        <ContentInner>
+        <ContentInner apply={apply}>
           {location.pathname === '/insuroboTravel' ? (
             <SelectType />
             ) : (

@@ -25,7 +25,6 @@ const CheckInput = ({ name, defaultChecked, id, }) => {
 export default CheckInput;
 
 const CheckBoxWrap = styled.div`
-display: flex;
   > label {
     display: flex;
     align-items: center;

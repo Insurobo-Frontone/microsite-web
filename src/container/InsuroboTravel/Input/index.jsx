@@ -1,13 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const Input = ({ children, label, bracket, twoInput, type, onClick }) => {
+const Input = ({ children, label, bracket, twoInput, type, onClick, disabled }) => {
   return (
     <>
       {twoInput ? (
         <>
         {label && <Label>{label}{bracket && <span>{`(${bracket})`}</span>}</Label>}
-          <InputBox type={type}>
+          <InputBox type={type} disabled={disabled}>
             {children}
           </InputBox>
         </>
@@ -37,7 +37,10 @@ const InputBox = styled.div`
   width: 492px;
   padding: 17px 28px;
   position: relative;
-
+  
+  ${props => props.disabled && css`
+    background-color: #FAFAFA;
+  `}
   input {
     color: #333333;
   }

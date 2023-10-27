@@ -1,6 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import theme from "../style/Theme";
+import styled, { css } from "styled-components";
 
 const ContentInnerWrap = styled.div`
   width: 100%;
@@ -15,13 +14,17 @@ const ContentInnerWrap = styled.div`
     max-width: 100%;
     min-width: 0;
     border-bottom: 0;
+
+    ${props => props.apply && css`
+      padding: 0;
+    `}
   } 
 `;
 
 
-const ContentInner = ({ children, borderBottom, borderTop }) => {
+const ContentInner = ({ children, borderBottom, borderTop, apply }) => {
   return (
-    <ContentInnerWrap borderTop={borderTop} borderBottom={borderBottom}>
+    <ContentInnerWrap borderTop={borderTop} borderBottom={borderBottom} apply={apply}>
       {children}
     </ContentInnerWrap>
   )

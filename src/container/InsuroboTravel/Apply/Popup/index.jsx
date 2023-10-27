@@ -6,7 +6,7 @@ const Popup = ({ close, children, type }) => {
     <>
       <Overay>
         <Wrap type={type}>
-          {type === 'alert' || 'info' && (
+          {(type === 'alert' || 'info') && (
             <>
               <div>
                 {children}
