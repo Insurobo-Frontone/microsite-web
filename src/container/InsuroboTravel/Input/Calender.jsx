@@ -127,7 +127,7 @@ const ButtonContainer = styled.div`
 const Wrap = styled.div`
   .react-datepicker__view-calendar-icon {
     padding: 0;
-    height: 23px;
+
     > input {
       padding: 0;
     }
