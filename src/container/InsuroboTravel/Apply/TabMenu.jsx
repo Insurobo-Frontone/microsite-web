@@ -112,6 +112,11 @@ export default TabMenu;
 const TabMenuWrap = styled.ul`
   display: flex;
   align-items: flex-end;
+
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 const MenuButton = styled.li`
@@ -132,8 +137,21 @@ const MenuButton = styled.li`
   `}
   :last-child {
     margin-right: 0px;
-    
-    
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    width: auto;
+    height: 43px;
+    padding: 10px;
+    border: none;
+    background-color: #2EA5FF;
+    color: #FFFFFF;
+    font-size: 16px;
+    margin-right: 2px;
+    ${props => props.active && css`
+      background-color: #FFFFFF;
+      color: #393939;
+    `}
   }
 `;
 

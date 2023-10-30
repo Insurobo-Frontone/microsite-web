@@ -50,33 +50,9 @@ const PlazaWrap = styled.div`
 const TitleWrap = styled.div`
   display: flex;
   justify-content: space-between;
-  > a {
-    width: 184px;
-    height: 46px;
-    padding: 10px 12px;
-    font-size: 18px;
-    font-weight: 500;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #2EA5FF;
-    border-radius: 5px;
-    color: #FFFFFF;
-    > span {
-      display: block;
-      width: 36px;
-      height: 36px;
-      background-image: url(${windstorm});
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-  }
-
+  
   ${(props) => props.theme.window.mobile} {
     display: block;
-    > a {
-      display: none;
-    }
   }
 `;
 
@@ -175,11 +151,10 @@ function Plaza() {
       <PlazaWrap>
         <TitleWrap>
           <TitleSet
-            title='사장님! 어떤 보험에 관심이 있으신가요?'
-            text='다양한 보험을 직접 확인하고 비교해보세요!'
+            title='사장님! 꼭 들어야 하는 보험이 있어요!'
+            text='의무적으로 들어야 하는 보험 확인하세요.'
             label='Go!'
           />
-          <Link to='/freeApply'><span />풍수해보험 가입</Link>
         </TitleWrap>
         <CardList>
           {data.map((dt) => (

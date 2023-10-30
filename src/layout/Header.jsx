@@ -20,7 +20,7 @@ import icon4 from '../assets/icon/menuIcon4.png';
 const Wrap = styled.header`
   width: 100%;
   background-color: #FAFAFA;
-
+  
   ${(props) => props.theme.window.mobile} {
     background-color: #FFFFFF;
   }
@@ -51,6 +51,10 @@ const LogoBox = styled.div`
       width: 101.06px;
       height: 13px;
     }
+
+    ${props => props.apply && css`
+      visibility: hidden;
+    `}
   }
 `;
 
@@ -118,7 +122,7 @@ const Menu = styled.div`
       padding: 0;
       margin-bottom: 10px;
       > li {
-        width: 48.3974358974359%;
+        width: 100%;
         &.theme-reverse {
           background-color: #2EA5FF;
           color: #FFFFFF;
@@ -251,7 +255,7 @@ const ListIcon = styled.div`
   }
 `;
 
-function Header({ windStormHide }) {
+function Header({ windStormHide, apply }) {
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [myPageOpne, setMyPageOpen] = useState(false);
@@ -292,7 +296,7 @@ function Header({ windStormHide }) {
     <Wrap>
       <ContentInner borderBottom>
         <Nav>
-          <LogoBox onClick={() => goToPage('/')}>
+          <LogoBox onClick={() => goToPage('/')} apply={apply}>
             <img src={logo} alt='insurobo' />
           </LogoBox>
           <ToggleBtn onClick={handleClick}>
@@ -320,13 +324,8 @@ function Header({ windStormHide }) {
               </ul>
               <ul className='windstorm-btn'>
                 <li onClick={() => setShowPopup(true)}>
-                  {width > 767.98 ? '풍수해보험 가입확인' : '풍수해보험 확인'}
+                  풍수해보험 가입확인
                 </li>
-                {width < 767.98 && 
-                  <li onClick={() => goToPage('/freeApply')} className='theme-reverse'>
-                    풍수해보험 가입
-                  </li>
-                }
               </ul>
             </div>
             {auth ? (
@@ -370,4 +369,4 @@ function Header({ windStormHide }) {
   )
 }
 
-export default Header
+export default Header;

@@ -142,6 +142,7 @@ const BottomMenu = styled.div`
 const MainMenu = () => {
   const { width } = useWindowSize();
   let navigate = useNavigate();
+
   const goToLink = (link) => {
     switch (link) {
       case 'bizcare' :
@@ -152,6 +153,7 @@ const MainMenu = () => {
         break;
       case 'card' :
         navigate('/insuroboCard');
+        break;
       default: break;
     }
     
@@ -172,7 +174,6 @@ const MainMenu = () => {
         <div onClick={() => goToLink('card')}>
           <h2>제휴서비스</h2>
           {width > 767.98 ? (<p>세금환급과<br />혜택이 있는 카드?</p>) : (<p>세금환급, 카드 혜택</p>)}
-          
         </div>
       </BottomMenu>
     </MainMenuWrap>

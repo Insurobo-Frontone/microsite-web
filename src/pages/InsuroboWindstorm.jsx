@@ -121,8 +121,8 @@ const InsuroboWindstorm = () => {
         termsA6: watch('termsA6') ? 'Y' : 'N',
       }).then((res) => {
         console.log(res.data.results.userID);
-        const userId = res.data.results.userID;
-        window.open(`https://mplatform.hi.co.kr/service.do?m=pipis1000&${userId}`);
+        // const userId = res.data.results.userID;
+        // window.open(`https://mplatform.hi.co.kr/service.do?m=pipis1000&${userId}`);
         navigate('/');
       }).catch((e) => console.log(e));
     }

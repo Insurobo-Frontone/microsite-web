@@ -247,6 +247,11 @@ const ReqContent = styled.div`
   ${props => props.scroll && css`
     padding: 0;
   `}
+
+
+ ${(props) => props.theme.window.mobile} {
+    padding: 58px 24px 24px;
+  }
 `;
 
 const ResContent = styled.div`

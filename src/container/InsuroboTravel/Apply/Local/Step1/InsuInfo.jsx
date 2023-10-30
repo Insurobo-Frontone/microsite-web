@@ -125,6 +125,9 @@ const InputWrap = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  ${(props) => props.theme.window.mobile} {
+    margin-bottom: 10px;
+  }
 `;
 
 const TipText = styled.div`
@@ -149,6 +152,18 @@ const TipText = styled.div`
     color: #176FFF;
     font-size: 16px;
   }
+  ${(props) => props.theme.window.mobile} {
+    > div {
+      font-size: 12px;
+      height: 24px;
+      margin-right: 6px;
+    }
+    > p {
+      font-size: 14px;
+      font-weight: 300;
+    }
+  }
+  
 `;
 
 const ButtonWrap = styled.div`
@@ -156,4 +171,8 @@ const ButtonWrap = styled.div`
   bottom: -34px;
   left: 340px;
   z-index: 9999;
+
+  ${(props) => props.theme.window.mobile} {
+    position: static;
+  }
 `;

@@ -29,6 +29,9 @@ export default Input;
 const InputWrap = styled.div`
   display: flex;
   flex-direction: column;
+  ${(props) => props.theme.window.mobile} {
+    width: 48.3974358974359%;
+  }
 `;
 
 const InputBox = styled.div`
@@ -44,7 +47,6 @@ const InputBox = styled.div`
   input {
     color: #333333;
   }
-
   input, select {
     width: 100%;
     display: block;
@@ -52,27 +54,41 @@ const InputBox = styled.div`
     line-height: 30px;
     font-weight: 400; 
     background-color: transparent;
-    
     ::placeholder {
       color: #989898;
     } 
   }
-
-
   ${props => props.type === 'button' && css`
     width: 100%;
     border: 1.5px solid #CECECE;
   `}
   ${props => props.type === 'select' && css`
     padding: 0;
-
     select {
       padding: 17px 28px;
       height: 66px;
-      
     }
   `}
 
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    height: 43px;
+    padding: 10px;
+    input, select {
+      font-size: 16px;
+      line-height: 23px;
+
+
+    }
+
+    ${props => props.type === 'select' && css`
+      padding: 0;
+      select {
+        padding: 10px;
+        height: auto;
+      }
+   `}
+  }
 `;
 
 const Label = styled.p`
@@ -83,6 +99,10 @@ const Label = styled.p`
   > span {
     color: #989898;
     font-size: 18px;
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    display: none;
   }
 `;
 

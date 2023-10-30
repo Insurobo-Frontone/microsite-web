@@ -18,9 +18,9 @@ const MainTitle = styled.div`
     padding-bottom: 20px;
     > div {
       padding-bottom: 4px;
-      justify-content: space-between;
+      justify-content: flex-start;
       > div {
-        margin-left: 0;
+        margin-left: 10px;
       }
     }
 
@@ -44,17 +44,17 @@ const Arrow = styled.div`
   background-size: contain;
 `;
 
-function TitleSet({ title, text, label, arrow }) {
+function TitleSet({ title, text, label, arrow, bgColor }) {
   return (
     <MainTitle arrow={arrow}>
       {title && (
         <div>
           <Title>{title}</Title>
-          {label && (<Label label={label} />)}
+          {label && (<Label label={label} bgColor={bgColor} />)}
           {arrow && <Arrow />}
         </div>
       )}
-      {text && (<Text color='BLACK2' bold='600'>{text}</Text>)}
+      {text && (<Text color='BLACK2' bold='400'>{text}</Text>)}
     </MainTitle>
   )
 };

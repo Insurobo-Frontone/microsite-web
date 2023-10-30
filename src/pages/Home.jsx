@@ -5,6 +5,7 @@ import Plaza from '../components/MainPage/Plaza';
 import Layout from '../layout/index';
 import MainBanner from '../components/MainPage/MainBanner';
 import RollingBanner from '../components/MainPage/RollingBanner';
+import InsuProducts from '../components/MainPage/InsuProducts';
 
 function Home() {
   return (
@@ -12,6 +13,7 @@ function Home() {
       <Layout>
         <MainBanner />
         <RollingBanner />
+        <InsuProducts />
         <Plaza />
         <InfoPlace />
         <Finance />

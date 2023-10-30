@@ -127,6 +127,7 @@ const ButtonContainer = styled.div`
 const Wrap = styled.div`
   .react-datepicker__view-calendar-icon {
     padding: 0;
+    height: 23px;
     > input {
       padding: 0;
     }
@@ -225,12 +226,23 @@ const Wrap = styled.div`
     }
   }
   
+  ${(props) => props.theme.window.mobile} {
+    .react-datepicker__input-container {
+    .react-datepicker__calendar-icon {
+      top: -2px;
+      right: 0;
+      padding: 0;
+      width: 20px;
+      height: 20px;
+    }
+  }
+  } 
 `;
 
 const CalenderInput = styled.div`
   background-image: url(${inputIcon});
   background-repeat: no-repeat;
   background-position: center;
-
+  background-size: contain;
   
 `;

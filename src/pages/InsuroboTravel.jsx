@@ -36,7 +36,7 @@ const InsuroboTravel = ({ apply }) => {
   }, [location.search, pageState]);
 
   return (
-    <Layout windStormHide>
+    <Layout windStormHide apply={apply}>
       <Wrap apply={apply}>
         <ContentInner apply={apply}>
           {location.pathname === '/insuroboTravel' ? (
