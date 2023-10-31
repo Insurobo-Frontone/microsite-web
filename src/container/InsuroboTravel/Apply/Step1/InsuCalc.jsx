@@ -44,7 +44,7 @@ const InsuCalc = ({ type }) => {
       <InsuInfoLabelWrap>
         {insuInfodata.map((dt) => (
           <li key={dt.id}>
-            {dt.title}&nbsp;&nbsp;<span>{dt.data}</span>
+            {dt.title}&nbsp;<span>{dt.data}</span>
           </li>
         ))}
       </InsuInfoLabelWrap>
@@ -77,10 +77,23 @@ const InsuInfoLabelWrap = styled.ul`
       font-weight: 700;
     }
   }
+
+  ${(props) => props.theme.window.mobile} {
+    padding-top: 25px;
+    border-top: 1px solid #F0F0F0;
+    > li {
+      padding: 6px 10px;
+      font-size: 14px;
+      margin-right: 13px;
+    }
+  }
 `;
 
 const InsuPlanTypelWrap = styled.div`
   padding-top: 50px;
   display: flex;
   justify-content: space-between;
+  ${(props) => props.theme.window.mobile} {
+    padding-top: 24px;
+  }
 `;

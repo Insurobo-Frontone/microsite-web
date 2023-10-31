@@ -19,8 +19,6 @@ const InsuJoin = ({ type }) => {
 
   useEffect(() => {
     if (watch('personType') === '1') {
-
-
     }
   }, []);
 
@@ -66,6 +64,7 @@ const JoinStepNav = styled.div`
   align-items: flex-start;
   > ul {
     display: flex;
+    
   }
 `;
 
@@ -85,6 +84,14 @@ const MenuButton = styled.li`
   `}
   :last-child {
     margin-right: 0px;
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    margin-right: 8px;
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+    line-height: 1;
   }
 `;
 

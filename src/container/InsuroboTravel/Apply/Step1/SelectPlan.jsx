@@ -2,6 +2,7 @@ import React,{ useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
 import checkedIcon from '../../../../assets/icon/planCheckedIcon.png';
+import mbCheckedIcon from '../../../../assets/icon/travelMobileCheckIcon.png';
 
 const SelectPlan = () => {
   const { control, setValue } = useFormContext();
@@ -72,6 +73,12 @@ const ButtonWrap = styled.div`
     position: absolute;
     left: -1000%;
   }
+
+  ${(props) => props.theme.window.mobile} {
+    width: 48.3974358974359%;
+    height: 73px;
+    padding: 13px 14px 13px 16px;
+  }
 `;
 
 const Label = styled.label`
@@ -100,6 +107,20 @@ const Label = styled.label`
       }
     }
   `}
+
+  ${(props) => props.theme.window.mobile} {
+    
+    > p {
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 2px;
+      > span {
+        margin-left: 0;
+        font-size: 18px;
+      }
+    }
+  }
 `;
 
 
@@ -122,6 +143,15 @@ const Icon = styled.div`
       background-position: center;
     }
   `}
+
+  ${(props) => props.theme.window.mobile} {
+    width: 24px;
+    height: 24px;
+    border-width: 1px;
+    ::after {
+      background-image: url(${mbCheckedIcon})
+    }
+  }
 `;
 
 

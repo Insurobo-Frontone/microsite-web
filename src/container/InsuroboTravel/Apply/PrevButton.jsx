@@ -31,4 +31,15 @@ const Button = styled.div`
     margin-right: 4px;
     
   }
+
+
+  ${(props) => props.theme.window.mobile} {
+    font-size: 16px;
+    line-height: 24px;
+    > span {
+      width: 24px;
+      height: 24px;
+      background-size: 9px;
+    }
+  }
 `;

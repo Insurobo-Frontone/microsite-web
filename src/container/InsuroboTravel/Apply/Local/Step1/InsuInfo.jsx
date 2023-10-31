@@ -9,12 +9,13 @@ import Button from "../../Button";
 import { useState } from "react";
 import Popup from "../../Popup";
 import { addMonths } from "date-fns";
+import useWindowSize from "../../../../../hooks/useWindowSize";
 
 const InsuInfo = ({ onClickCalc }) => {
   const { setValue, watch, setError, formState: { errors } } = useFormContext();
   const [readOnly, setReadOnly] = useState(true);
   const [close, setClose] = useState(true);
-
+  const { width } = useWindowSize();
 
   const endDataState = () => {
     if (watch('localStart') === undefined) {
@@ -46,6 +47,7 @@ const InsuInfo = ({ onClickCalc }) => {
 
   return (
     <>
+      {width < 767.98 && (<MbText>*여행출발 1시간 전까지 가입가능!</MbText>)}
       <InputWrap>
         <Input label='여행시작일'>
           <Calendar
@@ -120,6 +122,12 @@ const InsuInfo = ({ onClickCalc }) => {
 
 export default InsuInfo;
 
+const MbText = styled.p`
+  padding-bottom: 14px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #393939;
+`;
 
 const InputWrap = styled.div`
   display: flex;
@@ -127,6 +135,9 @@ const InputWrap = styled.div`
   margin-bottom: 20px;
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 10px;
+    > div {
+      width: 48.3974358974359%;
+    }
   }
 `;
 
@@ -153,6 +164,7 @@ const TipText = styled.div`
     font-size: 16px;
   }
   ${(props) => props.theme.window.mobile} {
+    padding-bottom: 24px;
     > div {
       font-size: 12px;
       height: 24px;

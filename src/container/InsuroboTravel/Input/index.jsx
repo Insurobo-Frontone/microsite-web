@@ -30,7 +30,7 @@ const InputWrap = styled.div`
   display: flex;
   flex-direction: column;
   ${(props) => props.theme.window.mobile} {
-    width: 48.3974358974359%;
+    
   }
 `;
 
@@ -74,10 +74,10 @@ const InputBox = styled.div`
     width: 100%;
     height: 43px;
     padding: 10px;
+    border-radius: 5px;
     input, select {
       font-size: 16px;
-      line-height: 23px;
-
+      line-height: 1.45;
 
     }
 

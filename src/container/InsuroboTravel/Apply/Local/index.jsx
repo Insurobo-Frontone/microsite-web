@@ -238,6 +238,8 @@ const Wrap = styled.div`
     box-shadow: none;
     border-radius: 0;
     width: 100%;
+    margin-bottom: 0;
+    background-color: transparent;
   }
 `;
 
@@ -248,18 +250,21 @@ const ReqContent = styled.div`
     padding: 0;
   `}
 
-
  ${(props) => props.theme.window.mobile} {
-    padding: 58px 24px 24px;
+    padding: 24px 24px 20px;
   }
 `;
 
 const ResContent = styled.div`
   padding: 0 80px;
+  ${(props) => props.theme.window.mobile} {
+    padding: 0 24px;
+  }
 `;
 
 const NextStepButton = styled.div`
-  margin-bottom: 20px;
+  margin: 18px 0 20px;
+  padding: 0 24px;
 `;
 
 const NoticeWrap = styled.div`

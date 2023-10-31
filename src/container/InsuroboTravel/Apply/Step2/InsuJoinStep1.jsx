@@ -63,7 +63,7 @@ const InsuJoinStep1 = ({ type }) => {
             <BasicInput
               type='phone'
               name='mobileRep'
-              placeholder='‘-’없이 입력'
+              placeholder='휴대폰 번호 ‘-’없이 입력'
               required={true}
             /> 
           </Input>
@@ -73,7 +73,7 @@ const InsuJoinStep1 = ({ type }) => {
               <BasicInput
                 type='text'
                 name='emailRep'
-                placeholder='‘-’없이 입력'
+                placeholder='이메일'
                 required={true}
               /> 
             </Input>
@@ -108,7 +108,7 @@ const InsuJoinStep1 = ({ type }) => {
           )}
         </div>
         <Button
-          title='확인'
+          title='신청'
           disabled={!isDirty || !isValid}
           onClick={() => 
             navigate(`/insuroboTravel/apply?step=2&join=2`, {
@@ -154,18 +154,28 @@ const LeftContent = styled.div`
   > div > div:last-child {
     margin-bottom: 0;
   }
-  
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    padding: 16px 0 0;
+    > div {
+      padding-bottom: 24px;
+    }
+  }
 `;
 
 
 
 const RightContent = styled.div`
   position: absolute;
-    right: 0;
-    top: 330px;
+  right: 0;
+  top: 330px;
   ${props => props.type === 'local' && css`
     top: 406px;
   `}
+
+  ${(props) => props.theme.window.mobile} {
+    display: none;
+  }
 `;
 
 const InputGroup = styled.div`
@@ -187,6 +197,19 @@ const InputGroup = styled.div`
   }
   &.second-input-wrap.child {
     justify-content: flex-end;
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    margin-bottom: 10px;
+    &.second-input-wrap {
+      > div {
+        width: 146px;
+      }
+      > span {
+        font-size: 16px;
+        font-weight: 400;
+      }
+    }
   }
 `;
 

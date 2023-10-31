@@ -27,7 +27,6 @@ const BasicButton = styled.button`
   border-radius: 5px;
   ${props => props.disabled && css`
     background-color: #B4B4B4;
-    
   `}
 
   ${props => props.type === 'terms' && css`
@@ -37,5 +36,10 @@ const BasicButton = styled.button`
     color: #2EA5FF;
     font-weight: 400;
   `}
-  
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    height: 46px;
+    font-size: 18px;
+    font-weight: 200;
+  }
 `;

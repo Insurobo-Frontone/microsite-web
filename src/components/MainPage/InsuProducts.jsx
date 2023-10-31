@@ -20,13 +20,15 @@ import icon12 from '../../assets/icon/insuProduct12.png';
 import icon13 from '../../assets/icon/insuProduct13.png';
 import icon14 from '../../assets/icon/insuProduct14.png';
 import icon15 from '../../assets/icon/insuProduct15.png';
+import Popup from '../../container/InsuroboTravel/Apply/Popup';
 
 const data = [
   {
     id: 1,
     title: '풍수해보험',
     mobileTitle: '풍수해보험',
-    link: '#',
+    link: '/freeApply',
+    mobile: '/freeApply',
     img: icon1,
     tag: '사업장보험'
   },
@@ -34,7 +36,8 @@ const data = [
     id: 2,
     title: '여행자보험',
     mobileTitle: '여행자보험',
-    link: '#',
+    link: '',
+    mobile: '',
     img:  icon2,
     class: 'must',
     tag: '개인보험'
@@ -43,7 +46,7 @@ const data = [
     id: 3,
     title: '다중이용시설보험',
     mobileTitle: '다중이용시설',
-    link: 'https://mplatform.hi.co.kr/service.do?m=pipin1000&jehuCd=hyundaipay',
+    link: 'https://platform.hi.co.kr/service.do?m=pipin1000&jehuCd=hyundaipay',
     mobile: 'https://mplatform.hi.co.kr/service.do?m=pipin1000&jehuCd=hyundaipay',
     img: icon3,
     tag: '사업장보험'
@@ -61,8 +64,8 @@ const data = [
     id: 5,
     title: '라이더보험',
     mobileTitle: '라이더보험',
-    link: '준비중',
-    mobile: '준비중',
+    link: '',
+    mobile: '',
     img: icon5,
     tag: '개인보험'
   },
@@ -71,7 +74,7 @@ const data = [
     title: '가스사고보험',
     mobileTitle: '가스사고보험',
     link: 'https://platform.hi.co.kr/service.do?m=pipig1000&jehuCd=insurobo',
-    mobile: 'https://platform.hi.co.kr/service.do?m=pipig1000&jehuCd=insurobo',
+    mobile: 'https://mplatform.hi.co.kr/service.do?m=pipig1000&jehuCd=insurobo',
     img: icon6,
     tag: '사업장보험'
   },
@@ -88,8 +91,8 @@ const data = [
     id: 8,
     title: '원데이 레저보험',
     mobileTitle: '원데이 레저',
-    link: '준비중',
-    mobile: '준비중',
+    link: '',
+    mobile: '',
     img: icon8,
     tag: '개인보험'
   },
@@ -97,8 +100,8 @@ const data = [
     id: 9,
     title: '주택화재보험',
     mobileTitle: '주택화재보험',
-    link: '준비중',
-    mobile: '준비중',
+    link: '',
+    mobile: '',
     img: icon9,
     tag: '개인보험'
   },
@@ -106,8 +109,8 @@ const data = [
     id: 10,
     title: '원데이 스포츠보험',
     mobileTitle: '원데이 스포츠',
-    link: '준비중',
-    mobile: '준비중',
+    link: '',
+    mobile: '',
     img: icon10,
     tag: '개인보험'
   },
@@ -142,8 +145,8 @@ const data = [
     id: 14,
     title: '학원배상책임보험',
     mobileTitle: '학원배상책임',
-    link: 'https://direct.kdblife.co.kr/p/p.do?ev=0718805',
-    mobile: 'https://direct.kdblife.co.kr/p/p.do?ev=0718806',
+    link: 'https://platform.hi.co.kr/service.do?m=pipih1000&jehuCd=insurobo',
+    mobile: 'https://mplatform.hi.co.kr/service.do?m=pipih1000&jehuCd=insurobo',
     img: icon14,
     tag: '사업장보험'
   },
@@ -151,8 +154,8 @@ const data = [
     id: 15,
     title: '재난배상책임보험',
     mobileTitle: '재난배상책임',
-    link: 'https://direct.kdblife.co.kr/p/p.do?ev=0718805',
-    mobile: 'https://direct.kdblife.co.kr/p/p.do?ev=0718806',
+    link: 'https://platform.hi.co.kr/service.do?m=pipim1000&jehuCd=hyundaipay',
+    mobile: 'https://mplatform.hi.co.kr/service.do?m=pipim1000&jehuCd=hyundaipay',
     img: icon15,
     tag: '사업장보험'
   },
@@ -269,61 +272,69 @@ function InsuProducts() {
   const { width } = useWindowSize();
   const navigate = useNavigate();
   const onClickLink = (id, link) => {
-    switch(id) {
-      case 1 || 2 :
-        navigate(link)
-        break;
-      case 5 || 8 || 9 || 10 :
-        setOpen(true);
-        break;
-    default: window.open(link);
+    if (link) {
+      switch(id) {
+        case 1 :
+          navigate(link);
+          break;
+      default: window.open(link);
+      }
+    } else {
+      setOpen(true);
     }
-    window.open(link);
+
+    
   }
   return (
-    <ContentInner>
-      <ProductsWrap>
-        <TitleWrap>
-          <TitleSet
-            title='어떤 보험에 관심이 있으신가요?'
-            text='다양한 보험을 직접 확인하고 비교해보세요!'
-            label='New!'
-            bgColor='RED'
-          />
-        </TitleWrap>
-        <TabBar>
-          <TabMenu open={tagName === '사업장보험' ? true : false} onClick={() => setTagName('사업장보험')}>사업장보험</TabMenu>
-          <TabMenu open={tagName === '개인보험' ? true : false} onClick={() => setTagName('개인보험')}>개인보험</TabMenu>
-        </TabBar>
-        <ProductsList>
-          {width > 767.98 ? (
-            <>
-              {data.map((dt) => (
-                <li onClick={() => onClickLink(dt.id, dt.link)}>
-                  <div>
-                    <img src={dt.img} alt={dt.title} />
-                  </div>
-                  <p>{dt.title}</p>
-                </li>
-              ))}
-            </>
-          ) : (
-            <>
-              {data.filter((item) => item.tag === tagName).map((dt) => (
-                <li onClick={() => onClickLink(dt.id, dt.mobile)}>
-                  <div>
-                    <img src={dt.img} alt={dt.title} />
-                  </div>
-                  <p>{dt.mobileTitle}</p>
-                </li>
-              ))}
-            </>
-          )}
-          
-        </ProductsList>
-      </ProductsWrap>
-    </ContentInner>
-      
+    <>
+      <ContentInner>
+        <ProductsWrap>
+          <TitleWrap>
+            <TitleSet
+              title='어떤 보험에 관심이 있으신가요?'
+              text='다양한 보험을 직접 확인하고 비교해보세요!'
+              label='New!'
+              bgColor='RED'
+            />
+          </TitleWrap>
+          <TabBar>
+            <TabMenu open={tagName === '사업장보험' ? true : false} onClick={() => setTagName('사업장보험')}>사업장보험</TabMenu>
+            <TabMenu open={tagName === '개인보험' ? true : false} onClick={() => setTagName('개인보험')}>개인보험</TabMenu>
+          </TabBar>
+          <ProductsList>
+            {width > 767.98 ? (
+              <>
+                {data.map((dt) => (
+                  <li onClick={() => onClickLink(dt.id, dt.link)}>
+                    <div>
+                      <img src={dt.img} alt={dt.title} />
+                    </div>
+                    <p>{dt.title}</p>
+                  </li>
+                ))}
+              </>
+            ) : (
+              <>
+                {data.filter((item) => item.tag === tagName).map((dt) => (
+                  <li onClick={() => onClickLink(dt.id, dt.mobile)}>
+                    <div>
+                      <img src={dt.img} alt={dt.title} />
+                    </div>
+                    <p>{dt.mobileTitle}</p>
+                  </li>
+                ))}
+              </>
+            )}
+            
+          </ProductsList>
+        </ProductsWrap>
+      </ContentInner>
+      {open && (
+        <Popup type='alert' close={() => setOpen(false)}>
+          <p>준비중입니다.</p>
+        </Popup>
+      )}  
+    </>
 
   )
 }

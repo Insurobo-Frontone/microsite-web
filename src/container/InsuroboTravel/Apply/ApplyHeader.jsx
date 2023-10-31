@@ -27,7 +27,7 @@ const ApplyHeader = ({ type }) => {
                 </>
               )}
             </h2>
-            <p>{type === 'local' ? '*여행출발 1시간 전까지 가입가능!' : '태풍/지진 등 천재지변도 보상!'}</p>
+            {width > 767.98 && (<p>{type === 'local' ? '여행출발 1시간 전까지 가입가능!' : '태풍/지진 등 천재지변도 보상!'}</p>)}
           </TextBox>
         </TitleWrap>
         <TabMenu type={type} />
@@ -101,13 +101,6 @@ const TextBox = styled.div`
       background-color: #FFFFFF;
       font-size: 18px;
       margin-bottom: 0;
-    }
-    > p {
-      position: absolute;
-      top: 118px;
-      left: calc(-50% - 30px);
-      width: 200px;
-      font-weight: 300;
     }
   }
 `;

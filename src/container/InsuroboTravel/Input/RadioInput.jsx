@@ -95,6 +95,36 @@ const RadioBasic = styled.div`
     }
   `}
 
-  
+  ${(props) => props.theme.window.mobile} {
+    > label {
+      width: 151px;
+      height: 46px;
+      border-width: 1.5px;
+      font-weight: 300;
+      font-size: 18px;
+    }
+    ${props => props.myPage  && css`
+      > label {
+        width: 151px;
+      }
+    `}
+
+    ${props => props.tep && css`
+      > label {
+        width: 100%;
+      }
+    `}
+
+    ${props => props.list  && css`
+      > label {
+        width: 151px;
+      }
+      /* > input:checked + label {
+        color: #2EA5FF;
+        border:1px solid #CECECE;
+        background-color: #FFFFFF;
+      } */
+    `}
+  }
     
 `;

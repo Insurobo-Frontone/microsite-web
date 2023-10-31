@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Popup from "../../Popup";
+import useWindowSize from "../../../../../hooks/useWindowSize";
 
 const TargetPlanResult = () => {
   const [close, setClose] = useState(true);
+  const { width } = useWindowSize();
   const accident = [
     {
       id: 1,
@@ -134,10 +136,16 @@ const TargetPlanResult = () => {
               <li>쇼핑 중 전시된 물품에 피해를 입힌 경우</li>
               <li>
                 실수로 다른 사람에게 골절상을 입혀 고액의 의료비를 부담할 경우<br />
-                그러나 함께 여행하는 친족에 대한 손해배상, 자동차(오토바이 포함)의 사용, 관리로 인한 손해배상 등에 대해서는 보상하지 않습니다.
+                <br />
+                {width > 767.98 && '그러나 함께 여행하는 친족에 대한 손해배상, 자동차(오토바이 포함)의 사용, 관리로 인한 손해배상 등에 대해서는 보상하지 않습니다.'}
               </li>
             </ul>
-
+            {width < 767.98 && (
+              <>
+                그러나 함께 여행하는 친족에 대한 손해배상, 자동차(오토바이 포함)의 사용, 관리로 인한 손해배상 등에 대해서는 보상하지 않습니다.
+              </>
+            )}
+            
           </div>
         </Popup>
       )}
@@ -188,5 +196,31 @@ const Wrap = styled.div`
     }
   }
   
-
+  ${(props) => props.theme.window.mobile} {
+    padding: 20px 0;
+    > div {
+      padding: 20px 0;
+      > h2 {
+        font-size: 16px;
+        font-weight: 700;
+        padding-bottom: 19px;
+      }
+      > ul {
+        > li {
+          margin-bottom: 10px;
+          > h3 {
+            font-size: 14px;
+            font-weight: 400;
+            > span {
+              font-weight: 400;
+            }
+          }
+          > p {
+            font-size: 14px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
 `;

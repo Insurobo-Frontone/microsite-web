@@ -50,6 +50,8 @@ const SelectBase = styled.select`
 	  display: none;
   }
 
-
+  ${(props) => props.theme.window.mobile} {
+    background-position: calc(100% - 10px) center;
+  }
 `;
 

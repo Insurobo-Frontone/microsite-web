@@ -70,6 +70,10 @@ const Wrap = styled.div`
           > li {
             display: flex;
             color: #333333;
+            margin-bottom: 20px;
+            :last-child {
+              margin-bottom: 0;
+            }
             ::before {
               content: counter(number)'.';
               display: block;
@@ -80,8 +84,38 @@ const Wrap = styled.div`
         }
       }
     }
-    
   `}
+
+  ${(props) => props.theme.window.mobile} {
+    width: 312px;
+    text-align: center;
+    > div {
+      padding: 44px 0;
+      > p {
+        font-size: 16px;
+      }
+    }
+
+    ${props => props.type === 'info' && css`
+      > div {
+        padding: 20px;
+        > h2 {
+          font-size: 16px;
+          text-align: start;
+        }
+        > div {
+          padding-top: 10px;
+          font-size: 14px;
+          text-align: start;
+          > ul {
+            > li {
+              margin-bottom: 10px;
+            }
+          }
+        }
+      }
+    `}
+  }
 `;
 
 const CheckButton = styled.div`
@@ -92,6 +126,9 @@ const CheckButton = styled.div`
   align-items: center;
   color: #FFFFFF;
   font-size: 20px;
+  ${(props) => props.theme.window.mobile} {
+    font-size: 16px;
+  }
 `;
 
 

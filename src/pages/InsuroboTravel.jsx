@@ -23,6 +23,7 @@ const Wrap = styled.div`
 
     ${props => props.apply && css`
       padding-top: 0;
+      background-image: none;
     `}
   }
 `;

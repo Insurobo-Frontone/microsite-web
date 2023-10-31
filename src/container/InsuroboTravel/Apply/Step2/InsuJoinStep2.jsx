@@ -34,39 +34,44 @@ const InsuJoinStep2 = () => {
     <>
       <CheckList>
         <li>
-          <p>1.최근 3년 내에 
-            <span onClick={() => {
-              setId(1)
-              setClose(false)
-            }}
-            >특정질병[보기]</span>으로 입원 또는 수술을 받은 적이 있나요?
-          </p>
-          <RadioInput
-            list
-            name={`checkGroup.1.list`}
-            data={radioData}
-            defaultValue={'no'}
-          />
+          
+          <p>최근 3년 내에&nbsp; 
+              <span onClick={() => {
+                setId(1)
+                setClose(false)
+              }}
+              >특정질병[보기]</span>으로 입원 또는 수술을 받은 적이 있나요?
+            </p>
+            <RadioInput
+              list
+              name={`checkGroup.1.list`}
+              data={radioData}
+              defaultValue={'no'}
+            />
+      
         </li>
         <li>
-          <p>2.여행기간 중 직업 또는 동호회 활동 목적으로 
-            <span onClick={() => {
-              setId(2)
-              setClose(false)
-            }}
-            >
-              위험한 레포츠[보기]</span>를 하시나요?
-          </p>
-          <RadioInput
-            list
-            name={`checkGroup.2.list`}
-            data={radioData}
-            defaultValue={'no'}
-          />
+      
+            <p>여행기간 중 직업 또는 동호회 활동 목적으로&nbsp; 
+              <span onClick={() => {
+                setId(2)
+                setClose(false)
+              }}
+              >위험한 레포츠[보기]</span>를 하시나요?
+            </p>
+            <RadioInput
+              list
+              name={`checkGroup.2.list`}
+              data={radioData}
+              defaultValue={'no'}
+            />
+     
         </li>
         <li>
-          <p>3.여행목적</p>
-          <SelectButton name={`checkGroup.3.list`} />
+       
+            <p>여행목적</p>
+            <SelectButton name={`checkGroup.3.list`} />
+
         </li>
       </CheckList>
     {!close && (
@@ -97,22 +102,53 @@ export default InsuJoinStep2;
 
 
 const CheckList = styled.ul`
+  counter-reset: number 0;
   > li {
     width: 100%;
     margin-bottom: 40px;
     :last-child {
       margin-bottom: 0;
     }
-    > p {
-      margin-bottom: 20px;
-      font-size: 20px;
-      > span {
-        color: #2EA5FF;
-        border-bottom: 1px solid #2EA5FF;
-        cursor: pointer;
+    
+    
+      > p {
+        margin-bottom: 20px;
+        font-size: 20px;
+        color: #393939;
+        padding-left: 25px;
+        position: relative;
+        ::before {
+          content: counter(number)'.';
+          display: block;
+          position: absolute;
+          left: 0;
+          counter-increment: number 1;
+          font-size: 20px;
+        }
+        > span {
+          color: #2EA5FF;
+          border-bottom: 1px solid #2EA5FF;
+          cursor: pointer;
+        }
+      }
+    
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    padding-top: 27px;
+    > li {
+      margin-bottom: 24px;
+      > div {
+        
+        > p {
+          margin-bottom: 24px;
+          font-size: 16px;
+        }
       }
     }
   }
+
+
 `;
 
 
