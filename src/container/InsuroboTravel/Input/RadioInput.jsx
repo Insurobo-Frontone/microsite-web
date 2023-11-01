@@ -2,40 +2,35 @@ import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
 
-const RadioInput = ({ name, data, defaultValue, onClick, tep, list, myPage }) => {
-  const { control, setValue } = useFormContext();
-  useEffect(() => {
-    setValue(name, defaultValue);
-  }, []);
+const RadioInput = ({ name, data, list, myPage }) => {
+  const { control } = useFormContext();
 
   return (
       <Controller
         name={name}
         control={control}
-        render={({ field }) => {
+        render={({ field: { value, onChange } }) => {
           return (
-            <RadioBasic {...field} tep={tep} list={list} myPage={myPage}>
-              {data.map((item) => {
-                return (
-                  <>
-                    <input
-                      key={item.id}
-                      type="radio"
-                      id={item.id.toString()}
-                      name={field.name}
-                      value={item.value}
-                      checked={field.value === item.value}
-                      onClick={(e) => {
-                        field.onChange(e.target.value)
-                        onClick()
-                      }}
-                    />
-                    <label htmlFor={item.id.toString()}>{item.title}</label>
-                  </>
-                );
-              }
-            )}
-          </RadioBasic>
+            <>
+              <RadioBasic list={list} myPage={myPage}>
+                {data.map((item) => {
+                  return (
+                    <>
+                      <input
+                        key={item.id}
+                        type="radio"
+                        id={item.id.toString()}
+                        value={item.value}
+                        checked={value === item.value}
+                        onChange={(e) => onChange(e.target.value)}
+                      />
+                      <label htmlFor={item.id.toString()}>{item.title}</label>
+                    </>
+                  );
+                }
+              )}
+            </RadioBasic>
+          </>
         );
       }}
     />
@@ -76,23 +71,15 @@ const RadioBasic = styled.div`
     }
   `}
 
-  ${props => props.tep && css`
-    > label {
-      width: 100%;
-    }
-  `}
-
   ${props => props.list  && css`
     > label {
       width: 492px;
       color: #333333;
       border-color: #CECECE;
-    }
-    > input:checked + label {
-      color: #2EA5FF;
-      border:1px solid #CECECE;
-      background-color: #FFFFFF;
-    }
+      :nth-child(4) {
+        color: #2EA5FF;
+      }
+    } 
   `}
 
   ${(props) => props.theme.window.mobile} {
@@ -109,21 +96,10 @@ const RadioBasic = styled.div`
       }
     `}
 
-    ${props => props.tep && css`
-      > label {
-        width: 100%;
-      }
-    `}
-
     ${props => props.list  && css`
       > label {
-        width: 151px;
+        width: 48.3974358974359%;
       }
-      /* > input:checked + label {
-        color: #2EA5FF;
-        border:1px solid #CECECE;
-        background-color: #FFFFFF;
-      } */
     `}
   }
     

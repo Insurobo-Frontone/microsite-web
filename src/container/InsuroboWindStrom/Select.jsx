@@ -47,7 +47,10 @@ const SelectContainer = styled.div`
 `;
 
 const SelectBase = styled.select`
+  -o-appearance: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   width: 100%;
   height: 100%;
   padding: 0px 10px;

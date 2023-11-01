@@ -36,10 +36,15 @@ const BasicButton = styled.button`
     color: #2EA5FF;
     font-weight: 400;
   `}
+  
   ${(props) => props.theme.window.mobile} {
     width: 100%;
     height: 46px;
     font-size: 18px;
     font-weight: 200;
+
+    ${props => props.type === 'terms' && css`
+      font-weight: 300;
+    `}
   }
 `;

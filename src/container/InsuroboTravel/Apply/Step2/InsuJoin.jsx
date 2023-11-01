@@ -45,7 +45,7 @@ const InsuJoin = ({ type }) => {
         pageState.join === '2' ? (
           <InsuJoinStep2 type={type} />
         ) : (
-          // 결제
+          // 결제 
           pageState.join === '3' && (
             <InsuJoinStep3 type={type} />
           )

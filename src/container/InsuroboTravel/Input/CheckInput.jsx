@@ -1,21 +1,25 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import checkedIcon from '../../../assets/icon/noticeCheckedIcon.png';
+import mbCheckedIcon from '../../../assets/icon/travelMobileCheckIcon.png';
 
-const CheckInput = ({ name, defaultChecked, id, }) => {
-  const { setValue } = useFormContext();
-  useEffect(() => {
-    setValue(name, defaultChecked);
-  }, []);
+const CheckInput = ({ name, id }) => {
+  const { control } = useFormContext();
 
   return (
     <CheckBoxWrap>
-      <input
-        id={id}
-        type="checkbox"
+      <Controller
         name={name}
-        defaultChecked={defaultChecked}
+        control={control}
+        render={({ field: { value, onChange } }) => (
+          <input
+            id={id}
+            type="checkbox"
+            onChange={(e) => onChange(e.target.checked)}
+            checked={value}
+          />
+        )}
       />
       <label htmlFor={id} />
     </CheckBoxWrap>
@@ -36,7 +40,7 @@ const CheckBoxWrap = styled.div`
   }
   > input {
     position: absolute;
-    left: -1000%;
+    left: -2000000%;
   }
   > input:checked + label {
     background-color:#5974FF;
@@ -45,7 +49,16 @@ const CheckBoxWrap = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     background-size: 22px;
-
   }
-  
+
+  ${(props) => props.theme.window.mobile} {
+    > label {
+      width: 24px;
+      height: 24px;
+    }
+    > input:checked + label {
+      background-image: url(${mbCheckedIcon});
+      background-size: auto;
+    }
+  }
 `;

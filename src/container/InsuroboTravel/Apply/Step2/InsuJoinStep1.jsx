@@ -26,100 +26,98 @@ const InsuJoinStep1 = ({ type }) => {
     <Form>
       {/* 보험가입 -> 신청 */} 
       <LeftContent type={type}>
-        <div style={{
-          borderBottom: watch('personType') === '2'  && '1px solid #F0F0F0'
-        }}>
-        <InputGroup>
-          <Input label={watch('personType') === '1' ? '이름' : '대표 가입자 이름'}>
-            <BasicInput
-              type='text'
-              name={type === 'local' ? 'nameLocalRep' : 'nameOverRep'}
-              placeholder='이름'
-              required={true}
-            /> 
-          </Input>
-        </InputGroup>
-        <InputGroup className="second-input-wrap">
-          <Input label='주민번호' bracket='외국인번호' twoInput disabled>
-            <BasicInput
-              type='text'
-              name='birthRep'
-              disabled
-              required={true}
-            /> 
-          </Input>
-          <span>-</span>
-          <Input twoInput>
-            <BasicInput
-              type='text'
-              name='LastRegRep'
-              placeholder='주민번호 뒷자리'
-              required={true}
-            /> 
-          </Input>
-        </InputGroup>
-        <InputGroup>
-          <Input label='휴대폰번호'>
-            <BasicInput
-              type='phone'
-              name='mobileRep'
-              placeholder='휴대폰 번호 ‘-’없이 입력'
-              required={true}
-            /> 
-          </Input>
-          </InputGroup>
-          <InputGroup className="second-input-wrap">
-            <Input label='이메일' twoInput>
+        <div>
+          <InputGroup>
+            <Input label='이름'>
               <BasicInput
                 type='text'
-                name='emailRep'
-                placeholder='이메일'
+                name={type === 'local' ? 'nameLocalRep' : 'nameOverRep'}
+                placeholder='이름'
                 required={true}
               /> 
             </Input>
-            <span>@</span>
-            <Input twoInput type='select'>
-              <SelectInput
-                name='emailRep2'
-                placeholder='선택'
+          </InputGroup>
+          <InputGroup className="second-input-wrap">
+            <Input label='주민번호' bracket='외국인번호' twoInput disabled>
+              <BasicInput
+                type='text'
+                name='birthRep'
+                disabled
                 required={true}
-                defaultValue=''
-              >
-                {emailTem.map((cur) => {
-                  return (
-                    <option value={cur.value} key={cur.id}>
-                      {cur.value === 'myself' ? '직접입력' : cur.value}
-                    </option>
-                  )
-                })}
-              </SelectInput>
+              /> 
+            </Input>
+            <span>-</span>
+            <Input twoInput>
+              <BasicInput
+                type='text'
+                name='LastRegRep'
+                placeholder='주민번호 뒷자리'
+                required={true}
+              /> 
             </Input>
           </InputGroup>
-          {watch('emailRep2') === 'myself' && (
-            <InputGroup className="second-input-wrap child">
-              <Input twoInput>
+          <InputGroup>
+            <Input label='휴대폰번호'>
+              <BasicInput
+                type='phone'
+                name='mobileRep'
+                placeholder='휴대폰 번호 ‘-’없이 입력'
+                required={true}
+              /> 
+            </Input>
+            </InputGroup>
+            <InputGroup className="second-input-wrap">
+              <Input label='이메일' twoInput>
                 <BasicInput
                   type='text'
-                  name='emailRep2Change'
+                  name='emailRep'
+                  placeholder='이메일'
                   required={true}
                 /> 
               </Input>
+              <span>@</span>
+              <Input twoInput type='select'>
+                <SelectInput
+                  name='emailRep2'
+                  placeholder='선택'
+                  required={true}
+                  defaultValue=''
+                >
+                  {emailTem.map((cur) => {
+                    return (
+                      <option value={cur.value} key={cur.id}>
+                        {cur.value === 'myself' ? '직접입력' : cur.value}
+                      </option>
+                    )
+                  })}
+                </SelectInput>
+              </Input>
             </InputGroup>
-          )}
-        </div>
-        <Button
-          title='신청'
-          disabled={!isDirty || !isValid}
-          onClick={() => 
-            navigate(`/insuroboTravel/apply?step=2&join=2`, {
-              state: {
-                type: type,
-                step: '2',
-                join: '2'
-              }
-            })
-          }
-        /> 
+            {watch('emailRep2') === 'myself' && (
+              <InputGroup className="second-input-wrap child">
+                <Input twoInput>
+                  <BasicInput
+                    type='text'
+                    name='emailRep2Change'
+                    required={true}
+                  /> 
+                </Input>
+              </InputGroup>
+            )}
+          </div>
+          <Button
+            title='신청'
+            disabled={!isDirty || !isValid}
+            onClick={() => 
+              navigate(`/insuroboTravel/apply?step=2&join=2`, {
+                state: {
+                  type: type,
+                  step: '2',
+                  join: '2'
+                }
+              })
+            }
+          /> 
         {/* {watch('personType') === '1' ? (
           <Button
             title='확인'
@@ -203,7 +201,7 @@ const InputGroup = styled.div`
     margin-bottom: 10px;
     &.second-input-wrap {
       > div {
-        width: 146px;
+        width: 46.79487179487179%;
       }
       > span {
         font-size: 16px;

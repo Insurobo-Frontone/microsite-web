@@ -67,4 +67,12 @@ const SelectArrow = styled.div`
   position: absolute;
   right: 28px;
   top: 21px;
+
+  ${(props) => props.theme.window.mobile} {
+    width: 20px;
+    height: 20px;
+    right: 10px;
+    top: 12px;
+    background-size: 70%;
+  }
 `;

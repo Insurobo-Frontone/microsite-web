@@ -78,6 +78,9 @@ const Wrap = styled.div`
     padding-bottom: 0;
   }
 
+  ${(props) => props.theme.window.mobile} {
+    padding-top: 24px;
+  }
 `;
 
 const Board = styled.div`

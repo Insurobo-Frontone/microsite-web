@@ -123,7 +123,6 @@ const Label = styled.label`
   }
 `;
 
-
 const Icon = styled.div`
   width: 50px;
   height: 50px;

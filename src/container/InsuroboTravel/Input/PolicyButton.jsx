@@ -22,6 +22,13 @@ const Title = styled.p`
   font-weight: 300;
   line-height: 30px;
   width: 427px;
+
+  ${(props) => props.theme.window.mobile} {
+    font-size: 16px;
+    line-height: 23px;
+    font-weight: 400;
+    width: 100%;
+  }
 `;
 
 const SelectArrow = styled.div`
@@ -37,6 +44,18 @@ const SelectArrow = styled.div`
   ${props => props.active && css`
     transform: rotate(-90deg);
   `}
+
+  ${(props) => props.theme.window.mobile} {
+    width: 20px;
+    height: 20px;
+    background-size: 70%;
+    right: 10px;
+    top: 12px;
+    transform: rotate(-90deg);
+    ${props => props.active && css`
+      transform: rotate(0);
+    `}
+  }
 `;
 
 

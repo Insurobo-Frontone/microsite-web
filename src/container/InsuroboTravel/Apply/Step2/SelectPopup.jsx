@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useFormContext, Controller } from "react-hook-form";
 import closeIcon from '../../../../assets/icon/calenderClose.png';
+import MbcloseIcon from '../../../../assets/icon/travelMobileCloseIcon.png';
 import checkedIcon from '../../../../assets/icon/popupCheckedIcon.png';
 
 const SelectPopup = ({ data, close }) => {
@@ -29,9 +30,9 @@ const SelectPopup = ({ data, close }) => {
                         name={field.name}
                         value={item.value}
                         checked={field.value === item.value}
-                        onClick={(e) => {
+                        onChange={(e) => {
                           field.onChange(e.target.value)
-                          setValue('checkGroup.3.list', e.target.value)
+                          setValue('list3', e.target.value)
                           close()
                         }}
                       />
@@ -63,11 +64,15 @@ const Overay = styled.div`
 
 const Wrap = styled.div`
   width: 512px;
-  overflow: hidden;
   z-index: 1000;
   background-color: #FFFFFF;
   border-radius: 15px;
   box-shadow: 4px 6px 16px 0px rgba(0, 0, 0, 0.25); 
+
+  ${(props) => props.theme.window.mobile} {
+    width: 312px;
+    
+  }
 `;
 
 const PopupHeader = styled.div`
@@ -77,6 +82,7 @@ const PopupHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 30px;
+  border-radius: 15px 15px 0 0;
   > h2 {
     color: #FFFFFF;
   }
@@ -87,12 +93,35 @@ const PopupHeader = styled.div`
     background-repeat: no-repeat;
     background-position: center;
   }
+
+  ${(props) => props.theme.window.mobile} {
+    padding: 31px 30px 32px;
+    > h2 {
+      font-size: 18px;
+    }
+    .cancel {
+      width: 24px;
+      height: 24px;
+      background-image: url(${MbcloseIcon});
+    }
+  }
 `;
 
 const PopupBody = styled.div`
   overflow-y: scroll;
   height: 690px;
-  padding-top: 10px;
+  margin-top: 20px;
+  ::-webkit-scrollbar, ::-webkit-scrollbar-track {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #D9D9D9;
+    border-radius: 30px;
+    width: 5px;
+    height: 237px;
+    background-clip: padding-box;
+  }
+  
   > div:first-child {
     padding: 20px 30px;
     border-bottom: 1px solid #F0F0F0;
@@ -140,6 +169,31 @@ const PopupBody = styled.div`
         background-image: url(${checkedIcon});
         background-repeat: no-repeat;
         background-position: center;
+      }
+    }
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    height: 450px;
+    
+    > div:first-child {
+      padding: 18px 30px 26px;
+    }
+    > div:nth-child(2), div:nth-child(7), div:nth-child(14) {
+      padding-top: 27px;
+    }
+    > div:nth-child(6), div:nth-child(13), div:nth-child(6), div:last-child {
+      padding-bottom: 27px;
+    }
+    > div {
+      padding: 0 30px 25px;
+      > label {
+        line-height: 24px;
+        font-size: 16px;
+        ::after {
+          width: 24px;
+          height: 24px;
+        }
       }
     }
   }

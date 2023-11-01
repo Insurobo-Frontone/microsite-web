@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import styled, { css } from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
+import useWindowSize from "../../../../hooks/useWindowSize";
 import ApplyHeader from "../ApplyHeader";
 import InsuInfo from "./Step1/InsuInfo";
 import InsuCalc from "../Step1/InsuCalc";
@@ -15,17 +16,22 @@ import Button from "../Button";
 import MyPage from "../Step3/MyPage";
 import Qna from "../Step4/Qna";
 import Popup from "../Popup";
+import { useEffect } from "react";
 
 const Local= ({ type }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const pageState = location.state
-
+  const { width } = useWindowSize();
+  const pageState = location.state;
   const { state, actions } = useContext(TravelPageContext);
-  const { watch, formState: { isValid, isDirty } } = useFormContext();
   const [close, setClose] = useState(true);
   const [policyOpen, setPolicyOpen] = useState(false);
   const [policyId, setPolicyId] = useState(1);
+  const { control, watch } = useFormContext();
+  const join2Valid = useWatch({
+    control,
+    name: ['list1', 'list2', 'list3', 'notice', 'policyAllAgree'],
+  });
 
   const paySelect = [
     {
@@ -39,21 +45,7 @@ const Local= ({ type }) => {
       title: '위 내용 확인 후 결제하기'
     },
   ];
-  const pepelSelect = [
-    {
-      id: 1,
-      value: '1',
-      title: '1인 가입'
-    },
-    // {
-    //   id: 2,
-    //   value: '2',
-    //   title: '2인 이상 가입'
-    // },
-  ];
-
   
-  // 
   const onClickCalc = (step) => {
     switch (step) {
       // 간편계산 보험료 확인 클릭
@@ -89,7 +81,6 @@ const Local= ({ type }) => {
         //   }
 
       default: break;
-
     }
   }
   return (
@@ -123,21 +114,18 @@ const Local= ({ type }) => {
           </Wrap>
           <NextStepButton>
             {/* 1인 가입 */}
-            <RadioInput
-              tep
-              name='personType'
-              data={pepelSelect}
-              defaultValue='1'
+            <Button
+              title='1인 가입'
               onClick={() => onClickCalc('step1-2')}
-            /> 
+            />
           </NextStepButton>
         </>
       )}
       {/* 보험가입 -> 2번째 단계 2번째 박스 */}
       {pageState.step === '2' && pageState.join === '2' && (
-        <form>
+        <>
           <Wrap>
-            <NoticeWrap>
+            <NoticeWrap border={policyOpen}>
               <div>
                 <ul>
                   <li><span onClick={() => setClose(false)}>기왕증[보기]</span>&nbsp;및 현장작업 중 발생된 사고는 보상되지 않습니다.</li>
@@ -146,7 +134,6 @@ const Local= ({ type }) => {
                 <CheckInput
                   id='notice1'
                   name='notice'
-                  defaultChecked
                 />
               </div>
               <div>
@@ -158,7 +145,7 @@ const Local= ({ type }) => {
               </div>
             </NoticeWrap>
             {policyOpen && (
-              <PolicyWrap>
+              <PolicyWrap border={policyOpen}>
                 <ul>
                   {privacy.map((dt) => (
                     <li key={dt.id}>
@@ -167,6 +154,14 @@ const Local= ({ type }) => {
                         onClick={() => setPolicyId(dt.id)}
                         active={dt.id === policyId}
                       />
+                      {width < 767.98 && dt.id === policyId && (
+                        <div
+                          className={dt.id === policyId ? 'view active' : 'view'}
+                          dangerouslySetInnerHTML={{
+                            __html: privacy.find((cur) => cur.id === policyId).textData
+                          }} 
+                        />
+                      )}
                     </li>
                   ))}
                   <li>
@@ -176,10 +171,12 @@ const Local= ({ type }) => {
                     />
                   </li>
                 </ul>
-                <div dangerouslySetInnerHTML={{
-                    __html: privacy.find((cur) => cur.id === policyId).textData
-                  }} 
-                />
+                {width > 767.98 && (
+                  <div dangerouslySetInnerHTML={{
+                      __html: privacy.find((cur) => cur.id === policyId).textData
+                    }} 
+                  />  
+                )}
               </PolicyWrap>
             )}
           </Wrap>
@@ -194,7 +191,13 @@ const Local= ({ type }) => {
           <ButtonWrap>
             <Button
               title='확인'
-              disabled={!isDirty || !isValid}
+              disabled={
+                join2Valid[0] === 'no' &&
+                join2Valid[1] === 'no' &&
+                join2Valid[2] !== '' &&
+                join2Valid[3] === true &&
+                join2Valid[4] === true ? false : true
+              }
               onClick={() => 
                 navigate(`/insuroboTravel/apply?step=2&join=3`, {
                   state: {
@@ -206,7 +209,7 @@ const Local= ({ type }) => {
               }
             />
           </ButtonWrap>
-        </form>
+        </>
       )}
       {pageState.step === '2' && pageState.join === '3' && (
         <ButtonWrap>
@@ -265,6 +268,12 @@ const ResContent = styled.div`
 const NextStepButton = styled.div`
   margin: 18px 0 20px;
   padding: 0 24px;
+
+  /* 1인가입버튼 임시로 설정 */
+  > button {
+    width: 100%;
+  }
+
 `;
 
 const NoticeWrap = styled.div`
@@ -280,7 +289,7 @@ const NoticeWrap = styled.div`
       > li {
         font-size: 20px;
         line-height: 1;
-        color: #333333;
+        color: #393939;
         display: flex;
         align-items: center;
         margin-bottom: 20px;
@@ -291,7 +300,7 @@ const NoticeWrap = styled.div`
           height: 5px;
           border-radius: 50%;
           margin: 0 10px;
-          background-color: #333333;
+          background-color: #393939;
         }
         
       }
@@ -302,11 +311,63 @@ const NoticeWrap = styled.div`
     > p {
       font-size: 20px;
       line-height: 40px;
-      color: #333333;
+      color: #393939;
     }
     span {
       color: #2EA5FF;
       border-bottom: 1px solid #2EA5FF;
+      line-height: 1;
+    }
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    > div:first-child {
+      border-top: 1px solid #F0F0F0;
+    }
+    > div:last-child {
+      border-bottom: 1px solid #F0F0F0;
+    }
+    ${props => props.border && css`
+      > div:last-child {
+        border-bottom: none;
+      }
+    `}
+    
+    > div {
+      display: block;
+      padding: 24px 0;
+      margin: 0 24px;
+      position: relative;
+      > ul { 
+        > li {
+          font-size: 14px;
+          margin-bottom: 7px;
+          padding-left: 10px;
+          line-height: 24px;
+          display: block;
+          position: relative;
+          ::before {
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 4px;
+            height: 4px;
+            margin: 0;
+          }
+        }
+      }
+      > p {
+        font-size: 14px;
+        line-height: 24px;
+      }
+      > div {
+        position: absolute;
+        right: 0;
+        bottom: 24px;
+      }
+      span {
+        display: inline-block;
+      }
     }
   }
 `;
@@ -334,6 +395,17 @@ const PolicyWrap = styled.div`
     font-size: 20px;
     padding: 20px 28px;
     color: #333333;
+    ::-webkit-scrollbar, ::-webkit-scrollbar-track {
+      width: 13px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #D9D9D9;
+      border-radius: 30px;
+      width: 13px;
+      height: 79px;
+      background-clip: padding-box;
+      border: 4px solid transparent;
+    }
     ul {
       > li {
         position: relative;
@@ -352,6 +424,42 @@ const PolicyWrap = styled.div`
       }
     }
   }
+  ${(props) => props.theme.window.mobile} {
+    padding: 10px 0 24px;
+    margin: 0 24px;
+    ${props => props.border && css`
+      border-bottom: 1px solid #F0F0F0;
+    `}
+    > ul {
+      width: 100%;
+      > li {
+        .view {
+          height: 0;
+          padding: 10px;
+          font-size: 14px;
+          overflow-y: scroll;
+          background-color: #F4FAFF;
+          border-radius: 5px;
+          ::-webkit-scrollbar, ::-webkit-scrollbar-track {
+            width: 13px;
+          }
+          ::-webkit-scrollbar-thumb {
+            background-color: #D9D9D9;
+            border-radius: 30px;
+            width: 13px;
+            height: 79px;
+            background-clip: padding-box;
+            border: 4px solid transparent;
+          }
+          color: #393939;
+          &.active {
+            height: 191px;
+          }
+        }
+      }
+    }
+  }
+
 `;
 
 const ButtonWrap = styled.div`
@@ -360,5 +468,8 @@ const ButtonWrap = styled.div`
      width: 100%;
   }
   
+  ${(props) => props.theme.window.mobile} {
+    margin: 24px 24px 20px;
+  }
 `;
 
