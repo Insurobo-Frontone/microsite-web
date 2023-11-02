@@ -39,7 +39,7 @@ export default ApplyInfo;
 const TextWrap = styled.div`
   > ul {
     > li {
-      display: flex;
+      flex-direction: column;
       margin-top: 20px;
       > div {
         display: flex;
@@ -51,6 +51,39 @@ const TextWrap = styled.div`
       color: #333333;
       font-size: 20px;
       font-weight: 300;
+    }
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+    > h2 {
+      font-size: 16px;
+    }
+    > ul {
+      padding-top: 18px;
+      border-bottom: 1px solid #F0F0F0;
+      padding-bottom: 21px;
+      > li {
+        margin-top: 0;
+        :first-child {
+          > div {
+            > p {
+              padding-bottom: 10px;
+            }
+          }
+          > p {
+            padding-bottom: 10px;
+          }
+        }
+        > div {
+          width: 100%;
+          margin-right: 0;
+        }
+      }
+      p {
+        font-size: 16px;
+        font-weight: 400;
+      }
     }
   }
 `;

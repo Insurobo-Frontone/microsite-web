@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import styled, { css } from "styled-components";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MyJoinInfo from "./MyJoinInfo";
 import prevIcon from "../../../../assets/icon/insuJoinPrevIcon.png";
+import Button from "../Button";
 
 const MyPage = () => {
   const [close, setClose] = useState(true);
@@ -10,12 +11,14 @@ const MyPage = () => {
   const location = useLocation();
   const type = location.state.type
   const pageState =  location.state;
+  const navigate = useNavigate();
+
   useEffect(() => {
     console.log(pageState)
   }, []);
 
   return (
-    <MyPageWrap>
+    <MyPageWrap close={close}>
       <MyPageNav close={close}>
         {close && !open ? 
           (<Link to='#'>로그아웃</Link>) :
@@ -58,6 +61,7 @@ const MyPage = () => {
 export default MyPage;
 
 const MyPageWrap = styled.div`
+  /* 가입내역 없을경우 */
   > .notFind {
     display: flex;
     flex-direction: column;
@@ -71,6 +75,34 @@ const MyPageWrap = styled.div`
       width: 495px;
     }
   }
+  ${props => props.close && css`
+    height: 625px;
+  `}
+
+  ${(props) => props.theme.window.mobile} {
+    > .notFind {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      > p {
+        padding: 151px 0 246px;
+        font-size: 16px;
+        font-weight: 400;
+      }
+      > button {
+        width: 100%;
+      }
+    }
+
+    ${props => props.close && css`
+      height: 526px;
+    `}
+
+
+  }
+
+
 `;
 
 const MyPageNav = styled.div`
@@ -83,9 +115,15 @@ const MyPageNav = styled.div`
     display: inline-block;
     line-height: 1;
     font-size: 20px;
+    color: #333333;
     border-bottom: 1px solid #333333;
   }
-
+  ${(props) => props.theme.window.mobile} {
+    margin-bottom: 20px;
+    > a {
+      font-size: 16px;
+    }
+  }
 `;
 
 const PrevButton = styled.div`
@@ -103,7 +141,14 @@ const PrevButton = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     margin-right: 4px;
-    
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    font-size: 16px;
+    > span {
+      width: 24px;
+      height: 24px;
+    }
   }
 `;
 

@@ -24,7 +24,7 @@ const TravelTerm =  ({ type1, type2, type3 }) => {
           `(${startDate} 부터 ~${endDate} 까지)`
         )}
         {type2 && (
-          `(${startDate} ~${endDate} (${travelDay}일)`
+          `${startDate} ~${endDate} (${travelDay}일)`
         )}
         {type3 && (
           `${travelDay}일`
@@ -42,5 +42,7 @@ const Wrap = styled.p`
   color: #333333;
   font-weight: 300;
 
- 
+  ${(props) => props.theme.window.mobile} {
+    font-size: 14px;
+  }
 `;

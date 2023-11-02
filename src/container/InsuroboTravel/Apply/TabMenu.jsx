@@ -67,17 +67,22 @@ const TabMenu = ({ type }) => {
         }
       break;
       case '3' :
-        if (stepNum === '1' || '2') {
-          navigate(`/insuroboTravel/apply/myPage/login`)
-        } else {
-          navigate(`/insuroboTravel/apply/myPage`, {
-            state: {
-              type: type,
-              step: '3',
-            }
-          });
-        }
-        
+        // if (stepNum === '1' || '2') {
+        //   navigate(`/insuroboTravel/apply/myPage/login`)
+        // } else {
+        //   navigate(`/insuroboTravel/apply/myPage`, {
+        //     state: {
+        //       type: type,
+        //       step: '3',
+        //     }
+        //   });
+        // }
+        navigate(`/insuroboTravel/apply/myPage`, {
+          state: {
+            type: type,
+            step: '3',
+          }
+        });
         
       break;
       case '4' :

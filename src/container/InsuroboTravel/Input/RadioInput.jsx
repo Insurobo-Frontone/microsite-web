@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
 
-const RadioInput = ({ name, data, list, myPage }) => {
+const RadioInput = ({ name, data, list, myPage, onFocus }) => {
   const { control } = useFormContext();
 
   return (
@@ -23,6 +23,7 @@ const RadioInput = ({ name, data, list, myPage }) => {
                         value={item.value}
                         checked={value === item.value}
                         onChange={(e) => onChange(e.target.value)}
+                        onFocus={onFocus}
                       />
                       <label htmlFor={item.id.toString()}>{item.title}</label>
                     </>
@@ -63,13 +64,6 @@ const RadioBasic = styled.div`
     background-color:#2EA5FF;
     border: none;
   }
-  ${props => props.myPage  && css`
-    > label {
-      width: 491px;
-      color: #FF2C2C;
-      border-color: #FF2C2C;
-    }
-  `}
 
   ${props => props.list  && css`
     > label {
@@ -90,12 +84,6 @@ const RadioBasic = styled.div`
       font-weight: 300;
       font-size: 18px;
     }
-    ${props => props.myPage  && css`
-      > label {
-        width: 151px;
-      }
-    `}
-
     ${props => props.list  && css`
       > label {
         width: 48.3974358974359%;

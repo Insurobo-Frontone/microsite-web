@@ -16,7 +16,6 @@ import Button from "../Button";
 import MyPage from "../Step3/MyPage";
 import Qna from "../Step4/Qna";
 import Popup from "../Popup";
-import { useEffect } from "react";
 
 const Local= ({ type }) => {
   const navigate = useNavigate();
@@ -33,19 +32,6 @@ const Local= ({ type }) => {
     name: ['list1', 'list2', 'list3', 'notice', 'policyAllAgree'],
   });
 
-  const paySelect = [
-    {
-      id: 1,
-      value: '1',
-      title: '아니요'
-    },
-    {
-      id: 2,
-      value: '2',
-      title: '위 내용 확인 후 결제하기'
-    },
-  ];
-  
   const onClickCalc = (step) => {
     switch (step) {
       // 간편계산 보험료 확인 클릭
@@ -112,13 +98,14 @@ const Local= ({ type }) => {
               <InsuCalc type={type} />
             </ResContent>
           </Wrap>
-          <NextStepButton>
+          <ButtonWrap>
             {/* 1인 가입 */}
             <Button
+              type='border'
               title='1인 가입'
               onClick={() => onClickCalc('step1-2')}
             />
-          </NextStepButton>
+          </ButtonWrap>
         </>
       )}
       {/* 보험가입 -> 2번째 단계 2번째 박스 */}
@@ -166,7 +153,7 @@ const Local= ({ type }) => {
                   ))}
                   <li>
                     <Button 
-                      type='terms'
+                      type='border'
                       title='보험약관'
                     />
                   </li>
@@ -212,12 +199,13 @@ const Local= ({ type }) => {
         </>
       )}
       {pageState.step === '2' && pageState.join === '3' && (
-        <ButtonWrap>
-          <RadioInput
-            name='goPay'
-            data={paySelect}
-            defaultValue='2'
-            onClick={() => navigate('/insuroboTravel/apply/payment')}
+        <ButtonWrap className="couple-button-wrap">
+          <Button
+            title='아니요'
+            type='border'
+          />
+          <Button
+            title={width > 767.98 ? '위 내용 확인 후 결제하기' : '확인 후 결제'}
           />
         </ButtonWrap>
       )}
@@ -263,17 +251,6 @@ const ResContent = styled.div`
   ${(props) => props.theme.window.mobile} {
     padding: 0 24px;
   }
-`;
-
-const NextStepButton = styled.div`
-  margin: 18px 0 20px;
-  padding: 0 24px;
-
-  /* 1인가입버튼 임시로 설정 */
-  > button {
-    width: 100%;
-  }
-
 `;
 
 const NoticeWrap = styled.div`
@@ -464,12 +441,21 @@ const PolicyWrap = styled.div`
 
 const ButtonWrap = styled.div`
   margin-bottom: 20px;
-  > button {
-     width: 100%;
+  &.couple-button-wrap {
+    display: flex;
+    justify-content: space-between;
+    > button {
+      width: 49.56896551724138%;
+    }
   }
-  
   ${(props) => props.theme.window.mobile} {
-    margin: 24px 24px 20px;
+    margin: 20px 24px;
+    &.couple-button-wrap {
+      margin-top: 0;
+      > button {
+        width: 48.3974358974359%;
+      }
+    }
   }
 `;
 

@@ -1,18 +1,21 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const Popup = ({ close, children, type }) => {
+const Popup = ({ close, children, type, onClickYse }) => {
   return (
     <>
       <Overay>
         <Wrap type={type}>
-          {(type === 'alert' || 'info') && (
-            <>
-              <div>
-                {children}
-              </div>
-              <CheckButton onClick={close}>확인</CheckButton>
-            </>
+          <div>
+            {children}
+          </div>
+          {type === 'select' ? (
+            <ButtonWrap>
+              <CheckButton onClick={onClickYse}>예</CheckButton>
+              <CheckButton onClick={close}>아니요</CheckButton>
+            </ButtonWrap>
+          ) : (
+            <CheckButton onClick={close}>확인</CheckButton>
           )}
         </Wrap>
       </Overay>
@@ -50,7 +53,11 @@ const Wrap = styled.div`
       font-weight: 400;
     }
   }
-
+  ${props => props.type === 'select' && css`
+     > div {
+      padding: 60px 30px;
+     }
+  `}
   ${props => props.type === 'info' && css`
     > div {
       padding: 30px 30px 40px;
@@ -95,7 +102,9 @@ const Wrap = styled.div`
         font-size: 16px;
       }
     }
+    ${props => props.type === 'select' && css`
 
+  `}
     ${props => props.type === 'info' && css`
       > div {
         padding: 20px;
@@ -131,4 +140,14 @@ const CheckButton = styled.div`
   }
 `;
 
+const ButtonWrap = styled.div`
+  display: flex;
 
+  > div {
+    width: 50%;
+    :first-child {
+      background-color: #FFFFFF;
+      color: #2EA5FF;
+    }
+  }
+`;

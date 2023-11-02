@@ -183,8 +183,10 @@ const ButtonWrap = styled.div`
   bottom: -34px;
   left: 340px;
   z-index: 9999;
+  width: 480px;
 
   ${(props) => props.theme.window.mobile} {
     position: static;
+    width: 100%;
   }
 `;

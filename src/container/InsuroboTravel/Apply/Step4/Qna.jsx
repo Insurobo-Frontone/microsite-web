@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PolicyButton from "../../Input/PolicyButton";
 import { list1, list2, list3, list4, list5 } from "../../TravelData/QnaData";
 import Button from "../Button";
+import useWindowSize from "../../../../hooks/useWindowSize";
 
 const Qna = ({ type }) => {
   const [id, setId] = useState({
@@ -10,6 +11,7 @@ const Qna = ({ type }) => {
     listId: 1
   });
 
+  const { width } = useWindowSize();
   const qnaData = [
     {
       id: 1,
@@ -58,6 +60,14 @@ const Qna = ({ type }) => {
                       })}
                       active={list.id === id.listId}
                     />
+                    {width < 767.98 && list.id === id.listId && (
+                      <div
+                        className={list.id === id.listId ? 'active text-view' : 'text-view'}
+                        dangerouslySetInnerHTML={{
+                          __html: qnaData.find((cur) => cur.id === id.qnaId).data.find((cur) => cur.id === id.listId).textData
+                        }} 
+                      />
+                    )}
                   </li>
                 ))}
               </ul>
@@ -65,11 +75,13 @@ const Qna = ({ type }) => {
           ))}
         </div>
         <div>
-          <div className='text-view' dangerouslySetInnerHTML={{
-              __html: qnaData.find((cur) => cur.id === id.qnaId).data.find((cur) => cur.id === id.listId).textData
-            }} 
-          />
-          <Button type='terms' title='보험약관' />
+          {width > 767.98 && (
+            <div className='text-view' dangerouslySetInnerHTML={{
+                __html: qnaData.find((cur) => cur.id === id.qnaId).data.find((cur) => cur.id === id.listId).textData
+              }} 
+            />
+          )}
+          <Button type='border' title='보험약관' />
         </div>
       </div>
     </QnaWrap>
@@ -127,6 +139,7 @@ const QnaWrap = styled.div`
       }
     }
   }
+  
   .text-view {
     padding: 20px 28px;
     font-size: 18px;
@@ -134,5 +147,52 @@ const QnaWrap = styled.div`
     border-radius: 10px;
     margin: 55px 0 10px;
     font-weight: 300;
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    padding-bottom: 0;
+    > div {
+      flex-direction: column;
+      height: auto;
+      padding: 0;
+      > div:last-child {
+        border-bottom: 1px solid #F0F0F0;
+        padding: 10px 0 24px 0;
+      }
+      > div {
+        width: 100%;
+        > div {
+          > h2 {
+            font-size: 16px;
+            padding-bottom: 10px;
+            font-weight: 400;
+          }
+          > ul {
+            margin-bottom: 20px;
+            > li {
+              /* 질문 버튼 custom */
+              > div {
+                > div {
+                  height: auto;
+                  > p {
+                    width: 84.93150684931507%;
+                    ::before {
+                      margin-right: 5px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .text-view {
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 5px;
+      margin: 0;
+    }
   }
 `;

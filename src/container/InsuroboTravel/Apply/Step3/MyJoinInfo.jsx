@@ -6,34 +6,15 @@ import dbLogo from '../../../../assets/img/insuroboTravel/payMentDBLogo.png';
 import ApplyInfo from "../ApplyInfo";
 import RadioInput from "../../Input/RadioInput";
 import Button from "../Button";
+import useWindowSize from "../../../../hooks/useWindowSize";
+import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";
+import { useState } from "react";
+import Popup from "../Popup";
 
 const MyJoinInfo = ({ open, close, onClick, type, status }) => {
   const { watch } = useFormContext();
-  const readyButtonData = [
-    {
-      id: '1',
-      title: '신청취소',
-      value: 'cancel'
-    },
-    {
-      id: '2',
-      title: '결제하기',
-      value: 'payment'
-    }
-  ];
-  const finishButtonData = [
-    {
-      id: '1',
-      title: '가입증명서 재발행',
-      onClick: ''
-    },
-    {
-      id: '2',
-      title: '보험청구서 이메일로 받기',
-      onClick: ''
-    }
-  ];
-
+  const { width } = useWindowSize();
+  const [popupOpen, setPopupOpen] = useState(false);
   return (
     <>
       <BoxWrap open={open} close={close}>
@@ -41,13 +22,24 @@ const MyJoinInfo = ({ open, close, onClick, type, status }) => {
           <div>
             <div>
               {open && <img src={dbLogo} alt='db손해보험' />}
-              <h2>{type === 'local' ? '국내 여행자 보험' : '해외 여행자 보험'}<span>({watch('target')})</span></h2>
+              <h2>
+                {width > 767.98 ? (
+                  <>
+                    {type === 'local' ?  "국내 여행자 보험" : '해외 여행자 보험'}
+                  </>
+                ) : (
+                  <>
+                    {type === 'local' ?  "국내여행자보험" : '해외여행자보험'}
+                  </>
+                )}
+                <span>({watch('target')})</span>
+              </h2>
             </div>
             <div>
               <TravelTerm type2 />
               <span onClick={onClick}>{open ? '보장내용 확인' : '자세히보기'}</span>
             </div>
-            {open && (
+            {open && width > 767.98 && (
               <div>
                 <p>{watch('calcPlan') === 'planA' ? '5,420' : '1,280'}원</p>
               </div>
@@ -67,23 +59,36 @@ const MyJoinInfo = ({ open, close, onClick, type, status }) => {
           </div>
         )}
       </BoxWrap>
-      <ButtonWrap>
-        {status === 'finish' ? 
-          finishButtonData.map((dt) => (
-            <div key={dt.id}>
+      {open && (
+        <ButtonWrap>
+          {status === 'finish' ? (
+            <> 
               <Button
-                title={dt.title}
+                title={width > 767.98 ? '가입증명서 재발행' : '가입증명서 발행'}
               />
-            </div>
-          )) : 
-          <RadioInput
-            myPage
-            data={readyButtonData}
-            name='paymentReady'
-            defaultValue='payment'
-          />
-        }
-      </ButtonWrap>
+              <Button
+                title={width > 767.98 ? '보험금청구서류 이메일로 받기' : '보험금청구 서류'}
+              />
+            </>
+          ) : (
+            <> 
+              <Button
+                type='cancel'
+                title='신청취소'
+                onClick={() => setPopupOpen(true)}
+              />
+              <Button
+                title='결제하기'
+              />
+            </>
+          )}
+        </ButtonWrap>
+      )}
+      {popupOpen && (
+        <Popup type='select' close={() => setPopupOpen(false)}>
+          <p>신청내역을 취소하시겠습니까?</p>
+        </Popup>
+      )}
     </>
   )
 }
@@ -151,8 +156,110 @@ const BoxWrap = styled.div`
     height: 164px;
   `}
   ${props => props.open && css`
-    height: 453px;
+    height: auto;
+
   `}
+
+  ${(props) => props.theme.window.mobile} {
+    > div:first-child {
+      padding: 16px 20px 16px;
+      > div {
+        > div {
+          margin-bottom: 4px;
+          > span {
+            font-size: 14px;
+            margin-left: 0;
+          }
+          > h2 {
+            font-size: 16px;
+          }
+          > img {
+            display: none;
+          }
+          > p {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    ${props => props.close && css`
+      height: 113px;
+      > div:first-child {
+        flex-direction: column;
+        > div:first-child {
+          order: 1;
+        }
+        > div {
+          position: relative;
+          > div:first-child {
+            padding-top: 10px;
+          }
+          > div {
+            justify-content: space-between;
+            > span {
+              width: 24px;
+              height: 24px;
+              color: transparent;
+              overflow: hidden;
+              border: none;
+              background-image: url(${nextIcon});
+              background-repeat: no-repeat;
+              background-position: center;
+              position: absolute;
+              top: 4px;
+              right: 0;
+            }
+          }
+        }
+      }
+    `}
+    ${props => props.open && css`
+      height: auto;
+      border-radius: 0;
+      box-shadow: none ;
+      > div:first-child {
+        padding: 0 0 24px 0;
+        > div {
+          > div:nth-child(2) {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 54px;
+          }
+          > div {
+            > span {
+              padding-top: 10px;
+            }
+            > h2 {
+              font-size: 16px;
+            }
+            > img {
+              display: none;
+            }
+            > p {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+      > div:nth-child(2) { 
+        padding: 24px 0;
+        position: relative;
+        > div:last-child {
+          display: flex;
+          align-items: center;
+          position: absolute;
+          top: -50px;
+          > p {
+            margin-right: 10px;
+            font-size: 14px;
+          }
+          > h2 {
+            font-size: 18px;
+          }
+        }
+      }
+    `}
+  }
 `;
 
 const PaymentStatus = styled.div`
@@ -172,18 +279,29 @@ const PaymentStatus = styled.div`
     background-color: #E9F6FF;
     color: #2EA5FF;
   `}
+
+  ${(props) => props.theme.window.mobile} {
+    width: 50px;
+    height: 24px;
+    font-size: 12px;
+    border-radius: 5px;
+    line-height: 24px;
+  }
 `;
 
 const ButtonWrap = styled.div`
   padding: 20px 0;
   display: flex;
-
   justify-content: space-between;
-  > div {
-    width: 100%;
+
+  > button {
+    width: 49.29718875502008%;
   }
-  button {
-    width: 495px;
+  ${(props) => props.theme.window.mobile} {
+    padding: 0;
+    > button {
+      width: 48.3974358974359%;
+    }
   }
 `;
 

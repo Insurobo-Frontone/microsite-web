@@ -78,7 +78,6 @@ const InputBox = styled.div`
     input, select {
       font-size: 16px;
       line-height: 1.45;
-
     }
 
     ${props => props.type === 'select' && css`

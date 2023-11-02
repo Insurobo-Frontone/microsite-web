@@ -28,8 +28,13 @@ import InsuroboTravelLogin from './pages/InsuroboTravelLogin';
 
 function App() {
   
+  // input창에 기본값이 있는 경우 입력
   const methods = useForm({
     mode: 'onBlur',
+    defaultValues: {
+      goPay: '2',
+      paymentReady: 'payment'
+    }
   });
 
   const auth = localStorage.getItem("@access-Token");

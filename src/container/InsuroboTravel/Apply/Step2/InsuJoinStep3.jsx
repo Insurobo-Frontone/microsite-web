@@ -4,17 +4,28 @@ import { useFormContext } from 'react-hook-form';
 import ApplyInfo from "../ApplyInfo";
 import dbLogo from '../../../../assets/img/insuroboTravel/payMentDBLogo.png';
 import TravelTerm from "../TravelTerm";
+import useWindowSize from "../../../../hooks/useWindowSize";
 
 const InsuJoinStep3 = ({ type }) => {
   const { watch } = useFormContext();
-
+  const { width }  = useWindowSize();
   return (
     <>
       <Wrap>
         <Board>
           <div>
             <img src={dbLogo} alt='db손해보험' />
-            <h2>{type === 'local' ? '국내 여행자 보험' : '해외 여행자 보험'}</h2>
+            <h2>
+              {width > 767.98 ? (
+                <>
+                  {type === 'local' ?  "국내 여행자 보험" : '해외 여행자 보험'}
+                </>
+              ) : (
+                <>
+                  {type === 'local' ?  "국내여행자보험" : '해외여행자보험'}
+                </>
+              )}
+            </h2>
           </div>
           <div>
             <p>결제금액</p>
@@ -28,11 +39,11 @@ const InsuJoinStep3 = ({ type }) => {
           </li>
           <li>
             <h2>가입인원</h2>
-            <p>{watch('personType')}명</p>
+            <p>1명</p>
           </li>
           <li>
             <h2>보험료</h2>
-            <p>{watch('calcPlan') === 'planA' ? '5,420' : '1,280'}원</p>
+            <p>{watch('calcPlan') === 'planA' ? '5,420' : '1,280'} 원</p>
           </li>
         </ul>
         <ul>
@@ -80,6 +91,25 @@ const Wrap = styled.div`
 
   ${(props) => props.theme.window.mobile} {
     padding-top: 24px;
+    > ul {
+      padding: 24px 0;
+      > li {
+        align-items: flex-start;
+        > h2 {
+          font-size: 16px;
+          flex-direction: column;
+          align-items: flex-start;
+          > p {
+            margin-left: 0;
+            
+          }
+        }
+        > p {
+          font-size: 14px;
+          font-weight: 400;
+        }
+      }
+    }
   }
 `;
 
@@ -110,6 +140,33 @@ const Board = styled.div`
     > h2 {
       color: #2EA5FF;
       font-size: 28px;
+    }
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    height: 73px;
+    padding: 18px 20px;
+    > div {
+      flex-direction: column;
+      align-items: flex-start;
+      > img {
+        margin: 0;
+        width: 53px;
+      }
+      > h2 {
+        font-size: 14px;
+      }
+      > p {
+        font-size: 14px;
+        margin-right: 10px;
+      }
+    }
+    > div:last-child {
+      flex-direction: row;
+      align-items: center;
+      > h2 {
+        font-size: 18px;
+      }
     }
   }
 `;
