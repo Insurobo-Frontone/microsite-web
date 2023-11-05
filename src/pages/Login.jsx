@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link, useLocation } from 'react-router-dom';
 import AuthLayout from '../components/Auth/AuthLayout';
 import LoginFailModal from "../components/Modal/LoginFailModal";
 import Input from '../components/Input';
 import { useFormContext } from 'react-hook-form';
 import CustomButton from '../components/Button/CustomButton';
 import useWindowSize from '../hooks/useWindowSize';
-import { setAccessToken, setUserName } from '../container/Storage/Auth';
+import { setAccessToken, setUser, setUserName } from '../container/Storage/Auth';
 import { CommonAPI } from "../api/CommonAPI";
 import naverIcon from '../assets/img/naverIcon.png';
 import kakaoIcon from '../assets/img/kakaoIcon.png';
@@ -127,10 +127,16 @@ function Login() {
   const [type_kor, setType_kor] = useState(); //로그인 타입 한글 (kakao, naver, email)
   const { handleSubmit, reset, setError, setFocus } = useFormContext();
   const path = localStorage.getItem("@pathname");
+
   useEffect(() => {
     reset();
     const loginCode = searchParams.get("loginCode");
-    
+    const name = searchParams.get("name");
+    const gender = searchParams.get("gender");
+    const birthday = searchParams.get("birthday");
+    const birthyear = searchParams.get("birthyear");
+    const mobile = searchParams.get("mobile");
+
     if (loginCode !== null && loginCode === 'fail'){
       setShowPopup(true);
       setType(searchParams.get("type"));
@@ -148,18 +154,25 @@ function Login() {
 
     if (loginCode !== null && loginCode === 'success') {
         const accessToken = searchParams.get("token");
-        const name = searchParams.get("name");
+        // setUser({
+        //   name: name,
+        //   gender: gender,
+        //   birthday: birthday,
+        //   birthyear: birthyear,
+        //   mobile: mobile
+        // })
         setAccessToken(accessToken);
-        setUserName(name)
-        // if (path) {
-        //   navigate('/freeApply')
-        // } else {
-          navigate('/')
+        
+        if (path) {
+          navigate(path);
+        } else {
+          navigate('/');
+        }
     }
   }, []);
 
   
-  const onError = (error) => {
+  const onError = (error) => { 
     console.log(error)
   }
 
@@ -170,11 +183,10 @@ function Login() {
       if(res.status === 200){
         setAccessToken(res.data.data.accessToken);
         setUserName(res.data.data.userName)
-        // console.log(res.data)
         if (path) {
-          navigate('/freeApply')
+          navigate(path);
         } else {
-          navigate('/')
+          navigate('/');
         }
      
       }

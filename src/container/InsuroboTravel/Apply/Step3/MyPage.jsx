@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import MyJoinInfo from "./MyJoinInfo";
 import prevIcon from "../../../../assets/icon/insuJoinPrevIcon.png";
 import Button from "../Button";
+import { getTravelMenu } from "../../../Storage/InsuTravel";
 
 const MyPage = () => {
   const [close, setClose] = useState(true);
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const type = location.state.type
-  const pageState =  location.state;
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(pageState)
-  }, []);
+  const type = location.state.type;
+  const pageInfo =  getTravelMenu();
 
   return (
     <MyPageWrap close={close}>
@@ -31,29 +28,33 @@ const MyPage = () => {
           </PrevButton>
         ) : ''}
       </MyPageNav>
-      <MyJoinInfo 
-        type={type} 
-        open={open} 
-        close={close}
-        onClick={() => {
-          setOpen(true)
-          setClose(false)
-        }}
-        status='ready'
-      /> 
-      {/* <div className="notFind">
-        <p>가입 내역이 없습니다.</p>
-        <Button
-          title='보험료 간편계산'
-          onClick={() => navigate(`/insuroboTravel/apply?step=1`, {
-            state: {
-              type: type,
-              step: 1,
-              join: ''
-            }
-          })}
-        />
-      </div> */}
+      {/* 백앤드 연결후 로그인 user 불러오기 */}
+      {pageInfo.getLocation.state?.join === '3' ? (
+        <MyJoinInfo 
+          type={type} 
+          open={open} 
+          close={close}
+          onClick={() => {
+            setOpen(true)
+            setClose(false)
+          }}
+          status='ready'
+        /> 
+      ) : (
+        <div className="notFind">
+          <p>가입 내역이 없습니다.</p>
+          <Button
+            title='보험료 간편계산'
+            onClick={() => navigate(`/insuroboTravel/apply?step=1`, {
+              state: {
+                type: type,
+                step: 1,
+                join: ''
+              }
+            })}
+          />
+        </div>
+      )}
     </MyPageWrap>
   );
 }

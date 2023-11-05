@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
+import { clearGetTravelMenu, getTravelMenu } from "../../Storage/InsuTravel";
+import Popup from "./Popup";
 
 const TabMenu = ({ type }) => {
   const menu = [
@@ -27,64 +29,109 @@ const TabMenu = ({ type }) => {
   const stepNum = location.state.step;
   const navigate = useNavigate();
   const { reset } = useFormContext();
+  const [close, setClose] = useState(true);
+  const [message, setMessage] = useState('');
+  const [popupType, setPopupType] = useState('');
+  
+  const onClickReset = () => {
+    setClose(true);
+    reset();
+    clearGetTravelMenu();
+    navigate(`/insuroboTravel/apply?step=1`, {
+      state: {
+        type: type,
+        step: '1',
+      }
+    });
+  }
 
+  const handleClose = () => {
+    if (stepNum === '1') {
+      setClose(true);
+    } 
+    if (stepNum === '3' || stepNum === '4') {
+      setClose(true);
+      const pageInfo =  getTravelMenu();
+      navigate(`${pageInfo.getLocation.path}${pageInfo.getLocation.search}`, {
+        state: {
+          type: pageInfo.getLocation.state.type,
+          step: pageInfo.getLocation.state.step,
+          join: pageInfo.getLocation.state.join
+        }
+      });
+    }
+    else {
+      setClose(true);
+      reset();
+      navigate(`/insuroboTravel/apply?step=1`, {
+        state: {
+          type: type,
+          step: '1',
+        }
+      });
+    }
+  }
   // apply nav에서 페이지 이동
   const nextStep = (step) => {
+    console.log(stepNum)
     switch (step) {
+      // 간편계산 클릭
       case '1' :
         if (stepNum === '2') {
-          alert('간편계산을 다시 시작하면\n모든 정보가 초기화됩니다\n그래도 진행하시겠습니까?');
-          reset();
-          navigate(`/insuroboTravel/apply?step=1`, {
-            state: {
-              type: type,
-              step: '1',
-              join: ''
-            }
-          });
-        } else {
-          navigate(`/insuroboTravel/apply?step=1`, {
-            state: {
-              type: type,
-              step: '1',
-              join: ''
-            }
-          });
+          setMessage('이동 시 입력하신 정보가 초기화 됩니다.\n간편계산으로 이동하시겠습니까?');
+          setPopupType('select');
+          setClose(false);
+        } 
+        if (stepNum === '3' || stepNum === '4') {
+          const pageInfo =  getTravelMenu();
+          if (pageInfo.getLocation) {
+            setMessage('진행중인 신청내역이 있습니다');
+            setPopupType('alert');
+            setClose(false);
+          } else {
+            navigate(`/insuroboTravel/apply?step=1`, {
+              state: {
+                type: type,
+                step: '1',
+              }
+            });
+          }
         }
-        
-      break;
+        break;
+      // 보험가입 클릭
       case '2' :
         if (stepNum === '1') {
-          alert('간편계산을 먼저 진행해주세요');
-        } else {
-          navigate(`/insuroboTravel/apply?step=2`, {
-            state: {
-              type: type,
-              step: '2',
-              join: ''
-            }
-          });
+          setMessage('간편계산을 먼저 진행해주세요.');
+          setPopupType('alert');
+          setClose(false);
+        } 
+        if (stepNum === '3' || stepNum === '4') {
+          const pageInfo =  getTravelMenu();
+          if (pageInfo.getLocation) {
+            navigate(`${pageInfo.getLocation.path}${pageInfo.getLocation.search}`, {
+              state: {
+                type: pageInfo.getLocation.state.type,
+                step: pageInfo.getLocation.state.step,
+                join: pageInfo.getLocation.state.join
+              }
+            });
+          } else {
+            setMessage('간편계산을 먼저 진행해주세요.');
+            setPopupType('alert');
+            setClose(false);
+          }
         }
-      break;
+        break;
+      // 마이페이지 클릭
       case '3' :
-        // if (stepNum === '1' || '2') {
-        //   navigate(`/insuroboTravel/apply/myPage/login`)
-        // } else {
-        //   navigate(`/insuroboTravel/apply/myPage`, {
-        //     state: {
-        //       type: type,
-        //       step: '3',
-        //     }
-        //   });
-        // }
         navigate(`/insuroboTravel/apply/myPage`, {
           state: {
             type: type,
             step: '3',
           }
         });
-        
-      break;
+        break;
+      // qna 클릭
       case '4' :
         navigate(`/insuroboTravel/apply/qna`, {
           state: {
@@ -92,23 +139,41 @@ const TabMenu = ({ type }) => {
             step: '4'
           }
         });
-      break;
+        break;
       default :
-      break
+        break
     }
   }
   return (
-    <TabMenuWrap>
-      {menu.map((dep) => (
-        <MenuButton 
-          key={dep.id} 
-          onClick={() => nextStep(dep.id)}
-          active={stepNum === dep.id}
-        >
-          {dep.title}  
-        </MenuButton>
-      ))}
-    </TabMenuWrap>
+    <>
+      <TabMenuWrap>
+        {menu.map((dep) => (
+          <MenuButton 
+            key={dep.id} 
+            onClick={() => nextStep(dep.id)}
+            active={stepNum === dep.id}
+          >
+            {dep.title}  
+          </MenuButton>
+        ))}
+      </TabMenuWrap>
+      {!close && (
+        <>
+          {popupType === 'select' ? (
+            <Popup type='select' onClickYse={onClickReset} close={() => setClose(true)}>
+              <p style={{
+                whiteSpace: "pre-wrap"
+              }}>{message}</p>
+            </Popup>
+          ) : (
+            <Popup type={popupType} close={handleClose}>
+              <p>{message}</p>
+            </Popup>
+          )}
+        </>
+       
+      )}
+    </>
   )
 }
 

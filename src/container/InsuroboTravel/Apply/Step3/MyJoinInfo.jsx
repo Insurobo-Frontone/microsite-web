@@ -4,7 +4,6 @@ import styled, { css } from "styled-components";
 import TravelTerm from "../TravelTerm";
 import dbLogo from '../../../../assets/img/insuroboTravel/payMentDBLogo.png';
 import ApplyInfo from "../ApplyInfo";
-import RadioInput from "../../Input/RadioInput";
 import Button from "../Button";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";

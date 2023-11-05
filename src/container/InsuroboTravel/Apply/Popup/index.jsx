@@ -102,9 +102,6 @@ const Wrap = styled.div`
         font-size: 16px;
       }
     }
-    ${props => props.type === 'select' && css`
-
-  `}
     ${props => props.type === 'info' && css`
       > div {
         padding: 20px;

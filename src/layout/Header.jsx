@@ -271,7 +271,7 @@ function Header({ windStormHide, apply }) {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem('@access-Token');
+    localStorage.clear()
     navigate('/');
     //  window.location.reload()
   }

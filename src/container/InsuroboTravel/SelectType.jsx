@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import local from '../../assets/img/insuroboTravel/local_trip.png';
 import over from '../../assets/img/insuroboTravel/overseas_trip.png';
 import messageTail from '../../assets/img/insuroboTravel/messageBoxTail.png';
+import { setPathName } from "../Storage/Auth";
 
 const SelectType = () => {
   const data = [
@@ -20,13 +21,36 @@ const SelectType = () => {
       title: '해외 여행자 보험',
       text: '서비스 준비중',
       img: over,
-      link: '/insuroboTravel/apply?step=1',
+      link: '#',
       type: 'over'
     }
   ];
-
+  // const auth = localStorage.getItem("@access-Token");
+  const { pathname } = useLocation();
   const navigate = useNavigate();
+  console.log(pathname)
+  const checkLogin = (link, type) => {
+    
+    // if (auth) {
+    //   navigate(link, {
+    //     state: {
+    //       type: type,
+    //       step: '1',
+    //     }
+    //   });
+    // } else {
+    //   alert('로그인이 필요한 페이지 입니다.');
+    //   navigate('/login');
+    //   setPathName(pathname);
+    // }
 
+    navigate(link, {
+      state: {      
+        type: type,
+        step: '1',
+      }
+    });
+  }
   return (
     
     <SelectTypeWrap>
@@ -35,13 +59,7 @@ const SelectType = () => {
       </MessageBox>
       {data.map((type) => {
         return (
-          <SelectCard key={type.idx} onClick={() => navigate(type.link, {
-            state: {
-              type: type.type,
-              step: '1',
-              join: ''
-            }
-          })}>
+          <SelectCard key={type.idx} onClick={() => checkLogin(type.link, type.type)}>
             <div>
               <h2>{type.title}</h2>
               <p>{type.text}</p>

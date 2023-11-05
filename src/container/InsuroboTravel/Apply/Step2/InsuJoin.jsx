@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useLocation } from "react-router-dom";
-import { useFormContext } from "react-hook-form";
 import InsuJoinStep1 from "./InsuJoinStep1";
 import InsuJoinStep2 from "./InsuJoinStep2";
 import InsuJoinStep3 from "./InsuJoinStep3";
 import PrevButton from "../PrevButton";
-
+import { setTravelMenu } from "../../../Storage/InsuTravel";
 const InsuJoin = ({ type }) => {
-  const { watch } = useFormContext();
   const location = useLocation();
   const pageState = location.state;
   const menu = [
@@ -16,12 +14,15 @@ const InsuJoin = ({ type }) => {
     { id: '2', title: '확인' },
     { id: '3', title: '결제' }
   ];
-
   useEffect(() => {
-    if (watch('personType') === '1') {
+    const travelLocation = {
+      path: location.pathname,
+      search: location.search,
+      state: location.state
     }
-  }, []);
+    setTravelMenu(travelLocation);
 
+  }, [pageState]);
   return (
     <>
       <JoinStepNav>

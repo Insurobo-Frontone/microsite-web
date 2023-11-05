@@ -32,8 +32,6 @@ function App() {
   const methods = useForm({
     mode: 'onBlur',
     defaultValues: {
-      goPay: '2',
-      paymentReady: 'payment'
     }
   });
 
@@ -64,7 +62,7 @@ function App() {
                     <Route path='/insuroboTravel/apply?:page' element={<InsuroboTravel apply />} />
                     <Route path='/insuroboTravel/apply/*' element={<InsuroboTravel apply />} />
                     <Route path='/insuroboTravel/apply/myPage' element={<InsuroboTravel apply />} />
-                    <Route path='/insuroboTravel/apply/myPage/login' element={<InsuroboTravelLogin />} />
+                    {/* <Route path='/insuroboTravel/apply/myPage/login' element={<InsuroboTravelLogin />} /> */}
                   </Route>
                   <Route element={<PublicRoute auth={auth} restricted />}>
                     <Route path='/login' element={<Login />} />
