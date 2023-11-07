@@ -6,6 +6,7 @@ import InsuJoinStep2 from "./InsuJoinStep2";
 import InsuJoinStep3 from "./InsuJoinStep3";
 import PrevButton from "../PrevButton";
 import { setTravelMenu } from "../../../Storage/InsuTravel";
+
 const InsuJoin = ({ type }) => {
   const location = useLocation();
   const pageState = location.state;

@@ -159,7 +159,7 @@ function EditProfile() {
     if(res1.status === 200){
         user.actions.setUser(res1.data.data);
         setData(res1.data.data);
-        // console.log(user.state.user);
+        console.log(user.state.user);
         reset()
     }
     if (res2.status === 200) {

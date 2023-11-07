@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useSearchParams, Link, useLocation } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import AuthLayout from '../components/Auth/AuthLayout';
 import LoginFailModal from "../components/Modal/LoginFailModal";
 import Input from '../components/Input';
@@ -12,6 +12,7 @@ import { CommonAPI } from "../api/CommonAPI";
 import naverIcon from '../assets/img/naverIcon.png';
 import kakaoIcon from '../assets/img/kakaoIcon.png';
 import AuthButton from '../components/Auth/AuthButton';
+import UserContext from '../context/UserContext';
 
 const SocialLoginGroup = styled.div`
   display: flex;
@@ -127,17 +128,15 @@ function Login() {
   const [type_kor, setType_kor] = useState(); //로그인 타입 한글 (kakao, naver, email)
   const { handleSubmit, reset, setError, setFocus } = useFormContext();
   const path = localStorage.getItem("@pathname");
-
+  const user = useContext(UserContext);
   useEffect(() => {
     reset();
     const loginCode = searchParams.get("loginCode");
+    const accessToken = searchParams.get("token");
     const name = searchParams.get("name");
-    const gender = searchParams.get("gender");
-    const birthday = searchParams.get("birthday");
-    const birthyear = searchParams.get("birthyear");
-    const mobile = searchParams.get("mobile");
 
-    if (loginCode !== null && loginCode === 'fail'){
+
+    if (loginCode !== null && loginCode === 'fail') {
       setShowPopup(true);
       setType(searchParams.get("type"));
       switch (searchParams.get("type")) {
@@ -151,18 +150,8 @@ function Login() {
           setType_kor("이메일");
       }
     }
-
     if (loginCode !== null && loginCode === 'success') {
-        const accessToken = searchParams.get("token");
-        // setUser({
-        //   name: name,
-        //   gender: gender,
-        //   birthday: birthday,
-        //   birthyear: birthyear,
-        //   mobile: mobile
-        // })
         setAccessToken(accessToken);
-        
         if (path) {
           navigate(path);
         } else {
@@ -182,7 +171,6 @@ function Login() {
       const res = await CommonAPI.post('/api/public/login', req)
       if(res.status === 200){
         setAccessToken(res.data.data.accessToken);
-        setUserName(res.data.data.userName)
         if (path) {
           navigate(path);
         } else {
@@ -203,6 +191,7 @@ function Login() {
   const onKakaoLogin = () => {
     const KAKAO_REDI_URL = process.env.REACT_APP_SERVER_HOST+"/api/oauth2/authorization/kakao";
     window.location.href =  KAKAO_REDI_URL;
+    
   }
 
 

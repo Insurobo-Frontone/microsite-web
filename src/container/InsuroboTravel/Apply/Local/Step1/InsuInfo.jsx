@@ -10,15 +10,35 @@ import BasicInput from "../../../Input/BasicInput";
 import SelectInput from "../../../Input/SelectInput";
 import Button from "../../Button";
 import Popup from "../../Popup";
+import { CommonAPI } from "../../../../../api/CommonAPI";
+// import UserContext from "../../../../../context/UserContext";
+import { setUser } from "../../../../Storage/Auth";
 
 const InsuInfo = () => {
-  const { setValue, watch, setError, handleSubmit, formState: { errors, isDirty, isValid } } = useFormContext();
+  const { setValue, watch, reset, setError, handleSubmit, formState: { errors, isDirty, isValid } } = useFormContext();
   const [readOnly, setReadOnly] = useState(true);
   const [close, setClose] = useState(true);
   const { width } = useWindowSize();
   const { actions } = useContext(TravelPageContext);
+  const auth = localStorage.getItem("@access-Token");
+  useEffect(() => {
+    userInfo();
+
+  }, []);
+
+  const userInfo = async () => {
+    const res = await CommonAPI.get("/api/private/profile", {
+      Authorization: `Bearer ${auth}`,
+   })
+    if(res.status === 200){
+        // user.actions.setUser(res.data.data);
+        setUser(res.data.data)
+      
+    }
+  }
 
   const endDataState = () => {
+    actions.setOpen(false);
     if (watch('localStart') === undefined) {
       setError('localEnd', {
         type: 'custom',
@@ -37,10 +57,7 @@ const InsuInfo = () => {
   const onClickCalc = (data) => {
     console.log(data)
     // 백앤드 api연결작업 예정
-    
     actions.setOpen(true);
-
-    window.scrollTo({top: 700, left: 0, behavior: 'smooth'})
   }
 
   const onError = (e) => {
@@ -72,6 +89,7 @@ const InsuInfo = () => {
             title='여행시작일'
             minDate={new Date()}
             required='여행시작일을 선택해주세요.'
+            onHandleChange={() => actions.setOpen(false)}
           />
         </Input>
         <Input label='여행종료일'>
@@ -88,6 +106,7 @@ const InsuInfo = () => {
             }
             readOnly={readOnly}
             onFocus={endDataState}
+            onHandleChange={() => actions.setOpen(false)}
             required='여행종료일을 선택해주세요.'
           />
         </Input>
@@ -99,6 +118,13 @@ const InsuInfo = () => {
             name='birthRep'
             placeholder='주민번호 앞자리'
             required='주민번호 앞 6자리를 입력해주세요.'
+            pattern={{
+              value: /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/,
+              message: '생년월일을 정확하게 입력해주세요'
+            }}
+            validate={{
+              value: () => actions.setOpen(false)
+            }}
           />
         </Input>
         <Input label='성별' type='select'>
@@ -107,6 +133,9 @@ const InsuInfo = () => {
             placeholder='선택'
             defaultValue=''
             required='성별을 선택해주세요.'
+            validate={{
+              value: () => actions.setOpen(false)
+            }}
           >
             {gender.map((cur) => {
               return (
@@ -130,7 +159,7 @@ const InsuInfo = () => {
       </ButtonWrap>
       {!close && (
         <Popup close={handleClose} type='alert'>
-          {errors?.localStart ? <p>{errors.localStart.message}</p> :  
+          {errors.localStart ? <p>{errors.localStart.message}</p> :  
             errors.localEnd ? <p>{errors.localEnd.message}</p> :
             errors.birthRep ? <p>{errors.birthRep.message}</p> :
             errors.genderRep && <p>{errors.genderRep.message}</p>}

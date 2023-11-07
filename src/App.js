@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
-import { useForm, FormProvider, useController } from "react-hook-form";
-import { UserProvider } from './context/UserContext';
+import { useForm, FormProvider } from "react-hook-form";
+import  { UserProvider } from './context/UserContext';
 import GlobalStyle from './style/GlobalStyle';
 import theme from './style/Theme';
 
@@ -24,15 +24,18 @@ import InsuroboCard from './pages/InsuroboCard';
 import View from './components/Post/View';
 import InsuroboTravel from './pages/InsuroboTravel';
 import { TravelPageProvider } from './context/travelPageContext';
-import InsuroboTravelLogin from './pages/InsuroboTravelLogin';
+// import InsuroboTravelLogin from './pages/InsuroboTravelLogin';
+// import { getUser } from './container/Storage/Auth';
+
 
 function App() {
-  
+  // const user = getUser();
   // input창에 기본값이 있는 경우 입력
   const methods = useForm({
     mode: 'onBlur',
-    defaultValues: {
-    }
+    // defaultValues: {
+      
+    // }
   });
 
   const auth = localStorage.getItem("@access-Token");

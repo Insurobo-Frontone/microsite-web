@@ -4,14 +4,15 @@ import PolicyButton from "../../Input/PolicyButton";
 import { list1, list2, list3, list4, list5 } from "../../TravelData/QnaData";
 import Button from "../Button";
 import useWindowSize from "../../../../hooks/useWindowSize";
+import pdf from '../../../../assets/pdf/프로미_국내여행보험Ⅱ_보험약관.pdf';
 
 const Qna = ({ type }) => {
   const [id, setId] = useState({
     qnaId: 1,
     listId: 1
   });
-
   const { width } = useWindowSize();
+
   const qnaData = [
     {
       id: 1,
@@ -81,7 +82,7 @@ const Qna = ({ type }) => {
               }} 
             />
           )}
-          <Button type='border' title='보험약관' />
+          <Button type='border' title='보험약관' onClick={() => window.open(pdf, '_blank')}/>
         </div>
       </div>
     </QnaWrap>

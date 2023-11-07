@@ -3,38 +3,24 @@ import { createContext } from 'react';
 
 const UserContext = createContext({
   state: { 
-    user: {
-        loginType: '',
-        marketing_yn: '',
-        phoneRole: '',
-        userId: '',
-        userName: '',
-        address: '',
-        address_detail: '',
-        companyName: '',
-        insuId: '',
-      }
+    user: {}
   },
   actions: {
     setUser: () => {},
   }
 });
 
-const initialState = {
-  loginType: '',
-  marketing_yn: '',
-  phoneRole: '',
-  userId: '',
-  userName: '',
-  address: '',
-  address_detail: '',
-  companyName: '',
-  insuId: '',
-}
 
 const UserProvider = ({children}) => {
-  const [user, setUser] = useState(initialState)
-
+  const [user, setUser] = useState({
+    birthyear: '',
+    birthday: '',
+    phone_number: '',
+    gender: '',
+    name: '',
+    email: '',
+    
+  })
   const value = {
     state: { user },
     actions: { setUser }

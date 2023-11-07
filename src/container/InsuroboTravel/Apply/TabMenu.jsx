@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled, { css } from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { clearGetTravelMenu, getTravelMenu } from "../../Storage/InsuTravel";
 import Popup from "./Popup";
+import TravelPageContext from "../../../context/travelPageContext";
 
 const TabMenu = ({ type }) => {
   const menu = [
@@ -32,10 +33,12 @@ const TabMenu = ({ type }) => {
   const [close, setClose] = useState(true);
   const [message, setMessage] = useState('');
   const [popupType, setPopupType] = useState('');
-  
+  const { actions } = useContext(TravelPageContext);
+
   const onClickReset = () => {
     setClose(true);
     reset();
+    actions.setOpen(false);
     clearGetTravelMenu();
     navigate(`/insuroboTravel/apply?step=1`, {
       state: {
@@ -63,6 +66,7 @@ const TabMenu = ({ type }) => {
     else {
       setClose(true);
       reset();
+      actions.setOpen(false);
       navigate(`/insuroboTravel/apply?step=1`, {
         state: {
           type: type,

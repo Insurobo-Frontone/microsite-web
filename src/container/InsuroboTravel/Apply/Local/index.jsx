@@ -6,7 +6,6 @@ import useWindowSize from "../../../../hooks/useWindowSize";
 import ApplyHeader from "../ApplyHeader";
 import InsuInfo from "./Step1/InsuInfo";
 import InsuCalc from "../Step1/InsuCalc";
-import RadioInput from "../../Input/RadioInput";
 import InsuJoin from "../Step2/InsuJoin";
 import TravelPageContext from "../../../../context/travelPageContext";
 import CheckInput from "../../Input/CheckInput";
@@ -16,6 +15,7 @@ import Button from "../Button";
 import MyPage from "../Step3/MyPage";
 import Qna from "../Step4/Qna";
 import Popup from "../Popup";
+import { onClickPayment } from "../onClickPayment";
 
 const Local= ({ type }) => {
   const navigate = useNavigate();
@@ -32,24 +32,10 @@ const Local= ({ type }) => {
     name: ['list1', 'list2', 'list3', 'notice', 'policyAllAgree'],
   });
 
-  const onClickCalc = (step) => {
+  const onClickNext = (step) => {
     switch (step) {
-      // 간편계산 보험료 확인 클릭
-      case 'step1-1' :
-        if (
-          watch('localStart') &&
-          watch('localEnd') &&
-          watch('birthRep') &&
-          watch('genderRep')
-        ) {
-          actions.setOpen(true);
-          window.scrollTo({top: 700, left: 0, behavior: 'smooth'})
-        } else {
-          alert('입력값을 확인하세요.');
-        }
-        break;
-        // 간편계산 1인가입버튼 클릭
-        case 'step1-2' :
+      // 간편계산 1인가입버튼 클릭
+        case 'step1' :
         navigate(`/insuroboTravel/apply?step=2&join=1`, {
           state: {
             type: type,
@@ -57,7 +43,7 @@ const Local= ({ type }) => {
             join: '1'
           }
         });
-        actions.setOpen(false);
+        // actions.setOpen(false);
         break;
          
         // 보험가입 위 내용 확인 후 결제하기 버튼 클릭
@@ -76,7 +62,7 @@ const Local= ({ type }) => {
         <ReqContent scroll={pageState.step === '4' ? true : false}>
           {pageState.step === '1' ? (
             //간편계산
-            <InsuInfo onClickCalc={() => onClickCalc('step1-1')} />
+            <InsuInfo />
             //보험가입
           ) : pageState.step === '2' ? (
             <InsuJoin type={type} />
@@ -103,7 +89,7 @@ const Local= ({ type }) => {
             <Button
               type='border'
               title='1인 가입'
-              onClick={() => onClickCalc('step1-2')}
+              onClick={() => onClickNext('step1')}
             />
           </ButtonWrap>
         </>
@@ -206,6 +192,7 @@ const Local= ({ type }) => {
           />
           <Button
             title={width > 767.98 ? '위 내용 확인 후 결제하기' : '확인 후 결제'}
+            onClick={onClickPayment}
           />
         </ButtonWrap>
       )}

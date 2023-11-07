@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
@@ -8,11 +8,17 @@ import SelectInput from "../../Input/SelectInput";
 import Button from "../Button";
 import bgImgLocal from '../../../../assets/img/insuroboTravel/Join_1_localImg.png';
 import bgImgOver from '../../../../assets/img/insuroboTravel/Join_1_overImg.png';
+import { getUser } from "../../../Storage/Auth";
+import Popup from "../Popup";
 // import UserAddForm from "./UserAddForm";
 
 const InsuJoinStep1 = ({ type }) => {
-  const { watch, formState: { isValid, isDirty } } = useFormContext();
+  const [close, setClose] = useState(true);
+  const { watch, reset, formState: { isValid, isDirty, errors } } = useFormContext();
   const navigate = useNavigate();
+  const user = getUser();
+  const email = user.getUserInfo?.userId;
+  
   const emailTem = [
     { id: 1, value: 'naver.com' },
     { id: 2, value: 'daum.net' },
@@ -34,13 +40,17 @@ const InsuJoinStep1 = ({ type }) => {
                 name={type === 'local' ? 'nameLocalRep' : 'nameOverRep'}
                 placeholder='이름'
                 required={true}
-              /> 
+                pattern={{
+                  value: /^[가-힣]{2,5}$/,
+                }}
+                defaultValue={user.getUserInfo?.userName}
+              />
             </Input>
           </InputGroup>
           <InputGroup className="second-input-wrap">
             <Input label='주민번호' bracket='외국인번호' twoInput disabled>
               <BasicInput
-                type='text'
+                type='number'
                 name='birthRep'
                 disabled
                 required={true}
@@ -63,6 +73,10 @@ const InsuJoinStep1 = ({ type }) => {
                 name='mobileRep'
                 placeholder='휴대폰 번호 ‘-’없이 입력'
                 required={true}
+                defaultValue={user.getUserInfo?.phoneRole}
+                pattern={{
+                  value: /^\d{3}\d{3,4}\d{4}$/
+                }}
               /> 
             </Input>
             </InputGroup>
@@ -73,6 +87,10 @@ const InsuJoinStep1 = ({ type }) => {
                   name='emailRep'
                   placeholder='이메일'
                   required={true}
+                  defaultValue={email.split('@', 1)}
+                  pattern={{
+                    value:  /^[a-z0-9]*$/
+                  }}
                 /> 
               </Input>
               <span>@</span>
@@ -81,7 +99,7 @@ const InsuJoinStep1 = ({ type }) => {
                   name='emailRep2'
                   placeholder='선택'
                   required={true}
-                  defaultValue=''
+                  defaultValue={email.split('@').reverse()[0]}
                 >
                   {emailTem.map((cur) => {
                     return (
@@ -117,7 +135,7 @@ const InsuJoinStep1 = ({ type }) => {
                 }
               })
             }
-          /> 
+          />
         {/* {watch('personType') === '1' ? (
           <Button
             title='확인'
@@ -133,6 +151,11 @@ const InsuJoinStep1 = ({ type }) => {
       <RightContent type={type}>
         <img src={type === 'local' ? bgImgLocal : bgImgOver} alt="imageBg" />
       </RightContent>
+      {!close && 
+        <Popup type='alert' close={() => setClose(true)}>
+          {errors.nameLocalRep && <p>{errors.nameLocalRep.message}</p> }
+        </Popup>
+      }
     </Form>
   );
 }

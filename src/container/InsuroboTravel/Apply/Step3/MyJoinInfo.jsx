@@ -9,11 +9,14 @@ import useWindowSize from "../../../../hooks/useWindowSize";
 import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";
 import { useState } from "react";
 import Popup from "../Popup";
+import TargetPlanResult from "../Local/Step1/TargetPlanResult";
 
 const MyJoinInfo = ({ open, close, onClick, type, status }) => {
   const { watch } = useFormContext();
-  const { width } = useWindowSize();
+  const { width } = useWindowSize(); 
   const [popupOpen, setPopupOpen] = useState(false);
+  const [planPopup, setPlanPopup] = useState(false);
+
   return (
     <>
       <BoxWrap open={open} close={close}>
@@ -36,7 +39,7 @@ const MyJoinInfo = ({ open, close, onClick, type, status }) => {
             </div>
             <div>
               <TravelTerm type2 />
-              <span onClick={onClick}>{open ? '보장내용 확인' : '자세히보기'}</span>
+              <span onClick={open ? () => setPlanPopup(true) : onClick}>{open ? '보장내용 확인' : '자세히보기'}</span>
             </div>
             {open && width > 767.98 && (
               <div>
@@ -86,6 +89,12 @@ const MyJoinInfo = ({ open, close, onClick, type, status }) => {
       {popupOpen && (
         <Popup type='select' close={() => setPopupOpen(false)}>
           <p>신청내역을 취소하시겠습니까?</p>
+        </Popup>
+      )}
+      {planPopup && (
+        <Popup type='info' close={() => setPlanPopup(false)}>
+          <h2 className="close-header">든든플랜 <span onClick={() => setPlanPopup(false)}/></h2>
+          <TargetPlanResult type='popup' />
         </Popup>
       )}
     </>

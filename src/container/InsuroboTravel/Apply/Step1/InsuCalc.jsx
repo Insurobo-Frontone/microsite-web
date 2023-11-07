@@ -6,10 +6,9 @@ import TargetPlanResult from "../Local/Step1/TargetPlanResult";
 
 const InsuCalc = ({ type }) => {
   const { watch } = useFormContext();
-
+  
   const gap = watch('localEnd') - watch('localStart');
   const date = Math.ceil(gap / (1000 * 60 * 60 * 24) + 1);
-
   const conDay = watch('localStart');
   const conDayYear = conDay.getFullYear();
   const conDayMonth =  conDay.getMonth() + 1 < 10 ? '0' + (conDay.getMonth() + 1) : conDay.getMonth() + 1;
@@ -20,7 +19,7 @@ const InsuCalc = ({ type }) => {
   const birthYear = birth > 23 ? 19 + birth : 20 + birth;
   const korAge = conDayMonth < Number(birthMonth) + 6 ? 0 : conDayDate < Number(birthDay) ? 0 : 1;
   const insuAge = (conDayYear - birthYear) + korAge;
-  
+
   const insuInfodata = [
     {
       id: 1,
@@ -97,3 +96,4 @@ const InsuPlanTypelWrap = styled.div`
     padding-top: 24px;
   }
 `;
+

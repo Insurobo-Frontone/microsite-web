@@ -1,33 +1,39 @@
-export const onClickPayment = (cartItems, discountPrice, totalPrice, user) => {
+import axios from "axios";
+
+export const onClickPayment = () => {
   // 객체 초기화
   const { IMP } = window;
   IMP.init(`${process.env.REACT_APP_IMP}`);
-
-  const formatName = (cartItems) => {
-    return cartItems.length > 1
-      ? `${cartItems[0].title} 외 + ${cartItems.length}`
-      : `${cartItems[0].title}`;
-  };
-
   const data = {
-    pg: `${process.env.REACT_PAYMENT_PG}`, // PG사
-    pay_method: "card", // 결제수단
-    merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-    name: formatName(cartItems), // 주문명
-    amount: totalPrice - discountPrice, // 결제금액
-    buyer_name: user.name, // 구매자 이름
-    buyer_tel: user.phone, // 구매자 전화번호
-    buyer_email: user.email, // 구매자 이메일
-    buyer_addr: user.address, // 구매자 주소
-    buyer_postcode: user.postcode, // 구매자 우편번호
+    pg: "html5_inicis.INIBillTst",
+    pay_method: "card",
+    merchant_uid: "57008833-33004",
+    name: "당근 10kg",
+    amount: 1004,
+    buyer_email: "Iamport@chai.finance",
+    buyer_name: "포트원 기술지원팀",
+    buyer_tel: "010-4242-4242",
+    buyer_addr: "서울특별시 강남구 신사동",
+    buyer_postcode: "01181",
   };
   IMP.request_pay(data, callback);
-};
+}
+
 const callback = (response) => {
-  const { success, error_msg } = response;
+  const { success, error_msg, imp_uid, merchant_uid, pay_method, paid_amount, status } = response;
   if (success) {
-    alert("결제 성공");
+    axios({
+      url: "{서버의 결제 정보를 받는 endpoint}",
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        imp_uid: imp_uid,
+        merchant_uid: merchant_uid
+      }
+    }).then((data) => {
+      // 서버 결제 API 성공시 로직
+    })
   } else {
-    alert(`결제 실패: ${error_msg}`);
+      alert(`결제에 실패하였습니다. 에러 내용: ${error_msg}`);
   }
-};
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import closeIcon from '../../../../assets/icon/travelCloseBtn_Black.png';
 
 const Popup = ({ close, children, type, onClickYse }) => {
   return (
@@ -9,6 +10,7 @@ const Popup = ({ close, children, type, onClickYse }) => {
           <div>
             {children}
           </div>
+          
           {type === 'select' ? (
             <ButtonWrap>
               <CheckButton onClick={onClickYse}>예</CheckButton>
@@ -64,6 +66,19 @@ const Wrap = styled.div`
       > h2 {
         font-size: 20px;
         color: #000000;
+        &.close-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          > span {
+            display: block;
+            width: 29px;
+            height: 29px;
+            background-image: url(${closeIcon});
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+        }
       }
       > div {
         padding-top: 40px;
@@ -108,6 +123,13 @@ const Wrap = styled.div`
         > h2 {
           font-size: 16px;
           text-align: start;
+          &.close-header {
+            > span {
+              width: 24px;
+              height: 24px;
+              background-size: 12.02px;
+            }
+          }
         }
         > div {
           padding-top: 10px;

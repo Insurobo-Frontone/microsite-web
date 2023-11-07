@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-const BasicInput = ({ type, name, required, validate, value, placeholder, disabled, readOnly }) => {
+const BasicInput = ({ defaultValue, type, name, required, validate, pattern, placeholder, disabled, readOnly }) => {
   const { register } = useFormContext();
   return (
     <input
@@ -10,10 +10,11 @@ const BasicInput = ({ type, name, required, validate, value, placeholder, disabl
       placeholder={placeholder}
       disabled={disabled}
       readOnly={readOnly}
-      value={value}
+      defaultValue={defaultValue}
       {...register(name, {
         required: required,
-        validate: validate
+        validate: validate,
+        pattern: pattern
       })}
     />
   )

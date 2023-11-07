@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Popup from "../../Popup";
 import useWindowSize from "../../../../../hooks/useWindowSize";
 
-const TargetPlanResult = () => {
+const TargetPlanResult = ({ type }) => {
   const [close, setClose] = useState(true);
   const { width } = useWindowSize();
+
   const accident = [
     {
       id: 1,
@@ -79,7 +80,7 @@ const TargetPlanResult = () => {
   ]
   return (
     <>
-      <Wrap>
+      <Wrap type={type}>
         <div>
           <h2>상해보장</h2>
           <ul>
@@ -185,6 +186,8 @@ const Wrap = styled.div`
             border-bottom: 1px solid #176FFF;
             font-weight: 300;
             margin-left: 10px;
+            display: inline-block;
+            line-height: 1;
           }
         }
         > p {
@@ -195,6 +198,40 @@ const Wrap = styled.div`
       }
     }
   }
+
+  ${props => props.type === 'popup' && css`
+    > div {
+      padding: 20px 0;
+      border-top: 1px solid #F0F0F0;
+      border-bottom: 0;
+      :last-child {
+        padding-bottom: 0;
+      }
+      > h2 {
+        font-size: 16px;
+        line-height: 23px;
+        font-weight: 500;
+        padding-bottom: 10px;
+      }
+      > ul {
+        > li {
+          margin-bottom: 10px;
+          > h3 {
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 23px;
+            > span {
+              font-size: 14px;
+            }
+          }
+          > p {
+            font-size: 16px;
+            line-height: 23px;
+          }
+        }
+      }
+    }
+  `}
   
   ${(props) => props.theme.window.mobile} {
     padding: 20px 0;
@@ -223,4 +260,38 @@ const Wrap = styled.div`
       }
     }
   }
+
+  ${props => props.type === 'popup' && css`
+    > div {
+      padding: 10px 0;
+      border-top: 1px solid #F0F0F0;
+      border-bottom: 0;
+      :last-child {
+        padding-bottom: 0;
+      }
+      > h2 {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 500;
+        padding-bottom: 10px;
+      }
+      > ul {
+        > li {
+          margin-bottom: 10px;
+          > h3 {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 18px;
+            > span {
+              font-size: 12px;
+            }
+          }
+          > p {
+            font-size: 14px;
+            line-height: 18px;
+          }
+        }
+      }
+    }
+  `}
 `;
