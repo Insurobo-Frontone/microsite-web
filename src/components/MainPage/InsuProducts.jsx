@@ -36,8 +36,8 @@ const data = [
     id: 2,
     title: '여행자보험',
     mobileTitle: '여행자보험',
-    link: '/insuroboTravel',
-    mobile: '/insuroboTravel',
+    link: '',
+    mobile: '',
     img:  icon2,
     class: 'must',
     tag: '개인보험'
