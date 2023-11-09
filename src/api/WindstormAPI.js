@@ -12,7 +12,6 @@ export const getJuso = async (params) => {
 
 // 건축물 표제부 검색 API
 export const getCover = async (params) => {
-  console.log('getCover', params);
   return await WindstormAPI.get(
     `/Pub/Bld/getCover?sigunguCd=${params.sigungucd}&bjdongCd=${params.bjdongcd}&bun=${params.bun}&ji=${params.ji}&zip=${params.zip}`,
   );
@@ -37,7 +36,6 @@ export const getLoBzCdList = () => {
 
 // 현대해상 웹링크 목적물 정보 연계 API
 export const postHiLinkObj = async (params) => {
-  console.log('postHiLinkObj', params);
   return await WindstormAPI.post('/Hi/StmFld/linkObjInfo', { 
     ...params,
    });

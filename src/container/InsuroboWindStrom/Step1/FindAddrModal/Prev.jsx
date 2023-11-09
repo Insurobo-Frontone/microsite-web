@@ -30,7 +30,7 @@ const Prev = () => {
       <p>아래와 같은 조합으로 검색하세요.</p>
       {SearchHelperDate.map((cur) => {
         return (
-          <TextContainer>
+          <TextContainer key={cur.id}>
             <p>{cur.title}</p>
             <span>{cur.text}</span>
           </TextContainer>

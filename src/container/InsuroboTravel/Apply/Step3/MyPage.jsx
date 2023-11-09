@@ -39,7 +39,7 @@ const MyPage = () => {
             setClose(false)
           }}
           status='ready'
-        /> 
+        />  
       ) : (
         <div className="notFind">
           <p>가입 내역이 없습니다.</p>

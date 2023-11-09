@@ -119,7 +119,6 @@ const InsuroboWindstorm = () => {
         termsA4: watch('termsA4') ? 'Y' : 'N',
         termsA6: watch('termsA6') ? 'Y' : 'N',
       }).then((res) => {
-        console.log(res.data.results.userID);
         const userId = res.data.results.userID;
         const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='
         window.open(`${link}${userId}`);
@@ -134,10 +133,7 @@ const InsuroboWindstorm = () => {
         <Content>
           <Step1 />
           <Step2 />
-          <Button 
-            onClick={onClickNext}
-            // disabled={validata}
-          >
+          <Button onClick={onClickNext}>
             다음
           </Button>
         </Content>

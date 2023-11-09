@@ -1,6 +1,5 @@
 
 export const StorageSetInsurance = async (getCover, getAddr) => {
-  console.log(getCover, getAddr);
   await localStorage.setItem('@getCover', JSON.stringify(getCover));
   await localStorage.setItem('@getAddr', JSON.stringify(getAddr));
 }

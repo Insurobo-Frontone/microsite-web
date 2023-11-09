@@ -37,8 +37,8 @@ const ModalTextList = () => {
     <Wrap>
       {BuildingInfoData.map((cur) => {
         return (
-          <div>
-            <Title key={cur.id}>
+          <div key={cur.id}>
+            <Title>
               {cur.title}
             </Title>
             <Text>{cur.content}</Text>

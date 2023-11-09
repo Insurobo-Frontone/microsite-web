@@ -13,7 +13,6 @@ const RoadViewModal = ({onClick}) => {
     getRoadView(InsuroboWindstorm.getAddr.roadAddr).then((res) => {
       const xPosition = res.data.documents[0].address.x // 경도
       const yPosition = res.data.documents[0].address.y // 위도
-
       const roadviewContainer = document.getElementById('roadview');
       const roadview = new kakao.maps.Roadview(roadviewContainer);
       const roadviewClient = new kakao.maps.RoadviewClient();
