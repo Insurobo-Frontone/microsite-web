@@ -33,9 +33,9 @@ function App() {
   // input창에 기본값이 있는 경우 입력
   const methods = useForm({
     mode: 'onBlur',
-    // defaultValues: {
-      
-    // }
+    defaultValues: {
+      calcPlan: 'safe_plan'
+    }
   });
 
   const auth = localStorage.getItem("@access-Token");

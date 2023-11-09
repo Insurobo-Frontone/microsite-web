@@ -1,90 +1,27 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import Popup from "../../Popup";
-import useWindowSize from "../../../../../hooks/useWindowSize";
+import { useFormContext } from "react-hook-form";
+import Popup from "../Popup";
+import useWindowSize from "../../../../hooks/useWindowSize";
+import { etc, obi, relieve_acc, relieve_dis, safe_acc, safe_dis } from "../../TravelData/CoverageDetails";
 
 const TargetPlanResult = ({ type }) => {
   const [close, setClose] = useState(true);
   const { width } = useWindowSize();
+  const { watch } = useFormContext();
+  const accData = watch('calcPlan') === 'relieve_plan' ? relieve_acc : safe_acc;
+  const disData = watch('calcPlan') === 'relieve_plan' ? relieve_dis : safe_dis;
 
-  const accident = [
-    {
-      id: 1,
-      title: '사망',
-      pay: '30,000,000'
-    },
-    {
-      id: 2,
-      title: '고도후유장해',
-      pay: '30,000,000'
-    },
-    {
-      id: 3,
-      title: '입원(급여/비급여)',
-      pay: '30,000,000'
-    },
-    {
-      id: 4,
-      title: '통원(급여/비급여)',
-      pay: '30,000,000'
-    },
-  ];
-
-  const disease = [
-    {
-      id: 1,
-      title: '사망',
-      pay: '30,000,000'
-    },
-    {
-      id: 2,
-      title: '고도후유장해',
-      pay: '30,000,000'
-    },
-    {
-      id: 3,
-      title: '입원(급여/비급여)',
-      pay: '30,000,000'
-    },
-    {
-      id: 4,
-      title: '통원(급여/비급여)',
-      pay: '30,000,000'
-    },
-  ]
-
-  const etc = [
-    {
-      id: 1,
-      title: '도수치료비/체외충격파/증식',
-      pay: '30,000,000'
-    },
-    {
-      id: 2,
-      title: 'MRI/MRA 진단',
-      pay: '30,000,000'
-    },
-    {
-      id: 3,
-      title: '주사료',
-      pay: '30,000,000'
-    },
-  ];
-
-  const obi = [
-    {
-      id: 1,
-      title: '배상책임',
-      pay: '30,000,000'
-    },
-  ]
+  // useEffect(() => {
+    
+  // }, [watch('calcPlan')]);
   return (
     <>
       <Wrap type={type}>
         <div>
           <h2>상해보장</h2>
           <ul>
-            {accident.map((dt) => (
+            {accData.map((dt) => (
               <li key={dt.id}>
                 <h3>{dt.title}</h3>
                 <p>{dt.pay}&nbsp;원</p>
@@ -95,7 +32,7 @@ const TargetPlanResult = ({ type }) => {
         <div>
           <h2>질병보장</h2>
           <ul>
-            {disease.map((dt) => (
+            {disData.map((dt) => (
               <li key={dt.id}>
                 <h3>{dt.title}</h3>
                 <p>{dt.pay}&nbsp;원</p>

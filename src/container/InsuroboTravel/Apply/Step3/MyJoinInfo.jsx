@@ -9,7 +9,7 @@ import useWindowSize from "../../../../hooks/useWindowSize";
 import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";
 import { useState } from "react";
 import Popup from "../Popup";
-import TargetPlanResult from "../Local/Step1/TargetPlanResult";
+import TargetPlanResult from "../Local/TargetPlanResult";
 
 const MyJoinInfo = ({ open, close, onClick, type, status }) => {
   const { watch } = useFormContext();

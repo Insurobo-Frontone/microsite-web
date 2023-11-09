@@ -1,20 +1,25 @@
 import axios from "axios";
 
-export const onClickPayment = () => {
+export const onClickPayment = ({
+  buyer_email, 
+  buyer_name, 
+  buyer_tel, 
+  amount, 
+  name, 
+  merchant_uid
+}) => {
   // 객체 초기화
   const { IMP } = window;
   IMP.init(`${process.env.REACT_APP_IMP}`);
   const data = {
-    pg: "html5_inicis.INIBillTst",
-    pay_method: "card",
-    merchant_uid: "57008833-33004",
-    name: "당근 10kg",
-    amount: 1004,
-    buyer_email: "Iamport@chai.finance",
-    buyer_name: "포트원 기술지원팀",
-    buyer_tel: "010-4242-4242",
-    buyer_addr: "서울특별시 강남구 신사동",
-    buyer_postcode: "01181",
+    pg: "html5_inicis.INIBillTst", //PG사
+    pay_method: "card", //결제수단
+    merchant_uid: merchant_uid, //주문번호
+    name: name, //주문명
+    amount: amount, //결제금액
+    buyer_email: buyer_email, //구매자 이메일
+    buyer_name: buyer_name, //구매자 이름
+    buyer_tel: buyer_tel, //구매자 전화번호
   };
   IMP.request_pay(data, callback);
 }

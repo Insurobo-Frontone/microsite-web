@@ -27,7 +27,13 @@ const InsuJoin = ({ type }) => {
   return (
     <>
       <JoinStepNav>
-        <PrevButton />
+        <PrevButton 
+          link={pageState.join === '1' ? '/insuroboTravel/apply?step=1' : false}
+          state={pageState.join === '1' ? {
+            type: 'local',
+            step: '1'
+          } : false}
+        />
         <ul>
           {menu.map((dep) => (
             <MenuButton 

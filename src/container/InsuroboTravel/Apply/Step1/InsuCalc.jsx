@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import SelectPlan from "./SelectPlan";
-import TargetPlanResult from "../Local/Step1/TargetPlanResult";
+import TargetPlanResult from "../Local/TargetPlanResult";
+import TravelPageContext from "../../../../context/travelPageContext";
 
 const InsuCalc = ({ type }) => {
   const { watch } = useFormContext();
-  
+  const { state, actions } = useContext(TravelPageContext);
   const gap = watch('localEnd') - watch('localStart');
   const date = Math.ceil(gap / (1000 * 60 * 60 * 24) + 1);
   const conDay = watch('localStart');
@@ -19,7 +20,12 @@ const InsuCalc = ({ type }) => {
   const birthYear = birth > 23 ? 19 + birth : 20 + birth;
   const korAge = conDayMonth < Number(birthMonth) + 6 ? 0 : conDayDate < Number(birthDay) ? 0 : 1;
   const insuAge = (conDayYear - birthYear) + korAge;
-
+  
+  useEffect(() => {
+    return () => {
+      actions.setOpen(false);
+    }
+  }, [date, watch('birthRep'), watch('genderRep')]);
   const insuInfodata = [
     {
       id: 1,

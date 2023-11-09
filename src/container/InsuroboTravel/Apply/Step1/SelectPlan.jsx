@@ -1,25 +1,22 @@
-import React,{ useEffect } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
 import checkedIcon from '../../../../assets/icon/planCheckedIcon.png';
 import mbCheckedIcon from '../../../../assets/icon/travelMobileCheckIcon.png';
 
 const SelectPlan = () => {
-  const { control, setValue } = useFormContext();
-  useEffect(() => {
-    setValue('calcPlan', 'planB')
-  }, []);
+  const { control } = useFormContext();
   
   const data = [
     {
       id: '1',
-      value: 'planA',
+      value: 'relieve_plan',
       pay: '5,420',
       title: '든든플랜'
     },
     {
       id: '2',
-      value: 'planB',
+      value: 'safe_plan',
       pay: '1,280',
       title: '안심플랜'
     },

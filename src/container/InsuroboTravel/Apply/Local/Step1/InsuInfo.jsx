@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import TravelPageContext from "../../../../../context/travelPageContext";
@@ -19,7 +19,7 @@ const InsuInfo = () => {
   const [readOnly, setReadOnly] = useState(true);
   const [close, setClose] = useState(true);
   const { width } = useWindowSize();
-  const { actions } = useContext(TravelPageContext);
+  const { state, actions } = useContext(TravelPageContext);
   const auth = localStorage.getItem("@access-Token");
   useEffect(() => {
     userInfo();
@@ -54,11 +54,12 @@ const InsuInfo = () => {
     setClose(true);
   }
 
-  const onClickCalc = (data) => {
-    console.log(data)
+  const onClickCalc = useCallback((data) => {
     // 백앤드 api연결작업 예정
+
     actions.setOpen(true);
-  }
+    
+  }, []);
 
   const onError = (e) => {
     console.log(e)
@@ -89,7 +90,6 @@ const InsuInfo = () => {
             title='여행시작일'
             minDate={new Date()}
             required='여행시작일을 선택해주세요.'
-            onHandleChange={() => actions.setOpen(false)}
           />
         </Input>
         <Input label='여행종료일'>
@@ -106,7 +106,6 @@ const InsuInfo = () => {
             }
             readOnly={readOnly}
             onFocus={endDataState}
-            onHandleChange={() => actions.setOpen(false)}
             required='여행종료일을 선택해주세요.'
           />
         </Input>
@@ -122,9 +121,6 @@ const InsuInfo = () => {
               value: /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/,
               message: '생년월일을 정확하게 입력해주세요'
             }}
-            validate={{
-              value: () => actions.setOpen(false)
-            }}
           />
         </Input>
         <Input label='성별' type='select'>
@@ -133,9 +129,6 @@ const InsuInfo = () => {
             placeholder='선택'
             defaultValue=''
             required='성별을 선택해주세요.'
-            validate={{
-              value: () => actions.setOpen(false)
-            }}
           >
             {gender.map((cur) => {
               return (

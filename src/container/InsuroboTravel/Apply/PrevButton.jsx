@@ -1,13 +1,15 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import prevIcon from "../../../assets/icon/insuJoinPrevIcon.png";
 
-const PrevButton = () => {
+const PrevButton = ({ link, state }) => {
   const navigate = useNavigate();
 
   return (
-    <Button onClick={() => navigate(-1)}><span />이전</Button>
+    <Button onClick={() => navigate(link ? link : -1, {
+      state: state
+    })}><span />이전</Button>
   );
 }
  

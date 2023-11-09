@@ -18,7 +18,6 @@ const Calendar = ({
   startDate,
   endDate,
   required,
-  onHandleChange,
   onFocus,
   readOnly,
   validate,
@@ -67,7 +66,6 @@ const Calendar = ({
             onFocus={onFocus}
             onChange={(data) => {
               onChange(data)
-              onHandleChange()
             }}
             placeholderText={placeholder}
             withPortal

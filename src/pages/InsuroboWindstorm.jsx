@@ -8,6 +8,7 @@ import Step1 from "../container/InsuroboWindStrom/Step1";
 import Step2 from "../container/InsuroboWindStrom/Step2";
 import Button from "../container/InsuroboWindStrom/Button";
 import { postHiLinkObj } from "../api/WindstormAPI";
+import useWindowSize from "../hooks/useWindowSize";
 
 const Wrap = styled.div`
   width: 100%;
@@ -30,9 +31,8 @@ const Content = styled.div`
 `;
 
 const InsuroboWindstorm = () => {
-  
+  const { width } = useWindowSize();
   const navigate = useNavigate();
-  
   const { watch, reset } = useFormContext({
     mode: 'onChange'
   });
@@ -71,9 +71,8 @@ const InsuroboWindstorm = () => {
       watch('telNo') === '' ||
       watch('bizNo') === '' ||
       watch('inrBirth') === ''
-
     ) {
-      alert('입력하신 값을 확인해 주세요')
+      alert('입력하신 값을 확인해 주세요');
     } else if (
       watch('termsA6') === false ||
       watch('termsA1') === false ||
@@ -81,7 +80,7 @@ const InsuroboWindstorm = () => {
       watch('termsA3') === false ||
       watch('termsA4') === false
     ) {
-      alert('개인정보처리 동의 항목은 필수 체크 항목입니다.')
+      alert('개인정보처리 동의 항목은 필수 체크 항목입니다.');
     } else {
       const insurance = StorageGetInsurance();
       // 연락처
@@ -121,8 +120,9 @@ const InsuroboWindstorm = () => {
         termsA6: watch('termsA6') ? 'Y' : 'N',
       }).then((res) => {
         console.log(res.data.results.userID);
-        // const userId = res.data.results.userID;
-        // window.open(`https://mplatform.hi.co.kr/service.do?m=pipis1000&${userId}`);
+        const userId = res.data.results.userID;
+        const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='
+        window.open(`${link}${userId}`);
         navigate('/');
       }).catch((e) => console.log(e));
     }
