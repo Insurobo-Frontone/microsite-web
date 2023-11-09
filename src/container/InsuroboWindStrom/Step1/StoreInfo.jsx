@@ -20,19 +20,22 @@ const StoreInfo = () => {
 
   return (
     <Wrap>
-      <Input 
+      <Input
+        type='number'
         placeholder='가입면적'
         name='hsArea'
         defaultValue=''
       />
       <div>
-        <Input 
-          placeholder='가입 시작'
+        <Input
+          type='number'
+          placeholder='시작 층'
           name='inputBldSt'
           defaultValue=''
         />
-        <Input 
-          placeholder='가입 끝'
+        <Input
+          type='number'
+          placeholder='끝 층'
           name='inputBldEd'
           defaultValue=''
         />

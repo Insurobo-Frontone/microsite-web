@@ -5,6 +5,7 @@ import { ErrorMessage } from "@hookform/error-message";
 
 const Input = ({
   placeholder,
+  type,
   first,
   readOnly,
   onChange,
@@ -19,6 +20,7 @@ const Input = ({
   return (
     <>
       <InputBase
+        type={type}
         first={first}
         readOnly={readOnly}
         placeholder={placeholder}
