@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useFormContext } from "react-hook-form";
 import Popup from "../Popup";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import { etc, obi, relieve_acc, relieve_dis, safe_acc, safe_dis } from "../../TravelData/CoverageDetails";
+import axios from "axios";
 
 const TargetPlanResult = ({ type }) => {
   const [close, setClose] = useState(true);
@@ -12,9 +13,8 @@ const TargetPlanResult = ({ type }) => {
   const accData = watch('calcPlan') === 'relieve_plan' ? relieve_acc : safe_acc;
   const disData = watch('calcPlan') === 'relieve_plan' ? relieve_dis : safe_dis;
 
-  // useEffect(() => {
-    
-  // }, [watch('calcPlan')]);
+  useEffect(() => {
+  }, [watch('calcPlan')]);
   return (
     <>
       <Wrap type={type}>

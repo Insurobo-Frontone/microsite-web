@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import SelectPlan from "./SelectPlan";
 import TargetPlanResult from "../Local/TargetPlanResult";
 import TravelPageContext from "../../../../context/travelPageContext";
+import { getCalc } from "../../../../api/TravelAPI";
 
 const InsuCalc = ({ type }) => {
   const { watch } = useFormContext();
@@ -22,6 +23,15 @@ const InsuCalc = ({ type }) => {
   const insuAge = (conDayYear - birthYear) + korAge;
   
   useEffect(() => {
+    getCalc({
+      age: insuAge,
+      sex: watch('genderRep'),
+      period: date
+    }).then((res) => {
+      console.log(res);
+    }).catch((e) => {
+      console.log(e);
+    })
     return () => {
       actions.setOpen(false);
     }
