@@ -59,10 +59,13 @@ const InsuJoinStep1 = ({ type }) => {
             <span>-</span>
             <Input twoInput>
               <BasicInput
-                type='text'
+                type='number'
                 name='LastRegRep'
                 placeholder='주민번호 뒷자리'
                 required={true}
+                pattern={{
+                  value: /[1-4]\d{6}/
+                }}
               /> 
             </Input>
           </InputGroup>
@@ -75,7 +78,7 @@ const InsuJoinStep1 = ({ type }) => {
                 required={true}
                 defaultValue={user.getUserInfo?.phoneRole}
                 pattern={{
-                  value: /^\d{3}\d{3,4}\d{4}$/
+                  value: /(01[016789])([1-9]{1}[0-9]{2,3})([0-9]{4})$/
                 }}
               /> 
             </Input>

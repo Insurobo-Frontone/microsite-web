@@ -16,6 +16,7 @@ import MyPage from "../Step3/MyPage";
 import Qna from "../Step4/Qna";
 import Popup from "../Popup";
 import { onClickPayment } from "../onClickPayment";
+import { postTourSave } from "../../../../api/TravelAPI";
 
 const Local= ({ type }) => {
   const navigate = useNavigate();
@@ -32,6 +33,36 @@ const Local= ({ type }) => {
     name: ['list1', 'list2', 'list3', 'notice', 'policyAllAgree'],
   });
 
+  const tourSaveNext = () => {
+    postTourSave({
+      juminFront: '', //	주민등록번호 앞자리
+      juminBack: '', // 주민등록번호 뒷자리
+      phoneNum: '', // 핸드폰번호
+      email: '', // 이메일
+      age: '', // 나이
+      sex: '', // 성별 (M, F)
+      period: '', // 여행기간
+      gubun: '', //보험 구분(1: 든든, 3: 안심)
+      startDate: '', //	여행 시작일
+      endDate: '', // 여행 마감일
+      diseasesThreeYearsAgreement: '', // 3년간 특정 질병 유무(Y, N)
+      dangerLeisureSportsAgreement: '', // 위험한 레포츠 취미 유무(Y, N)
+      foreignerYn: '', // 외국인 여부(Y, N)
+      travelPurpose: '', // 여행 목적
+      privacyInfoAgreement: '', // 개인정보수집 동의 여부(Y, N)
+      beforePayment: '', //	결제전 여부(Y, N)
+      deleteYn: '' // 삭제 여부(Y, N)
+    }).then((res) => {
+
+    })
+    navigate(`/insuroboTravel/apply?step=2&join=3`, {
+      state: {
+        type: type,
+        step: '2',
+        join: '3'
+      }
+    })
+  }
   const onClickNext = (step) => {
     switch (step) {
       // 간편계산 1인가입버튼 클릭
@@ -171,15 +202,7 @@ const Local= ({ type }) => {
                 join2Valid[3] === true &&
                 join2Valid[4] === true ? false : true
               }
-              onClick={() => 
-                navigate(`/insuroboTravel/apply?step=2&join=3`, {
-                  state: {
-                    type: type,
-                    step: '2',
-                    join: '3'
-                  }
-                })
-              }
+              onClick={tourSaveNext}
             />
           </ButtonWrap>
         </>

@@ -34,7 +34,7 @@ function App() {
   const methods = useForm({
     mode: 'onBlur',
     defaultValues: {
-      calcPlan: 'safe_plan'
+      calcPlan: '3'
     }
   });
 

@@ -35,6 +35,7 @@ CommonAPI.interceptors.response.use(
                 if(!alert("세션이 만료되어 재로그인이 필요합니다.")){
                     localStorage.removeItem("@access-Token");
                     localStorage.removeItem("@user");
+                    localStorage.removeItem("@userName");
                     window.location.href = process.env.REACT_APP_LOGIN_URL;
                 }
             }

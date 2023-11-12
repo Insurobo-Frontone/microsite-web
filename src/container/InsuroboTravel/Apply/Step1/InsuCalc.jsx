@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState, useReducer } from "react";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import SelectPlan from "./SelectPlan";
@@ -6,9 +6,35 @@ import TargetPlanResult from "../Local/TargetPlanResult";
 import TravelPageContext from "../../../../context/travelPageContext";
 import { getCalc } from "../../../../api/TravelAPI";
 
+// const reducer = (state, action) => {
+//   switch (action.type) {
+//     case 'LOADING':
+//       return {
+//         loading: true,
+//         data: null,
+//         error: null
+//       };
+//     case 'SUCCESS':
+//       return {
+//         loading: false,
+//         data: action.data,
+//         error: null
+//       };
+//     case 'ERROR':
+//       return {
+//         loading: false,
+//         data: null,
+//         error: action.error
+//       };
+//     default:
+//       throw new Error(`Unhandled action type: ${action.type}`);
+//   }
+// };
+
 const InsuCalc = ({ type }) => {
   const { watch } = useFormContext();
-  const { state, actions } = useContext(TravelPageContext);
+  const { actions } = useContext(TravelPageContext);
+  const [data, setData] = useState([]);
   const gap = watch('localEnd') - watch('localStart');
   const date = Math.ceil(gap / (1000 * 60 * 60 * 24) + 1);
   const conDay = watch('localStart');
@@ -23,19 +49,22 @@ const InsuCalc = ({ type }) => {
   const insuAge = (conDayYear - birthYear) + korAge;
   
   useEffect(() => {
-    getCalc({
-      age: insuAge,
-      sex: watch('genderRep'),
-      period: date
-    }).then((res) => {
-      console.log(res);
-    }).catch((e) => {
-      console.log(e);
-    })
+      getCalc({
+        age: insuAge,
+        sex: watch('genderRep'),
+        period: date
+      }).then((res) => {
+        setData(res.data.data)
+        // dispatch({type: 'SUCCESS', data: res.data.data});
+      }).catch((e) => console.log(e))
+      
+   
     return () => {
       actions.setOpen(false);
     }
   }, [date, watch('birthRep'), watch('genderRep')]);
+  // const {loading, data, error} = state;
+  console.log(data)
   const insuInfodata = [
     {
       id: 1,
@@ -53,9 +82,10 @@ const InsuCalc = ({ type }) => {
       data: `${watch('genderRep') === 'M' ? '남자' : '여자'}`
     },
   ];
-  
+
   return (
     <>
+      
       <InsuInfoLabelWrap>
         {insuInfodata.map((dt) => (
           <li key={dt.id}>
@@ -64,9 +94,9 @@ const InsuCalc = ({ type }) => {
         ))}
       </InsuInfoLabelWrap>
       <InsuPlanTypelWrap>
-        <SelectPlan />
+        <SelectPlan data={data} />
       </InsuPlanTypelWrap>
-      {type === 'local' ? (<TargetPlanResult />) : ''}
+      <TargetPlanResult data={data} />
     </>
   );
 }

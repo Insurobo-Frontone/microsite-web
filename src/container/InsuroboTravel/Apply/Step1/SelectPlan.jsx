@@ -4,23 +4,8 @@ import { useFormContext, Controller } from 'react-hook-form';
 import checkedIcon from '../../../../assets/icon/planCheckedIcon.png';
 import mbCheckedIcon from '../../../../assets/icon/travelMobileCheckIcon.png';
 
-const SelectPlan = () => {
+const SelectPlan = ({ data }) => {
   const { control } = useFormContext();
-  
-  const data = [
-    {
-      id: '1',
-      value: 'relieve_plan',
-      pay: '5,420',
-      title: '든든플랜'
-    },
-    {
-      id: '2',
-      value: 'safe_plan',
-      pay: '1,280',
-      title: '안심플랜'
-    },
-  ]
   return (
       <Controller
         name='calcPlan'
@@ -28,25 +13,27 @@ const SelectPlan = () => {
         render={({ field }) => {
           return (
             <>
-              {data.map((item) => {
+              {data.filter((dt) => dt.gubun !== '2').map((item) => {
                 return (
-                  <ButtonWrap {...field} key={item.id}>
-                    <Label htmlFor={item.value} active={field.value === item.value}>
-                      <p>{item.title}<span>{item.pay}원</span></p>
-                      <Icon active={field.value === item.value} />
-                    </Label>
-                    <input
-                      key={item.id}
-                      type="radio"
-                      id={item.value}
-                      name={field.name}
-                      value={item.value} 
-                      checked={field.value === item.value}
-                      onChange={(e) => {
-                        field.onChange(e.target.value);
-                      }}
-                    />
-                  </ButtonWrap>
+                  <>
+                    <ButtonWrap {...field} key={item.id}>
+                      <Label htmlFor={item.gubun} active={field.value === item.gubun}>
+                        <p>{item.gubun === '1' ? '안심플랜' : '든든플랜'}<span>{item.fee.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span></p>
+                        <Icon active={field.value === item.gubun} />
+                      </Label>
+                      <input
+                        key={item.gubun}
+                        type="radio"
+                        id={item.gubun}
+                        name={field.name}
+                        value={item.gubun} 
+                        checked={field.value === item.gubun}
+                        onChange={(e) => {
+                          field.onChange(e.target.value);
+                        }}
+                      />
+                    </ButtonWrap>
+                  </>
                 );
               })}
             </>

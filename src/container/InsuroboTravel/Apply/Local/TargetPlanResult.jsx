@@ -3,61 +3,86 @@ import styled, { css } from "styled-components";
 import { useFormContext } from "react-hook-form";
 import Popup from "../Popup";
 import useWindowSize from "../../../../hooks/useWindowSize";
-import { etc, obi, relieve_acc, relieve_dis, safe_acc, safe_dis } from "../../TravelData/CoverageDetails";
-import axios from "axios";
 
-const TargetPlanResult = ({ type }) => {
+
+const TargetPlanResult = ({ type, data }) => {
   const [close, setClose] = useState(true);
   const { width } = useWindowSize();
   const { watch } = useFormContext();
-  const accData = watch('calcPlan') === 'relieve_plan' ? relieve_acc : safe_acc;
-  const disData = watch('calcPlan') === 'relieve_plan' ? relieve_dis : safe_dis;
 
-  useEffect(() => {
-  }, [watch('calcPlan')]);
+  // const planData = .map((td) => {
+  //   return td.tripBojangResponseDto;
+  // });
+
+
   return (
     <>
       <Wrap type={type}>
+    
         <div>
           <h2>상해보장</h2>
           <ul>
-            {accData.map((dt) => (
-              <li key={dt.id}>
-                <h3>{dt.title}</h3>
-                <p>{dt.pay}&nbsp;원</p>
-              </li>
-            ))}
+            {data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
+              return (
+                item.tripBojangResponseDto.filter((cur) => cur.bname.includes('상해')).map((td) => {
+                  return (
+                    <li key={td.bcode}>
+                      <h3>{td.bname}</h3>
+                      <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                    </li>
+                  )
+                })
+              )
+            })}
           </ul>
         </div>
         <div>
           <h2>질병보장</h2>
           <ul>
-            {disData.map((dt) => (
-              <li key={dt.id}>
-                <h3>{dt.title}</h3>
-                <p>{dt.pay}&nbsp;원</p>
-              </li>
-            ))} 
+            {data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
+              return (
+                item.tripBojangResponseDto.filter((cur) => cur.bname.includes('질병')).map((td) => {
+                  return (
+                    <li key={td.bcode}>
+                      <h3>{td.bname}</h3>
+                      <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                    </li>
+                  )
+                })
+              )
+            })}
           </ul>
         </div>
         <div>
           <ul>
-            {etc.map((dt) => (
-              <li key={dt.id}>
-                <h3>{dt.title}</h3>
-                <p>{dt.pay}&nbsp;원</p>
-              </li>
-            ))}
+            {data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
+              return (
+                item.tripBojangResponseDto.filter((cur) => cur.bname.includes('3대비급여')).map((td) => {
+                  return (
+                    <li key={td.bcode}>
+                      <h3>{td.bname}</h3>
+                      <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                    </li>
+                  )
+                })
+              )
+            })}
           </ul>
         </div>
         <div>
           <ul>
-            {obi.map((dt) => (
-              <li key={dt.id}>
-                <h3>{dt.title}<span onClick={() => setClose(false)}>자세히보기</span></h3>
-                <p>{dt.pay}&nbsp;원</p>
-              </li>
-            ))}
+            {data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
+              return (
+                item.tripBojangResponseDto.filter((cur) => cur.bname.includes('배상책임')).map((td) => {
+                  return (
+                    <li key={td.bcode}>
+                      <h3>{td.bname}</h3>
+                      <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                    </li>
+                  )
+                })
+              )
+            })}
           </ul>
         </div>
       </Wrap>
@@ -83,7 +108,6 @@ const TargetPlanResult = ({ type }) => {
                 그러나 함께 여행하는 친족에 대한 손해배상, 자동차(오토바이 포함)의 사용, 관리로 인한 손해배상 등에 대해서는 보상하지 않습니다.
               </>
             )}
-            
           </div>
         </Popup>
       )}
