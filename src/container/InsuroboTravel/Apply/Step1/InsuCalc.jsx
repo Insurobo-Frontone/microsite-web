@@ -5,66 +5,28 @@ import SelectPlan from "./SelectPlan";
 import TargetPlanResult from "../Local/TargetPlanResult";
 import TravelPageContext from "../../../../context/travelPageContext";
 import { getCalc } from "../../../../api/TravelAPI";
-
-// const reducer = (state, action) => {
-//   switch (action.type) {
-//     case 'LOADING':
-//       return {
-//         loading: true,
-//         data: null,
-//         error: null
-//       };
-//     case 'SUCCESS':
-//       return {
-//         loading: false,
-//         data: action.data,
-//         error: null
-//       };
-//     case 'ERROR':
-//       return {
-//         loading: false,
-//         data: null,
-//         error: action.error
-//       };
-//     default:
-//       throw new Error(`Unhandled action type: ${action.type}`);
-//   }
-// };
+import { insuAge, travelPeriod } from "../TravelDateFomat";
 
 const InsuCalc = ({ type }) => {
   const { watch } = useFormContext();
   const { actions } = useContext(TravelPageContext);
   const [data, setData] = useState([]);
-  const gap = watch('localEnd') - watch('localStart');
-  const date = Math.ceil(gap / (1000 * 60 * 60 * 24) + 1);
-  const conDay = watch('localStart');
-  const conDayYear = conDay.getFullYear();
-  const conDayMonth =  conDay.getMonth() + 1 < 10 ? '0' + (conDay.getMonth() + 1) : conDay.getMonth() + 1;
-  const conDayDate =  conDay.getDate() < 10 ? '0' + conDay.getDate() : conDay.getDate();
-  const birth = watch('birthRep').substring(0, 2);
-  const birthMonth = watch('birthRep').substring(2, 4);
-  const birthDay = watch('birthRep').substring(4, 6);
-  const birthYear = birth > 23 ? 19 + birth : 20 + birth;
-  const korAge = conDayMonth < Number(birthMonth) + 6 ? 0 : conDayDate < Number(birthDay) ? 0 : 1;
-  const insuAge = (conDayYear - birthYear) + korAge;
-  
+  const date = travelPeriod(watch('localEnd'), watch('localStart'));
+  const age = insuAge(watch('localStart'), watch('birthRep'));
+
   useEffect(() => {
-      getCalc({
-        age: insuAge,
-        sex: watch('genderRep'),
-        period: date
-      }).then((res) => {
-        setData(res.data.data)
-        // dispatch({type: 'SUCCESS', data: res.data.data});
-      }).catch((e) => console.log(e))
-      
-   
+    getCalc({
+      age: age,
+      sex: watch('genderRep'),
+      period: date
+    }).then((res) => {
+      setData(res.data.data)
+    }).catch((e) => console.log(e))
     return () => {
       actions.setOpen(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, watch('birthRep'), watch('genderRep')]);
-  // const {loading, data, error} = state;
-  console.log(data)
   const insuInfodata = [
     {
       id: 1,
@@ -74,7 +36,7 @@ const InsuCalc = ({ type }) => {
     {
       id: 2,
       title: '보험나이',
-      data: `${insuAge}세`
+      data: `${age}세`
     },
     {
       id: 3,
@@ -85,7 +47,6 @@ const InsuCalc = ({ type }) => {
 
   return (
     <>
-      
       <InsuInfoLabelWrap>
         {insuInfodata.map((dt) => (
           <li key={dt.id}>
@@ -100,7 +61,6 @@ const InsuCalc = ({ type }) => {
     </>
   );
 }
-
 export default InsuCalc;
 
 const InsuInfoLabelWrap = styled.ul`

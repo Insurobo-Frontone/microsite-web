@@ -86,7 +86,7 @@ const Title = styled.p`
 const Checkbox = () => {
     const { register, setValue } = useFormContext();
     const [allFlag, setAllFlag] = useState(false);
-    const [termsFlag, setTermsFlag] = useState([false,false,false,false,false]);
+    const [termsFlag, setTermsFlag] = useState([false,false,false,false,false,false]);
     const [modal, setModal] = useState(0);
     
     const exList = [
@@ -125,6 +125,14 @@ const Checkbox = () => {
         label: 'select5',
         terms: 5,
       },
+      {
+        id: 5,
+        title: '개인정보의 제3자 제공에 관한 사항 (선택)',
+        name: 'termsA7',
+        label: 'select6',
+        terms: 6,
+      },
+
     ]
 
     const toggleCheck = (e, index) => {
@@ -142,6 +150,7 @@ const Checkbox = () => {
       setValue('termsA2', e.target.checked);
       setValue('termsA3', e.target.checked);
       setValue('termsA4', e.target.checked);
+      setValue('termsA7', e.target.checked);
       setTermsFlag((prev) => {
         Object.keys(prev).map((item) => prev[item] = e.target.checked)
         return {

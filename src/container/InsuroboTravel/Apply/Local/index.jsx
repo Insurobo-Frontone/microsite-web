@@ -17,51 +17,62 @@ import Qna from "../Step4/Qna";
 import Popup from "../Popup";
 import { onClickPayment } from "../onClickPayment";
 import { postTourSave } from "../../../../api/TravelAPI";
+import { insuAge, toStringByFormatting, travelPeriod } from "../TravelDateFomat";
+import { getUser } from "../../../Storage/Auth";
 
 const Local= ({ type }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { width } = useWindowSize();
   const pageState = location.state;
-  const { state, actions } = useContext(TravelPageContext);
+  const { state } = useContext(TravelPageContext);
   const [close, setClose] = useState(true);
   const [policyOpen, setPolicyOpen] = useState(false);
   const [policyId, setPolicyId] = useState(1);
   const { control, watch } = useFormContext();
+  const user = getUser();
+  const userId = user.getUserInfo?.userId;
   const join2Valid = useWatch({
     control,
     name: ['list1', 'list2', 'list3', 'notice', 'policyAllAgree'],
   });
 
   const tourSaveNext = () => {
+    const date = travelPeriod(watch('localEnd'), watch('localStart'));
+    const age = insuAge(watch('localStart'), watch('birthRep'));
+    const email = watch('emailRep') +'@'+ (watch('emailRep2') === 'myself' ? watch('emailRep2Change') : watch('emailRep2'));
     postTourSave({
-      juminFront: '', //	주민등록번호 앞자리
-      juminBack: '', // 주민등록번호 뒷자리
-      phoneNum: '', // 핸드폰번호
-      email: '', // 이메일
-      age: '', // 나이
-      sex: '', // 성별 (M, F)
-      period: '', // 여행기간
-      gubun: '', //보험 구분(1: 든든, 3: 안심)
-      startDate: '', //	여행 시작일
-      endDate: '', // 여행 마감일
-      diseasesThreeYearsAgreement: '', // 3년간 특정 질병 유무(Y, N)
-      dangerLeisureSportsAgreement: '', // 위험한 레포츠 취미 유무(Y, N)
-      foreignerYn: '', // 외국인 여부(Y, N)
-      travelPurpose: '', // 여행 목적
-      privacyInfoAgreement: '', // 개인정보수집 동의 여부(Y, N)
-      beforePayment: '', //	결제전 여부(Y, N)
-      deleteYn: '' // 삭제 여부(Y, N)
+      userName: watch('nameRep'),
+      userId: userId,
+      juminFront: watch('birthRep'), //	주민등록번호 앞자리
+      juminBack: watch('LastRegRep'), // 주민등록번호 뒷자리
+      phoneNum: watch('mobileRep'), // 핸드폰번호
+      email: email, // 이메일
+      age: age, // 나이
+      sex: watch('genderRep'), // 성별 (M, F)
+      period: date, // 여행기간
+      gubun: watch('calcPlan'), //보험 구분
+      startDate: toStringByFormatting(watch('localStart')), //	여행 시작일
+      endDate: toStringByFormatting(watch('localEnd')), // 여행 마감일
+      diseasesThreeYearsAgreement: watch('list1'), // 3년간 특정 질병 유무(Y, N)
+      dangerLeisureSportsAgreement: watch('list2'), // 위험한 레포츠 취미 유무(Y, N)
+      foreignerYn: watch('notice') ? 'N' : 'Y', // 외국인 여부(Y, N)
+      travelPurpose: watch('list3'), // 여행 목적
+      privacyInfoAgreement: watch('policyAllAgree') ? 'Y' : 'N', // 개인정보수집 동의 여부(Y, N)
+      fee: watch('calcPlanFee') // 보험료
     }).then((res) => {
-
+      console.log(res)
+      navigate(`/insuroboTravel/apply?step=2&join=3`, {
+        state: {
+          type: type,
+          step: '2',
+          join: '3'
+        }
+      });
+    }).catch((e) => {
+      console.log(e);
     })
-    navigate(`/insuroboTravel/apply?step=2&join=3`, {
-      state: {
-        type: type,
-        step: '2',
-        join: '3'
-      }
-    })
+    
   }
   const onClickNext = (step) => {
     switch (step) {
@@ -196,8 +207,8 @@ const Local= ({ type }) => {
             <Button
               title='확인'
               disabled={
-                join2Valid[0] === 'no' &&
-                join2Valid[1] === 'no' &&
+                join2Valid[0] === 'N' &&
+                join2Valid[1] === 'N' &&
                 join2Valid[2] !== '' &&
                 join2Valid[3] === true &&
                 join2Valid[4] === true ? false : true

@@ -1,7 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import styled, { css } from "styled-components";
-import TravelTerm from "../TravelTerm";
 import dbLogo from '../../../../assets/img/insuroboTravel/payMentDBLogo.png';
 import ApplyInfo from "../ApplyInfo";
 import Button from "../Button";
@@ -10,6 +9,8 @@ import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";
 import { useState } from "react";
 import Popup from "../Popup";
 import TargetPlanResult from "../Local/TargetPlanResult";
+import BasicInput from "../../Input/BasicInput";
+import { toStringByFormatting, travelPeriod } from "../TravelDateFomat";
 
 const MyJoinInfo = ({ open, close, onClick, type, status }) => {
   const { watch } = useFormContext();
@@ -38,32 +39,36 @@ const MyJoinInfo = ({ open, close, onClick, type, status }) => {
               </h2>
             </div>
             <div>
-              <TravelTerm type2 />
+              <p>{`${toStringByFormatting(watch('localStart'), '.')} ~${toStringByFormatting(watch('localEnd'), '.')} (${travelPeriod(watch('localEnd'), watch('localStart'))}일)`}</p>
               <span onClick={open ? () => setPlanPopup(true) : onClick}>{open ? '보장내용 확인' : '자세히보기'}</span>
             </div>
             {open && width > 767.98 && (
               <div>
-                <p>{watch('calcPlan') === 'planA' ? '5,420' : '1,280'}원</p>
+                <p>원</p>
               </div>
             )}
           </div>
           <PaymentStatus status={status}>
-            {status === 'finish' ? '가입완료' : '결제전'}
+            <BasicInput
+              name='beforePayment'
+              readOnly
+            />
+            {watch('beforePayment') === 'N' ? '결제전' : '결제완료'}
           </PaymentStatus>
         </div>
         {open && (
           <div>
-            <ApplyInfo type={type} joinUserInfo />
+            <ApplyInfo />
             <div>
               <p>결제금액</p>
-              <h2>{watch('calcPlan') === 'planA' ? '5,420' : '1,280'}원</h2>
+              <h2>원</h2>
             </div>
           </div>
         )}
       </BoxWrap>
       {open && (
         <ButtonWrap>
-          {status === 'finish' ? (
+          {status === 'Y' ? (
             <> 
               <Button
                 title={width > 767.98 ? '가입증명서 재발행' : '가입증명서 발행'}
@@ -278,12 +283,12 @@ const PaymentStatus = styled.div`
   justify-content: center;
   font-size: 20px;
   border-radius: 10px;
-  ${props => props.status === 'ready' && css`
+  ${props => props.status === 'N' && css`
     border: 1px solid #FF2C2C;
     color: #FF2C2C;
   `}
 
-  ${props => props.status === 'finish' && css`
+  ${props => props.status === 'Y' && css`
     background-color: #E9F6FF;
     color: #2EA5FF;
   `}

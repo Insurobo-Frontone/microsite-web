@@ -26,12 +26,12 @@ const InsuJoinStep2 = () => {
     {
       id: 'list1_yes',
       title: '예',
-      value: 'yes'
+      value: 'Y'
     },
     {
       id: 'list1_no',
       title: '아니요',
-      value: 'no'
+      value: 'N'
     },
   ];
 
@@ -39,12 +39,12 @@ const InsuJoinStep2 = () => {
     {
       id: 'list2_yes',
       title: '예',
-      value: 'yes'
+      value: 'Y'
     },
     {
       id: 'list2_no',
       title: '아니요',
-      value: 'no'
+      value: 'N'
     },
   ];
   return (

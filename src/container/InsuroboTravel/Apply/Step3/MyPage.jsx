@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import MyJoinInfo from "./MyJoinInfo";
 import prevIcon from "../../../../assets/icon/insuJoinPrevIcon.png";
 import Button from "../Button";
 import { getTravelMenu } from "../../../Storage/InsuTravel";
+import { getTourList } from "../../../../api/TravelAPI";
 
 const MyPage = () => {
   const [close, setClose] = useState(true);
@@ -14,6 +15,13 @@ const MyPage = () => {
   const type = location.state.type;
   const pageInfo =  getTravelMenu();
 
+  useEffect(() => {
+    getTourList().then((res) => {
+      console.log(res)
+    }).catch((e) => {
+      console.log(e)
+    })
+  }, [])
   return (
     <MyPageWrap close={close}>
       <MyPageNav close={close}>
@@ -38,7 +46,7 @@ const MyPage = () => {
             setOpen(true)
             setClose(false)
           }}
-          status='ready'
+          status='N'
         />  
       ) : (
         <div className="notFind">
@@ -48,8 +56,7 @@ const MyPage = () => {
             onClick={() => navigate(`/insuroboTravel/apply?step=1`, {
               state: {
                 type: type,
-                step: 1,
-                join: ''
+                step: '1',
               }
             })}
           />

@@ -13,17 +13,18 @@ import Popup from "../../Popup";
 import { CommonAPI } from "../../../../../api/CommonAPI";
 // import UserContext from "../../../../../context/UserContext";
 import { setUser } from "../../../../Storage/Auth";
+import { insuAge } from "../../TravelDateFomat";
 
 const InsuInfo = () => {
-  const { setValue, watch, reset, setError, handleSubmit, formState: { errors, isDirty, isValid } } = useFormContext();
+  const {setValue, watch, setError, handleSubmit, formState: { errors }} = useFormContext();
   const [readOnly, setReadOnly] = useState(true);
   const [close, setClose] = useState(true);
   const { width } = useWindowSize();
-  const { state, actions } = useContext(TravelPageContext);
+  const { actions } = useContext(TravelPageContext);
   const auth = localStorage.getItem("@access-Token");
+
   useEffect(() => {
     userInfo();
-
   }, []);
 
   const userInfo = async () => {
@@ -31,9 +32,8 @@ const InsuInfo = () => {
       Authorization: `Bearer ${auth}`,
    })
     if(res.status === 200){
-        // user.actions.setUser(res.data.data);
-        setUser(res.data.data)
-      
+      // user.actions.setUser(res.data.data);
+      setUser(res.data.data);
     }
   }
 
@@ -43,7 +43,7 @@ const InsuInfo = () => {
       setError('localEnd', {
         type: 'custom',
         message: '여행시작일을 선택해주세요.'
-      })
+      });
       setClose(false);
     } else {
       setReadOnly(false)
@@ -53,18 +53,13 @@ const InsuInfo = () => {
   const handleClose = () => {
     setClose(true);
   }
-
   const onClickCalc = () => {
-    
     actions.setOpen(true);
-    
   }
-
   const onError = (e) => {
     console.log(e)
     setClose(false);
   }
-
   const gender = [
     {
       id: 1,
@@ -76,7 +71,7 @@ const InsuInfo = () => {
       value: 'F',
       text: '여자',
     },
-  ]
+  ];
 
   return (
     <form onSubmit={handleSubmit(onClickCalc, onError)}>
@@ -116,6 +111,9 @@ const InsuInfo = () => {
             name='birthRep'
             placeholder='주민번호 앞자리'
             required='주민번호 앞 6자리를 입력해주세요.'
+            validate={{
+              value: () => insuAge(watch('localStart'), watch('birthRep')) < 80 ? true : '가입가능한 연령은 1세 ~ 79세입니다'
+            }}
             pattern={{
               value: /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/,
               message: '생년월일을 정확하게 입력해주세요'

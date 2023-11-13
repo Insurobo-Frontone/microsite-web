@@ -39,7 +39,7 @@ const TermsModalWrap = styled.div`
 const Content = styled.div`
   min-width: 375px;
   max-width: 395px;
-  max-height: 800px;
+  max-height: 600px;
   border-radius: 5px;
   background-color: #FFFFFF;
   overflow: scroll;

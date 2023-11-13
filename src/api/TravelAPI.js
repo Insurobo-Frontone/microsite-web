@@ -18,3 +18,7 @@ export const postTourSave = async (params) => {
     ...params,
    });
 }
+
+export const getTourList = async () => {
+  return await TravelAPI.get(`/api/public/domesticTourList`)
+}

@@ -25,7 +25,6 @@ const NonMember = () => {
               placeholder={cur.placeholder}
               pattern={cur.pattern}
             />
-            
           </>
         )})
       }

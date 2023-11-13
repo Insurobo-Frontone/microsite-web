@@ -10,15 +10,9 @@ const TargetPlanResult = ({ type, data }) => {
   const { width } = useWindowSize();
   const { watch } = useFormContext();
 
-  // const planData = .map((td) => {
-  //   return td.tripBojangResponseDto;
-  // });
-
-
   return (
     <>
       <Wrap type={type}>
-    
         <div>
           <h2>상해보장</h2>
           <ul>

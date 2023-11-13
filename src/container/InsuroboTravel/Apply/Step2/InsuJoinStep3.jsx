@@ -3,54 +3,53 @@ import styled from "styled-components";
 import { useFormContext } from 'react-hook-form';
 import ApplyInfo from "../ApplyInfo";
 import dbLogo from '../../../../assets/img/insuroboTravel/payMentDBLogo.png';
-import TravelTerm from "../TravelTerm";
 import useWindowSize from "../../../../hooks/useWindowSize";
+import { toStringByFormatting, travelPeriod } from "../TravelDateFomat";
 
 const InsuJoinStep3 = ({ type }) => {
   const { watch } = useFormContext();
   const { width }  = useWindowSize();
+    
   return (
-    <>
-      <Wrap>
-        <Board>
-          <div>
-            <img src={dbLogo} alt='db손해보험' />
-            <h2>
-              {width > 767.98 ? (
-                <>
-                  {type === 'local' ?  "국내 여행자 보험" : '해외 여행자 보험'}
-                </>
-              ) : (
-                <>
-                  {type === 'local' ?  "국내여행자보험" : '해외여행자보험'}
-                </>
-              )}
-            </h2>
-          </div>
-          <div>
-            <p>결제금액</p>
-            <h2>{watch('calcPlan') === 'planA' ? '5,420' : '1,280'}원</h2>
-          </div>
-        </Board>
-        <ul>
-          <li>
-            <h2>보험기간<TravelTerm type1 /></h2>
-            <TravelTerm type3 />
-          </li>
-          <li>
-            <h2>가입인원</h2>
-            <p>1명</p>
-          </li>
-          <li>
-            <h2>보험료</h2>
-            <p>{watch('calcPlan') === 'planA' ? '5,420' : '1,280'} 원</p>
-          </li>
-        </ul>
-        <ul>
-          <li><ApplyInfo type={type} joinUserInfo /></li>
-        </ul>
-      </Wrap>
-    </>
+    <Wrap>
+      <Board>
+        <div>
+          <img src={dbLogo} alt='db손해보험' />
+          <h2>
+            {width > 767.98 ? (
+              <>
+                {type === 'local' ?  "국내 여행자 보험" : '해외 여행자 보험'}
+              </>
+            ) : (
+              <>
+                {type === 'local' ?  "국내여행자보험" : '해외여행자보험'}
+              </>
+            )}
+          </h2>
+        </div>
+        <div>
+          <p>결제금액</p>
+          <h2>{watch('calcPlanFee').toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} 원</h2>
+        </div>
+      </Board>
+      <ul>
+        <li>
+          <h2>보험기간<p>{`(${toStringByFormatting(watch('localStart'), '.')} 부터 ~${toStringByFormatting(watch('localEnd'), '.')} 까지)`}</p></h2>
+          <p>{`${travelPeriod(watch('localEnd'), watch('localStart'))}`}</p>
+        </li>
+        <li>
+          <h2>가입인원</h2>
+          <p>1명</p>
+        </li>
+        <li>
+          <h2>보험료</h2>
+          <p>{watch('calcPlanFee').toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")} 원</p>
+        </li>
+      </ul>
+      <ul>
+        <li><ApplyInfo /></li>
+      </ul>
+    </Wrap>
   )
 }
 

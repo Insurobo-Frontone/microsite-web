@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
 import checkedIcon from '../../../../assets/icon/planCheckedIcon.png';
 import mbCheckedIcon from '../../../../assets/icon/travelMobileCheckIcon.png';
+import BasicInput from "../../Input/BasicInput";
 
 const SelectPlan = ({ data }) => {
   const { control } = useFormContext();
@@ -18,11 +19,13 @@ const SelectPlan = ({ data }) => {
                   <>
                     <ButtonWrap {...field} key={item.id}>
                       <Label htmlFor={item.gubun} active={field.value === item.gubun}>
-                        <p>{item.gubun === '1' ? '안심플랜' : '든든플랜'}<span>{item.fee.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span></p>
+                        <p>{item.gubun === '1' ? '안심플랜' : '든든플랜'}
+                          <span>{item.fee.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span>
+                        </p>
+                        <input name='calcPlanFee' value={item.fee} disabled />
                         <Icon active={field.value === item.gubun} />
                       </Label>
                       <input
-                        key={item.gubun}
                         type="radio"
                         id={item.gubun}
                         name={field.name}
@@ -46,20 +49,25 @@ const SelectPlan = ({ data }) => {
 export default SelectPlan;
 
 const ButtonWrap = styled.div`
-  width: 492px;
+  width: 100%;
   height: 114px;
   display: flex;
   justify-content: space-between;
   border-radius: 15px;
   box-shadow: 0px 0px 26px 0px rgba(0, 0, 0, 0.10);
   padding: 30px 40px;
+  :nth-child(2) {
+    margin-left: 16px;
+  }
   > input {
     position: absolute;
     left: -1000%;
   }
 
   ${(props) => props.theme.window.mobile} {
-    width: 48.3974358974359%;
+    :nth-child(2) {
+      margin-left: 10px;
+    }
     height: 73px;
     padding: 13px 14px 13px 16px;
   }
@@ -82,7 +90,10 @@ const Label = styled.label`
       font-weight: 700;
     }
   }
-
+  > input {
+    position: absolute;
+    left: -1000%;
+  }
   ${props => props.active && css`
     > p {
       color: #333333;

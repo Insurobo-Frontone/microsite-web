@@ -14,7 +14,7 @@ import Popup from "../Popup";
 
 const InsuJoinStep1 = ({ type }) => {
   const [close, setClose] = useState(true);
-  const { watch, reset, formState: { isValid, isDirty, errors } } = useFormContext();
+  const { watch, formState: { isValid, isDirty, errors } } = useFormContext();
   const navigate = useNavigate();
   const user = getUser();
   const email = user.getUserInfo?.userId;
@@ -37,7 +37,7 @@ const InsuJoinStep1 = ({ type }) => {
             <Input label='이름'>
               <BasicInput
                 type='text'
-                name={type === 'local' ? 'nameLocalRep' : 'nameOverRep'}
+                name='nameRep'
                 placeholder='이름'
                 required={true}
                 pattern={{
@@ -121,7 +121,9 @@ const InsuJoinStep1 = ({ type }) => {
                     type='text'
                     name='emailRep2Change'
                     required={true}
-                  /> 
+                    pattern={{
+                      value: /[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+                    }} /> 
                 </Input>
               </InputGroup>
             )}
