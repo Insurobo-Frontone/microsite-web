@@ -1,5 +1,4 @@
-import React from "react";
-import { useFormContext } from "react-hook-form";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import dbLogo from '../../../../assets/img/insuroboTravel/payMentDBLogo.png';
 import ApplyInfo from "../ApplyInfo";
@@ -9,88 +8,130 @@ import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";
 import { useState } from "react";
 import Popup from "../Popup";
 import TargetPlanResult from "../Local/TargetPlanResult";
-import BasicInput from "../../Input/BasicInput";
-import { toStringByFormatting, travelPeriod } from "../TravelDateFomat";
 
-const MyJoinInfo = ({ open, close, onClick, type, status }) => {
-  const { watch } = useFormContext();
+const MyJoinInfo = ({ open, close, onClick, type, data }) => {
   const { width } = useWindowSize(); 
   const [popupOpen, setPopupOpen] = useState(false);
   const [planPopup, setPlanPopup] = useState(false);
+  const [infoId, setInfoId] = useState(0);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);   
+  }, [open])
+  const onClickDetail = (id) => {
+    setInfoId(id);
+    onClick()
+  }
   return (
     <>
-      <BoxWrap open={open} close={close}>
-        <div>
-          <div>
-            <div>
-              {open && <img src={dbLogo} alt='db손해보험' />}
-              <h2>
-                {width > 767.98 ? (
-                  <>
-                    {type === 'local' ?  "국내 여행자 보험" : '해외 여행자 보험'}
-                  </>
-                ) : (
-                  <>
-                    {type === 'local' ?  "국내여행자보험" : '해외여행자보험'}
-                  </>
-                )}
-                <span>({watch('target')})</span>
-              </h2>
-            </div>
-            <div>
-              <p>{`${toStringByFormatting(watch('localStart'), '.')} ~${toStringByFormatting(watch('localEnd'), '.')} (${travelPeriod(watch('localEnd'), watch('localStart'))}일)`}</p>
-              <span onClick={open ? () => setPlanPopup(true) : onClick}>{open ? '보장내용 확인' : '자세히보기'}</span>
-            </div>
-            {open && width > 767.98 && (
+      {close ? (
+        data.map((dt) => {
+          return (
+            <BoxWrap open={open} close={close} key={dt.id}>
               <div>
-                <p>원</p>
+                <div>
+                  <div>
+                    {open && dt.id === infoId && <img src={dbLogo} alt='db손해보험' />}
+                    <h2>
+                      {width > 767.98 ? (
+                        <>
+                          {type === 'local' ?  "국내 여행자 보험" : '해외 여행자 보험'}
+                        </>
+                      ) : (
+                        <>
+                          {type === 'local' ?  "국내여행자보험" : '해외여행자보험'}
+                        </>
+                      )}
+                      <span>({dt.travelPurpose})</span>
+                    </h2>
+                  </div>
+                  <div>
+                    <p>{dt.startDate.substring(0, 10).replace(/\-/gi, '.')} ~ {dt.endDate.substring(0, 10).replace(/\-/gi, '.')} ({dt.period}일)</p>
+                    <span onClick={open ? () => setPlanPopup(true) : () => onClickDetail(dt.id)}>{open ? '보장내용 확인' : '자세히보기'}</span>
+                  </div>
+                  {open && width > 767.98 && (
+                    <div>
+                      <p>{dt.fee}원</p>
+                    </div>
+                  )}
+                </div>
+                <PaymentStatus status={dt.beforePayment}>
+                  {dt.beforePayment === 'Y' ? '결제전' : '가입완료'}
+                </PaymentStatus>
               </div>
-            )}
-          </div>
-          <PaymentStatus status={status}>
-            <BasicInput
-              name='beforePayment'
-              readOnly
-            />
-            {watch('beforePayment') === 'N' ? '결제전' : '결제완료'}
-          </PaymentStatus>
-        </div>
-        {open && (
-          <div>
-            <ApplyInfo />
-            <div>
-              <p>결제금액</p>
-              <h2>원</h2>
-            </div>
-          </div>
+            </BoxWrap>
+          );
+        })) : (
+          data.filter((cur) => cur.id === infoId).map((dt) => {
+            return (
+              <>
+                <BoxWrap open={open} close={close} key={dt.id}>
+                  <div>
+                    <div>
+                      <div>
+                        {open && <img src={dbLogo} alt='db손해보험' />}
+                        <h2>
+                          {width > 767.98 ? (
+                            <>
+                              {type === 'local' ?  "국내 여행자 보험" : '해외 여행자 보험'}
+                            </>
+                          ) : (
+                            <>
+                              {type === 'local' ?  "국내여행자보험" : '해외여행자보험'}
+                            </>
+                          )}
+                          <span>({dt.travelPurpose})</span>
+                        </h2>
+                      </div>
+                      <div>
+                        <p>{dt.startDate.substring(0, 10).replace(/\-/gi, '.')} ~ {dt.endDate.substring(0, 10).replace(/\-/gi, '.')} ({dt.period}일)</p>
+                        <span onClick={open ? () => setPlanPopup(true) : () => onClickDetail(dt.id)}>{open ? '보장내용 확인' : '자세히보기'}</span>
+                      </div>
+                      {open && width > 767.98 && (
+                        <div>
+                          <p>{dt.fee}원</p>
+                        </div>
+                      )}
+                    </div>
+                    <PaymentStatus status={dt.beforePayment}>
+                      {dt.beforePayment === 'Y' ? '결제전' : '가입완료'}
+                    </PaymentStatus>
+                  </div>
+                  <div>
+                    <ApplyInfo data={dt} />
+                    <div>
+                      <p>결제금액</p>
+                      <h2>{dt.fee}원</h2>
+                    </div>
+                  </div>
+                </BoxWrap>
+                <ButtonWrap>
+                  {data.filter((cur) => cur.id === infoId).beforePayment === 'Y' ? (
+                    <> 
+                      <Button
+                        type='cancel'
+                        title='신청취소'
+                        onClick={() => setPopupOpen(true)}
+                      />
+                      <Button
+                        title='결제하기'
+                      />
+                    </>) 
+                  : (
+                    <> 
+                      <Button
+                        title={width > 767.98 ? '가입증명서 재발행' : '가입증명서 발행'}
+                      />
+                      <Button
+                        title={width > 767.98 ? '보험금청구서류 이메일로 받기' : '보험금청구 서류'}
+                      />
+                    </>
+                  )}
+                </ButtonWrap>
+              </>
+            );
+          })
         )}
-      </BoxWrap>
-      {open && (
-        <ButtonWrap>
-          {status === 'Y' ? (
-            <> 
-              <Button
-                title={width > 767.98 ? '가입증명서 재발행' : '가입증명서 발행'}
-              />
-              <Button
-                title={width > 767.98 ? '보험금청구서류 이메일로 받기' : '보험금청구 서류'}
-              />
-            </>
-          ) : (
-            <> 
-              <Button
-                type='cancel'
-                title='신청취소'
-                onClick={() => setPopupOpen(true)}
-              />
-              <Button
-                title='결제하기'
-              />
-            </>
-          )}
-        </ButtonWrap>
-      )}
       {popupOpen && (
         <Popup type='select' close={() => setPopupOpen(false)}>
           <p>신청내역을 취소하시겠습니까?</p>
@@ -140,6 +181,7 @@ const BoxWrap = styled.div`
         > p {
           font-size: 20px;
           color: #333333;
+          font-weight: 300;
         }
       }
     }
@@ -167,6 +209,10 @@ const BoxWrap = styled.div`
   }
   ${props => props.close && css`
     height: 164px;
+    margin-bottom: 20px;
+    :last-child {
+      margin-bottom: 0;
+    }
   `}
   ${props => props.open && css`
     height: auto;
@@ -283,12 +329,12 @@ const PaymentStatus = styled.div`
   justify-content: center;
   font-size: 20px;
   border-radius: 10px;
-  ${props => props.status === 'N' && css`
+  ${props => props.status === 'Y' && css`
     border: 1px solid #FF2C2C;
     color: #FF2C2C;
   `}
 
-  ${props => props.status === 'Y' && css`
+  ${props => props.status === 'N' && css`
     background-color: #E9F6FF;
     color: #2EA5FF;
   `}

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { CommonAPI } from "./CommonAPI";
 const token = localStorage.getItem("@access-Token");
 
 export const TravelAPI = axios.create({
@@ -20,17 +19,18 @@ export const getCalc = async (params) => {
 export const postTourSave = async (params) => {
   return await TravelAPI.post('/api/public/domesticTourSave', { 
     ...params,
-   });
+  });
 }
 
 // 보험 정보 불러오기
 export const getTourList = async () => {
-  return await TravelAPI.get(`/api/public/domesticTourList`, {
-  })
+    return await TravelAPI.get(`/api/public/domesticTourList`, {
+  });
 }
 
 // 보험 정보 삭제
-export const deleteTourList = async () => {
-  return await TravelAPI.get(`/api/public/domesticTourList`, {
-  })
+export const deleteTourList = async (id) => {
+    return await TravelAPI.delete(`/api/public/domesticTourList/${id}`, {
+      withCredentials: true,
+  });
 }

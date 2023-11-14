@@ -5,7 +5,7 @@ import InsuJoinStep1 from "./InsuJoinStep1";
 import InsuJoinStep2 from "./InsuJoinStep2";
 import InsuJoinStep3 from "./InsuJoinStep3";
 import PrevButton from "../PrevButton";
-import { setTravelMenu } from "../../../Storage/InsuTravel";
+import { getTravelMenu, setTravelMenu } from "../../../Storage/InsuTravel";
 
 const InsuJoin = ({ type }) => {
   const location = useLocation();
@@ -15,14 +15,13 @@ const InsuJoin = ({ type }) => {
     { id: '2', title: '확인' },
     { id: '3', title: '결제' }
   ];
+  const travelLocation = {
+    path: location.pathname,
+    search: location.search,
+    state: location.state
+  }
   useEffect(() => {
-    const travelLocation = {
-      path: location.pathname,
-      search: location.search,
-      state: location.state
-    }
     setTravelMenu(travelLocation);
-
   }, [pageState]);
   return (
     <>
@@ -30,8 +29,8 @@ const InsuJoin = ({ type }) => {
         <PrevButton 
           link={pageState.join === '1' ? '/insuroboTravel/apply?step=1' : false}
           state={pageState.join === '1' ? {
-            type: 'local',
-            step: '1'
+            type: type,
+            step: '1',
           } : false}
         />
         <ul>

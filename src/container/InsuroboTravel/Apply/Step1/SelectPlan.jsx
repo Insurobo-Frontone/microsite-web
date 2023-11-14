@@ -22,7 +22,7 @@ const SelectPlan = ({ data }) => {
                         <p>{item.gubun === '1' ? '안심플랜' : '든든플랜'}
                           <span>{item.fee.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span>
                         </p>
-                        <input name='calcPlanFee' value={item.fee} disabled />
+                        <BasicInput name='calcPlanFee' defaultValue={item.fee} readOnly />
                         <Icon active={field.value === item.gubun} />
                       </Label>
                       <input

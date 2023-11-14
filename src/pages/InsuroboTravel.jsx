@@ -33,9 +33,8 @@ const InsuroboTravel = ({ apply }) => {
   const pageState = location.state;
   
   useEffect(() => {
-    console.log(pageState)
-    window.scrollTo(0, 0);
-  }, [location.search, pageState]);
+    window.scrollTo(0, 0);    
+  }, [location]);
 
   return (
     <Layout windStormHide apply={apply}>

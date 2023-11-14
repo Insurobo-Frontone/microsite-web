@@ -4,12 +4,29 @@ import styled from 'styled-components';
 
 const ApplyInfo = ({ data }) => {
   const { watch } = useFormContext();
-  const mobile = watch('mobileRep').replace(/[^0-9]/g, '').replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3")
+  // const mobile = watch('mobileRep').replace(/[^0-9]/g, '').replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3")
 
   return (
     <>
       {data ? (
-      ''
+        <TextWrap>
+          <h2>가입자 정보</h2>
+          <ul>
+            <li>
+              <div>
+                <p>{data.userName}</p>
+              </div>
+              <p>id:{data.id}</p>
+            </li>
+            <li>
+              <div>
+                <p>930508 - </p>
+                <p>2******</p> 
+              </div>
+              <p>alrzl4302@naver.com</p>
+            </li>
+          </ul>
+        </TextWrap>
       ) : (
       <TextWrap>
         <h2>가입자 정보</h2>
@@ -18,7 +35,7 @@ const ApplyInfo = ({ data }) => {
             <div>
               <p>{watch('nameRep')}</p>
             </div>
-            <p>{mobile}</p>
+            <p>mobile</p>
           </li>
           <li>
             <div>
@@ -37,7 +54,7 @@ export default ApplyInfo;
 const TextWrap = styled.div`
   > ul {
     > li {
-      flex-direction: column;
+      display: flex;
       margin-top: 20px;
       > div {
         display: flex;
@@ -63,6 +80,7 @@ const TextWrap = styled.div`
       padding-bottom: 21px;
       > li {
         margin-top: 0;
+        flex-direction: column;
         :first-child {
           > div {
             > p {

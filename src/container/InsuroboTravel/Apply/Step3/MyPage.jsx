@@ -4,24 +4,25 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import MyJoinInfo from "./MyJoinInfo";
 import prevIcon from "../../../../assets/icon/insuJoinPrevIcon.png";
 import Button from "../Button";
-import { getTravelMenu } from "../../../Storage/InsuTravel";
 import { getTourList } from "../../../../api/TravelAPI";
 
 const MyPage = () => {
   const [close, setClose] = useState(true);
   const [open, setOpen] = useState(false);
+  const [data, setData] = useState([]);
+
   const location = useLocation();
   const navigate = useNavigate();
   const type = location.state.type;
-  const pageInfo =  getTravelMenu();
 
   useEffect(() => {
     getTourList().then((res) => {
-      console.log(res)
+      setData(res.data.data)
     }).catch((e) => {
       console.log(e)
     })
-  }, [])
+  }, []);
+  console.log(data)
   return (
     <MyPageWrap close={close}>
       <MyPageNav close={close}>
@@ -36,17 +37,16 @@ const MyPage = () => {
           </PrevButton>
         ) : ''}
       </MyPageNav>
-      {/* 백앤드 연결후 로그인 user 불러오기 */}
-      {pageInfo.getLocation.state?.join === '3' ? (
+      {data.length !== 0 ? (
         <MyJoinInfo 
           type={type} 
           open={open} 
           close={close}
+          data={data}
           onClick={() => {
             setOpen(true)
             setClose(false)
           }}
-          status='N'
         />  
       ) : (
         <div className="notFind">
@@ -84,7 +84,7 @@ const MyPageWrap = styled.div`
     }
   }
   ${props => props.close && css`
-    height: 625px;
+    min-height: 625px;
   `}
 
   ${(props) => props.theme.window.mobile} {

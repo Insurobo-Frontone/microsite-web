@@ -16,22 +16,20 @@ import MyPage from "../Step3/MyPage";
 import Qna from "../Step4/Qna";
 import Popup from "../Popup";
 import { onClickPayment } from "../onClickPayment";
-import { postTourSave } from "../../../../api/TravelAPI";
+import { deleteTourList, postTourSave } from "../../../../api/TravelAPI";
 import { insuAge, toStringByFormatting, travelPeriod } from "../TravelDateFomat";
-import { getUser } from "../../../Storage/Auth";
 
 const Local= ({ type }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { width } = useWindowSize();
   const pageState = location.state;
-  const { state } = useContext(TravelPageContext);
+  const { actions, state } = useContext(TravelPageContext);
   const [close, setClose] = useState(true);
   const [policyOpen, setPolicyOpen] = useState(false);
   const [policyId, setPolicyId] = useState(1);
-  const { control, watch } = useFormContext();
-  const user = getUser();
-  const userId = user.getUserInfo?.userId;
+  const { control, watch, reset } = useFormContext();
+  const [insuId, setInsuId] = useState('');
   const join2Valid = useWatch({
     control,
     name: ['list1', 'list2', 'list3', 'notice', 'policyAllAgree'],
@@ -43,7 +41,6 @@ const Local= ({ type }) => {
     const email = watch('emailRep') +'@'+ (watch('emailRep2') === 'myself' ? watch('emailRep2Change') : watch('emailRep2'));
     postTourSave({
       userName: watch('nameRep'),
-      userId: userId,
       juminFront: watch('birthRep'), //	주민등록번호 앞자리
       juminBack: watch('LastRegRep'), // 주민등록번호 뒷자리
       phoneNum: watch('mobileRep'), // 핸드폰번호
@@ -61,7 +58,7 @@ const Local= ({ type }) => {
       privacyInfoAgreement: watch('policyAllAgree') ? 'Y' : 'N', // 개인정보수집 동의 여부(Y, N)
       fee: watch('calcPlanFee') // 보험료
     }).then((res) => {
-      console.log(res)
+      setInsuId(res.data.data);
       navigate(`/insuroboTravel/apply?step=2&join=3`, {
         state: {
           type: type,
@@ -72,11 +69,27 @@ const Local= ({ type }) => {
     }).catch((e) => {
       console.log(e);
     })
+  }
+
+  const tourRemove = () => {
+    deleteTourList(insuId)
     
+    .then((res) => {
+      console.log(res)
+      reset();
+      actions.setOpen(false);
+      navigate(`/insuroboTravel/apply?step=1`, {
+        state: {
+          type: type,
+          step: '1',
+        }
+      });
+      setClose(true)
+    })
   }
   const onClickNext = (step) => {
     switch (step) {
-      // 간편계산 1인가입버튼 클릭
+      // 간편계산 1인 가입버튼 클릭
         case 'step1' :
         navigate(`/insuroboTravel/apply?step=2&join=1`, {
           state: {
@@ -87,7 +100,6 @@ const Local= ({ type }) => {
         });
         // actions.setOpen(false);
         break;
-         
         // 보험가입 위 내용 확인 후 결제하기 버튼 클릭
         // case 'step2-3' :
         //   if (watch('goPay') === '2') {
@@ -223,12 +235,21 @@ const Local= ({ type }) => {
           <Button
             title='아니요'
             type='border'
+            onClick={() => setClose(false)}
           />
           <Button
             title={width > 767.98 ? '위 내용 확인 후 결제하기' : '확인 후 결제'}
             onClick={onClickPayment}
           />
         </ButtonWrap>
+      )}
+      {!close && (
+        <Popup type='select' onClickYse={tourRemove} close={() => setClose(true)}>
+          <p>
+            이동 시 입력하신 정보가 초기화 됩니다.<br />
+            간편계산으로 이동하시겠습니까?
+          </p>
+        </Popup>
       )}
     </>
   );
