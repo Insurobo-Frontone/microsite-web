@@ -78,10 +78,9 @@ const InsuroboWindstorm = () => {
       watch('termsA1') === false ||
       watch('termsA2') === false ||
       watch('termsA3') === false ||
-      watch('termsA4') === false ||
-      watch('termsA7') === false
+      watch('termsA4') === false 
     ) {
-      alert('개인정보처리 동의 항목은 필수 체크 항목입니다.');
+      alert('필수 체크 항목에 동의하셔야만 신청이 가능합니다.');
     } else {
       const insurance = StorageGetInsurance();
       // 연락처
@@ -122,6 +121,7 @@ const InsuroboWindstorm = () => {
         termsA7: watch('termsA7') ? 'Y' : 'N',
       }).then((res) => {
         const userId = res.data.results.userID;
+        console.log(res)
         const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='
         window.open(`${link}${userId}`);
         navigate('/');

@@ -7,6 +7,14 @@ import Popup from "./Popup";
 import TravelPageContext from "../../../context/travelPageContext";
 
 const TabMenu = ({ type }) => {
+  const location = useLocation();
+  const stepNum = location.state.step;
+  const navigate = useNavigate();
+  const { reset } = useFormContext();
+  const [close, setClose] = useState(true);
+  const [message, setMessage] = useState('');
+  const [popupType, setPopupType] = useState('');
+  const { actions } = useContext(TravelPageContext);
   const menu = [
     {
       id: '1',
@@ -25,15 +33,6 @@ const TabMenu = ({ type }) => {
       title: 'Q&A',
     },
   ];
-
-  const location = useLocation();
-  const stepNum = location.state.step;
-  const navigate = useNavigate();
-  const { reset } = useFormContext();
-  const [close, setClose] = useState(true);
-  const [message, setMessage] = useState('');
-  const [popupType, setPopupType] = useState('');
-  const { actions } = useContext(TravelPageContext);
 
   const onClickReset = () => {
     setClose(true);

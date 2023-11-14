@@ -10,6 +10,7 @@ import bgImgLocal from '../../../../assets/img/insuroboTravel/Join_1_localImg.pn
 import bgImgOver from '../../../../assets/img/insuroboTravel/Join_1_overImg.png';
 import { getUser } from "../../../Storage/Auth";
 import Popup from "../Popup";
+
 // import UserAddForm from "./UserAddForm";
 
 const InsuJoinStep1 = ({ type }) => {
@@ -17,7 +18,6 @@ const InsuJoinStep1 = ({ type }) => {
   const { watch, formState: { isValid, isDirty, errors } } = useFormContext();
   const navigate = useNavigate();
   const user = getUser();
-  const email = user.getUserInfo?.userId;
   
   const emailTem = [
     { id: 1, value: 'naver.com' },
@@ -90,7 +90,7 @@ const InsuJoinStep1 = ({ type }) => {
                   name='emailRep'
                   placeholder='이메일'
                   required={true}
-                  defaultValue={email.split('@', 1)}
+                  defaultValue={user.getUserInfo.userId?.split('@', 1)}
                   pattern={{
                     value:  /^[a-z0-9]*$/
                   }}
@@ -102,7 +102,7 @@ const InsuJoinStep1 = ({ type }) => {
                   name='emailRep2'
                   placeholder='선택'
                   required={true}
-                  defaultValue={email.split('@').reverse()[0]}
+                  defaultValue={user.getUserInfo.userId?.split('@').reverse()[0]}
                 >
                   {emailTem.map((cur) => {
                     return (
