@@ -52,17 +52,28 @@ const TabMenu = ({ type }) => {
       setClose(true);
     } 
     if (stepNum === '3' || stepNum === '4') {
-      setClose(true);
       const pageInfo =  getTravelMenu();
-      navigate(`${pageInfo.getLocation.path}${pageInfo.getLocation.search}`, {
-        state: {
-          type: pageInfo.getLocation.state.type,
-          step: pageInfo.getLocation.state.step,
-          join: pageInfo.getLocation.state.join
-        }
-      });
+      if (pageInfo.getLocation) {
+        setClose(true);
+        navigate(`${pageInfo.getLocation.path}${pageInfo.getLocation.search}`, {
+          state: {
+            type: pageInfo.getLocation.state.type,
+            step: pageInfo.getLocation.state.step,
+            join: pageInfo.getLocation.state.join
+          }
+        });
+      } else {
+        setClose(true);
+        reset();
+        navigate(`/insuroboTravel/apply?step=1`, {
+          state: {
+            type: type,
+            step: '1',
+          }
+        });
+      }
     }
-    else {
+    if (stepNum === '2') {
       setClose(true);
       reset();
       actions.setOpen(false);
@@ -76,7 +87,6 @@ const TabMenu = ({ type }) => {
   }
   // apply nav에서 페이지 이동
   const nextStep = (step) => {
-    console.log(stepNum)
     switch (step) {
       // 간편계산 클릭
       case '1' :
@@ -144,7 +154,7 @@ const TabMenu = ({ type }) => {
         });
         break;
       default :
-        break
+    
     }
   }
   return (

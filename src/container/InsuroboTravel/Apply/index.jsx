@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Local from "./Local";
 import Over from "./Over";
 
+
 const Apply = ({ type }) => {
   return (
     <ApplyWrap>

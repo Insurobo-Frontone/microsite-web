@@ -293,70 +293,70 @@ function Header({ windStormHide, apply }) {
 
   return (
     <>
-    <Wrap>
-      <ContentInner borderBottom>
-        <Nav>
-          <LogoBox onClick={() => goToPage('/')} apply={apply}>
-            <img src={logo} alt='insurobo' />
-          </LogoBox>
-          <ToggleBtn onClick={handleClick}>
-            <img src={isOpen ? closeToggle : openToggle} alt={isOpen ? '닫기' : '열기'} />
-          </ToggleBtn>
-          <Menu isOpen={isOpen} windStormHide={windStormHide}>
-            <div>
-              <ul className='lnb'>
-                <li>
-                  <ListIcon icon={icon1} />
-                  <Link to='/insuranceInfo?item=duty'>간편보험가입</Link>
-                </li>
-                <li>
-                  <ListIcon icon={icon2} />
-                  <a href='http://www.insrb.com:7070/bizcare/short'>기업경영건강검진</a>
-                </li>
-                <li>
-                  <ListIcon icon={icon3} />
-                  <Link to='/insuroboCard'>제휴서비스</Link>
-                </li>
-                <li>
-                  <ListIcon icon={icon4} />
-                  <a href='https://company.insurobo.co.kr/'>회사소개</a>
-                </li>
-              </ul>
-              <ul className='windstorm-btn'>
-                <li onClick={() => setShowPopup(true)}>
-                  풍수해보험 가입확인
-                </li>
-              </ul>
-            </div>
-            {auth ? (
-              <ul>
-                <li>
-                  <>
-                    <MyPage onClick={() => setMyPageOpen(!myPageOpne)}>
-                      <img src={width > 767.98 ? myPageIcon : myPageIconMb} alt='마이페이지' />
-                      <p>마이페이지</p>
-                    </MyPage>
-                    {myPageOpne && width > 767.98 && (
-                      <>
-                        <ModalOutLayer modalOutSideClick={modalOutSideClick} modalRef={modalRef} />
-                        <Profile onClick={logout} />
-                      </>
-                    )}
-                    {myPageOpne && width < 767.98 && (
-                      <li>
-                        <Profile onClick={logout} />
-                      </li>
-                    )}
-                  </>
-                </li>
-              </ul>
-            ) : (
-              <ul className='logout'>
-                <li><Link to='/login'>로그인</Link></li>
-                <li><Link to='/register'>회원가입</Link></li>
-              </ul>
-            )}
-          </Menu>
+      <Wrap>
+        <ContentInner borderBottom>
+          <Nav>
+            <LogoBox onClick={() => goToPage('/')} apply={apply}>
+              <img src={logo} alt='insurobo' />
+            </LogoBox>
+            <ToggleBtn onClick={handleClick}>
+              <img src={isOpen ? closeToggle : openToggle} alt={isOpen ? '닫기' : '열기'} />
+            </ToggleBtn>
+            <Menu isOpen={isOpen} windStormHide={windStormHide}>
+              <div>
+                <ul className='lnb'>
+                  <li>
+                    <ListIcon icon={icon1} />
+                    <Link to='/insuranceInfo?item=duty'>간편보험가입</Link>
+                  </li>
+                  <li>
+                    <ListIcon icon={icon2} />
+                    <a href='http://www.insrb.com:7070/bizcare/short'>기업경영건강검진</a>
+                  </li>
+                  <li>
+                    <ListIcon icon={icon3} />
+                    <Link to='/insuroboCard'>제휴서비스</Link>
+                  </li>
+                  <li>
+                    <ListIcon icon={icon4} />
+                    <a href='https://company.insurobo.co.kr/'>회사소개</a>
+                  </li>
+                </ul>
+                <ul className='windstorm-btn'>
+                  <li onClick={() => setShowPopup(true)}>
+                    풍수해보험 가입확인
+                  </li>
+                </ul>
+              </div>
+              {auth ? (
+                <ul>
+                  <li>
+                    <>
+                      <MyPage onClick={() => setMyPageOpen(!myPageOpne)}>
+                        <img src={width > 767.98 ? myPageIcon : myPageIconMb} alt='마이페이지' />
+                        <p>마이페이지</p>
+                      </MyPage>
+                      {myPageOpne && width > 767.98 && (
+                        <>
+                          <ModalOutLayer modalOutSideClick={modalOutSideClick} modalRef={modalRef} />
+                          <Profile onClick={logout} />
+                        </>
+                      )}
+                      {myPageOpne && width < 767.98 && (
+                        <li>
+                          <Profile onClick={logout} />
+                        </li>
+                      )}
+                    </>
+                  </li>
+                </ul>
+              ) : (
+                <ul className='logout'>
+                  <li><Link to='/login'>로그인</Link></li>
+                  <li><Link to='/register'>회원가입</Link></li>
+                </ul>
+              )}
+            </Menu>
           </Nav>
         </ContentInner>
         {showPopup && (

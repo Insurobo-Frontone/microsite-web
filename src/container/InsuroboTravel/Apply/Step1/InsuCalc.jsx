@@ -21,12 +21,14 @@ const InsuCalc = ({ type }) => {
       period: date
     }).then((res) => {
       setData(res.data.data)
+      console.log(res)
     }).catch((e) => console.log(e))
     return () => {
       actions.setOpen(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, watch('birthRep'), watch('genderRep')]);
+  
   const insuInfodata = [
     {
       id: 1,

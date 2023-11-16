@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
 import { useForm, FormProvider } from "react-hook-form";
 import  { UserProvider } from './context/UserContext';
@@ -62,7 +62,6 @@ function App() {
                     <Route path='/insuroboCard' element={<InsuroboCard />} />
                     {/* <Route path='/insuroboTravel' element={<InsuroboTravel />} /> */}
                     <Route path='/insuroboTravel/*' element={<InsuroboTravel />} />
-                    <Route path='/insuroboTravel/apply?:page' element={<InsuroboTravel apply />} />
                     <Route path='/insuroboTravel/apply/*' element={<InsuroboTravel apply />} />
                     <Route path='/insuroboTravel/apply/myPage' element={<InsuroboTravel apply />} />
                     {/* <Route path='/insuroboTravel/apply/myPage/login' element={<InsuroboTravelLogin />} /> */}

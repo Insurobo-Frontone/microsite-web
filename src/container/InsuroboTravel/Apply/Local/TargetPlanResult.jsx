@@ -1,85 +1,149 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useFormContext } from "react-hook-form";
 import Popup from "../Popup";
 import useWindowSize from "../../../../hooks/useWindowSize";
 
-
 const TargetPlanResult = ({ type, data }) => {
   const [close, setClose] = useState(true);
   const { width } = useWindowSize();
   const { watch } = useFormContext();
-
+  console.log(data)
   return (
     <>
       <Wrap type={type}>
-        <div>
-          <h2>상해보장</h2>
-          <ul>
-            {data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
-              return (
-                item.tripBojangResponseDto.filter((cur) => cur.bname.includes('상해')).map((td) => {
-                  return (
-                    <li key={td.bcode}>
-                      <h3>{td.bname}</h3>
-                      <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
-                    </li>
-                  )
-                })
-              )
-            })}
-          </ul>
-        </div>
-        <div>
-          <h2>질병보장</h2>
-          <ul>
-            {data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
-              return (
-                item.tripBojangResponseDto.filter((cur) => cur.bname.includes('질병')).map((td) => {
-                  return (
-                    <li key={td.bcode}>
-                      <h3>{td.bname}</h3>
-                      <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
-                    </li>
-                  )
-                })
-              )
-            })}
-          </ul>
-        </div>
-        <div>
-          <ul>
-            {data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
-              return (
-                item.tripBojangResponseDto.filter((cur) => cur.bname.includes('3대비급여')).map((td) => {
-                  return (
-                    <li key={td.bcode}>
-                      <h3>{td.bname}</h3>
-                      <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
-                    </li>
-                  )
-                })
-              )
-            })}
-          </ul>
-        </div>
-        <div>
-          <ul>
-            {data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
-              return (
-                item.tripBojangResponseDto.filter((cur) => cur.bname.includes('배상책임')).map((td) => {
-                  return (
-                    <li key={td.bcode}>
-                      <h3>{td.bname}</h3>
-                      <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
-                    </li>
-                  )
-                })
-              )
-            })}
-          </ul>
-        </div>
-      </Wrap>
+        {type === 'popup' ? (
+          <>
+            <div>
+              <h2>상해보장</h2>
+              {data.map((item) => {
+                return (
+                  <ul key={item.id}>
+                    {item.tripBojangResponseDtos.filter((cur) => cur.bname.includes('상해')).map((dt) => (
+                      <li key={dt.bcode}>
+                        <h3>{dt.bname}</h3>
+                        <p>{dt.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                      </li>
+                    ))}
+                  </ul>
+                )
+              })}
+            </div>
+            <div>
+              <h2>질병보장</h2>
+              {data.map((item) => {
+                return (
+                  <ul key={item.id}>
+                    {item.tripBojangResponseDtos.filter((cur) => cur.bname.includes('질병')).map((dt) => (
+                      <li key={dt.bcode}>
+                        <h3>{dt.bname}</h3>
+                        <p>{dt.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                      </li>
+                    ))}
+                  </ul>
+                )
+              })}
+            </div>
+            <div>
+              {data.map((item) => {
+                return (
+                  <ul key={item.id}>
+                    {item.tripBojangResponseDtos.filter((cur) => cur.bname.includes('3대비급여')).map((dt) => (
+                      <li key={dt.bcode}>
+                        <h3>{dt.bname}</h3>
+                        <p>{dt.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                      </li>
+                    ))}
+                  </ul>
+                )
+              })}
+            </div>
+            <div>
+              {data.map((item) => {
+                return (
+                  <ul key={item.id}>
+                    {item.tripBojangResponseDtos.filter((cur) => cur.bname.includes('배상책임')).map((dt) => (
+                      <li key={dt.bcode}>
+                        <h3>{dt.bname}</h3>
+                        <p>{dt.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                      </li>
+                    ))}
+                  </ul>
+                )
+              })}
+            </div>
+        </>
+      ) : (
+        <>
+          <div>
+            <h2>상해보장</h2>
+            <ul>
+              {data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
+                return (
+                  item.tripBojangResponseDto.filter((cur) => cur.bname.includes('상해')).map((td) => {
+                    return (
+                      <li key={td.bcode}>
+                        <h3>{td.bname}</h3>
+                        <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                      </li>
+                    )
+                  })
+                )
+              })}
+            </ul>
+          </div>
+          <div>
+            <h2>질병보장</h2>
+            <ul>
+              {type === 'popup' ? data : data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
+                return (
+                  item.tripBojangResponseDto.filter((cur) => cur.bname.includes('질병')).map((td) => {
+                    return (
+                      <li key={td.bcode}>
+                        <h3>{td.bname}</h3>
+                        <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                      </li>
+                    )
+                  })
+                )
+              })}
+            </ul>
+          </div>
+          <div>
+            <ul>
+              {type === 'popup' ? data : data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
+                return (
+                  item.tripBojangResponseDto.filter((cur) => cur.bname.includes('3대비급여')).map((td) => {
+                    return (
+                      <li key={td.bcode}>
+                        <h3>{td.bname}</h3>
+                        <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                      </li>
+                    )
+                  })
+                )
+              })}
+            </ul>
+          </div>
+          <div>
+            <ul>
+              {type === 'popup' ? data : data.filter((dt) => dt.gubun === watch('calcPlan')).map((item) => {
+                return (
+                  item.tripBojangResponseDto.filter((cur) => cur.bname.includes('배상책임')).map((td) => {
+                    return (
+                      <li key={td.bcode}>
+                        <h3>{td.bname}</h3>
+                        <p>{td.bmoney.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}&nbsp;원</p>
+                      </li>
+                    )
+                  })
+                )
+              })}
+            </ul>
+          </div>
+        </>
+      )}
+     </Wrap>
       {!close && (
         <Popup close={() => setClose(true)} type='info'>
           <h2>배상책임</h2>

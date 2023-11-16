@@ -31,9 +31,10 @@ const Wrap = styled.div`
 const InsuroboTravel = ({ apply }) => {
   const location = useLocation();
   const pageState = location.state;
-  
+
   useEffect(() => {
-    window.scrollTo(0, 0);    
+    window.scrollTo(0, 0);
+    
   }, [location]);
 
   return (

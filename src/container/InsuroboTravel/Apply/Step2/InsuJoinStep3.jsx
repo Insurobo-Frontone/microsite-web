@@ -9,8 +9,7 @@ import { toStringByFormatting, travelPeriod } from "../TravelDateFomat";
 const InsuJoinStep3 = ({ type }) => {
   const { watch } = useFormContext();
   const { width }  = useWindowSize();
-  const insuFee =  watch('calcPlanFee').toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
+  
   return (
     <Wrap>
       <Board>
@@ -30,7 +29,7 @@ const InsuJoinStep3 = ({ type }) => {
         </div>
         <div>
           <p>결제금액</p>
-          <h2>{`${insuFee}원`}</h2>
+          <h2>{watch('calcPlanFee')?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</h2>
         </div>
       </Board>
       <ul>
@@ -44,7 +43,7 @@ const InsuJoinStep3 = ({ type }) => {
         </li>
         <li>
           <h2>보험료</h2>
-          <p>{`${insuFee}원`}</p>
+          <p>{watch('calcPlanFee')?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</p>
         </li>
       </ul>
       <ul>

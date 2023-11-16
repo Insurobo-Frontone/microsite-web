@@ -5,6 +5,7 @@ import MyJoinInfo from "./MyJoinInfo";
 import prevIcon from "../../../../assets/icon/insuJoinPrevIcon.png";
 import Button from "../Button";
 import { getTourList } from "../../../../api/TravelAPI";
+import { clearGetTravelMenu } from "../../../Storage/InsuTravel";
 
 const MyPage = () => {
   const [close, setClose] = useState(true);
@@ -17,11 +18,12 @@ const MyPage = () => {
 
   useEffect(() => {
     getTourList().then((res) => {
-      setData(res.data.data)
+      setData(res.data.data);
+      clearGetTravelMenu();
     }).catch((e) => {
       console.log(e)
     })
-  }, []);
+  }, [open, close]);
   console.log(data)
   return (
     <MyPageWrap close={close}>
@@ -46,6 +48,10 @@ const MyPage = () => {
           onClick={() => {
             setOpen(true)
             setClose(false)
+          }}
+          myPageState={() => {
+            setClose(true)
+            setOpen(false)
           }}
         />  
       ) : (

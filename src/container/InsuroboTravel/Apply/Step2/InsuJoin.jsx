@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import styled, { css } from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, redirect, useBeforeUnload } from "react-router-dom";
 import InsuJoinStep1 from "./InsuJoinStep1";
 import InsuJoinStep2 from "./InsuJoinStep2";
 import InsuJoinStep3 from "./InsuJoinStep3";
 import PrevButton from "../PrevButton";
 import { getTravelMenu, setTravelMenu } from "../../../Storage/InsuTravel";
+import { useFormContext } from "react-hook-form";
+
 
 const InsuJoin = ({ type }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const pageState = location.state;
+  const { reset, watch } = useFormContext();
+  
   const menu = [
     { id: '1', title: '신청' },
     { id: '2', title: '확인' },
@@ -20,18 +25,42 @@ const InsuJoin = ({ type }) => {
     search: location.search,
     state: location.state
   }
+
   useEffect(() => {
     setTravelMenu(travelLocation);
+    console.log(pageState, '작동합니다')
+    if (watch('birthRep') === undefined) {
+      console.log(pageState, '작동합니다')
+      reset();
+      navigate('/insuroboTravel/apply?step=1', {
+        state: {
+          type: type,
+          step: '1'
+        }
+      })
+    }
+
+    return () => {
+      if (watch('birthRep') === undefined) {
+        console.log(pageState, '작동합니다')
+        reset();
+        navigate('/insuroboTravel/apply?step=1', {
+          state: {
+            type: type,
+            step: '1'
+          }
+        })
+      }
+    }
   }, [pageState]);
-  return (
+
+    return (
     <>
       <JoinStepNav>
         <PrevButton 
-          link={pageState.join === '1' ? '/insuroboTravel/apply?step=1' : false}
-          state={pageState.join === '1' ? {
-            type: type,
-            step: '1',
-          } : false}
+          step={pageState.join === '1' ? '1' : '2'}
+          type={type}
+          join={pageState.join === '1' ? '' : pageState.join === '2' ? '1' : '2'}
         />
         <ul>
           {menu.map((dep) => (

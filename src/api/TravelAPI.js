@@ -30,7 +30,12 @@ export const getTourList = async () => {
 
 // 보험 정보 삭제
 export const deleteTourList = async (id) => {
-    return await TravelAPI.delete(`/api/public/domesticTourList/${id}`, {
-      withCredentials: true,
-  });
+    return await TravelAPI.delete(`api/public/domesticTourDelete/${id}`, 
+    // {
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //   }
+    // }
+      
+  );
 }

@@ -3,12 +3,16 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import prevIcon from "../../../assets/icon/insuJoinPrevIcon.png";
 
-const PrevButton = ({ link, state }) => {
+const PrevButton = ({ type, step, join }) => {
   const navigate = useNavigate();
 
   return (
-    <Button onClick={() => navigate(link ? link : -1, {
-      state: state
+    <Button onClick={() => navigate(`/insuroboTravel/apply?step=${step}`, {
+      state: {
+        type: type,
+        step: step,
+        join: join,
+      }
     })}><span />이전</Button>
   );
 }

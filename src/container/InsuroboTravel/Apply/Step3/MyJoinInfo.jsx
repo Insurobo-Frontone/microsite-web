@@ -8,20 +8,46 @@ import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";
 import { useState } from "react";
 import Popup from "../Popup";
 import TargetPlanResult from "../Local/TargetPlanResult";
+import { deleteTourList } from "../../../../api/TravelAPI";
 
-const MyJoinInfo = ({ open, close, onClick, type, data }) => {
-  const { width } = useWindowSize(); 
-  const [popupOpen, setPopupOpen] = useState(false);
-  const [planPopup, setPlanPopup] = useState(false);
+const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
+  const { width } = useWindowSize();
+  const [popupOpen, setPopupOpen] = useState({
+    state: false,
+    type: '',
+  });
+  // const [planPopup, setPlanPopup] = useState(false);
   const [infoId, setInfoId] = useState(0);
 
   useEffect(() => {
     window.scrollTo(0, 0);   
-  }, [open])
+  }, [open]);
+
+
   const onClickDetail = (id) => {
     setInfoId(id);
     onClick()
   }
+  const tourRemove = () => {
+    deleteTourList(infoId)
+    .then((res) => {
+      console.log(res)
+      setPopupOpen((prevState) => ({
+        ...prevState,
+        state: false,
+        type: 'select'
+      }))
+      if(res.data) {
+        setPopupOpen((prevState) => ({
+          ...prevState,
+          state: false,
+          type: 'alert'
+        }))
+        myPageState()
+      }
+    }).catch((e) => console.log(e))
+  }
+
   return (
     <>
       {close ? (
@@ -31,13 +57,13 @@ const MyJoinInfo = ({ open, close, onClick, type, data }) => {
               <div>
                 <div>
                   <div>
-                    {open && dt.id === infoId && <img src={dbLogo} alt='db손해보험' />}
+                    {open && <img src={dbLogo} alt='db손해보험' />}
                     <h2>
                       {width > 767.98 ? (
                         <>
                           {type === 'local' ?  "국내 여행자 보험" : '해외 여행자 보험'}
                         </>
-                      ) : (
+                        ) : (
                         <>
                           {type === 'local' ?  "국내여행자보험" : '해외여행자보험'}
                         </>
@@ -46,105 +72,144 @@ const MyJoinInfo = ({ open, close, onClick, type, data }) => {
                     </h2>
                   </div>
                   <div>
-                    <p>{dt.startDate.substring(0, 10).replace(/\-/gi, '.')} ~ {dt.endDate.substring(0, 10).replace(/\-/gi, '.')} ({dt.period}일)</p>
-                    <span onClick={open ? () => setPlanPopup(true) : () => onClickDetail(dt.id)}>{open ? '보장내용 확인' : '자세히보기'}</span>
+                    <p>{dt.startDate.substring(0, 10).replace(/-/g, '.')} ~ {dt.endDate.substring(0, 10).replace(/-/g, '.')} ({dt.period}일)</p>
+                    <span onClick={open ? () => 
+                      setPopupOpen((prevState) => ({
+                        ...prevState,
+                        state: true,
+                        type: 'popup'
+                      })) : () => onClickDetail(dt.id)}>{open ? '보장내용 확인' : '자세히보기'}</span>
                   </div>
-                  {open && width > 767.98 && (
-                    <div>
-                      <p>{dt.fee}원</p>
-                    </div>
-                  )}
                 </div>
                 <PaymentStatus status={dt.beforePayment}>
                   {dt.beforePayment === 'Y' ? '결제전' : '가입완료'}
                 </PaymentStatus>
               </div>
+              {/* 오픈시 결제금액 */}
             </BoxWrap>
-          );
-        })) : (
-          data.filter((cur) => cur.id === infoId).map((dt) => {
-            return (
-              <>
-                <BoxWrap open={open} close={close} key={dt.id}>
+          )
+        })
+      ) : (
+        data.filter((cur) => cur.id === infoId).map((dt) => {
+          return (
+            <>
+              <BoxWrap open={open} close={close} key={dt.id}>
+                <div>
                   <div>
                     <div>
-                      <div>
-                        {open && <img src={dbLogo} alt='db손해보험' />}
-                        <h2>
-                          {width > 767.98 ? (
-                            <>
-                              {type === 'local' ?  "국내 여행자 보험" : '해외 여행자 보험'}
-                            </>
-                          ) : (
-                            <>
-                              {type === 'local' ?  "국내여행자보험" : '해외여행자보험'}
-                            </>
-                          )}
-                          <span>({dt.travelPurpose})</span>
-                        </h2>
-                      </div>
-                      <div>
-                        <p>{dt.startDate.substring(0, 10).replace(/\-/gi, '.')} ~ {dt.endDate.substring(0, 10).replace(/\-/gi, '.')} ({dt.period}일)</p>
-                        <span onClick={open ? () => setPlanPopup(true) : () => onClickDetail(dt.id)}>{open ? '보장내용 확인' : '자세히보기'}</span>
-                      </div>
-                      {open && width > 767.98 && (
-                        <div>
-                          <p>{dt.fee}원</p>
-                        </div>
-                      )}
+                      {open && <img src={dbLogo} alt='db손해보험' />}
+                      <h2>
+                        {width > 767.98 ? (
+                          <>
+                            {type === 'local' ?  "국내 여행자 보험" : '해외 여행자 보험'}
+                          </>
+                        ) : (
+                          <>
+                            {type === 'local' ?  "국내여행자보험" : '해외여행자보험'}
+                          </>
+                        )}
+                        <span>({dt.travelPurpose})</span>
+                      </h2>
                     </div>
-                    <PaymentStatus status={dt.beforePayment}>
-                      {dt.beforePayment === 'Y' ? '결제전' : '가입완료'}
-                    </PaymentStatus>
-                  </div>
-                  <div>
-                    <ApplyInfo data={dt} />
                     <div>
-                      <p>결제금액</p>
-                      <h2>{dt.fee}원</h2>
+                      <p>{dt.startDate.substring(0, 10).replace(/-/g, '.')} ~ {dt.endDate.substring(0, 10).replace(/-/g, '.')} ({dt.period}일)</p>
+                      <span 
+                        onClick={open ? () => 
+                          setPopupOpen((prevState) => ({
+                            ...prevState,
+                            state: false,
+                            type: 'alert'
+                          })) : () => onClickDetail(dt.id)}>
+                          {open ? '보장내용 확인' : '자세히보기'}
+                      </span>
                     </div>
+                    {open && width > 767.98 && (
+                      <div>
+                        <p>{dt.fee.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</p>
+                      </div>
+                    )}
                   </div>
-                </BoxWrap>
-                <ButtonWrap>
-                  {data.filter((cur) => cur.id === infoId).beforePayment === 'Y' ? (
-                    <> 
-                      <Button
-                        type='cancel'
-                        title='신청취소'
-                        onClick={() => setPopupOpen(true)}
-                      />
-                      <Button
-                        title='결제하기'
-                      />
-                    </>) 
-                  : (
-                    <> 
-                      <Button
-                        title={width > 767.98 ? '가입증명서 재발행' : '가입증명서 발행'}
-                      />
-                      <Button
-                        title={width > 767.98 ? '보험금청구서류 이메일로 받기' : '보험금청구 서류'}
-                      />
-                    </>
-                  )}
-                </ButtonWrap>
-              </>
-            );
-          })
-        )}
-      {popupOpen && (
-        <Popup type='select' close={() => setPopupOpen(false)}>
+                  <PaymentStatus status={dt.beforePayment}>
+                    {dt.beforePayment === 'Y' ? '결제전' : '가입완료'}
+                  </PaymentStatus>
+                </div>
+                <div>
+                  <ApplyInfo data={dt} />
+                  <div>
+                    <p>결제금액</p>
+                    <h2>{dt.fee.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</h2>
+                  </div>
+                </div>
+              </BoxWrap>
+              <ButtonWrap>
+                {dt.beforePayment === 'Y' ? (
+                  <>  
+                    <Button
+                      type='cancel'
+                      title='신청취소'
+                      onClick={() => 
+                        setPopupOpen((prevState) => ({
+                          ...prevState,
+                          state: true,
+                          type: 'select'
+                        }))}
+                    />
+                    <Button
+                      title='결제하기'
+                    />
+                  </>
+                ) : (
+                  <> 
+                    <Button
+                      title={width > 767.98 ? '가입증명서 재발행' : '가입증명서 발행'}
+                    />
+                    <Button
+                      title={width > 767.98 ? '보험금청구서류 이메일로 받기' : '보험금청구 서류'}
+                    />
+                  </>
+                )}
+              </ButtonWrap>
+            </>
+          )
+        })
+      )}
+      {popupOpen.type === 'select' && popupOpen.state && (
+        <Popup 
+          type='select'
+          onClickYse={tourRemove}
+          close={() =>  setPopupOpen((prevState) => ({
+            ...prevState,
+            state: false,
+            type: 'select'
+          }))} 
+        >
           <p>신청내역을 취소하시겠습니까?</p>
         </Popup>
       )}
-      {planPopup && (
-        <Popup type='info' close={() => setPlanPopup(false)}>
-          <h2 className="close-header">든든플랜 <span onClick={() => setPlanPopup(false)}/></h2>
-          <TargetPlanResult type='popup' />
+      {popupOpen.type === 'popup' && popupOpen.state &&(
+        <Popup 
+          type='info' 
+          close={() => 
+          setPopupOpen((prevState) => ({
+          ...prevState,
+          state: false,
+          type: 'popup'
+        }))}>
+          <h2 className="close-header"> {data.filter((cur) => cur.id === infoId).map((dt) => dt.gubun === '1' ? '안심플랜' : '든든플랜')}
+            <span 
+              onClick={() => 
+                setPopupOpen((prevState) => ({
+                  ...prevState,
+                  state: false,
+                  type: 'alert'
+              }))}
+            />
+          </h2>
+          <TargetPlanResult type='popup' data={data.filter((cur) => cur.id === infoId)} />
         </Popup>
       )}
     </>
-  )
+  );
 }
 
 export default MyJoinInfo;

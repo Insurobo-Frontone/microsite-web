@@ -221,7 +221,7 @@ const ButtonWrap = styled.div`
   position: absolute;
   bottom: -34px;
   left: 340px;
-  z-index: 9999;
+  z-index: 999;
   width: 480px;
 
   ${(props) => props.theme.window.mobile} {

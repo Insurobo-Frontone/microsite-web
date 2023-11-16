@@ -73,7 +73,6 @@ const Local= ({ type }) => {
 
   const tourRemove = () => {
     deleteTourList(insuId)
-    
     .then((res) => {
       console.log(res)
       reset();
@@ -231,26 +230,29 @@ const Local= ({ type }) => {
         </>
       )}
       {pageState.step === '2' && pageState.join === '3' && (
-        <ButtonWrap className="couple-button-wrap">
-          <Button
-            title='아니요'
-            type='border'
-            onClick={() => setClose(false)}
-          />
-          <Button
-            title={width > 767.98 ? '위 내용 확인 후 결제하기' : '확인 후 결제'}
-            onClick={onClickPayment}
-          />
-        </ButtonWrap>
+        <>
+          <ButtonWrap className="couple-button-wrap">
+            <Button
+              title='아니요'
+              type='border'
+              onClick={() => setClose(false)}
+            />
+            <Button
+              title={width > 767.98 ? '위 내용 확인 후 결제하기' : '확인 후 결제'}
+              onClick={onClickPayment}
+            />
+          </ButtonWrap>
+          {!close && (
+            <Popup type='select' onClickYse={tourRemove} close={() => setClose(true)}>
+              <p>
+                이동 시 입력하신 정보가 초기화 됩니다.<br />
+                간편계산으로 이동하시겠습니까?
+              </p>
+            </Popup>
+          )}
+        </>
       )}
-      {!close && (
-        <Popup type='select' onClickYse={tourRemove} close={() => setClose(true)}>
-          <p>
-            이동 시 입력하신 정보가 초기화 됩니다.<br />
-            간편계산으로 이동하시겠습니까?
-          </p>
-        </Popup>
-      )}
+      
     </>
   );
 }

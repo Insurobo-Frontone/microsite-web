@@ -38,6 +38,6 @@ export const getLoBzCdList = () => {
 export const postHiLinkObj = async (params) => {
   return await WindstormAPI.post('/Hi/StmFld/linkObjInfo', { 
     ...params,
-   });
+  });
 };
 

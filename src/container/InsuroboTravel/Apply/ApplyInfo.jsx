@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 const ApplyInfo = ({ data }) => {
   const { watch } = useFormContext();
-  // const mobile = watch('mobileRep').replace(/[^0-9]/g, '').replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3")
 
   return (
     <>
@@ -14,16 +13,16 @@ const ApplyInfo = ({ data }) => {
           <ul>
             <li>
               <div>
-                <p>{data.userName}</p>
+                <p>{data?.userName}</p>
               </div>
-              <p>id:{data.id}</p>
+              <p>{data?.phoneNum.replace(/[^0-9]/g, '').replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3")}</p>
             </li>
             <li>
               <div>
-                <p>930508 - </p>
-                <p>2******</p> 
+                <p>{data?.juminFront} - </p>
+                <p>{data?.juminBack.substring(0, 1)}******</p> 
               </div>
-              <p>alrzl4302@naver.com</p>
+              <p>{data?.email}</p>
             </li>
           </ul>
         </TextWrap>
@@ -35,12 +34,12 @@ const ApplyInfo = ({ data }) => {
             <div>
               <p>{watch('nameRep')}</p>
             </div>
-            <p>mobile</p>
+            <p>{watch('mobileRep')?.replace(/[^0-9]/g, '').replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3")}</p>
           </li>
           <li>
             <div>
               <p>{watch('birthRep')} - </p>
-              <p>{watch('LastRegRep').substring(0, 1)}******</p> 
+              <p>{watch('LastRegRep')?.substring(0, 1)}******</p> 
             </div>
             <p>{watch('emailRep') +'@'+ (watch('emailRep2') === 'myself' ? watch('emailRep2Change') : watch('emailRep2'))}</p>
           </li>
