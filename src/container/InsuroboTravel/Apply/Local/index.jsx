@@ -16,20 +16,20 @@ import MyPage from "../Step3/MyPage";
 import Qna from "../Step4/Qna";
 import Popup from "../Popup";
 import { onClickPayment } from "../onClickPayment";
-import { deleteTourList, postTourSave } from "../../../../api/TravelAPI";
+import { deleteTourList, getTourList, postTourSave } from "../../../../api/TravelAPI";
 import { insuAge, toStringByFormatting, travelPeriod } from "../TravelDateFomat";
+import { setTravelId } from "../../../Storage/InsuTravel";
 
 const Local= ({ type }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { width } = useWindowSize();
   const pageState = location.state;
-  const { actions, state } = useContext(TravelPageContext);
+  const { state } = useContext(TravelPageContext);
   const [close, setClose] = useState(true);
   const [policyOpen, setPolicyOpen] = useState(false);
   const [policyId, setPolicyId] = useState(1);
   const { control, watch, reset } = useFormContext();
-  const [insuId, setInsuId] = useState('');
   const join2Valid = useWatch({
     control,
     name: ['list1', 'list2', 'list3', 'notice', 'policyAllAgree'],
@@ -58,7 +58,8 @@ const Local= ({ type }) => {
       privacyInfoAgreement: watch('policyAllAgree') ? 'Y' : 'N', // 개인정보수집 동의 여부(Y, N)
       fee: watch('calcPlanFee') // 보험료
     }).then((res) => {
-      setInsuId(res.data.data);
+      setTravelId(res.data.data)
+      // dataUpdate();
       navigate(`/insuroboTravel/apply?step=2&join=3`, {
         state: {
           type: type,
@@ -71,12 +72,26 @@ const Local= ({ type }) => {
     })
   }
 
+  
+  // const dataUpdate = () => {
+  //   getTourList().then((res) => {
+  //     if (res.data.data.length !== 1) {
+  //       res.data.data.filter((cur) => cur.id !== insuId && cur.beforePayment === 'Y').map((td) => {
+  //         // deleteTourList(td.id)
+  //         console.log(td.id)
+  //       })
+  //     }
+  //   }).catch((e) => {
+  //     console.log(e)
+  //   })
+  // }
+
   const tourRemove = () => {
-    deleteTourList(insuId)
+    const getTourId = localStorage.getItem("@travelId");
+    deleteTourList(getTourId)
     .then((res) => {
       console.log(res)
       reset();
-      actions.setOpen(false);
       navigate(`/insuroboTravel/apply?step=1`, {
         state: {
           type: type,
@@ -86,10 +101,11 @@ const Local= ({ type }) => {
       setClose(true)
     })
   }
-  const onClickNext = (step) => {
-    switch (step) {
+
+  const NextinsuJoin = (totalNum) => {
+    switch (totalNum) {
       // 간편계산 1인 가입버튼 클릭
-        case 'step1' :
+        case '1' :
         navigate(`/insuroboTravel/apply?step=2&join=1`, {
           state: {
             type: type,
@@ -97,14 +113,7 @@ const Local= ({ type }) => {
             join: '1'
           }
         });
-        // actions.setOpen(false);
         break;
-        // 보험가입 위 내용 확인 후 결제하기 버튼 클릭
-        // case 'step2-3' :
-        //   if (watch('goPay') === '2') {
-        //     navigate(`/insuroboTravel/apply/payment`);
-        //   }
-
       default: break;
     }
   }
@@ -128,7 +137,7 @@ const Local= ({ type }) => {
           )} 
         </ReqContent>
       </Wrap>
-      {/* 2번째 박스 있는 경우 */}
+      {/* 2번째 Wrap 있는 경우 */}
       {/* 보험료 확인 */}
       {state.open && pageState.step === '1' && (
         <>
@@ -142,12 +151,12 @@ const Local= ({ type }) => {
             <Button
               type='border'
               title='1인 가입'
-              onClick={() => onClickNext('step1')}
+              onClick={() => NextinsuJoin('1')}
             />
           </ButtonWrap>
         </>
       )}
-      {/* 보험가입 -> 2번째 단계 2번째 박스 */}
+      {/* 보험가입 -> 2번째 단계 2번째 wrap */}
       {pageState.step === '2' && pageState.join === '2' && (
         <>
           <Wrap>
@@ -229,6 +238,7 @@ const Local= ({ type }) => {
           </ButtonWrap>
         </>
       )}
+      {/* 보험가입 -> 3번째 단계 버튼 wrap */}
       {pageState.step === '2' && pageState.join === '3' && (
         <>
           <ButtonWrap className="couple-button-wrap">

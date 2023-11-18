@@ -1,12 +1,13 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
 import { useLocation, useNavigate, redirect, useBeforeUnload } from "react-router-dom";
 import InsuJoinStep1 from "./InsuJoinStep1";
 import InsuJoinStep2 from "./InsuJoinStep2";
 import InsuJoinStep3 from "./InsuJoinStep3";
 import PrevButton from "../PrevButton";
-import { getTravelMenu, setTravelMenu } from "../../../Storage/InsuTravel";
+import { setTravelMenu } from "../../../Storage/InsuTravel";
 import { useFormContext } from "react-hook-form";
+import TravelPageContext from "../../../../context/travelPageContext";
 
 
 const InsuJoin = ({ type }) => {
@@ -14,7 +15,7 @@ const InsuJoin = ({ type }) => {
   const navigate = useNavigate();
   const pageState = location.state;
   const { reset, watch } = useFormContext();
-  
+  const { actions } = useContext(TravelPageContext);
   const menu = [
     { id: '1', title: '신청' },
     { id: '2', title: '확인' },
@@ -28,9 +29,7 @@ const InsuJoin = ({ type }) => {
 
   useEffect(() => {
     setTravelMenu(travelLocation);
-    console.log(pageState, '작동합니다')
     if (watch('birthRep') === undefined) {
-      console.log(pageState, '작동합니다')
       reset();
       navigate('/insuroboTravel/apply?step=1', {
         state: {
@@ -40,18 +39,6 @@ const InsuJoin = ({ type }) => {
       })
     }
 
-    return () => {
-      if (watch('birthRep') === undefined) {
-        console.log(pageState, '작동합니다')
-        reset();
-        navigate('/insuroboTravel/apply?step=1', {
-          state: {
-            type: type,
-            step: '1'
-          }
-        })
-      }
-    }
   }, [pageState]);
 
     return (

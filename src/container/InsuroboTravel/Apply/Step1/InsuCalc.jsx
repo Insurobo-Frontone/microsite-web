@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState, useReducer } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import SelectPlan from "./SelectPlan";
@@ -13,22 +13,6 @@ const InsuCalc = ({ type }) => {
   const [data, setData] = useState([]);
   const date = travelPeriod(watch('localEnd'), watch('localStart'));
   const age = insuAge(watch('localStart'), watch('birthRep'));
-
-  useEffect(() => {
-    getCalc({
-      age: age,
-      sex: watch('genderRep'),
-      period: date
-    }).then((res) => {
-      setData(res.data.data)
-      console.log(res)
-    }).catch((e) => console.log(e))
-    return () => {
-      actions.setOpen(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date, watch('birthRep'), watch('genderRep')]);
-  
   const insuInfodata = [
     {
       id: 1,
@@ -46,6 +30,21 @@ const InsuCalc = ({ type }) => {
       data: `${watch('genderRep') === 'M' ? '남자' : '여자'}`
     },
   ];
+
+  useEffect(() => {
+    getCalc({
+      age: age,
+      sex: watch('genderRep'),
+      period: date
+    }).then((res) => {
+      setData(res.data.data)
+    }).catch((e) => console.log(e));
+
+    return () => {
+      actions.setOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watch('birthRep'), date, watch('genderRep')]);
 
   return (
     <>

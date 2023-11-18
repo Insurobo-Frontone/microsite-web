@@ -14,7 +14,7 @@ const SelectPlan = ({ data }) => {
         render={({ field }) => {
           return (
             <>
-              {data.filter((dt) => dt.gubun !== '2').map((item) => {
+              {data.map((item) => {
                 return (
                   <>
                     <ButtonWrap {...field} key={item.id}>

@@ -147,7 +147,7 @@ const InsuJoinStep1 = ({ type }) => {
             title='확인'
             disabled={!isDirty || !isValid}
             onClick={() => 
-            navigate(`/insuroboTravel/apply?type=${type}&step=2&join=2`)
+            navigate(`/insuroboTravel/apply?step=2&join=2`)
           }
           /> 
         ) : (

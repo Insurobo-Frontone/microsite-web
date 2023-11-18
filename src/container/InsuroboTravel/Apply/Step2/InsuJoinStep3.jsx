@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useFormContext } from 'react-hook-form';
 import ApplyInfo from "../ApplyInfo";
 import dbLogo from '../../../../assets/img/insuroboTravel/payMentDBLogo.png';
 import useWindowSize from "../../../../hooks/useWindowSize";
 import { toStringByFormatting, travelPeriod } from "../TravelDateFomat";
+import { clearGetTravelMenu } from "../../../Storage/InsuTravel";
 
 const InsuJoinStep3 = ({ type }) => {
-  const { watch } = useFormContext();
+  const { watch, reset } = useFormContext();
   const { width }  = useWindowSize();
   
+  useEffect(() => {
+    return () => {
+      clearGetTravelMenu();
+    }
+  })
   return (
     <Wrap>
       <Board>

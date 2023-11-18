@@ -18,18 +18,25 @@ const MyPage = () => {
 
   useEffect(() => {
     getTourList().then((res) => {
-      setData(res.data.data);
-      clearGetTravelMenu();
+      console.log(res.data.data)
+      setData(res.data.data)
+      
     }).catch((e) => {
       console.log(e)
-    })
+    });
+
+
   }, [open, close]);
-  console.log(data)
+  
+  const logout = () => {
+    localStorage.clear()
+    navigate('/');
+  }
   return (
     <MyPageWrap close={close}>
       <MyPageNav close={close}>
         {close && !open ? 
-          (<Link to='#'>로그아웃</Link>) :
+          (<span onClick={logout}>로그아웃</span>) :
          !close && open ?(
           <PrevButton onClick={() => {
             setClose(true)
@@ -125,16 +132,17 @@ const MyPageNav = styled.div`
   justify-content: ${props => props.close ? 'flex-end' : 'flex-start'};
   align-items: center;
   margin-bottom: 50px;
-  > a {
+  > span {
     display: inline-block;
     line-height: 1;
     font-size: 20px;
     color: #333333;
     border-bottom: 1px solid #333333;
+    cursor: pointer;
   }
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 20px;
-    > a {
+    > span {
       font-size: 16px;
     }
   }

@@ -1,7 +1,7 @@
 import { useState, createContext } from 'react';
 
 const TravelPageContext = createContext({
-  state: { open: '', setOpen: ''},
+  state: { open: false, setOpen: true},
   actions: {
     setOpen: () => {},
   }
@@ -10,11 +10,11 @@ const TravelPageContext = createContext({
 
 const TravelPageProvider = ({children}) => {
   const [open, setOpen] = useState(false)
-
   const value = {
     state: { open },
     actions: { setOpen }
   };
+
   return (
     <TravelPageContext.Provider value={value}>{children}</TravelPageContext.Provider>
   )

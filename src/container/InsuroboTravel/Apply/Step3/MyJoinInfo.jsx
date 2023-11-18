@@ -40,14 +40,21 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
       if(res.data) {
         setPopupOpen((prevState) => ({
           ...prevState,
-          state: false,
+          state: true,
           type: 'alert'
         }))
-        myPageState()
       }
     }).catch((e) => console.log(e))
   }
 
+  const tourRemoveListBack = () => {
+    setPopupOpen((prevState) => ({
+      ...prevState,
+      state: false,
+      type: 'alert'
+    }));
+    myPageState();
+  }
   return (
     <>
       {close ? (
@@ -117,8 +124,8 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
                         onClick={open ? () => 
                           setPopupOpen((prevState) => ({
                             ...prevState,
-                            state: false,
-                            type: 'alert'
+                            state: true,
+                            type: 'popup'
                           })) : () => onClickDetail(dt.id)}>
                           {open ? '보장내용 확인' : '자세히보기'}
                       </span>
@@ -152,7 +159,8 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
                           ...prevState,
                           state: true,
                           type: 'select'
-                        }))}
+                        }))
+                      }
                     />
                     <Button
                       title='결제하기'
@@ -173,20 +181,7 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
           )
         })
       )}
-      {popupOpen.type === 'select' && popupOpen.state && (
-        <Popup 
-          type='select'
-          onClickYse={tourRemove}
-          close={() =>  setPopupOpen((prevState) => ({
-            ...prevState,
-            state: false,
-            type: 'select'
-          }))} 
-        >
-          <p>신청내역을 취소하시겠습니까?</p>
-        </Popup>
-      )}
-      {popupOpen.type === 'popup' && popupOpen.state &&(
+      {popupOpen.type === 'popup' && popupOpen.state && (
         <Popup 
           type='info' 
           close={() => 
@@ -201,11 +196,32 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
                 setPopupOpen((prevState) => ({
                   ...prevState,
                   state: false,
-                  type: 'alert'
+                  type: 'popup'
               }))}
             />
           </h2>
           <TargetPlanResult type='popup' data={data.filter((cur) => cur.id === infoId)} />
+        </Popup>
+      )}
+      {popupOpen.type === 'select' && popupOpen.state && (
+        <Popup 
+          type='select'
+          onClickYse={tourRemove}
+          close={() =>  setPopupOpen((prevState) => ({
+            ...prevState,
+            state: false,
+            type: 'select'
+          }))} 
+        >
+          <p>신청내역을 취소하시겠습니까?</p>
+        </Popup>
+      )}
+      {popupOpen.type === 'alert' && popupOpen.state && (
+        <Popup 
+          type='alert'
+          close={tourRemoveListBack} 
+        >
+          <p>신청내역이 취소되었습니다.</p>
         </Popup>
       )}
     </>

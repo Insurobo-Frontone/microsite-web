@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
 import styled, { css } from "styled-components";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, json } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { clearGetTravelMenu, getTravelMenu } from "../../Storage/InsuTravel";
 import Popup from "./Popup";
 import TravelPageContext from "../../../context/travelPageContext";
+import { deleteTourList } from "../../../api/TravelAPI";
 
 const TabMenu = ({ type }) => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const TabMenu = ({ type }) => {
   const [message, setMessage] = useState('');
   const [popupType, setPopupType] = useState('');
   const { actions } = useContext(TravelPageContext);
+  
   const menu = [
     {
       id: '1',
@@ -51,6 +53,28 @@ const TabMenu = ({ type }) => {
     if (stepNum === '1') {
       setClose(true);
     } 
+    if (stepNum === '2') {
+      // const getTourId = localStorage.getItem("@travelId");
+      // if (getTourId) {
+      //   console.log(getTourId)
+      //   deleteTourList(getTourId).then((res) => {
+          
+      
+      // setClose(true);
+      //   }).catch((e) => console.log(e))
+        
+      
+      // }
+      reset();    
+      actions.setOpen(false);
+      navigate(`/insuroboTravel/apply?step=1`, {
+        state: {
+          type: type,
+          step: '1',
+        }
+      });
+    }
+
     if (stepNum === '3' || stepNum === '4') {
       const pageInfo =  getTravelMenu();
       if (pageInfo.getLocation) {
@@ -73,17 +97,7 @@ const TabMenu = ({ type }) => {
         });
       }
     }
-    if (stepNum === '2') {
-      setClose(true);
-      reset();
-      actions.setOpen(false);
-      navigate(`/insuroboTravel/apply?step=1`, {
-        state: {
-          type: type,
-          step: '1',
-        }
-      });
-    }
+    
   }
   // apply nav에서 페이지 이동
   const nextStep = (step) => {
@@ -94,6 +108,7 @@ const TabMenu = ({ type }) => {
           setMessage('이동 시 입력하신 정보가 초기화 됩니다.\n간편계산으로 이동하시겠습니까?');
           setPopupType('select');
           setClose(false);
+          
         } 
         if (stepNum === '3' || stepNum === '4') {
           const pageInfo =  getTravelMenu();
@@ -109,7 +124,7 @@ const TabMenu = ({ type }) => {
               }
             });
           }
-        }
+        } 
         break;
       // 보험가입 클릭
       case '2' :
