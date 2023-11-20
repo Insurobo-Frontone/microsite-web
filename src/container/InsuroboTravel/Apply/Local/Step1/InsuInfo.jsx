@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import TravelPageContext from "../../../../../context/travelPageContext";
@@ -52,14 +52,17 @@ const InsuInfo = () => {
 
   const handleClose = () => {
     setClose(true);
-  }
+  };
+  
   const onClickCalc = () => {
     actions.setOpen(true);
-  }
+  };
+
   const onError = (e) => {
     console.log(e)
     setClose(false);
-  }
+  };
+  
   const gender = [
     {
       id: 1,

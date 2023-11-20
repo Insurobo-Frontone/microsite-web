@@ -8,7 +8,7 @@ import { getCalc } from "../../../../api/TravelAPI";
 import { insuAge, travelPeriod } from "../TravelDateFomat";
 
 const InsuCalc = ({ type }) => {
-  const { watch } = useFormContext();
+  const { watch, setFocus } = useFormContext();
   const { actions } = useContext(TravelPageContext);
   const [data, setData] = useState([]);
   const date = travelPeriod(watch('localEnd'), watch('localStart'));
@@ -31,20 +31,23 @@ const InsuCalc = ({ type }) => {
     },
   ];
 
+  
   useEffect(() => {
+    // scroll trigger 삽입예정
     getCalc({
       age: age,
       sex: watch('genderRep'),
       period: date
     }).then((res) => {
-      setData(res.data.data)
+      setData(res.data.data);
     }).catch((e) => console.log(e));
-
+    
     return () => {
       actions.setOpen(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watch('birthRep'), date, watch('genderRep')]);
+  }, [age, watch('genderRep'), date]);
+
 
   return (
     <>

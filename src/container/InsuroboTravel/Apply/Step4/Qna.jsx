@@ -41,15 +41,14 @@ const Qna = ({ type }) => {
     },
   ]
 
-
   return (
     <QnaWrap>
       <div>
         <div>
           {type === 'local' && qnaData.map((dt) => (
-            <div>
+            <div key={dt.id}>
               <h2>{dt.title}</h2>
-              <ul key={dt.id}>
+              <ul>
                 {dt.data.map((list) => (
                   <li key={list.id}>
                     <PolicyButton
@@ -82,7 +81,7 @@ const Qna = ({ type }) => {
               }} 
             />
           )}
-          <Button type='border' title='보험약관' onClick={() => window.open(pdf, '_blank')}/>
+          <Button type='border' title='보험약관' onClick={() => window.open(pdf, '_blank')} />
         </div>
       </div>
     </QnaWrap>

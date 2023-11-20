@@ -34,7 +34,6 @@ const InsuroboTravel = ({ apply }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
   }, [location]);
 
   return (

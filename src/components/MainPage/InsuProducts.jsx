@@ -305,7 +305,7 @@ function InsuProducts() {
             {width > 767.98 ? (
               <>
                 {data.map((dt) => (
-                  <li onClick={() => onClickLink(dt.id, dt.link)}>
+                  <li onClick={() => onClickLink(dt.id, dt.link)} key={dt.id}>
                     <div>
                       <img src={dt.img} alt={dt.title} />
                     </div>
@@ -316,7 +316,7 @@ function InsuProducts() {
             ) : (
               <>
                 {data.filter((item) => item.tag === tagName).map((dt) => (
-                  <li onClick={() => onClickLink(dt.id, dt.mobile)}>
+                  <li onClick={() => onClickLink(dt.id, dt.mobile)} key={dt.id}>
                     <div>
                       <img src={dt.img} alt={dt.title} />
                     </div>

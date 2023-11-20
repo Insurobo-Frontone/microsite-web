@@ -5,7 +5,9 @@ const TravelPageContext = createContext({
   actions: {
     setOpen: () => {},
   }
+  
 });
+
 
 
 const TravelPageProvider = ({children}) => {
@@ -14,7 +16,7 @@ const TravelPageProvider = ({children}) => {
     state: { open },
     actions: { setOpen }
   };
-
+  
   return (
     <TravelPageContext.Provider value={value}>{children}</TravelPageContext.Provider>
   )

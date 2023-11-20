@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
 
 const RadioInput = ({ name, data, list, myPage, onFocus }) => {
   const { control } = useFormContext();
-
   return (
       <Controller
         name={name}

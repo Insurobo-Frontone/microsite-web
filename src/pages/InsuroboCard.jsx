@@ -47,6 +47,7 @@ const InsuroboCard = () => {
                   <a 
                     href="https://www.shinhancard.com/pconts/html/card/apply/credit/1188417_2207.html?empSeq=513&btnApp=dp01"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     카드 신청하기
                   </a>
@@ -77,6 +78,7 @@ const InsuroboCard = () => {
                   <a 
                     href="https://www.shinhancard.com/pconts/html/card/apply/credit/1188273_2207.html?empSeq=585&btnApp=dp01"
                     target="_blank"
+                    rel="noreferrer"
                   >
                     카드 신청하기
                   </a>
@@ -94,6 +96,7 @@ const InsuroboCard = () => {
         <a 
           href="https://www.shinhancard.com/pconts/html/main.html"
           target="_blank"
+          rel="noreferrer"
         >
           <img src={footer_shinhan} alt="신한카드"/>
         </a>

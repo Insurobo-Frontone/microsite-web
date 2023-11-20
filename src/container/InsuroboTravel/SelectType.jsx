@@ -28,7 +28,6 @@ const SelectType = () => {
   const auth = localStorage.getItem("@access-Token");
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  console.log(pathname)
   const checkLogin = (link, type) => {
     if (auth) {
       navigate(link, {

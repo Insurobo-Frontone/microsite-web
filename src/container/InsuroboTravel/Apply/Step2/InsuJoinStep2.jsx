@@ -4,7 +4,6 @@ import { useFormContext } from "react-hook-form";
 import RadioInput from "../../Input/RadioInput";
 import SelectButton from "./SelectButton";
 import Popup from "../Popup";
-import Button from "../Button";
 
 const InsuJoinStep2 = () => {
   const methods = useFormContext();
@@ -13,10 +12,10 @@ const InsuJoinStep2 = () => {
   const { watch, setValue } = methods;
 
   useEffect(() => {
-    if (watch('list1') === 'yes') {
+    if (watch('list1') === 'Y') {
       setValue('list1', '');
       setClose(false);
-    } else if (watch('list2') === 'yes') {
+    } else if (watch('list2') === 'Y') {
       setValue('list2', '');
       setClose(false);
     }
@@ -59,7 +58,7 @@ const InsuJoinStep2 = () => {
             >특정질병[보기]</span>으로 입원 또는 수술을 받은 적이 있나요?
           </p>
           <RadioInput
-            list
+            list={true}
             name='list1'
             data={list1}
           />
@@ -73,7 +72,7 @@ const InsuJoinStep2 = () => {
             >위험한 레포츠[보기]</span>를 하시나요?
           </p>
           <RadioInput
-            list
+            list={true}
             name='list2'
             data={list2}
           />

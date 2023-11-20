@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import MyJoinInfo from "./MyJoinInfo";
 import prevIcon from "../../../../assets/icon/insuJoinPrevIcon.png";
 import Button from "../Button";
 import { getTourList } from "../../../../api/TravelAPI";
-import { clearGetTravelMenu } from "../../../Storage/InsuTravel";
 
 const MyPage = () => {
   const [close, setClose] = useState(true);
@@ -117,10 +116,8 @@ const MyPageWrap = styled.div`
     }
 
     ${props => props.close && css`
-      height: 526px;
+      min-height: 526px;
     `}
-
-
   }
 
 
@@ -142,6 +139,7 @@ const MyPageNav = styled.div`
   }
   ${(props) => props.theme.window.mobile} {
     margin-bottom: 20px;
+    height: 23px;
     > span {
       font-size: 16px;
     }
@@ -170,6 +168,7 @@ const PrevButton = styled.div`
     > span {
       width: 24px;
       height: 24px;
+      background-size: 36.79166666666667%;
     }
   }
 `;

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import Finance from '../components/MainPage/Finance';
 import InfoPlace from '../components/MainPage/InfoPlace';
 import Plaza from '../components/MainPage/Plaza';

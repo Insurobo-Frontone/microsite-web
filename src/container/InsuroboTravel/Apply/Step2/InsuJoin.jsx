@@ -1,21 +1,21 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
-import { useLocation, useNavigate, redirect, useBeforeUnload } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import InsuJoinStep1 from "./InsuJoinStep1";
 import InsuJoinStep2 from "./InsuJoinStep2";
 import InsuJoinStep3 from "./InsuJoinStep3";
 import PrevButton from "../PrevButton";
 import { setTravelMenu } from "../../../Storage/InsuTravel";
 import { useFormContext } from "react-hook-form";
+import { useContext } from "react";
 import TravelPageContext from "../../../../context/travelPageContext";
-
 
 const InsuJoin = ({ type }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const pageState = location.state;
   const { reset, watch } = useFormContext();
-  const { actions } = useContext(TravelPageContext);
+  const { state, actions } = useContext(TravelPageContext);
   const menu = [
     { id: '1', title: '신청' },
     { id: '2', title: '확인' },
@@ -26,8 +26,9 @@ const InsuJoin = ({ type }) => {
     search: location.search,
     state: location.state
   }
-
+  console.log(state.open)
   useEffect(() => {
+    actions.setOpen(true);
     setTravelMenu(travelLocation);
     if (watch('birthRep') === undefined) {
       reset();
@@ -43,23 +44,25 @@ const InsuJoin = ({ type }) => {
 
     return (
     <>
-      <JoinStepNav>
-        <PrevButton 
-          step={pageState.join === '1' ? '1' : '2'}
-          type={type}
-          join={pageState.join === '1' ? '' : pageState.join === '2' ? '1' : '2'}
-        />
-        <ul>
-          {menu.map((dep) => (
-            <MenuButton 
-              key={dep.id} 
-              active={pageState.join === dep.id}
-            >
-              {dep.title}
-            </MenuButton>
-          ))}
-        </ul>
-      </JoinStepNav>
+      {pageState.join !== '3' && (
+        <JoinStepNav>
+          <PrevButton 
+            type={type}
+            step={pageState.join === '1' ? '1' : '2'}
+            join={pageState.join === '1' ? '' : '1'}
+          />
+          <ul>
+            {menu.map((dep) => (
+              <MenuButton 
+                key={dep.id} 
+                active={pageState.join === dep.id}
+              >
+                {dep.title}
+              </MenuButton>
+            ))}
+          </ul>
+        </JoinStepNav>
+      )}
       {pageState.join === '1' ? (
         // 신청
         <InsuJoinStep1 type={type} />  

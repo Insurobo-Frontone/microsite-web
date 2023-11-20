@@ -20,7 +20,5 @@ export const clearGetTravelMenu = () => {
   localStorage.removeItem('@travellocation');
 };
 
-export const setTravelId = (id) => {
-  localStorage.setItem('@travelId', id);
-}
+
 

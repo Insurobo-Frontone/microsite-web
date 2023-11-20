@@ -6,14 +6,18 @@ import dbLogo from '../../../../assets/img/insuroboTravel/payMentDBLogo.png';
 import useWindowSize from "../../../../hooks/useWindowSize";
 import { toStringByFormatting, travelPeriod } from "../TravelDateFomat";
 import { clearGetTravelMenu } from "../../../Storage/InsuTravel";
+import { useContext } from "react";
+import TravelPageContext from "../../../../context/travelPageContext";
 
 const InsuJoinStep3 = ({ type }) => {
-  const { watch, reset } = useFormContext();
+  const { watch } = useFormContext();
   const { width }  = useWindowSize();
-  
+  const { actions } = useContext(TravelPageContext)
   useEffect(() => {
     return () => {
       clearGetTravelMenu();
+      actions.setOpen(false);
+      
     }
   })
   return (

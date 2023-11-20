@@ -158,18 +158,16 @@ function Plaza() {
         </TitleWrap>
         <CardList>
           {data.map((dt) => (
-          <Link to={dt.link}>
-            <Card 
-              key={dt.id} 
-              bgImg={dt.img}
-              className={dt.class}
-            >
-              <Overlay />
-              <div dangerouslySetInnerHTML={{ __html: dt.text }} />
-              <Title>{dt.title}</Title>
+            <Link to={dt.link} key={dt.id} >
+              <Card 
+                bgImg={dt.img}
+                className={dt.class}
+              >
+                <Overlay />
+                <div dangerouslySetInnerHTML={{ __html: dt.text }} />
+                <Title>{dt.title}</Title>
             </Card>
           </Link>
-           
           ))}
         </CardList>
       </PlazaWrap>

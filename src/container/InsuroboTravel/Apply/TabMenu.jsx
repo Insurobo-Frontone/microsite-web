@@ -1,11 +1,10 @@
 import React, { useState, useContext } from "react";
 import styled, { css } from "styled-components";
-import { useNavigate, useLocation, json } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { clearGetTravelMenu, getTravelMenu } from "../../Storage/InsuTravel";
 import Popup from "./Popup";
 import TravelPageContext from "../../../context/travelPageContext";
-import { deleteTourList } from "../../../api/TravelAPI";
 
 const TabMenu = ({ type }) => {
   const location = useLocation();
@@ -117,6 +116,7 @@ const TabMenu = ({ type }) => {
             setPopupType('alert');
             setClose(false);
           } else {
+            reset();
             navigate(`/insuroboTravel/apply?step=1`, {
               state: {
                 type: type,

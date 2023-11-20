@@ -16,9 +16,9 @@ import MyPage from "../Step3/MyPage";
 import Qna from "../Step4/Qna";
 import Popup from "../Popup";
 import { onClickPayment } from "../onClickPayment";
-import { deleteTourList, getTourList, postTourSave } from "../../../../api/TravelAPI";
+import { deleteTourList, postTourSave } from "../../../../api/TravelAPI";
 import { insuAge, toStringByFormatting, travelPeriod } from "../TravelDateFomat";
-import { setTravelId } from "../../../Storage/InsuTravel";
+import pdf from '../../../../assets/pdf/프로미_국내여행보험Ⅱ_보험약관.pdf';
 
 const Local= ({ type }) => {
   const navigate = useNavigate();
@@ -29,12 +29,14 @@ const Local= ({ type }) => {
   const [close, setClose] = useState(true);
   const [policyOpen, setPolicyOpen] = useState(false);
   const [policyId, setPolicyId] = useState(1);
+  const [infoId, setInfoId] = useState(0);
   const { control, watch, reset } = useFormContext();
   const join2Valid = useWatch({
     control,
     name: ['list1', 'list2', 'list3', 'notice', 'policyAllAgree'],
   });
-
+  
+  // 보험 저장
   const tourSaveNext = () => {
     const date = travelPeriod(watch('localEnd'), watch('localStart'));
     const age = insuAge(watch('localStart'), watch('birthRep'));
@@ -58,8 +60,7 @@ const Local= ({ type }) => {
       privacyInfoAgreement: watch('policyAllAgree') ? 'Y' : 'N', // 개인정보수집 동의 여부(Y, N)
       fee: watch('calcPlanFee') // 보험료
     }).then((res) => {
-      setTravelId(res.data.data)
-      // dataUpdate();
+      setInfoId(res.data.data);
       navigate(`/insuroboTravel/apply?step=2&join=3`, {
         state: {
           type: type,
@@ -72,36 +73,20 @@ const Local= ({ type }) => {
     })
   }
 
-  
-  // const dataUpdate = () => {
-  //   getTourList().then((res) => {
-  //     if (res.data.data.length !== 1) {
-  //       res.data.data.filter((cur) => cur.id !== insuId && cur.beforePayment === 'Y').map((td) => {
-  //         // deleteTourList(td.id)
-  //         console.log(td.id)
-  //       })
-  //     }
-  //   }).catch((e) => {
-  //     console.log(e)
-  //   })
-  // }
-
   const tourRemove = () => {
-    const getTourId = localStorage.getItem("@travelId");
-    deleteTourList(getTourId)
+    deleteTourList(infoId)
     .then((res) => {
       console.log(res)
+      setClose(true)
       reset();
-      navigate(`/insuroboTravel/apply?step=1`, {
+      navigate(`/insuroboTravel/apply?step=2&join=1`, {
         state: {
           type: type,
           step: '1',
         }
       });
-      setClose(true)
     })
   }
-
   const NextinsuJoin = (totalNum) => {
     switch (totalNum) {
       // 간편계산 1인 가입버튼 클릭
@@ -203,6 +188,7 @@ const Local= ({ type }) => {
                     <Button 
                       type='border'
                       title='보험약관'
+                      onClick={() => window.open(pdf, '_blank')}
                     />
                   </li>
                 </ul>

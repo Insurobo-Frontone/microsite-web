@@ -52,7 +52,6 @@ const InsuJoinStep1 = ({ type }) => {
                 type='number'
                 name='birthRep'
                 disabled
-      
                 required={true}
               /> 
             </Input>
@@ -63,7 +62,6 @@ const InsuJoinStep1 = ({ type }) => {
                 name='LastRegRep'
                 placeholder='주민번호 뒷자리'
                 required={true}
-                
                 pattern={{
                   value: /[1-4]\d{6}/
                 }}
