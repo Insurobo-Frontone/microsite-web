@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import TravelPageContext from "../../../../../context/travelPageContext";
 import Calendar from "../../../Input/Calender";
-import { addMonths } from "date-fns";
+import { addDays } from "date-fns";
 import useWindowSize from "../../../../../hooks/useWindowSize";
 import Input from "../../../Input";
 import BasicInput from "../../../Input/BasicInput";
@@ -95,7 +95,7 @@ const InsuInfo = () => {
             placeholder='종료일'
             title='여행종료일'
             minDate={watch('localStart')}
-            maxDate={addMonths(watch('localStart'), 1) - 1}
+            maxDate={addDays(watch('localStart'),30) - 1}
             startDate={watch('localStart')}
             endDate={watch('localEnd') !== '' && 
               watch('localStart') > watch('localEnd') && 

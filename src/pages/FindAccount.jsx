@@ -6,7 +6,7 @@ import { CommonAPI } from "../api/CommonAPI";
 import Input from "../components/Input";
 import AuthLayout from "../components/Auth/AuthLayout";
 import CustomButton from "../components/Button/CustomButton";
-import Timer from "../components/Timer";
+// import Timer from "../components/Timer";
 
 import insurobo from '../assets/icon/email-svg.svg';
 import kakao from '../assets/img/kakaoIcon.png';
@@ -78,69 +78,69 @@ const PhoneGroup = styled.div`
   }
 `;
 
-const SmsCheckBox = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-  position: relative;
-  > div {
-    width: 100%;
-    height: 50px;
-    border-bottom: 1px solid #989898;
-    position: relative;
-    input {
-      width: 100%;
-      height: 100%;
-      ::placeholder {
-        font-size: 16px;
-        color: #989898;
-      }
-    }
-  }
-  .confirmButton {
-    width: 40%;
-    height: 50px;
-    margin-left: 27px;
-    background-color: #989898;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    > p {
-      font-size: 20px;
-      color: #FFFFFF;
-    }
-  }
+// const SmsCheckBox = styled.div`
+//   display: flex;
+//   margin-bottom: 20px;
+//   position: relative;
+//   > div {
+//     width: 100%;
+//     height: 50px;
+//     border-bottom: 1px solid #989898;
+//     position: relative;
+//     input {
+//       width: 100%;
+//       height: 100%;
+//       ::placeholder {
+//         font-size: 16px;
+//         color: #989898;
+//       }
+//     }
+//   }
+//   .confirmButton {
+//     width: 40%;
+//     height: 50px;
+//     margin-left: 27px;
+//     background-color: #989898;
+//     border-radius: 10px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     > p {
+//       font-size: 20px;
+//       color: #FFFFFF;
+//     }
+//   }
 
-  ${(props) => props.theme.window.mobile} {
-    > div {
-      input {
-        ::placeholder {
-          font-size: 15px;
-        }
-      }
-    }
-    .confirmButton {
-      margin-left: 5px;
-      > p {
-        font-size: 15px;
-      }
-    }
-  }
-`;
+//   ${(props) => props.theme.window.mobile} {
+//     > div {
+//       input {
+//         ::placeholder {
+//           font-size: 15px;
+//         }
+//       }
+//     }
+//     .confirmButton {
+//       margin-left: 5px;
+//       > p {
+//         font-size: 15px;
+//       }
+//     }
+//   }
+// `;
 
-const ErrorText = styled.p`
-  font-size: 16px;
-  line-height: 16px;
-  padding-top: 5px;
-  position: absolute;
-  top: 50px;
-  color: ${(props) => props.theme.color.WARNING_MESSAGE};
-  ${(props) => props.theme.window.mobile} {
-    padding-top: 0px;
-    line-height: 20px;
-    font-size: 12px;
-  }
-`;
+// const ErrorText = styled.p`
+//   font-size: 16px;
+//   line-height: 16px;
+//   padding-top: 5px;
+//   position: absolute;
+//   top: 50px;
+//   color: ${(props) => props.theme.color.WARNING_MESSAGE};
+//   ${(props) => props.theme.window.mobile} {
+//     padding-top: 0px;
+//     line-height: 20px;
+//     font-size: 12px;
+//   }
+// `;
 
 const DataWarp = styled.div`
   margin-top: 32px;
@@ -205,9 +205,8 @@ function FindAccount() {
     watch,
     setError,
     setFocus,
-    register,
-    formState: { errors },
   } = useFormContext();
+  
   const [button, setButton] = useState(true);
   const [messageId, setMessageId] = useState("");
   const [message, setMessage] = useState("");

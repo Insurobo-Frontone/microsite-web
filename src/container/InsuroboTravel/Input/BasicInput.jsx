@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 
-const BasicInput = ({ defaultValue, type, name, required, validate, pattern, placeholder, disabled, readOnly }) => {
+const BasicInput = ({ onBlur, defaultValue, type, name, required, validate, pattern, placeholder, disabled, readOnly }) => {
   const { register } = useFormContext();
   return (
     <input
@@ -14,7 +14,8 @@ const BasicInput = ({ defaultValue, type, name, required, validate, pattern, pla
       {...register(name, {
         required: required,
         validate: validate,
-        pattern: pattern
+        pattern: pattern,
+        onBlur: onBlur
       })}
     />
   )

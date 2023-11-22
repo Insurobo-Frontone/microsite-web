@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import AuthLayout from '../components/Auth/AuthLayout';
@@ -7,12 +7,11 @@ import Input from '../components/Input';
 import { useFormContext } from 'react-hook-form';
 import CustomButton from '../components/Button/CustomButton';
 import useWindowSize from '../hooks/useWindowSize';
-import { setAccessToken, setUser, setUserName } from '../container/Storage/Auth';
+import { setAccessToken } from '../container/Storage/Auth';
 import { CommonAPI } from "../api/CommonAPI";
 import naverIcon from '../assets/img/naverIcon.png';
 import kakaoIcon from '../assets/img/kakaoIcon.png';
 import AuthButton from '../components/Auth/AuthButton';
-import UserContext from '../context/UserContext';
 
 const SocialLoginGroup = styled.div`
   display: flex;
@@ -128,13 +127,11 @@ function Login() {
   const [type_kor, setType_kor] = useState(); //로그인 타입 한글 (kakao, naver, email)
   const { handleSubmit, reset, setError, setFocus } = useFormContext();
   const path = localStorage.getItem("@pathname");
-  const user = useContext(UserContext);
+
   useEffect(() => {
     reset();
     const loginCode = searchParams.get("loginCode");
     const accessToken = searchParams.get("token");
-    const name = searchParams.get("name");
-
 
     if (loginCode !== null && loginCode === 'fail') {
       setShowPopup(true);
@@ -151,12 +148,12 @@ function Login() {
       }
     }
     if (loginCode !== null && loginCode === 'success') {
-        setAccessToken(accessToken);
-        if (path) {
-          navigate(path);
-        } else {
-          navigate('/');
-        }
+      setAccessToken(accessToken);
+      if (path) {
+        navigate(path);
+      } else {
+        navigate('/');
+      }
     }
   }, []);
 
@@ -176,7 +173,6 @@ function Login() {
         } else {
           navigate('/');
         }
-     
       }
     } catch (error) {
       console.log(error)
@@ -193,8 +189,6 @@ function Login() {
     window.location.href =  KAKAO_REDI_URL;
     
   }
-
-
   const onNaverLogin = () => {
     const NAVER_REDI_URL = process.env.REACT_APP_SERVER_HOST+"/api/oauth2/authorization/naver";
     window.location.href =  NAVER_REDI_URL;

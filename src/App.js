@@ -62,18 +62,20 @@ function App() {
                     <Route path='/insuroboCard' element={<InsuroboCard />} />
                     {/* <Route path='/insuroboTravel' element={<InsuroboTravel />} /> */}
                     <Route path='/insuroboTravel/*' element={<InsuroboTravel />} />
-                    <Route path='/insuroboTravel/apply/*' element={<InsuroboTravel apply />} />
-                    <Route path='/insuroboTravel/apply/myPage' element={<InsuroboTravel apply />} />
+                    
                     {/* <Route path='/insuroboTravel/apply/myPage/login' element={<InsuroboTravelLogin />} /> */}
                   </Route>
                   <Route element={<PublicRoute auth={auth} restricted />}>
                     <Route path='/login' element={<Login />} />
                     <Route path='/login/findAccount' element={<FindAccount />} />
                     <Route path='/register' element={<Register />} />
+                   
                   </Route>
                   <Route element={<PrivateRoute auth={auth} />}>
                   <Route path='/myProfile' element={<EditProfile  />} />
                   <Route path='/myProfile/password' element={<EditPassword />} />
+                  <Route path='/insuroboTravel/apply/*' element={<InsuroboTravel apply />} />
+                  <Route path='/insuroboTravel/apply/myPage' element={<InsuroboTravel apply />} />
                 </Route>
               </Routes>
             </Router>

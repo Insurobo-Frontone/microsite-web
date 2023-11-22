@@ -8,7 +8,6 @@ const TargetPlanResult = ({ type, data }) => {
   const [close, setClose] = useState(true);
   const { width } = useWindowSize();
   const { watch } = useFormContext();
-
   return (
     <>
       <Wrap type={type}>

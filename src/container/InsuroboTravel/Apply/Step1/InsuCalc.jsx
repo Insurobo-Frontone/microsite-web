@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useRef } from "react";
 import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import SelectPlan from "./SelectPlan";
@@ -7,8 +7,9 @@ import TravelPageContext from "../../../../context/travelPageContext";
 import { getCalc } from "../../../../api/TravelAPI";
 import { insuAge, travelPeriod } from "../TravelDateFomat";
 
-const InsuCalc = ({ type }) => {
-  const { watch, setFocus } = useFormContext();
+const InsuCalc = () => {
+  const root = useRef();
+  const { watch } = useFormContext();
   const { actions } = useContext(TravelPageContext);
   const [data, setData] = useState([]);
   const date = travelPeriod(watch('localEnd'), watch('localStart'));
@@ -33,25 +34,25 @@ const InsuCalc = ({ type }) => {
 
   
   useEffect(() => {
-    // scroll trigger 삽입예정
     getCalc({
       age: age,
       sex: watch('genderRep'),
       period: date
     }).then((res) => {
       setData(res.data.data);
+      root.current?.scrollIntoView({ behavior: 'smooth' });
     }).catch((e) => console.log(e));
     
     return () => {
       actions.setOpen(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [age, watch('genderRep'), date]);
+  }, [watch('birthRep'), watch('genderRep'), date]);
 
 
   return (
     <>
-      <InsuInfoLabelWrap>
+      <InsuInfoLabelWrap ref={root}>
         {insuInfodata.map((dt) => (
           <li key={dt.id}>
             {dt.title}&nbsp;<span>{dt.data}</span>

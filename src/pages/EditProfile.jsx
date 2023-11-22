@@ -1,16 +1,14 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { CommonAPI } from "../api/CommonAPI";
 import { setUserName } from "../container/Storage/Auth";
-import UserContext from "../context/UserContext";
 import AuthLayout from "../components/Auth/AuthLayout";
 import Input from "../components/Input";
 import SelectInput from "../components/Input/SelectInput";
 import DaumPostcode from 'react-daum-postcode';
 import useWindowSize from "../hooks/useWindowSize";
-import AuthButton from "../components/Auth/AuthButton";
 import CustomButton from "../components/Button/CustomButton";
 
 const Form = styled.form`
@@ -140,15 +138,11 @@ function EditProfile() {
   const [isOpenPost, setIsOpenPost] = useState(false);
   const auth = localStorage.getItem("@access-Token");
   const el = useRef();
-  // const getUser = localStorage.getItem('@user');
-  // const user = JSON.parse(getUser)
   const [data, setData] = useState();
   const [insuList, setInsuList] = useState([]);
-  const user = useContext(UserContext);
 
   useEffect(() => {
     myData()
-    // plannerList()
   }, [])
 
   const myData = async () => {
@@ -157,9 +151,7 @@ function EditProfile() {
    })
     const res2 = await CommonAPI.get("/api/private/insuList") 
     if(res1.status === 200){
-        user.actions.setUser(res1.data.data);
         setData(res1.data.data);
-        console.log(user.state.user);
         reset()
     }
     if (res2.status === 200) {

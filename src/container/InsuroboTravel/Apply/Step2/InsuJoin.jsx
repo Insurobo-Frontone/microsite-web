@@ -26,7 +26,7 @@ const InsuJoin = ({ type }) => {
     search: location.search,
     state: location.state
   }
-  console.log(state.open)
+
   useEffect(() => {
     actions.setOpen(true);
     setTravelMenu(travelLocation);

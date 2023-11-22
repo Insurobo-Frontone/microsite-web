@@ -14,10 +14,10 @@ const SelectPlan = ({ data }) => {
         render={({ field }) => {
           return (
             <>
-              {data.map((item) => {
+              {data.map((item, index) => {
                 return (
                   <>
-                    <ButtonWrap {...field} key={item.gubun}>
+                    <ButtonWrap {...field} key={index}>
                       <Label htmlFor={item.gubun} active={field.value === item.gubun}>
                         <p>{item.gubun === '1' ? '안심플랜' : '든든플랜'}
                           <span>{item.fee.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span>

@@ -5,15 +5,17 @@ import prevIcon from "../../../assets/icon/insuJoinPrevIcon.png";
 
 const PrevButton = ({ type, step, join }) => {
   const navigate = useNavigate();
-
-  return (
-    <Button onClick={() => navigate(`/insuroboTravel/apply?step=${step}`, {
+  const onClickPrev = () => {
+    navigate(`/insuroboTravel/apply?step=${step}`, {
       state: {
         type: type,
         step: step,
         join: join,
       }
-    })}><span />이전</Button>
+    })
+  }
+  return (
+    <Button onClick={onClickPrev}><span />이전</Button>
   );
 }
  

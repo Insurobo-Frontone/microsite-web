@@ -34,7 +34,7 @@ const ApplyInfo = ({ data }) => {
             <div>
               <p>{watch('nameRep')}</p>
             </div>
-            <p>{watch('mobileRep')?.replace(/[^0-9]/g, '').replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3")}</p>
+            <p>{watch('mobileRep')}</p>
           </li>
           <li>
             <div>

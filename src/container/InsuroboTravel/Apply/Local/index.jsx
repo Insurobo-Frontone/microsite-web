@@ -45,7 +45,7 @@ const Local= ({ type }) => {
       userName: watch('nameRep'),
       juminFront: watch('birthRep'), //	주민등록번호 앞자리
       juminBack: watch('LastRegRep'), // 주민등록번호 뒷자리
-      phoneNum: watch('mobileRep'), // 핸드폰번호
+      phoneNum: watch('mobileRep').replace(/-/g, ""), // 핸드폰번호
       email: email, // 이메일
       age: age, // 나이
       sex: watch('genderRep'), // 성별 (M, F)
