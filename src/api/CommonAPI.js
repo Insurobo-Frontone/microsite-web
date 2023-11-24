@@ -1,4 +1,6 @@
 import axios from "axios";
+import { StorageClearInsurance } from "../container/Storage/Insurance";
+import { clearGetTravelMenu } from "../container/Storage/InsuTravel";
 
 export const CommonAPI = axios.create({
         baseURL: process.env.REACT_APP_SERVER_HOST,
@@ -36,6 +38,9 @@ CommonAPI.interceptors.response.use(
                     localStorage.removeItem("@access-Token");
                     localStorage.removeItem("@user");
                     localStorage.removeItem("@userName");
+                    StorageClearInsurance();
+                    clearGetTravelMenu();
+                    // pathname 빼고 나머지
                     window.location.href = process.env.REACT_APP_LOGIN_URL;
                 }
             }

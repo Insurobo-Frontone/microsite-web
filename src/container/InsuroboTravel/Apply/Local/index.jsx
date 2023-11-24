@@ -16,7 +16,7 @@ import MyPage from "../Step3/MyPage";
 import Qna from "../Step4/Qna";
 import Popup from "../Popup";
 import { onClickPayment } from "../onClickPayment";
-import { deleteTourList, postTourSave } from "../../../../api/TravelAPI";
+import { deleteTourList, postPaymentPre, postTourSave } from "../../../../api/TravelAPI";
 import { insuAge, toStringByFormatting, travelPeriod } from "../TravelDateFomat";
 import pdf from '../../../../assets/pdf/프로미_국내여행보험Ⅱ_보험약관.pdf';
 
@@ -35,12 +35,12 @@ const Local= ({ type }) => {
     control,
     name: ['list1', 'list2', 'list3', 'notice', 'policyAllAgree'],
   });
-  
+  const email = watch('emailRep') +'@'+ (watch('emailRep2') === 'myself' ? watch('emailRep2Change') : watch('emailRep2'));
   // 보험 저장
   const tourSaveNext = () => {
     const date = travelPeriod(watch('localEnd'), watch('localStart'));
     const age = insuAge(watch('localStart'), watch('birthRep'));
-    const email = watch('emailRep') +'@'+ (watch('emailRep2') === 'myself' ? watch('emailRep2Change') : watch('emailRep2'));
+    
     postTourSave({
       userName: watch('nameRep'),
       juminFront: watch('birthRep'), //	주민등록번호 앞자리
@@ -61,6 +61,7 @@ const Local= ({ type }) => {
       fee: watch('calcPlanFee') // 보험료
     }).then((res) => {
       setInfoId(res.data.data);
+
       navigate(`/insuroboTravel/apply?step=2&join=3`, {
         state: {
           type: type,
@@ -235,7 +236,13 @@ const Local= ({ type }) => {
             />
             <Button
               title={width > 767.98 ? '위 내용 확인 후 결제하기' : '확인 후 결제'}
-              onClick={onClickPayment}
+              onClick={() => onClickPayment({
+                id: infoId,
+                amount: watch('calcPlanFee'),
+                buyer_name: watch('nameRep'),
+                buyer_tel: watch('mobileRep').replace(/-/g, ""),
+                buyer_email: email
+              })}
             />
           </ButtonWrap>
           {!close && (

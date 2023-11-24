@@ -10,6 +10,15 @@ export const TravelAPI = axios.create({
   }
 });
 
+export const PaymentAPI = axios.create({
+  // baseURL: process.env.REACT_APP_SERVER_HOST,
+  baseURL: process.env.REACT_APP_PAYMENT,
+  headers: {
+    "Content-Type": "application/json;charset=UTF-8",
+    Authorization: `Bearer ${token}`,
+  }
+});
+
 // 보험료 계산
 export const getCalc = async (params) => {
   return await TravelAPI.get(`/api/public/simpleCalcList?age=${params.age}&sex=${params.sex}&period=${params.period}`)
@@ -31,11 +40,23 @@ export const getTourList = async () => {
 // 보험 정보 삭제
 export const deleteTourList = async (id) => {
     return await TravelAPI.delete(`api/public/domesticTourDelete/${id}`, 
-    // {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   }
-    // }
-      
   );
+}
+
+// 결제 사전준비
+export const postPaymentPre = async (params) => {
+  return await PaymentAPI.post('/api/payments/prepare', {
+    data: {
+      ...params
+    },
+  })
+}
+
+// 결제 사후검증
+export const postPaymentCom = async (params) => {
+  return await PaymentAPI.post('/api/payments/complete', {
+    data: {
+      ...params
+    },
+  })
 }

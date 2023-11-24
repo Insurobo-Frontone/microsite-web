@@ -40,6 +40,7 @@ const InsuCalc = () => {
       period: date
     }).then((res) => {
       setData(res.data.data);
+      console.log(res.data.data)
       root.current?.scrollIntoView({ behavior: 'smooth' });
     }).catch((e) => console.log(e));
     

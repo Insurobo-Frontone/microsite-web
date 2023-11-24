@@ -9,6 +9,7 @@ import { useState } from "react";
 import Popup from "../Popup";
 import TargetPlanResult from "../Local/TargetPlanResult";
 import { deleteTourList } from "../../../../api/TravelAPI";
+import { onClickPayment } from "../onClickPayment";
 
 const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
   const { width } = useWindowSize();
@@ -164,6 +165,13 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
                     />
                     <Button
                       title='결제하기'
+                      onClick={() => onClickPayment({
+                        id: dt.id,
+                        amount: dt.fee,
+                        buyer_name: dt.userName,
+                        buyer_tel: dt.phoneNum                        ,
+                        buyer_email: dt.email
+                      })}
                     />
                   </>
                 ) : (
