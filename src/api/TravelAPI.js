@@ -11,12 +11,8 @@ export const TravelAPI = axios.create({
 });
 
 export const PaymentAPI = axios.create({
-  // baseURL: process.env.REACT_APP_SERVER_HOST,
   baseURL: process.env.REACT_APP_PAYMENT,
-  headers: {
-    "Content-Type": "application/json;charset=UTF-8",
-    Authorization: `Bearer ${token}`,
-  }
+  headers: { "Content-Type": "application/json" },
 });
 
 // 보험료 계산
@@ -55,8 +51,6 @@ export const postPaymentPre = async (params) => {
 // 결제 사후검증
 export const postPaymentCom = async (params) => {
   return await PaymentAPI.post('/api/payments/complete', {
-    data: {
-      ...params
-    },
+    ...params
   })
 }

@@ -268,7 +268,6 @@ const TabMenu = styled.div`
 function InsuProducts() {
   const [open, setOpen] = useState(false);
   const [tagName, setTagName] = useState('사업장보험');
-
   const { width } = useWindowSize();
   const navigate = useNavigate();
   const onClickLink = (id, link) => {
@@ -282,8 +281,6 @@ function InsuProducts() {
     } else {
       setOpen(true);
     }
-
-    
   }
   return (
     <>

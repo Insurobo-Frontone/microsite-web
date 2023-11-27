@@ -23,8 +23,6 @@ export const onClickPayment = ({
     buyer_name: buyer_name, //구매자 이름
     buyer_tel: buyer_tel, //구매자 전화번호
     buyer_email: buyer_email, //구매자 이메일
-    buyer_addr: '신사동 661-16', //구매자 주소
-    buyer_postcode: '06018', // 구매자 우편번호
   };
   console.log(data)
   IMP.request_pay(data, callback);
@@ -34,25 +32,27 @@ export const onClickPayment = ({
 const callback = (response) => {
   const { success, error_msg, imp_uid, merchant_uid, paid_amount, buyer_email } = response;
   if (success) {
-    // postPaymentPre({
-    //   imp_uid: imp_uid,
-    //   merchant_uid: merchant_uid,
-    //   amount: 1000,
-    //   email: buyer_email
-    // }).then(() => {
-    //   postPaymentCom({
-    //     imp_uid: imp_uid,
-    //     merchant_uid: merchant_uid,
-    //     amount: 1000,
-    //     email: buyer_email
-    //   }).then((res) => {
+    console.log(response)
+    postPaymentPre({
+      imp_uid: imp_uid,
+      merchant_uid: merchant_uid,
+      amount: paid_amount,
+      email: buyer_email
+    }).then((res) => {
+      postPaymentCom({
+        imp_uid: res.imp_uid,
+        merchant_uid: res.merchant_uid,
+        amount: res.paid_amount,
+        email: res.buyer_email
+      }).then((res) => {
+        console.log(res)
+        alert('결제성공')
+        
 
-    //   })
-    // }).catch((e) => {
-    //   return false;
-    // })
-
-    
+      }).catch((e) => {
+        console.log(e)
+      })
+    })
   } else {
     alert(`결제에 실패하였습니다. ${error_msg}`);
 
