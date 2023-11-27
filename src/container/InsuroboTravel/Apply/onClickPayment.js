@@ -1,4 +1,5 @@
 
+import axios from "axios";
 import { postPaymentCom, postPaymentPre } from "../../../api/TravelAPI";
 
 // 결제요청
@@ -34,10 +35,8 @@ const callback = (response) => {
   if (success) {
     console.log(response)
     postPaymentPre({
-      imp_uid: imp_uid,
       merchant_uid: merchant_uid,
       amount: paid_amount,
-      email: buyer_email
     }).then((res) => {
       postPaymentCom({
         imp_uid: res.imp_uid,
@@ -47,7 +46,7 @@ const callback = (response) => {
       }).then((res) => {
         console.log(res)
         alert('결제성공')
-        
+
 
       }).catch((e) => {
         console.log(e)

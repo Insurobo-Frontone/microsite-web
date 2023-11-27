@@ -145,7 +145,7 @@ function Board() {
   if (!data) return null;
   
   async function getData() {
-    const res = await CommonAPI.get(`/api/public/infoPlaceList`)
+    const res = await CommonAPI.get(`/api/public/infoPlaceList`);
     return res.data.data.slice(0).reverse(); 
   }
 

@@ -98,7 +98,18 @@ const QnaWrap = styled.div`
     align-items: flex-start;
     height: 697px;
     overflow-y: scroll;
-    padding: 40px 40px 0;
+    padding: 40px 26px 0 40px;
+    ::-webkit-scrollbar, ::-webkit-scrollbar-track {
+      width: 13px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #D9D9D9;
+      border-radius: 30px;
+      width: 13px;
+      height: 79px;
+      background-clip: padding-box;
+      border: 4px solid transparent;
+    }
     > div {
       width: 535px;
       > div {
