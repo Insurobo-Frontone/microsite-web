@@ -61,7 +61,10 @@ const Local= ({ type }) => {
       fee: watch('calcPlanFee') // 보험료
     }).then((res) => {
       setInfoId(res.data.data);
-
+      postPaymentPre({
+        merchant_uid: res.data.data,
+        amount: watch('calcPlanFee')
+      })
       navigate(`/insuroboTravel/apply?step=2&join=3`, {
         state: {
           type: type,
@@ -103,6 +106,7 @@ const Local= ({ type }) => {
       default: break;
     }
   }
+
   return (
     <>
       <Wrap info={pageState.step === '1' && !state.open}>

@@ -11,7 +11,8 @@ export const TravelAPI = axios.create({
 });
 
 export const PaymentAPI = axios.create({
-  baseURL: process.env.REACT_APP_PAYMENT,
+  // baseURL: process.env.REACT_APP_PAYMENT,
+  baseURL: 'https://insurobo.com',
   headers: { 
     "Content-Type": "application/json" 
   },

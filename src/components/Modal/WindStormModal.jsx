@@ -277,6 +277,7 @@ function WindStormModal({ onClick }) {
     })
     .catch(function (error) {
       console.log(error)
+      alert('네트워크에러가 발생했습니다.')
     })
   }
 

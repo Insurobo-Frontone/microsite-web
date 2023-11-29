@@ -56,6 +56,7 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
     }));
     myPageState();
   }
+
   return (
     <>
       {close ? (
