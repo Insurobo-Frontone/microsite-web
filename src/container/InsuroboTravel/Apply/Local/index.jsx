@@ -16,7 +16,7 @@ import MyPage from "../Step3/MyPage";
 import Qna from "../Step4/Qna";
 import Popup from "../Popup";
 import { onClickPayment } from "../onClickPayment";
-import { deleteTourList, postPaymentPre, postTourSave } from "../../../../api/TravelAPI";
+import { deleteTourList, postPaymentCom, postPaymentPre, postTourSave } from "../../../../api/TravelAPI";
 import { insuAge, toStringByFormatting, travelPeriod } from "../TravelDateFomat";
 import pdf from '../../../../assets/pdf/프로미_국내여행보험Ⅱ_보험약관.pdf';
 
@@ -26,7 +26,10 @@ const Local= ({ type }) => {
   const { width } = useWindowSize();
   const pageState = location.state;
   const { state } = useContext(TravelPageContext);
-  const [close, setClose] = useState(true);
+  const [popupOpen, setPopupOpen] = useState({
+    state: false,
+    type: ''
+  });
   const [policyOpen, setPolicyOpen] = useState(false);
   const [policyId, setPolicyId] = useState(1);
   const [infoId, setInfoId] = useState(0);
@@ -40,7 +43,6 @@ const Local= ({ type }) => {
   const tourSaveNext = () => {
     const date = travelPeriod(watch('localEnd'), watch('localStart'));
     const age = insuAge(watch('localStart'), watch('birthRep'));
-    
     postTourSave({
       userName: watch('nameRep'),
       juminFront: watch('birthRep'), //	주민등록번호 앞자리
@@ -81,7 +83,11 @@ const Local= ({ type }) => {
     deleteTourList(infoId)
     .then((res) => {
       console.log(res)
-      setClose(true)
+      setPopupOpen((prevState) => ({
+        ...prevState,
+        state: false,
+        type: ''
+      }))
       reset();
       navigate(`/insuroboTravel/apply?step=2&join=1`, {
         state: {
@@ -104,6 +110,30 @@ const Local= ({ type }) => {
         });
         break;
       default: break;
+    }
+  }
+
+  const callback = (response) => {
+    const { success, imp_uid, merchant_uid, paid_amount, buyer_email } = response;
+    console.log(response)
+    if (success) {
+      postPaymentCom({
+        imp_uid: imp_uid,
+        merchant_uid: merchant_uid,
+        amount: paid_amount,
+        email: buyer_email,
+        dt_id: merchant_uid
+      }).then((res) => {
+        if (res.status === 200) {
+          setPopupOpen((prevState) => ({
+            ...prevState,
+            state: true,
+            type: 'alert'
+          }))
+        }
+      }).catch((e) => {
+        console.log(e)
+      })
     }
   }
 
@@ -153,7 +183,15 @@ const Local= ({ type }) => {
             <NoticeWrap border={policyOpen}>
               <div>
                 <ul>
-                  <li><span onClick={() => setClose(false)}>기왕증[보기]</span>&nbsp;및 현장작업 중 발생된 사고는 보상되지 않습니다.</li>
+                  <li>
+                    <span onClick={() => setPopupOpen((prevState) => ({
+                        ...prevState,
+                        state: true,
+                        type: 'info'
+                      }))}
+                    >
+                      기왕증[보기]</span>&nbsp;및 현장작업 중 발생된 사고는 보상되지 않습니다.
+                  </li>
                   <li>외국인은 가입대상이 아닙니다.</li>
                 </ul>
                 <CheckInput
@@ -206,8 +244,12 @@ const Local= ({ type }) => {
               </PolicyWrap>
             )}
           </Wrap>
-          {!close && (
-            <Popup type='info' close={() => setClose(true)}>
+          {popupOpen.type === 'info' && popupOpen.state && (
+            <Popup type='info' close={() => setPopupOpen((prevState) => ({
+              ...prevState,
+              state: false,
+              type: ''
+            }))}>
               <h2>기왕증</h2>
               <div>
                 과거의 질병이나 부상이 완치되지 않아 현재까지도 치료, 관리가 필요한 질병, 상해를 말하며, 충치, 습관성 탈구 등도 이에 해당합니다
@@ -236,7 +278,11 @@ const Local= ({ type }) => {
             <Button
               title='아니요'
               type='border'
-              onClick={() => setClose(false)}
+              onClick={() => setPopupOpen((prevState) => ({
+                ...prevState,
+                state: true,
+                type: 'select'
+              }))}
             />
             <Button
               title={width > 767.98 ? '위 내용 확인 후 결제하기' : '확인 후 결제'}
@@ -246,20 +292,43 @@ const Local= ({ type }) => {
                 buyer_name: watch('nameRep'),
                 buyer_tel: watch('mobileRep').replace(/-/g, ""),
                 buyer_email: email
-              })}
+              }, callback)}
             />
           </ButtonWrap>
-          {!close && (
-            <Popup type='select' onClickYse={tourRemove} close={() => setClose(true)}>
+          {popupOpen.type === 'select' && popupOpen.state && (
+            <Popup type='select' onClickYse={tourRemove} close={() => setPopupOpen((prevState) => ({
+              ...prevState,
+              state: false,
+              type: ''
+            }))}>
               <p>
                 이동 시 입력하신 정보가 초기화 됩니다.<br />
                 간편계산으로 이동하시겠습니까?
               </p>
             </Popup>
           )}
+          {popupOpen.type === 'alert' && popupOpen.state && (
+            <Popup 
+              type='alert' 
+              close={() => {
+                setPopupOpen((prevState) => ({
+                  ...prevState,
+                  state: false,
+                  type: ''
+                }))
+                navigate(`/insuroboTravel/apply/myPage`, {
+                  state: {
+                    type: type,
+                    step: '3',
+                  }
+                })
+              }}
+            >
+              <p>결제가 완료되었습니다.</p>
+            </Popup>
+          )}
         </>
       )}
-      
     </>
   );
 }

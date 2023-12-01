@@ -1,13 +1,11 @@
-import { postPaymentCom } from "../../../api/TravelAPI";
-
 // 결제요청
 export const onClickPayment = ({
   id,
   amount,
   buyer_name,
   buyer_tel, 
-  buyer_email
-}) => {
+  buyer_email,
+}, callback) => {
   
   // 객체 초기화
   if (!window.IMP) return;
@@ -24,46 +22,7 @@ export const onClickPayment = ({
     buyer_email: buyer_email, //구매자 이메일
   };
   console.log(data)
-  // 사전검증 로직을 여기로 변경할수도있음 
-  // merchant_uid: `${id}_${new Date().getTime()}`
-  
   IMP.request_pay(data, callback);
-}
-
-// 결제결과 처리
-const callback = (response) => {
-  const { success, error_msg, imp_uid, merchant_uid, paid_amount, buyer_email } = response;
-  if (success) {
-    console.log(response)
-    postPaymentCom({
-      imp_uid: imp_uid,
-      merchant_uid: merchant_uid,
-      amount: paid_amount,
-      email: buyer_email
-    }).then((res) => {
-      console.log(res)
-    }).catch((e) => {
-      console.log(e)
-    })
-    // postPaymentPre({
-    //   merchant_uid: merchant_uid,
-    //   amount: paid_amount,
-    // }).then((res) => {
-    //    postPaymentCom({
-    //     imp_uid: res.imp_uid,
-    //     merchant_uid: res.merchant_uid,
-    //     amount: res.paid_amount,
-    //     email: res.buyer_email
-    //   }).then((res) => {
-    //     console.log(res)
-    //   }).catch((e) => {
-    //     console.log(e)
-    //   })
-    // })
-  } else {
-    
-  }
-
 }
 
 

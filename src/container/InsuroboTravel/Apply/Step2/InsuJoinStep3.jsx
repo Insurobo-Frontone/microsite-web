@@ -17,7 +17,6 @@ const InsuJoinStep3 = ({ type }) => {
     return () => {
       clearGetTravelMenu();
       actions.setOpen(false);
-      
     }
   })
   return (

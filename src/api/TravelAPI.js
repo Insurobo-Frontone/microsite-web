@@ -44,14 +44,14 @@ export const deleteTourList = async (id) => {
 
 // 결제 사전준비
 export const postPaymentPre = async (params) => {
-  return await PaymentAPI.post('/api/payments/prepare', {
+  return await PaymentAPI.post('/api/public/payments/prepare', {
     ...params
   });
 }
 
 // 결제 사후검증
 export const postPaymentCom = async (params) => {
-  return await PaymentAPI.post('/api/payments/complete', {
+  return await PaymentAPI.post('/api/public/payments/complete', {
     ...params
   });
 }

@@ -8,7 +8,7 @@ import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";
 import { useState } from "react";
 import Popup from "../Popup";
 import TargetPlanResult from "../Local/TargetPlanResult";
-import { deleteTourList } from "../../../../api/TravelAPI";
+import { deleteTourList, postPaymentCom } from "../../../../api/TravelAPI";
 import { onClickPayment } from "../onClickPayment";
 
 const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
@@ -16,6 +16,7 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
   const [popupOpen, setPopupOpen] = useState({
     state: false,
     type: '',
+    message: ''
   });
   // const [planPopup, setPlanPopup] = useState(false);
   const [infoId, setInfoId] = useState(0);
@@ -36,13 +37,15 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
       setPopupOpen((prevState) => ({
         ...prevState,
         state: false,
-        type: 'select'
+        type: 'select',
+        message: ''
       }))
       if(res.data) {
         setPopupOpen((prevState) => ({
           ...prevState,
           state: true,
-          type: 'alert'
+          type: 'alert',
+          message: '신청내역이 취소되었습니다.'
         }))
       }
     }).catch((e) => console.log(e))
@@ -52,9 +55,35 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
     setPopupOpen((prevState) => ({
       ...prevState,
       state: false,
-      type: 'alert'
+      type: '',
+      message: ''
     }));
     myPageState();
+  }
+
+  const callback = (response) => {
+    const { success, imp_uid, merchant_uid, paid_amount, buyer_email } = response;
+    if (success) {
+      console.log(response)
+      postPaymentCom({
+        imp_uid: imp_uid,
+        merchant_uid: merchant_uid,
+        amount: paid_amount,
+        email: buyer_email
+      }).then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          setPopupOpen((prevState) => ({
+            ...prevState,
+            state: true,
+            type: 'alert',
+            message: res.data
+          }));
+        }
+      }).catch((e) => {
+        console.log(e)
+      })
+    } 
   }
 
   return (
@@ -160,7 +189,8 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
                         setPopupOpen((prevState) => ({
                           ...prevState,
                           state: true,
-                          type: 'select'
+                          type: 'select',
+                          message: '신청내역을 취소하시겠습니까?'
                         }))
                       }
                     />
@@ -170,15 +200,15 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
                         id: dt.id,
                         amount: dt.fee,
                         buyer_name: dt.userName,
-                        buyer_tel: dt.phoneNum                        ,
+                        buyer_tel: dt.phoneNum,
                         buyer_email: dt.email
-                      })}
+                      }, callback)}
                     />
                   </>
                 ) : (
                   <> 
                     <Button
-                      title={width > 767.98 ? '가입증명서 재발행' : '가입증명서 발행'}
+                      title={width > 767.98 ? '가입증명서 발행' : '가입증명서 발행'}
                     />
                     <Button
                       title={width > 767.98 ? '보험금청구서류 이메일로 받기' : '보험금청구 서류'}
@@ -205,7 +235,8 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
                 setPopupOpen((prevState) => ({
                   ...prevState,
                   state: false,
-                  type: 'popup'
+                  type: 'popup',
+                  message: ' '
               }))}
             />
           </h2>
@@ -219,10 +250,11 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
           close={() =>  setPopupOpen((prevState) => ({
             ...prevState,
             state: false,
-            type: 'select'
+            type: 'select',
+            message: ''
           }))} 
         >
-          <p>신청내역을 취소하시겠습니까?</p>
+          <p>{popupOpen.message}</p>
         </Popup>
       )}
       {popupOpen.type === 'alert' && popupOpen.state && (
@@ -230,7 +262,7 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
           type='alert'
           close={tourRemoveListBack} 
         >
-          <p>신청내역이 취소되었습니다.</p>
+          <p>{popupOpen.message}</p>
         </Popup>
       )}
     </>

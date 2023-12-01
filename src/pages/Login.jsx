@@ -187,7 +187,6 @@ function Login() {
   const onKakaoLogin = () => {
     const KAKAO_REDI_URL = process.env.REACT_APP_SERVER_HOST+"/api/oauth2/authorization/kakao";
     window.location.href =  KAKAO_REDI_URL;
-    
   }
   const onNaverLogin = () => {
     const NAVER_REDI_URL = process.env.REACT_APP_SERVER_HOST+"/api/oauth2/authorization/naver";
