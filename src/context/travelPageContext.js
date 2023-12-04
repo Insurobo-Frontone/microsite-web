@@ -8,8 +8,6 @@ const TravelPageContext = createContext({
   
 });
 
-
-
 const TravelPageProvider = ({children}) => {
   const [open, setOpen] = useState(false)
   const value = {

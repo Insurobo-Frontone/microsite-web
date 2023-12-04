@@ -77,7 +77,7 @@ const InsuInfo = () => {
   ];
 
   return (
-    <form onSubmit={handleSubmit(onClickCalc, onError)}>
+    <Form onSubmit={handleSubmit(onClickCalc, onError)}>
       {width < 767.98 && (<MbText>*여행출발 1시간 전까지 가입가능!</MbText>)}
       <InputWrap>
         <Input label='여행시작일'>
@@ -140,10 +140,10 @@ const InsuInfo = () => {
           </SelectInput>
         </Input>
       </InputWrap>
-      <TipText>
+      {/* <TipText>
         <div>Tip!</div>
         <p>가입증명서는 가입즉시 이메일로 발송</p>
-      </TipText>
+      </TipText> */}
       <ButtonWrap>
         <Button
           type='submit'
@@ -158,11 +158,15 @@ const InsuInfo = () => {
             errors.genderRep && <p>{errors.genderRep.message}</p>}
         </Popup>
       )}
-    </form>
+    </Form>
   );
 }
 
 export default InsuInfo;
+
+const Form = styled.form`
+  padding-bottom: 60px;
+`;
 
 const MbText = styled.p`
   padding-bottom: 14px;
@@ -183,42 +187,42 @@ const InputWrap = styled.div`
   }
 `;
 
-const TipText = styled.div`
-  display: flex;
-  align-items: center;
-  padding-bottom: 34px;
-  > div {
-    width: 40px;
-    height: 27px;
-    color: #FFFFFF;
-    background-color: #176FFF;
-    border-radius: 5px;
-    font-size: 16px;
-    line-height: 1;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
-  }
-  > p {
-    color: #176FFF;
-    font-size: 16px;
-  }
-  ${(props) => props.theme.window.mobile} {
-    padding-bottom: 24px;
-    > div {
-      font-size: 12px;
-      height: 24px;
-      margin-right: 6px;
-    }
-    > p {
-      font-size: 14px;
-      font-weight: 300;
-    }
-  }
+// const TipText = styled.div`
+//   display: flex;
+//   align-items: center;
+//   padding-bottom: 34px;
+//   > div {
+//     width: 40px;
+//     height: 27px;
+//     color: #FFFFFF;
+//     background-color: #176FFF;
+//     border-radius: 5px;
+//     font-size: 16px;
+//     line-height: 1;
+//     font-weight: 700;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin-right: 10px;
+//   }
+//   > p {
+//     color: #176FFF;
+//     font-size: 16px;
+//   }
+//   ${(props) => props.theme.window.mobile} {
+//     padding-bottom: 24px;
+//     > div {
+//       font-size: 12px;
+//       height: 24px;
+//       margin-right: 6px;
+//     }
+//     > p {
+//       font-size: 14px;
+//       font-weight: 300;
+//     }
+//   }
   
-`;
+// `;
 
 const ButtonWrap = styled.div`
   position: absolute;

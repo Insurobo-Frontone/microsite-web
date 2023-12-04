@@ -1,7 +1,8 @@
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from "styled-components";
 import { useForm, FormProvider } from "react-hook-form";
-import  { UserProvider } from './context/UserContext';
+import { UserProvider } from './context/UserContext';
 import GlobalStyle from './style/GlobalStyle';
 import theme from './style/Theme';
 
@@ -24,6 +25,8 @@ import InsuroboCard from './pages/InsuroboCard';
 import View from './components/Post/View';
 import InsuroboTravel from './pages/InsuroboTravel';
 import { TravelPageProvider } from './context/travelPageContext';
+import MyViewer from './container/InsuroboTravel/Apply/Step3/MyViewer';
+
 // import InsuroboTravelLogin from './pages/InsuroboTravelLogin';
 // import { getUser } from './container/Storage/Auth';
 
@@ -39,6 +42,7 @@ function App() {
   });
 
   const auth = localStorage.getItem("@access-Token");
+  
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
@@ -76,6 +80,8 @@ function App() {
                   <Route path='/myProfile/password' element={<EditPassword />} />
                   <Route path='/insuroboTravel/apply/*' element={<InsuroboTravel apply />} />
                   <Route path='/insuroboTravel/apply/myPage' element={<InsuroboTravel apply />} />
+                  <Route path='/insuroboTravel/apply/myPage/download' element={<MyViewer />} />
+                  <Route path='/insuroboTravel/apply/myPage/download/invoice' element={<MyViewer />} />
                 </Route>
               </Routes>
             </Router>

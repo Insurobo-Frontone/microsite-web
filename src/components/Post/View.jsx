@@ -1,8 +1,6 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import styled, { css } from 'styled-components';
-import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { CommonAPI } from "../../api/CommonAPI";
 import Layout from '../../layout';
 import ContentInner from '../../layout/ContentInner';

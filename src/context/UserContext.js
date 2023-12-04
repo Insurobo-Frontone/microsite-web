@@ -13,13 +13,6 @@ const UserContext = createContext({
 
 const UserProvider = ({children}) => {
   const [user, setUser] = useState({
-    birthyear: '',
-    birthday: '',
-    phone_number: '',
-    gender: '',
-    name: '',
-    email: '',
-    
   })
   const value = {
     state: { user },

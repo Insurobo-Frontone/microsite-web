@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import dbLogo from '../../../../assets/img/insuroboTravel/payMentDBLogo.png';
-import ApplyInfo from "../ApplyInfo";
-import Button from "../Button";
-import useWindowSize from "../../../../hooks/useWindowSize";
-import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";
-import { useState } from "react";
-import Popup from "../Popup";
-import TargetPlanResult from "../Local/TargetPlanResult";
 import { deleteTourList, postPaymentCom } from "../../../../api/TravelAPI";
 import { onClickPayment } from "../onClickPayment";
+import useWindowSize from "../../../../hooks/useWindowSize";
+import ApplyInfo from "../ApplyInfo";
+import Popup from "../Popup";
+import Button from "../Button";
+import TargetPlanResult from "../Local/TargetPlanResult";
+import dbLogo from '../../../../assets/img/insuroboTravel/payMentDBLogo.png';
+import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";
 
 const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
   const { width } = useWindowSize();
@@ -18,9 +17,7 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
     type: '',
     message: ''
   });
-  // const [planPopup, setPlanPopup] = useState(false);
   const [infoId, setInfoId] = useState(0);
-
   useEffect(() => {
     window.scrollTo(0, 0);   
   }, [open]);
@@ -64,7 +61,6 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
   const callback = (response) => {
     const { success, imp_uid, merchant_uid, paid_amount, buyer_email } = response;
     if (success) {
-      console.log(response)
       postPaymentCom({
         imp_uid: imp_uid,
         merchant_uid: merchant_uid,
@@ -86,6 +82,14 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
     } 
   }
 
+  const openViewPage = (data, id) => {
+    if (data) {
+      window.open(`/insuroboTravel/apply/myPage/download?id=${id}`);
+    } else {
+      window.open(`/insuroboTravel/apply/myPage/download/invoice`);
+    }
+    
+  }
   return (
     <>
       {close ? (
@@ -209,9 +213,11 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
                   <> 
                     <Button
                       title={width > 767.98 ? '가입증명서 발행' : '가입증명서 발행'}
+                      onClick={() => openViewPage(dt, dt.id)}
                     />
                     <Button
-                      title={width > 767.98 ? '보험금청구서류 이메일로 받기' : '보험금청구 서류'}
+                      title={width > 767.98 ? '보험금청구서류 보기' : '보험금청구 서류'}
+                      onClick={() => openViewPage()}
                     />
                   </>
                 )}

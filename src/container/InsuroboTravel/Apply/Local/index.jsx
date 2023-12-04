@@ -114,7 +114,8 @@ const Local= ({ type }) => {
   }
 
   const callback = (response) => {
-    const { success, imp_uid, merchant_uid, paid_amount, buyer_email } = response;
+    const { success, imp_uid, merchant_uid, paid_amount, buyer_email, error_msg
+    } = response;
     console.log(response)
     if (success) {
       postPaymentCom({
@@ -134,6 +135,8 @@ const Local= ({ type }) => {
       }).catch((e) => {
         console.log(e)
       })
+    } else {
+      console.log(error_msg)
     }
   }
 
