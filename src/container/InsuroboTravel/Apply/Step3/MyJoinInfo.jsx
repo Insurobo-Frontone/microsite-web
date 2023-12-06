@@ -65,7 +65,8 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
         imp_uid: imp_uid,
         merchant_uid: merchant_uid,
         amount: paid_amount,
-        email: buyer_email
+        email: buyer_email,
+        dt_id: merchant_uid
       }).then((res) => {
         console.log(res)
         if (res.status === 200) {
@@ -205,7 +206,7 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
                         amount: dt.fee,
                         buyer_name: dt.userName,
                         buyer_tel: dt.phoneNum,
-                        buyer_email: dt.email
+                        buyer_email: dt.email,
                       }, callback)}
                     />
                   </>

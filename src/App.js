@@ -73,17 +73,16 @@ function App() {
                     <Route path='/login' element={<Login />} />
                     <Route path='/login/findAccount' element={<FindAccount />} />
                     <Route path='/register' element={<Register />} />
-                   
                   </Route>
                   <Route element={<PrivateRoute auth={auth} />}>
-                  <Route path='/myProfile' element={<EditProfile  />} />
-                  <Route path='/myProfile/password' element={<EditPassword />} />
-                  <Route path='/insuroboTravel/apply/*' element={<InsuroboTravel apply />} />
-                  <Route path='/insuroboTravel/apply/myPage' element={<InsuroboTravel apply />} />
-                  <Route path='/insuroboTravel/apply/myPage/download' element={<MyViewer />} />
-                  <Route path='/insuroboTravel/apply/myPage/download/invoice' element={<MyViewer />} />
-                </Route>
-              </Routes>
+                    <Route path='/myProfile' element={<EditProfile  />} />
+                    <Route path='/myProfile/password' element={<EditPassword />} />
+                    <Route path='/insuroboTravel/apply/*' element={<InsuroboTravel apply />} />
+                    <Route path='/insuroboTravel/apply/myPage' element={<InsuroboTravel apply />} />
+                    <Route path='/insuroboTravel/apply/myPage/download' element={<MyViewer />} />
+                    <Route path='/insuroboTravel/apply/myPage/download/invoice' element={<MyViewer />} />
+                  </Route>
+                </Routes>
             </Router>
           </TravelPageProvider>
         </FormProvider>

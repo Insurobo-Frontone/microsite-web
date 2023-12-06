@@ -35,12 +35,13 @@ CommonAPI.interceptors.response.use(
 
             if(error.response.status === 401 || error.response.status === 403){
                 if(!alert("세션이 만료되어 재로그인이 필요합니다.")){
-                    localStorage.removeItem("@access-Token");
-                    localStorage.removeItem("@user");
-                    localStorage.removeItem("@userName");
-                    StorageClearInsurance();
-                    clearGetTravelMenu();
-                    // pathname 빼고 나머지
+                    // localStorage.removeItem("@access-Token");
+                    // localStorage.removeItem("@user");
+                    // localStorage.removeItem("@userName");
+                    // StorageClearInsurance();
+                    // clearGetTravelMenu();
+                    // // pathname 빼고 나머지
+                    localStorage.clear();
                     window.location.href = process.env.REACT_APP_LOGIN_URL;
                 }
             }
