@@ -12,6 +12,7 @@ import nextIcon from "../../../../assets/icon/insuJoinNextIcon.png";
 
 const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
   const { width } = useWindowSize();
+
   const [popupOpen, setPopupOpen] = useState({
     state: false,
     type: '',
@@ -59,7 +60,7 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
   }
 
   const callback = (response) => {
-    const { success, imp_uid, merchant_uid, paid_amount, buyer_email } = response;
+    const { success, imp_uid, merchant_uid, paid_amount, buyer_email, error_msg } = response;
     if (success) {
       postPaymentCom({
         imp_uid: imp_uid,
@@ -80,7 +81,10 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
       }).catch((e) => {
         console.log(e)
       })
-    } 
+    } else {
+      alert(`결제에 실패하였습니다. 에러 내용: ${error_msg}`);
+      return;
+    }
   }
 
   const openViewPage = (data, id) => {
