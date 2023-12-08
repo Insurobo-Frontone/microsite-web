@@ -3,10 +3,11 @@ import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
 import checkedIcon from '../../../../assets/icon/planCheckedIcon.png';
 import mbCheckedIcon from '../../../../assets/icon/travelMobileCheckIcon.png';
-import BasicInput from "../../Input/BasicInput";
 
 const SelectPlan = ({ data }) => {
-  const { control } = useFormContext();
+  const { control,watch, setValue } = useFormContext();
+  console.log(watch(['calcPlan', 'calcPlanFee']))
+
   return (
       <Controller
         name='calcPlan'
@@ -22,17 +23,17 @@ const SelectPlan = ({ data }) => {
                         <p>{item.gubun === '1' ? '안심플랜' : '든든플랜'}
                           <span>{item.fee.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span>
                         </p>
-                        <BasicInput name='calcPlanFee' defaultValue={item.fee} readOnly />
                         <Icon active={field.value === item.gubun} />
-                      </Label>
+                      </Label>                      
                       <input
                         type="radio"
                         id={item.gubun}
                         name={field.name}
-                        value={item.gubun} 
+                        value={item.gubun}
                         checked={field.value === item.gubun}
                         onChange={(e) => {
                           field.onChange(e.target.value);
+                          setValue('calcPlanFee', item.fee)
                         }}
                       />
                     </ButtonWrap>

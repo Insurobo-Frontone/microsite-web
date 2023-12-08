@@ -25,22 +25,15 @@ const SelectType = () => {
       type: 'over'
     }
   ];
-  const auth = localStorage.getItem("@access-Token");
-  const { pathname } = useLocation();
+
   const navigate = useNavigate();
   const checkLogin = (link, type) => {
-    if (auth) {
-      navigate(link, {
-        state: {
-          type: type,
-          step: '1',
-        }
-      });
-    } else {
-      alert('로그인이 필요한 페이지 입니다.');
-      navigate('/login');
-      setPathName(pathname);
-    }
+    navigate(link, {
+      state: {
+        type: type,
+        step: '1',
+      }
+    });
   }
   return (
     
