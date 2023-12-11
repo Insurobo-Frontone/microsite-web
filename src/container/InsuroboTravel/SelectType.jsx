@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import local from '../../assets/img/insuroboTravel/local_trip.png';
 import over from '../../assets/img/insuroboTravel/overseas_trip.png';
 import messageTail from '../../assets/img/insuroboTravel/messageBoxTail.png';
-import { setPathName } from "../Storage/Auth";
 
 const SelectType = () => {
   const data = [
@@ -36,7 +35,6 @@ const SelectType = () => {
     });
   }
   return (
-    
     <SelectTypeWrap>
       <MessageBox>
         간단한 보험료 조회,&nbsp;<span>걱정없이 떠나세요!</span>

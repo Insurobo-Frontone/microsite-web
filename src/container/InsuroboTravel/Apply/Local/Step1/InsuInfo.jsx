@@ -166,6 +166,9 @@ export default InsuInfo;
 
 const Form = styled.form`
   padding-bottom: 60px;
+  ${(props) => props.theme.window.mobile} {
+    padding-bottom: 0;
+  }
 `;
 
 const MbText = styled.p`
@@ -234,5 +237,6 @@ const ButtonWrap = styled.div`
   ${(props) => props.theme.window.mobile} {
     position: static;
     width: 100%;
+    margin-top: 24px;
   }
 `;
