@@ -61,27 +61,33 @@ const Qna = ({ type }) => {
                       active={list.id === id.listId}
                     />
                     {width < 767.98 && list.id === id.listId && (
-                      <div
-                        className={list.id === id.listId ? 'active text-view' : 'text-view'}
-                        dangerouslySetInnerHTML={{
-                          __html: qnaData.find((cur) => cur.id === id.qnaId).data.find((cur) => cur.id === id.listId).textData
-                        }} 
-                      />
+                      <div className={list.id === id.listId ? 'active text-view' : 'text-view'}>
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: qnaData.find((cur) => cur.id === id.qnaId).data.find((cur) => cur.id === id.listId).textData
+                          }} 
+                        />
+                      </div>
                     )}
                   </li>
-                ))}
+                  ))}
               </ul>
             </div>
           ))}
+          {width < 767.98 && (<Button type='border' title='보험약관' onClick={() => window.open(pdf, '_blank')} />)}
+          
         </div>
         <div>
           {width > 767.98 && (
-            <div className='text-view' dangerouslySetInnerHTML={{
-                __html: qnaData.find((cur) => cur.id === id.qnaId).data.find((cur) => cur.id === id.listId).textData
-              }} 
-            />
+            <div className='text-view'>
+              <div dangerouslySetInnerHTML={{
+                  __html: qnaData.find((cur) => cur.id === id.qnaId).data.find((cur) => cur.id === id.listId).textData
+                }} 
+              />
+              <Button type='border' title='보험약관' onClick={() => window.open(pdf, '_blank')} />
+            </div>
           )}
-          <Button type='border' title='보험약관' onClick={() => window.open(pdf, '_blank')} />
+          
         </div>
       </div>
     </QnaWrap>
@@ -99,6 +105,7 @@ const QnaWrap = styled.div`
     height: 697px;
     overflow-y: scroll;
     padding: 40px 26px 0 40px;
+    
     ::-webkit-scrollbar, ::-webkit-scrollbar-track {
       width: 13px;
     }
@@ -112,6 +119,7 @@ const QnaWrap = styled.div`
     }
     > div {
       width: 535px;
+      
       > div {
         > h2 {
           font-size: 24px;
@@ -150,14 +158,19 @@ const QnaWrap = styled.div`
       }
     }
   }
-  
   .text-view {
+    position: absolute;
+    top: 223px;
+    width: 535px;
+  }
+  .text-view > div {
     padding: 20px 28px;
     font-size: 18px;
     background-color: #F4FAFF;
     border-radius: 10px;
     margin: 55px 0 10px;
     font-weight: 300;
+    
   }
 
   ${(props) => props.theme.window.mobile} {
@@ -198,8 +211,11 @@ const QnaWrap = styled.div`
         }
       }
     }
-    
     .text-view {
+      position: static;
+      width: 100%;
+    }
+    .text-view > div {
       padding: 10px;
       font-size: 14px;
       border-radius: 5px;

@@ -65,7 +65,7 @@ function App() {
                     <Route path='/policy/:pagename' element={<Policy />} />
                     <Route path='/insuroboCard' element={<InsuroboCard />} />
                     {/* <Route path='/insuroboTravel' element={<InsuroboTravel />} /> */}
-                    <Route path='/insuroboTravel/*' element={<InsuroboTravel />} />
+                    <Route path='/insuroboTravel' element={<InsuroboTravel />} />
                     
                     {/* <Route path='/insuroboTravel/apply/myPage/login' element={<InsuroboTravelLogin />} /> */}
                   </Route>
