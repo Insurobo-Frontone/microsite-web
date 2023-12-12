@@ -294,7 +294,8 @@ const Local= ({ type }) => {
                 amount: watch('calcPlanFee'),
                 buyer_name: watch('nameRep'),
                 buyer_tel: watch('mobileRep').replace(/-/g, ""),
-                buyer_email: email
+                buyer_email: email,
+                m_redirect_url: 'https://insurobo.com/insuroboTravel'
               }, callback)}
             />
           </ButtonWrap>

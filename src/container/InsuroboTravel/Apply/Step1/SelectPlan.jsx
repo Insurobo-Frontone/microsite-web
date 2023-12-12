@@ -3,9 +3,11 @@ import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
 import checkedIcon from '../../../../assets/icon/planCheckedIcon.png';
 import mbCheckedIcon from '../../../../assets/icon/travelMobileCheckIcon.png';
+import BasicInput from "../../Input/BasicInput";
+import { useEffect } from "react";
 
 const SelectPlan = ({ data }) => {
-  const { control,watch, setValue } = useFormContext();
+  const { control, watch, setValue, register } = useFormContext();
   console.log(watch(['calcPlan', 'calcPlanFee']))
 
   return (
@@ -24,7 +26,8 @@ const SelectPlan = ({ data }) => {
                           <span>{item.fee.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}원</span>
                         </p>
                         <Icon active={field.value === item.gubun} />
-                      </Label>                      
+                      </Label>
+                      <BasicInput name='calcPlanFee' defaultValue={item.fee} readOnly />
                       <input
                         type="radio"
                         id={item.gubun}
