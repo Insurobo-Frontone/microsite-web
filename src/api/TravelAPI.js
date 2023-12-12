@@ -55,3 +55,11 @@ export const postPaymentCom = async (params) => {
     ...params
   });
 }
+
+// 결제완료시간 불러오기
+export const getPaymentDate = async (params) => {
+  return await PaymentAPI.get('/api/public/payments/date', {
+    ...params
+    
+  });
+}

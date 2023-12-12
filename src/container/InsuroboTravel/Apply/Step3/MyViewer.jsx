@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import styled, { css } from "styled-components";
 import { useSearchParams } from "react-router-dom";
 import ReactToPrint from 'react-to-print';
-import { getTourList } from "../../../../api/TravelAPI";
+import { getPaymentDate, getTourList } from "../../../../api/TravelAPI";
 import dbLogo from '../../../../assets/img/insuroboTravel/dbLogo.png';
 import collabo from '../../../../assets/img/insuroboTravel/collaboIcon.png';
 import insuLogo from '../../../../assets/img/insuroboTravel/insuroboLogo.png';
@@ -24,6 +24,9 @@ const MyViewer = () => {
     getTourList().then((res) => {
       setMydata(res.data.data)
     })
+    getPaymentDate({
+      merchant_uid: id
+    }).then((res) => console.log(res))
   }, []);
   
 
