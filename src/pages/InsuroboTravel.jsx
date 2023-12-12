@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import Layout from "../layout";
 import RollingBanner from "../components/MainPage/RollingBanner";
 import ContentInner from "../layout/ContentInner";
 import SelectType from "../container/InsuroboTravel/SelectType";
 import Apply from "../container/InsuroboTravel/Apply";
 import bg_img from '../assets/img/insuroboTravel/travelBg.png';
+import { postPaymentCom } from "../api/TravelAPI";
 
 const Wrap = styled.div`
   background-image: url(${bg_img});
@@ -31,10 +32,29 @@ const Wrap = styled.div`
 const InsuroboTravel = ({ apply }) => {
   const location = useLocation();
   const pageState = location.state;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const imp_success = searchParams.get('imp_success');
+  const error_msg = searchParams.get('error_msg');
+  const imp_uid = searchParams.get('imp_uid');
+  const merchant_uid = searchParams.get('merchant_uid');
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
+    
+    if (imp_success === 'true') {
+      postPaymentCom({
+        imp_uid: imp_uid,
+        merchant_uid: merchant_uid,
+        dt_id: merchant_uid
+      }).then((res) => {
+        console.log(res)
+        if (res.status === 200) {
+          alert(res.data)
+        }
+      })
+    } else {
+
+    }
+  }, []);
 
   return (
     <Layout windStormHide apply={apply}>

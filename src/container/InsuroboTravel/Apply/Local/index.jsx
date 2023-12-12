@@ -117,6 +117,7 @@ const Local= ({ type }) => {
     const { success, imp_uid, merchant_uid, paid_amount, buyer_email, error_msg
     } = response;
     console.log(response)
+    console.log(merchant_uid)
     if (success) {
       postPaymentCom({
         imp_uid: imp_uid,

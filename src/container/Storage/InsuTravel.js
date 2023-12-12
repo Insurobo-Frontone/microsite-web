@@ -1,5 +1,6 @@
 export const setTravelMenu = (getLocation) => {
   localStorage.setItem('@travellocation', JSON.stringify(getLocation));
+
 }
 
 export const getTravelMenu = () => {
