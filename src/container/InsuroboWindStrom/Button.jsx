@@ -1,14 +1,15 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Button = ({
   width,
   disabled,
   children,
-  onClick
+  onClick,
+  jehuCd
 }) => {
   return (
-    <ButtonWrap width={width} disabled={disabled} onClick={onClick}>
+    <ButtonWrap width={width} disabled={disabled} onClick={onClick} jehuCd={jehuCd}>
       {children}
     </ButtonWrap>
   )
@@ -27,4 +28,8 @@ const ButtonWrap = styled.button`
   border-radius: 5px;
   width: ${props => props.width ? props.width : '100%'};
   background-color: ${props => props.disabled ? '#BEBEBE' : '#2EA5FF'};
+
+  ${props => props.jehuCd === 'yogiyo' && css`
+    background-color: #6262EF;
+  `}
 `;

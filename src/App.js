@@ -60,7 +60,9 @@ function App() {
                     <Route path='/bizsupport/:list' element={<List />} />
                     <Route path='/insuranceInfo' element={<InsuranceInfo />} />
                     <Route path='/freeApply' element={<FreeApply />} />
+                    <Route path='/freeApply?jehuCd=yogiyo' element={<FreeApply />} />
                     <Route path='/freeApply/insuroboWindstorm' element={<InsuroboWindstorm />} />
+                    <Route path='/freeApply/insuroboWindstorm?jehuCd=yogiyo' element={<InsuroboWindstorm />} />
                     <Route path='/board' element={<View />} />
                     <Route path='/policy/:pagename' element={<Policy />} />
                     <Route path='/insuroboCard' element={<InsuroboCard />} />
