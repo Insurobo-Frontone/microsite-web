@@ -14,7 +14,7 @@ export const PaymentAPI = axios.create({
   // baseURL: process.env.REACT_APP_PAYMENT,
   baseURL: 'https://insurobo.com',
   headers: { 
-    "Content-Type": "application/json" 
+    "Content-Type": "application/json;charset=UTF-8",
   },
 });
 
@@ -58,8 +58,7 @@ export const postPaymentCom = async (params) => {
 
 // 결제완료시간 불러오기
 export const getPaymentDate = async (params) => {
-  return await PaymentAPI.get('/api/public/payments/date', {
-    ...params
-    
+  return await TravelAPI.get('/api/public/payments/date', {
+    data: {...params}
   });
 }

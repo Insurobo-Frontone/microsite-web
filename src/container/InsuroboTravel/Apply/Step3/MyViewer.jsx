@@ -19,18 +19,18 @@ const MyViewer = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
   const printRef = useRef(null);
-  
+  const data = {
+    merchant_uid: id
+  }
   useEffect(() => {
     getTourList().then((res) => {
       setMydata(res.data.data)
     })
-    getPaymentDate({
-      merchant_uid: id
-    }).then((res) => console.log(res))
+    getPaymentDate(
+      data
+      
+    ).then((res) => console.log(res))
   }, []);
-  
-
-
   return (
       <Wrap ref={printRef}>
         <div>

@@ -296,7 +296,7 @@ const Local= ({ type }) => {
                 buyer_name: watch('nameRep'),
                 buyer_tel: watch('mobileRep').replace(/-/g, ""),
                 buyer_email: email,
-                m_redirect_url: 'https://insurobo.com/insuroboTravel'
+                m_redirect_url: process.env.REACT_APP_PAYMENT_REDIRECT
               }, callback)}
             />
           </ButtonWrap>

@@ -211,7 +211,7 @@ const MyJoinInfo = ({ open, close, onClick, type, data, myPageState }) => {
                         buyer_name: dt.userName,
                         buyer_tel: dt.phoneNum,
                         buyer_email: dt.email,
-                        m_redirect_url: 'https://insurobo.com/insuroboTravel'
+                        m_redirect_url: process.env.REACT_APP_PAYMENT_REDIRECT
                       }, callback)}
                     />
                   </>
