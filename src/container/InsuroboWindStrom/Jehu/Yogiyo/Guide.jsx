@@ -124,6 +124,55 @@ const Guide = ({ jehuCd }) => {
           <div># 완전 무료</div>
           <div># 소상공인 상가 및 공장</div>
         </HashTagWrap>
+        <ListWrap>
+          <li>2021. 01월 기준 1년 보험료 / 건물급수 1급 / 6등지 / 일반건물</li>
+          <li>국가,지자체 지원 : 82% 기준<br />(지자체별 월별 지원비율 상이)</li>
+          <li>지역별(시군구) / 건물주고 및 급수에 따라 보험료가 달라집니다.</li>
+          <li>이 상품은 순수 보장성 상품으로 만기 시 환급금이 없습니다.</li>
+        </ListWrap>
+        <Title>
+          <Label><p>꼭 알아두어야하는 사항</p></Label>
+        </Title>
+        <ScrollBox>
+          <ul>
+            <li>
+              상품안내
+              <ul>
+                <li>
+                  <p>1)자연재해 사고 보장</p>
+                  8대 자연재해<br />
+                  (태풍, 홍수, 호우, 해일, 강풍, 풍랑, 대설, 지진)<br />
+                  사고 발생시 실손비용 보상
+                </li>
+                <li>
+                  <p>2)일부 보험료를 정부에서 지원</p>
+                  국가 및 지방자치단체에서 보험료의 일부를 지원<br />
+                  (최소 70% 지원, 지방자치단체별 추가 지원 다름)
+                </li>
+                <li><p>3)순수 보장성 상품으로 만기시 환급금 없음</p></li>
+              </ul>
+            </li>
+            <li>
+              보장내용
+              <ul>
+                <li>
+                  <p>1)풍수해</p>
+                  <span>기성청 특보 발표 기준</span>
+
+                </li>
+                <li>
+                  <p>2)일부 보험료를 정부에서 지원</p>
+                  국가 및 지방자치단체에서 보험료의 일부를 지원<br />
+                  (최소 70% 지원, 지방자치단체별 추가 지원 다름)
+                </li>
+                <li><p>3)순수 보장성 상품으로 만기시 환급금 없음</p></li>
+              </ul>
+            </li>
+          
+          </ul>
+          
+        </ScrollBox>
+        <p>소상공인 풍수해보험 문의 : 담당자 010-2312-9868</p>
       </Section>
     </Wrap>
   )
@@ -141,7 +190,10 @@ const Section = styled.div`
   padding: 32px 206px;
   display: flex;
   flex-direction: column;
-
+  > p {
+    font-size: 14px;
+    color: #999999;
+  }
   ${props => props.gradient === 'gra1' && css`
     flex-direction: row;
     align-items: flex-end;
@@ -220,7 +272,13 @@ const Label = styled.div`
   justify-content: center;
   align-items: center;
   padding: 3px 14px;
+  > p {
+    color: #6262EF;
+    padding: 4px 0;
+  }
 `;
+
+
 
 const Title = styled.div`
   display: flex;
@@ -361,5 +419,55 @@ const HashTagWrap = styled.div`
     padding: 8px 12px;
     font-size: 13px;
     font-weight: 300;
+  }
+`;
+
+const ScrollBox = styled.div`
+  width: 100%;
+  height: 357px;
+  overflow: scroll;
+  padding: 30px 10px;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  border: 1px solid #E2E2E2;
+  border-radius: 8px;
+  > ul {
+    counter-reset: my-counter;
+    > li {
+      font-size: 14px;
+      color: #666666;
+      ::before {
+        counter-increment: my-counter;
+        content: counter(my-counter)'.';
+      }
+      > ul {
+        padding: 5px 0 10px 10px;
+        > li {
+          color: #999999;
+          font-weight: 300;
+          padding-bottom: 15px;
+          > p {
+            color: #999999;
+            font-weight: 400;
+            padding-bottom: 5px;
+          }
+          > span {
+            display: flex;
+            align-items: center;
+            font-weight: 300;
+            color: #999999;
+            ::before {
+              content: '';
+              display: block;
+              width: 3px;
+              height: 3px;
+              background-color: #999999;
+              border-radius: 50%;
+              margin: 0 10px;
+            }
+          }
+        }
+      }
+    }
   }
 `;
