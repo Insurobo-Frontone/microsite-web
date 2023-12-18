@@ -20,6 +20,9 @@ import icon12 from '../../assets/icon/insuProduct12.png';
 import icon13 from '../../assets/icon/insuProduct13.png';
 import icon14 from '../../assets/icon/insuProduct14.png';
 import icon15 from '../../assets/icon/insuProduct15.png';
+import icon16 from '../../assets/img/kyoboCancerCare.png';
+import icon17 from '../../assets/img/kyoboInfection.png';
+import icon18 from '../../assets/img/kyoboPolyp.png';
 import Popup from '../../container/InsuroboTravel/Apply/Popup';
 
 const data = [
@@ -158,6 +161,33 @@ const data = [
     mobile: 'https://mplatform.hi.co.kr/service.do?m=pipim1000&jehuCd=hyundaipay',
     img: icon15,
     tag: '사업장보험'
+  },
+  {
+    id: 16,
+    title: '교보e암케어보험',
+    mobileTitle: 'e암케어',
+    link: 'http://kyobo.com/dgt/web/dtp/ei/insurance-detail/1000973?evcode=DR_AD_EI',
+    mobile: 'http://kyobo.com/dgt/web/dtp/ei/insurance-detail/1000973?evcode=DR_AD_EI',
+    img: icon16,
+    tag: '개인보험'
+  },
+  {
+    id: 17,
+    title: '교보e감염케어보험',
+    mobileTitle: 'e감염케어',
+    link: 'http://kyobo.com/dgt/web/dtp/ei/insurance-detail/1000969?evcode=DR_AD_EI',
+    mobile: 'http://kyobo.com/dgt/web/dtp/ei/insurance-detail/1000969?evcode=DR_AD_EI',
+    img: icon17,
+    tag: '개인보험'
+  },
+  {
+    id: 18,
+    title: '교보e용종케어보험',
+    mobileTitle: 'e용종케어',
+    link: 'http://kyobo.com/dgt/web/dtp/ei/insurance-detail/1000973?evcode=DR_AD_EI',
+    mobile: 'http://kyobo.com/dgt/web/dtp/ei/insurance-detail/1000973?evcode=DR_AD_EI',
+    img: icon18,
+    tag: '개인보험'
   },
 ];
 
