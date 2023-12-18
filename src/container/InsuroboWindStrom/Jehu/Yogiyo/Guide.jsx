@@ -12,6 +12,7 @@ import insuChatIcon from '../../../../assets/img/insuroboChat_icon.png';
 import userChatIcon from '../../../../assets/img/userChat_icon.png';
 
 import Button from "../../Button";
+import { useNavigate } from "react-router-dom";
 
 const manual = [
   {
@@ -32,6 +33,7 @@ const manual = [
 
 ]
 const Guide = ({ jehuCd }) => {
+  const navigate = useNavigate();
   return (
     <Wrap>
       <Section gradient='gra1'>
@@ -70,7 +72,7 @@ const Guide = ({ jehuCd }) => {
             </li>
           ))}
         </CardWrap>
-        <Button jehuCd={jehuCd}>풍수해보험 무료 가입하기</Button>
+        <Button jehuCd={jehuCd} onClick={() => navigate('/freeApply/insuroboWindstorm')}>풍수해보험 무료 가입하기</Button>
       </Section>
       <Section gradient='gra2'>
         <Title>
@@ -425,12 +427,21 @@ const HashTagWrap = styled.div`
 const ScrollBox = styled.div`
   width: 100%;
   height: 357px;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 30px 10px;
   margin-top: 32px;
   margin-bottom: 16px;
   border: 1px solid #E2E2E2;
   border-radius: 8px;
+  ::-webkit-scrollbar, ::-webkit-scrollbar-track {
+    width: 13px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #B7B7B7;
+    width: 13px;
+    background-clip: padding-box;
+    border: 4px solid transparent;
+  }
   > ul {
     counter-reset: my-counter;
     > li {
