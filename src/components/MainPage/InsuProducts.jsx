@@ -166,8 +166,8 @@ const data = [
     id: 16,
     title: '교보e암케어보험',
     mobileTitle: 'e암케어',
-    link: 'http://kyobo.com/dgt/web/dtp/ei/insurance-detail/1000973?evcode=DR_AD_EI',
-    mobile: 'http://kyobo.com/dgt/web/dtp/ei/insurance-detail/1000973?evcode=DR_AD_EI',
+    link: 'http://kyobo.com/dgt/web/dtp/ei/insurance-detail/1000978?evcode=DR_AD_EI',
+    mobile: 'http://kyobo.com/dgt/web/dtp/ei/insurance-detail/1000978?evcode=DR_AD_EI',
     img: icon16,
     tag: '개인보험'
   },
