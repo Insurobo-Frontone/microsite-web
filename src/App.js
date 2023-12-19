@@ -39,7 +39,9 @@ function App() {
     mode: 'onBlur',
     defaultValues: {
       calcPlan: '1',
-      overlap: 'N'
+      overlap: 'N',
+      objCat: '2',
+      bizEstate: '임차인'
     }
   });
 

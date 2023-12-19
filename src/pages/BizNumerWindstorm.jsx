@@ -9,6 +9,7 @@ import Button from "../container/InsuroboWindStrom/Button";
 import { postHiLinkObj } from "../api/WindstormAPI";
 import useWindowSize from "../hooks/useWindowSize";
 import Step1 from "../container/BiznumWindstorm/Step1";
+import SectionWrap from "../container/BiznumWindstorm/SectionWrap";
 
 const BiznumWindstorm = () => {
   const { width } = useWindowSize();
@@ -111,7 +112,7 @@ const BiznumWindstorm = () => {
 
   return (
     <Layout>
-      <Section>
+      <SectionWrap>
         <ApplyTitle>
           <h2>풍수해보험<span>신청하기</span></h2>
           <p>‘소상공인 풍수해보험’ 인슈로보에서 아주 간단하게!</p>
@@ -122,34 +123,16 @@ const BiznumWindstorm = () => {
             <li>*사고보험금 지급 시 자기부담금은 제외한 후 보상됩니다.</li>
           </ul>
         </ApplyTitle>
-      </Section>
-      <Section bgColor='GRAY'>
-        <div>
-          <SectionTitle>
-            <h2>사업장 정보</h2>
-            <span><b>*</b>필수항목</span>
-          </SectionTitle>
-          <Step1 />
-        </div>
-      </Section>
+      </SectionWrap>
+      <Step1 />
     </Layout>
   )
 }
 
 export default BiznumWindstorm;
 
-const Section = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background-color: ${props => props.bgColor === 'GRAY' ? '#FAFAFA': '#FFFFFF'};
-  > div {
-    width: 356px;
-    padding: 42px 0; 
-  }
-`;
-
 const ApplyTitle = styled.div`
+  padding: 40px 0 41px;
   > h2 {
     font-size: 28px;
     padding-top: 40px;
@@ -182,40 +165,6 @@ const ApplyTitle = styled.div`
       color: #333333;
       font-weight: 300;
       line-height: 23px;
-    }
-  }
-`;
-
-const SectionTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding-bottom: 15px;
-  border-bottom: 1px solid #000000;
-  margin-bottom: 24px;
-  > h2 {
-    color: #333333;
-    font-weight: 500;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    
-    ::before {
-      content: '';
-      display: block;
-      width: 18px;
-      height: 17px;
-      background-image: url(${ci});
-      margin-right: 4px;
-    }
-  }
-  > span {
-    color: #333333;
-    font-weight: 300;
-    font-size: 12px;
-    > b {
-      color: #6262EF;
-      font-weight: 300;
     }
   }
 `;
