@@ -41,7 +41,9 @@ function App() {
       calcPlan: '1',
       overlap: 'N',
       objCat: '2',
-      bizEstate: '임차인'
+      bizEstate: '임차인',
+      sBizCheck1: 'Y',
+      sBizCheck2: 'Y'
     }
   });
 

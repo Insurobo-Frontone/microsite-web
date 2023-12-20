@@ -160,7 +160,6 @@ const Guide = ({ jehuCd }) => {
                 <li>
                   <p>1)풍수해</p>
                   <span>기성청 특보 발표 기준</span>
-
                 </li>
                 <li>
                   <p>2)일부 보험료를 정부에서 지원</p>
@@ -170,9 +169,7 @@ const Guide = ({ jehuCd }) => {
                 <li><p>3)순수 보장성 상품으로 만기시 환급금 없음</p></li>
               </ul>
             </li>
-          
           </ul>
-          
         </ScrollBox>
         <p>소상공인 풍수해보험 문의 : 담당자 010-2312-9868</p>
       </Section>

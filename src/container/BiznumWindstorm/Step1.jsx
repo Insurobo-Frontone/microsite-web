@@ -145,7 +145,7 @@ const Step1 = () => {
                 !watch('bizNo1') || 
                 !watch('bizNo2') || 
                 !watch('bizNo3') || 
-                !watch('overlap') === 'Y'
+                watch('overlap') === 'Y'
               }
             />
           </div>

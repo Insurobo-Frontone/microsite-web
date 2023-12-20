@@ -104,11 +104,11 @@ const Step3 = ({ data }) => {
             <div className="two-input">
               <TextInput 
                 name='inputBldSt'
-                placeholder='시작'
+                placeholder='시작 층'
               />
               <TextInput 
                 name='inputBldEd'
-                placeholder='끝'
+                placeholder='끝 층'
               />
             </div>
           </InputGroup>

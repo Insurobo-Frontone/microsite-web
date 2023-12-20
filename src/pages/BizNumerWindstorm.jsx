@@ -33,7 +33,11 @@ const BiznumWindstorm = () => {
       regNo: '',
       bizNo: '',
       inrBirth: '',
-      inrGender: '1'
+      inrGender: '1',
+      overlap: 'N',
+      bizEstate: '임차인',
+      sBizCheck1: 'Y',
+      sBizCheck2: 'Y'
     })
     StorageClearInsurance()
     
