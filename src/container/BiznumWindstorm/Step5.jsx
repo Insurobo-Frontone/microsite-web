@@ -4,8 +4,11 @@ import RadioButton from "./Input/RadioButton";
 import TextInput from "./Input/TextInput";
 import SectionWrap from "./SectionWrap";
 import CheckInput from "./Input/CheckInput";
+import { useFormContext } from "react-hook-form";
 
 const Step5 = () => {
+	const [allChecked, setAllChecked] = useState(false);
+	const { watch, setValue } = useFormContext();
 	const terms = [
 		{
 			id: 6,
@@ -29,7 +32,13 @@ const Step5 = () => {
 		},
 	]
   useEffect(() => {
-    
+    if (allChecked) {
+			setValue('termsA6', 'Y')
+			setValue('termsA1', 'Y')
+			setValue('termsA2', 'Y')
+			setValue('termsA3', 'Y')
+			setValue('termsA4', 'Y')
+		} 
   }, []);
 
   return (
@@ -39,7 +48,7 @@ const Step5 = () => {
       hr='none'
     >
       <AllCheckButton>
-        <button>전체 동의하기</button>
+        <button onClick={() => setAllChecked(true)}>전체 동의하기</button>
       </AllCheckButton>
 			{terms.map((dt) => (
 				<InputGroup>

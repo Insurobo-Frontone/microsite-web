@@ -30,7 +30,6 @@ const Step1 = () => {
     if (watch('overlap') === 'Y') {
       setClose(false);
     } 
-    console.log(watch('bizNo'))
   }, [watch('overlap')]);
 
   // 조회하기 버튼 클릭
@@ -39,7 +38,6 @@ const Step1 = () => {
     if (bizNumValidate()) {
       clearErrors('bizNo')
       MoneypinToken().then((res) => {
-        console.log(res)
         setBizToken(res.data.token)
       }).catch((error) => {
         console.log(error);

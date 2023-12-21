@@ -30,7 +30,7 @@ const Step2 = ({ token }) => {
   useEffect(() => {
     MoneypinBizInfo(watch('bizNo'), token)
     .then((res) => {
-      console.log(res)
+      console.log(res.data[0].info)
       setData(res.data[0].info)
       getLoBzCdList()
       .then((res) => {

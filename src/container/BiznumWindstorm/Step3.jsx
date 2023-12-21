@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useFormContext } from "react-hook-form";
 import RadioButton from "./Input/RadioButton";
 import TextInput from "./Input/TextInput";
 import { getCover, getJuso } from "../../api/WindstormAPI";
 import { StorageSetInsurance } from "../Storage/Insurance";
 
 const Step3 = ({ data }) => {
-  const { watch, setValue } = useFormContext();
   const [bizData, setBizData] = useState();
   const [addrData, setAddrData] = useState();
   const store = [
@@ -49,7 +47,6 @@ const Step3 = ({ data }) => {
       })
     }).catch((e) => (console.log(e)))
   }, [data]);
-  console.log(bizData)
   return (
     <>
       {data && (
@@ -116,7 +113,13 @@ const Step3 = ({ data }) => {
             <p>건물 구조정보<b>*</b></p>
             <TextInput 
               name='structure'
-              value={`${bizData?.strctCdNm}/${bizData?.roofNm}/${bizData?.otwlStrc}`}
+              value={`${bizData?.strctCdNm}/${bizData?.roofNm}/${bizData?.otwlStrc === '01' ? '콘크리트 외벽' : 
+                bizData?.otwlStrc === '08' ? '벽돌(조직) 외벽' :
+                bizData?.otwlStrc === '12' ? '블록 외벽' :
+                bizData?.otwlStrc === '13' ? '철판/판넬' :
+                bizData?.otwlStrc === '18' ? '목조' :
+                bizData?.otwlStrc === '15' && '유리벽'
+              }`}
             />
           </InputGroup>
         </>
