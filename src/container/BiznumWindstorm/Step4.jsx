@@ -6,11 +6,12 @@ import SectionWrap from "./SectionWrap";
 import SelectInput from "./Input/SelectInput";
 import { useFormContext } from "react-hook-form";
 import Popup from "./Popup";
+import { getLoBzCdList } from "../../api/WindstormAPI";
 
 const Step4 = () => {
   const { watch } = useFormContext();
   const [close, setClose] = useState(true);
-
+  const [loBzCdList, setLoBzCdList] = useState([]);
   const check1 = [
     {
       id: 'check1_Y',
@@ -36,7 +37,10 @@ const Step4 = () => {
     },
   ]
   useEffect(() => {
-    if (watch('sBizCheck1') || watch('sBizCheck2') === 'N') {
+    getLoBzCdList().then((res) => {
+      setLoBzCdList(res.data.results.codes)
+    }).catch((e) => console.log(e)) 
+    if (watch('sBizCheck1') === 'N' || watch('sBizCheck2') === 'N') {
       setClose(false);
     }
   }, [watch('sBizCheck1'), watch('sBizCheck2')]);
@@ -67,10 +71,16 @@ const Step4 = () => {
           <p>주요 업종은 무엇입니까?*</p>
           <SelectInput
             placeholder='선택하세요'
-            name='sBiz2YSect'
+            name='lobzCd'
             defaultValue=''
           >
-            <option>sddsdsd</option>
+            {loBzCdList?.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
+              return (
+                <option value={cur.code} key={index}>
+                  {cur.name}
+                </option>
+              )
+            })}
           </SelectInput>
         </InputGroup>
         <InputGroup>
@@ -82,7 +92,7 @@ const Step4 = () => {
         </InputGroup>
         
       </SectionWrap>
-      {close && (
+      {!close && (
         <Popup close={() => setClose(true)}>
           <p>가입대상이 아닙니다.</p>
         </Popup>

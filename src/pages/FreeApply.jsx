@@ -10,7 +10,7 @@ import factory from '../assets/icon/factory.png';
 import facility from '../assets/icon/facility.png';
 import inventories from '../assets/icon/inventories.png';
 import equipment from '../assets/icon/equipment.png';
-import Guide from '../container/InsuroboWindStrom/Jehu/Yogiyo/Guide';
+import Guide from '../container/BiznumWindstorm/Guide';
 // import coin from '../assets/icon/coin.png';
 
 const list1 = [

@@ -43,7 +43,13 @@ function App() {
       objCat: '2',
       bizEstate: '임차인',
       sBizCheck1: 'Y',
-      sBizCheck2: 'Y'
+      sBizCheck2: 'Y',
+      termsA1: 'N',
+      termsA2: 'N',
+      termsA3: 'N',
+      termsA4: 'N',
+      termsA6: 'N',
+      termsA7: 'N',
     }
   });
 

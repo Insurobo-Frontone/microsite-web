@@ -129,6 +129,7 @@ const BiznumWindstorm = () => {
         </ApplyTitle>
       </SectionWrap>
       <Step1 />
+      
     </Layout>
   )
 }
