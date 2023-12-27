@@ -2,19 +2,39 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import RadioButton from "./Input/RadioButton";
 import TextInput from "./Input/TextInput";
-import { getCover, getJuso } from "../../api/WindstormAPI";
+import { getCover, getJuso, getLoBzCdList } from "../../api/WindstormAPI";
 import { StorageSetInsurance } from "../Storage/Insurance";
+import SelectInput from "./Input/SelectInput";
+import { useFormContext } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 
 const Step3 = ({ data }) => {
   const [bizData, setBizData] = useState();
   const [addrData, setAddrData] = useState();
+  const [loBzCdList, setLoBzCdList] = useState([]);
+  const { watch } = useFormContext();
+  const [searchParams] = useSearchParams();
+  const jehuCd = searchParams.get('jehuCd');
+  const yoStore = [
+    {
+      id: 'store',
+      value: '2',
+      title: '일반(상가)'
+    },
+  ];
   const store = [
     {
       id: 'store',
       value: '2',
       title: '일반(상가)'
     },
-  ]
+    {
+      id: 'factory',
+      value: '4',
+      title: '공장'
+    },
+  ];
+
   const estate = [
     {
       id: 'lease',
@@ -28,6 +48,10 @@ const Step3 = ({ data }) => {
     },
   ]
   useEffect(() => {
+    getLoBzCdList()
+    .then((res) => {
+      setLoBzCdList(res.data.results.codes)
+    }).catch((e) => console.log(e)) 
     // 건축물대장 api
     getJuso(data?.address).then((res) => {
       getCover({
@@ -47,6 +71,7 @@ const Step3 = ({ data }) => {
       })
     }).catch((e) => (console.log(e)))
   }, [data]);
+
   return (
     <>
       {data && (
@@ -54,20 +79,39 @@ const Step3 = ({ data }) => {
           <InputGroup>
             <div>
               <p>건물 구분<b>*</b></p>
-              <RadioButton name='objCat' data={store} />
+              <RadioButton name='objCat' data={jehuCd === 'yogiyo' ? yoStore : store } />
             </div>
-            <p className="warning">*일반(상가) 외 공장이나 주택은 가입이 불가합니다</p>
+            {jehuCd === 'yogiyo' && (<p className="warning">*일반(상가) 외 공장이나 주택은 가입이 불가합니다</p>)}
           </InputGroup>
+          <InputGroup>
+              <p>영위업종*</p>
+              <SelectInput
+                placeholder='선택해주세요.'
+                name='lobzCd'
+                defaultValue=''
+              >
+                {loBzCdList?.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
+                  return (
+                    <option value={cur.code} key={index}>
+                      {cur.name}
+                    </option>
+                  )
+                })}
+              </SelectInput>
+            </InputGroup>
           <InputGroup>
             <p>주소<b>*</b></p>
               <TextInput 
                 name='objAddr1'
                 value={addrData?.jibunAddr}
+                required={true}
                 readOnly
               />
               <TextInput 
                 name='objAddr2'
                 placeholder='상세주소 입력'
+                required='입력값확인'
+                errorFild
               />
           </InputGroup>
           <InputGroup>
@@ -75,6 +119,7 @@ const Step3 = ({ data }) => {
             <TextInput 
               name='hsArea'
               placeholder='면적을 입력하세요 (단위는 m2 입니다.)'
+              required={true}
             />
           </InputGroup>
           <InputGroup>
@@ -89,10 +134,12 @@ const Step3 = ({ data }) => {
               <TextInput 
                 name='ugrndFlrCnt'
                 value={bizData?.ugrndFlrCnt}
+                required={true}
               />
               <TextInput 
                 name='grndFlrCnt'
                 value={bizData?.grndFlrCnt}
+                required={true}
               />
             </div>
           </InputGroup>
@@ -102,10 +149,12 @@ const Step3 = ({ data }) => {
               <TextInput 
                 name='inputBldSt'
                 placeholder='시작 층'
+                required={true}
               />
               <TextInput 
                 name='inputBldEd'
                 placeholder='끝 층'
+                required={true}
               />
             </div>
           </InputGroup>
@@ -120,6 +169,7 @@ const Step3 = ({ data }) => {
                 bizData?.otwlStrc === '18' ? '목조' :
                 bizData?.otwlStrc === '15' && '유리벽'
               }`}
+              required={true}
             />
           </InputGroup>
         </>

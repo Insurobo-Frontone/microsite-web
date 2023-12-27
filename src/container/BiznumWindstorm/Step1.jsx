@@ -12,7 +12,7 @@ import SectionWrap from "./SectionWrap";
 const Step1 = () => {
   const [close, setClose] = useState(true);
   const [bizToken, setBizToken] = useState();
-  const { watch, setValue, setError, clearErrors, formState: { isValid, isDirty, errors } } = useFormContext();
+  const { watch, setValue, setError, clearErrors, formState: { errors } } = useFormContext();
   const overlap = [
     {
       id: 1,

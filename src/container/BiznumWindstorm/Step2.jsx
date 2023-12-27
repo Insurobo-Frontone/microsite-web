@@ -3,8 +3,6 @@ import styled from "styled-components";
 import { useFormContext } from "react-hook-form";
 import TextInput from "./Input/TextInput";
 import { MoneypinBizInfo } from "../../api/BizWindStormAPI";
-import SelectInput from "./Input/SelectInput";
-import { getLoBzCdList } from "../../api/WindstormAPI";
 import RadioButton from "./Input/RadioButton";
 import Step3 from "./Step3";
 import SectionWrap from "./SectionWrap";
@@ -12,7 +10,6 @@ import Step4 from "./Step4";
 import Step5 from "./Step5";
 
 const Step2 = ({ token }) => {
-  const [loBzCdList, setLoBzCdList] = useState([]);
   const [data, setData] = useState();
   const { watch } = useFormContext();
   const gender = [
@@ -32,10 +29,7 @@ const Step2 = ({ token }) => {
     .then((res) => {
       console.log(res.data[0].info)
       setData(res.data[0].info)
-      getLoBzCdList()
-      .then((res) => {
-        setLoBzCdList(res.data.results.codes)
-      }).catch((e) => console.log(e)) 
+      
     }).catch((e) => console.log(e))
   }, [watch('bizNo')]);
 
@@ -50,6 +44,7 @@ const Step2 = ({ token }) => {
                 name='ptyBizNm'
                 value={data.bizName}
                 readOnly
+                required={true}
               />
             </InputGroup>
             <InputGroup>
@@ -58,23 +53,8 @@ const Step2 = ({ token }) => {
                 name='ptyKorNm'
                 value={data.ceoName}
                 readOnly
+                required={true}
               />
-            </InputGroup>
-            <InputGroup>
-              <p>영위업종*</p>
-              <SelectInput
-                placeholder='선택해주세요.'
-                name='lobzCd'
-                defaultValue=''
-              >
-                {loBzCdList?.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
-                  return (
-                    <option value={cur.code} key={index}>
-                      {cur.name}
-                    </option>
-                  )
-                })}
-              </SelectInput>
             </InputGroup>
             <InputGroup>
               <p>휴대폰 번호*</p>
@@ -82,19 +62,16 @@ const Step2 = ({ token }) => {
                 <TextInput
                   type='number'
                   name='telNo1'
-                  required='필수 입력사항입니다'
                 />
                 <span>-</span>
                 <TextInput 
                   type='number'
                   name='telNo2'
-                  required='필수 입력사항입니다'
                 />
                 <span> - </span>
                 <TextInput
                   type='number'
                   name='telNo3'
-                  required='필수 입력사항입니다'
                 />
               </div>
             </InputGroup>
@@ -103,6 +80,7 @@ const Step2 = ({ token }) => {
               <TextInput 
                 name='inrBirth'
                 placeholder='ex) 880321'
+                required={true}
               />
             </InputGroup>
             <InputGroup>

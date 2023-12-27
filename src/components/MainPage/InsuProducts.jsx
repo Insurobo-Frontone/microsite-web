@@ -33,15 +33,6 @@ const data = [
     tag: '사업장보험'
   },
   {
-    id: 16,
-    title: '요기요X풍수해보험',
-    mobileTitle: '요기요X풍수해보험',
-    link: '/freeApply?jehuCd=yogiyo',
-    mobile: '/freeApply?jehuCd=yogiyo',
-    img:  icon1,
-    tag: '사업장보험'
-  },
-  {
     id: 2,
     title: '여행자보험',
     mobileTitle: '여행자보험',

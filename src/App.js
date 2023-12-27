@@ -39,6 +39,7 @@ function App() {
     mode: 'onBlur',
     defaultValues: {
       calcPlan: '1',
+      inrGender: '1',
       overlap: 'N',
       objCat: '2',
       bizEstate: '임차인',
@@ -74,6 +75,7 @@ function App() {
                     <Route path='/freeApply' element={<FreeApply />} />
                     <Route path='/freeApply?jehuCd=yogiyo' element={<FreeApply />} />
                     <Route path='/freeApply/insuroboWindstorm' element={<BiznumWindstorm />} />
+                    <Route path='/freeApply/insuroboWindstorm?jehuCd=yogiyo' element={<BiznumWindstorm />} />
                     <Route path='/board' element={<View />} />
                     <Route path='/policy/:pagename' element={<Policy />} />
                     <Route path='/insuroboCard' element={<InsuroboCard />} />

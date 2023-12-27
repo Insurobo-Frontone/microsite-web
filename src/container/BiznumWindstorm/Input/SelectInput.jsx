@@ -2,30 +2,33 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import selectIcon from '../../../assets/icon/bizSelectArrow.png';
-
-const SelectInput = ({name, defaultValue, placeholder, required, children, ...rest}) => {
+import { ErrorMessage } from "@hookform/error-message";
+const SelectInput = ({name, defaultValue, placeholder, children, ...rest}) => {
   const { register, formState: { errors }} = useFormContext({
 		mode: 'onBlur',
 	});
 
   return (
-    <SelectContainer>
-      <SelectBase
-        name={name}
-        key={defaultValue}
-        defaultValue={defaultValue}
-        {...register(name, {
-					required: required
-				})}
-        {...rest}
-      >
-        <option value="" hidden>
-          {placeholder}
-        </option>
-        <>{children}</>
-      </SelectBase>
-      <SelectArrow />
-    </SelectContainer>
+    <>
+      <SelectContainer>
+        <SelectBase
+          name={name}
+          key={defaultValue}
+          defaultValue={defaultValue}
+          {...register(name)}
+          {...rest}
+        >
+          <option value="" hidden>
+            {placeholder}
+          </option>
+          <>{children}</>
+        </SelectBase>
+        <SelectArrow />
+      </SelectContainer>
+      <ErrorTextMessage>
+        <ErrorMessage errors={errors} name={name} />
+      </ErrorTextMessage> 
+    </>
   )
 }
 
@@ -64,4 +67,10 @@ const SelectArrow = styled.div`
   background-position: center;
   position: absolute;
   right: 9px;
+`;
+
+const ErrorTextMessage = styled.div`
+  font-size: 12px;
+  color: #FF0000;
+  line-height: 22px;
 `;

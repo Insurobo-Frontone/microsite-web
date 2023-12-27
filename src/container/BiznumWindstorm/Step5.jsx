@@ -1,14 +1,109 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
+import { useNavigate } from "react-router-dom";
 import RadioButton from "./Input/RadioButton";
-import TextInput from "./Input/TextInput";
 import SectionWrap from "./SectionWrap";
 import CheckInput from "./Input/CheckInput";
 import { useFormContext } from "react-hook-form";
+import { postHiLinkObj } from "../../api/WindstormAPI";
+import { StorageGetInsurance } from "../Storage/Insurance";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const Step5 = () => {
-	const [allChecked, setAllChecked] = useState(false);
-	const { watch, setValue } = useFormContext();
+	const { watch, setValue, setError, setFocus } = useFormContext();
+	const { width } = useWindowSize();
+	const navigate = useNavigate();
+	
+	useEffect(() => {
+		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
+		setValue('bizNo', watch('bizNo1')+watch('bizNo2')+watch('bizNo3'));
+  }, []);
+
+	const onClickNext = () => {
+		if (watch('lobzCd') === '') {
+			setFocus('lobzCd')
+			setError('lobzCd', {
+				message: '업종을 선택해주세요.'
+			})
+		}
+		if (watch('termsA1') === 'N' || 
+				watch('termsA2') === 'N' ||
+				watch('termsA3') === 'N' || 
+				watch('termsA4') === 'N' ||
+				watch('termsA6') === 'N' ||
+				watch('termsA7') === 'N'
+		) {
+			alert('필수항목 동의')
+		} else {
+			const insurance = StorageGetInsurance();
+		const objZipValue = insurance.getAddr.zipNo+''
+		console.log({
+			inputBldSt: watch('inputBldSt'),
+			inputBldEd: watch('inputBldEd'),
+			bldTotLyrNum: insurance.getCover.bldTotLyrNum,
+			hsArea: watch('hsArea'),
+			poleStrc: insurance.getCover.poleStrc,
+			roofStrc: insurance.getCover.roofStrc,
+			otwlStrc: insurance.getCover.otwlStrc,
+			objCat: watch('objCat'),
+			lobzCd: watch('lobzCd'),
+			objZip1: objZipValue.substring(0, 3),
+			objZip2: objZipValue.substring(3, 5),
+			objAddr1: insurance.getAddr.jibunAddr,
+			objAddr2: watch('objAddr2'),
+			bizNo: watch('bizNo'),
+			inrBirth: watch('inrBirth'),
+			inrGender: watch('inrGender'),
+			telNo: watch('telNo'),
+			ptyBizNm: watch('ptyBizNm'),
+			ptyKorNm: watch('ptyKorNm'),
+			termsA1: watch('termsA1'),
+			termsA2: watch('termsA2'),
+			termsA3: watch('termsA3'),
+			termsA4: watch('termsA4'),
+			termsA6: watch('termsA6'),
+			termsA7: watch('termsA7'),
+		})
+		}
+		
+		
+    //우편번호
+		
+		// postHiLinkObj({
+		// 	inputBldSt: watch('inputBldSt'),
+		// 	inputBldEd: watch('inputBldEd'),
+		// 	bldTotLyrNum: insurance.getCover.bldTotLyrNum,
+		// 	hsArea: watch('hsArea'),
+		// 	poleStrc: insurance.getCover.poleStrc,
+		// 	roofStrc: insurance.getCover.roofStrc,
+		// 	otwlStrc: insurance.getCover.otwlStrc,
+		// 	objCat: watch('objCat'),
+		// 	lobzCd: watch('lobzCd'),
+		// 	objZip1: objZipValue.substring(0, 3),
+		// 	objZip2: objZipValue.substring(3, 5),
+		// 	objAddr1: insurance.getAddr.jibunAddr,
+		// 	objAddr2: watch('objAddr2'),
+		// 	bizNo: watch('bizNo'),
+		// 	inrBirth: watch('inrBirth'),
+		// 	inrGender: watch('inrGender'),
+		// 	telNo: watch('telNo'),
+		// 	ptyBizNm: watch('ptyBizNm'),
+		// 	ptyKorNm: watch('ptyKorNm'),
+		// 	termsA1: watch('termsA1') ? 'Y' : 'N',
+		// 	termsA2: watch('termsA2') ? 'Y' : 'N',
+		// 	termsA3: watch('termsA3') ? 'Y' : 'N',
+		// 	termsA4: watch('termsA4') ? 'Y' : 'N',
+		// 	termsA6: watch('termsA6') ? 'Y' : 'N',
+		// 	termsA7: watch('termsA7') ? 'Y' : 'N',
+		// }).then((res) => {
+		// 	const userId = res.data.results.userID;
+		// 	console.log(res)
+		// 	const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='
+		// 	window.open(`${link}${userId}`);
+		// 	navigate('/');
+		// }).catch((e) => console.log(e));
+  }
+
 	const terms = [
 		{
 			id: 'termsA6',
@@ -17,6 +112,7 @@ const Step5 = () => {
 					소비자권익에 관한 사항
 					<br /><br /><br />
 					본 동의를 거부하시는 경우에는 보험계약 상담 등 정상적인 서비스제공이 불가능하며 본 동의서에 의한 개인(신용) 정보 조회는 귀하의 신용등급에 영향을 주지 않습니다.<br /><br />또한, 동의하시더라도 인슈로보 고객센터(070-4126-3333) 또는 현대해상 홈페이지 및 고객콜 센터(1577-1001)를 통해 철회하거나 보험계약상담 목적의 연락에 대한 중단을 요청하실 수 있습니다.
+					를 거부하시는 경우에는 보험계약 상담 등 정상적인 서비스제공이 불가능하며 본 동의서에 의한 개인(신용) 정보 조회는 귀하의 신용등급에 영향을 주지 않습니다. 또한, 동의하시더라도 인슈로보 고객센터(070-4126-3333) 또는 현대해상 홈페이지 및 고객콜 센터(1577-1001)를 통해 철회하거나 보험계약상담 목적의 연락에 대한 중단을 요청하실 수 있습니다.
 				</div>
 			`
 		},
@@ -26,7 +122,7 @@ const Step5 = () => {
 				<div>
 					민감정보 및 고유식별정보의 처리에 관한 사항
 					<br /><br />
-					현대해상 및 현대해상 업무수탁자는 「개인정보보호법」 및 「신용정보의 이용 및 보호에 관한 법률」에 따라 상기의 개인(신용)정보에<br /><br />대한 개별 동의사항에 대하여 다음과 같이 귀하의 민감정보(질병·상해정보) 및 고유식별정보(주민등록번호·외국인등록번호·운전면허번호)<br /><br />를 처리(수집·이용, 조회, 제공)하고자 합니다. 이에 동의하십니까?  
+					현대해상 및 현대해상 업무수탁자는 「개인정보보호법」 및 「신용정보의 이용 및 보호에 관한 법률」에 따라 상기의 개인(신용)정보에<br /><br />대한 개별 동의사항에 대하여 다음과 같이 귀하의 민감정보(질병·상해정보) 및 고유식별정보(주민등록번호·외국인등록번호·운전면허번호)<br /><br />를 처리(수집·이용, 조회, 제공)하고자 합니다. 이에 동의하십니까?  
 				</div>
 			`
 		},
@@ -37,7 +133,7 @@ const Step5 = () => {
 					개인(신용)정보의 사전 수집·이용에 관한 사항
 					<br /><br />
 					보험회사 및 보험회사 업무수탁자는 「개인정보 보호법」 및 「신용정보의 이용 및 보호에 관한 법률」에 따라 본 계약과 관련하여
-					<br /><br />귀하의 개인(신용)정보를 다음과 같이 수집·이용하고자 합니다. 이에 대하여 동의하십니까?
+					<br /><br />귀하의 개인(신용)정보를 다음과 같이 수집·이용하고자 합니다. 이에 대하여 동의하십니까?
 					<br /><br />
 					□ 개인(신용)정보의 수집·이용 목적 - 보험계약상담, 보험계약 인수여부 결정을 위한 판단, 다중이용업소화재배상책임보험 가입대상 확인, 재무설계서비스, 실손의료보험계약
 					<br /><br />
@@ -170,41 +266,8 @@ const Step5 = () => {
 					- 신용거래정보 : 보험계약정보(보험상품명, 보험기간, 보험가입
 				</div>
 			`
-		},
-	]
-	const data = {
-		// inputBldSt: watch('inputBldSt'),
-		// inputBldEd: watch('inputBldEd'),
-		// bldTotLyrNum: insurance.getCover.bldTotLyrNum,
-		// hsArea: watch('hsArea'),
-		// poleStrc: insurance.getCover.poleStrc,
-		// roofStrc: insurance.getCover.roofStrc,
-		// otwlStrc: insurance.getCover.otwlStrc,
-		// objCat: watch('objCat'),
-		// lobzCd: watch('lobzCd'),
-		// objZip1: objZipValue.substring(0, 3),
-		// objZip2: objZipValue.substring(3, 5),
-		// objAddr1: watch('objAddr1'),
-		// objAddr2: watch('objAddr2'),
-		// bizNo: BizReplaceValue,
-		// inrBirth: watch('inrBirth'),
-		// inrGender: watch('inrGender'),
-		// telNo: watch('telNo'),
-		// ptyBizNm: watch('ptyBizNm'),
-		// ptyKorNm: watch('ptyKorNm'),
-		// termsA1: watch('termsA1') ? 'Y' : 'N',
-		// termsA2: watch('termsA2') ? 'Y' : 'N',
-		// termsA3: watch('termsA3') ? 'Y' : 'N',
-		// termsA4: watch('termsA4') ? 'Y' : 'N',
-		// termsA6: watch('termsA6') ? 'Y' : 'N',
-		// termsA7: watch('termsA7') ? 'Y' : 'N',
-	}
-	const onClickNext = () => {
-		console.log(data)
-	}
-  useEffect(() => {
-    
-  }, []);
+		}
+	];
 	const onClickAllCheck = () => {
 		setValue('termsA1', 'Y')
 		setValue('termsA2', 'Y')
@@ -213,6 +276,7 @@ const Step5 = () => {
 		setValue('termsA6', 'Y')
 		setValue('termsA7', 'Y')
 	}
+
   return (
     <SectionWrap 
       title='개인(신용)정보 수집.조회.이용.제공 동의'
@@ -285,7 +349,6 @@ const ScrollView = styled.div`
 	margin-bottom: 14px;
 	overflow: scroll;
 	padding: 16px 12px;
-
 	> div {
 		font-size: 14px;
 	}
