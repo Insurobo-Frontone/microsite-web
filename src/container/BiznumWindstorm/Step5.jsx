@@ -10,7 +10,7 @@ import { StorageGetInsurance } from "../Storage/Insurance";
 import useWindowSize from "../../hooks/useWindowSize";
 
 const Step5 = () => {
-	const { watch, setValue, setError, setFocus } = useFormContext();
+	const { watch, setValue, setError, setFocus, formState: { errors } } = useFormContext();
 	const { width } = useWindowSize();
 	const navigate = useNavigate();
 	
@@ -20,6 +20,11 @@ const Step5 = () => {
   }, []);
 
 	const onClickNext = () => {
+		console.log(errors)
+		if (errors) {
+			setFocus(errors)
+		}
+		
 		// if (watch('lobzCd') === '') {
 		// 	setFocus('lobzCd')
 		// 	setError('lobzCd', {
@@ -64,7 +69,7 @@ const Step5 = () => {
 			termsA6: watch('termsA6'),
 			termsA7: watch('termsA7'),
 		})
-		}
+	}
 		
 		
     //우편번호
