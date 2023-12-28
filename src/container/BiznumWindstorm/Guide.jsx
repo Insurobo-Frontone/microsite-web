@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { useNavigate } from "react-router-dom";
 import yogiyoAppIcon from '../../assets/img/yogiyo_AppCi.png';
 import insuAppIcon from '../../assets/img/insuroboApp_icon.png';
 import main1 from '../../assets/img/yogiyoWindstormMain.png';
@@ -11,7 +12,6 @@ import userMessageBox from '../../assets/icon/insuroboWindstorm/userMessageBoxTa
 import insuChatIcon from '../../assets/img/insuroboChat_icon.png';
 import userChatIcon from '../../assets/img/userChat_icon.png';
 import Button from "../InsuroboWindStrom/Button";
-import { useNavigate } from "react-router-dom";
 
 const manual = [
   {
@@ -369,6 +369,10 @@ export default Guide
 const Wrap = styled.div`
   width: 768px;
   margin: 0 auto;
+
+  ${(props) => props.theme.window.mobile} {
+    width: 100%;
+  }
 `;
 
 const Section = styled.div`
@@ -390,12 +394,30 @@ const Section = styled.div`
   ${props => props.gradient === 'gra2' && css`
     background: linear-gradient(180deg, rgba(52, 170, 196, 0.61) 0%, rgba(0, 0, 206, 0.32) 100%);
   `}
+
+  ${(props) => props.theme.window.mobile} {
+    padding: 32px 10px;
+
+    ${props => props.gradient === 'gra1' && css`
+      padding: 80px 0 80px 30px;
+      position: relative;
+      > div:nth-child(2) {
+        
+        > img {
+          position: absolute;
+          bottom: 80px;
+          transform: translateX(-20px);
+        }
+      }
+    `};
+  }
 `;
 
 const AppIconWrap = styled.div`
   display: flex;
   justify-content: space-between;
   width: 74px;
+
 `;
 
 const TextWrap = styled.div`
@@ -491,6 +513,10 @@ const CardWrap =  styled.ul`
       color: #333333;
     }
   }
+
+  ${(props) => props.theme.window.mobile} {
+    
+  }
 `;
 
 const Card = styled.div`
@@ -517,6 +543,8 @@ const ChatWrap = styled.div`
       height: 48px;
     }
   }
+
+
 `;
 
 const MessageBox = styled.div`
@@ -605,6 +633,12 @@ const HashTagWrap = styled.div`
     padding: 8px 12px;
     font-size: 13px;
     font-weight: 300;
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    > div {
+      padding: 6px 8px;
+    }
   }
 `;
 

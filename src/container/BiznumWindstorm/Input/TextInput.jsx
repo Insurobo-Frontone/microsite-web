@@ -1,9 +1,8 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
-import { ErrorMessage } from "@hookform/error-message";
-const TextInput = ({ onBlur, defaultValue, value, type, name, required, validate, pattern, placeholder, disabled, readOnly, maxLength, minLength, errorFild }) => {
-  const { register, formState: { errors }  } = useFormContext();
+const TextInput = ({ onBlur, defaultValue, value, type, name, required, validate, pattern, placeholder, disabled, readOnly, maxLength, minLength}) => {
+  const { register } = useFormContext();
   return (
     <>
       <TextBasic
@@ -23,15 +22,6 @@ const TextInput = ({ onBlur, defaultValue, value, type, name, required, validate
           minLength: minLength
         })}
       />
-      {errorFild && (
-        <>
-          {errors && (
-            <ErrorTextMessage>
-              <ErrorMessage errors={errors} name={name} />
-            </ErrorTextMessage> 
-          )}
-        </>
-      )}
     </>
   )
 }
@@ -50,10 +40,4 @@ const TextBasic = styled.input`
   ::placeholder {
     color: #D0D0D0;
   }
-`;
-
-const ErrorTextMessage = styled.div`
-  font-size: 12px;
-  color: #FF0000;
-  line-height: 22px;
 `;

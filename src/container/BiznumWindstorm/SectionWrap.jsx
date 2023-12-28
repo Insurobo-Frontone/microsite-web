@@ -35,6 +35,13 @@ const Section = styled.div`
       padding-bottom: 44px;
     }
   }
+
+  ${(props) => props.theme.window.mobile} {
+    padding: 0 20px;
+    > div {
+      width: 100%;
+    }
+  }
 `;
 
 const SectionTitle = styled.div`

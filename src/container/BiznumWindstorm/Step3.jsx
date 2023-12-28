@@ -7,12 +7,13 @@ import { StorageSetInsurance } from "../Storage/Insurance";
 import SelectInput from "./Input/SelectInput";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import ErrorMessage from "./ErrorMessage";
 
 const Step3 = ({ data }) => {
   const [bizData, setBizData] = useState();
   const [addrData, setAddrData] = useState();
   const [loBzCdList, setLoBzCdList] = useState([]);
-  const { watch } = useFormContext();
+  const { watch, formState: { errors } } = useFormContext();
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
   const yoStore = [
@@ -110,17 +111,18 @@ const Step3 = ({ data }) => {
               <TextInput 
                 name='objAddr2'
                 placeholder='상세주소 입력'
-                required='입력값확인'
-                errorFild
+                required='상세주소를 입력해주세요'
               />
+              {errors.objAddr2 && <ErrorMessage message={errors.objAddr2.message} />}
           </InputGroup>
           <InputGroup>
             <p>실사용면적<b>*</b></p>
             <TextInput 
               name='hsArea'
               placeholder='면적을 입력하세요 (단위는 m2 입니다.)'
-              required={true}
+              required='면적을 입력해주세요'
             />
+            {errors.hsArea && <ErrorMessage message={errors.hsArea.message} />}
           </InputGroup>
           <InputGroup>
             <div>
@@ -134,12 +136,10 @@ const Step3 = ({ data }) => {
               <TextInput 
                 name='ugrndFlrCnt'
                 value={bizData?.ugrndFlrCnt}
-                required={true}
               />
               <TextInput 
                 name='grndFlrCnt'
                 value={bizData?.grndFlrCnt}
-                required={true}
               />
             </div>
           </InputGroup>
@@ -149,14 +149,18 @@ const Step3 = ({ data }) => {
               <TextInput 
                 name='inputBldSt'
                 placeholder='시작 층'
-                required={true}
+                required='가입하실 층수를 다시 입력해주세요.'
               />
               <TextInput 
                 name='inputBldEd'
                 placeholder='끝 층'
-                required={true}
+                required='가입하실 층수를 다시 입력해주세요.'
               />
             </div>
+            {
+              errors.inputBldSt ? <ErrorMessage message={errors.inputBldSt.message} /> :  
+              errors.inputBldEd && <ErrorMessage message={errors.inputBldEd.message} />
+            }
           </InputGroup>
           <InputGroup>
             <p>건물 구조정보<b>*</b></p>
@@ -169,7 +173,6 @@ const Step3 = ({ data }) => {
                 bizData?.otwlStrc === '18' ? '목조' :
                 bizData?.otwlStrc === '15' && '유리벽'
               }`}
-              required={true}
             />
           </InputGroup>
         </>
@@ -207,6 +210,14 @@ const InputGroup = styled.div`
       color: #FF0000;
       font-size: 12px;
       padding-top: 12px;
+    }
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    .two-input {
+      > input {
+        width: 162px;
+      }
     }
   }
 `;

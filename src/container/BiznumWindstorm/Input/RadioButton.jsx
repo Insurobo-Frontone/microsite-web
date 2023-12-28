@@ -89,7 +89,11 @@ const RadioBasic = styled.div`
   
 
   ${(props) => props.theme.window.mobile} {
-   
+    > label {
+      :last-child {
+        margin-left: 5px;
+      }
+    }
   }
     
 `;

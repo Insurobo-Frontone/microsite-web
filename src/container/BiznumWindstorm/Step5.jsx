@@ -20,12 +20,12 @@ const Step5 = () => {
   }, []);
 
 	const onClickNext = () => {
-		if (watch('lobzCd') === '') {
-			setFocus('lobzCd')
-			setError('lobzCd', {
-				message: '업종을 선택해주세요.'
-			})
-		}
+		// if (watch('lobzCd') === '') {
+		// 	setFocus('lobzCd')
+		// 	setError('lobzCd', {
+		// 		message: '업종을 선택해주세요.'
+		// 	})
+		// }
 		if (watch('termsA1') === 'N' || 
 				watch('termsA2') === 'N' ||
 				watch('termsA3') === 'N' || 
@@ -389,4 +389,10 @@ const ButtonGroup = styled.div`
 			background-color: #E2E2E2;
 		}
 	`}
+
+	${(props) => props.theme.window.mobile} {
+		> button {
+			width: 164px;
+		}
+	}
 `;

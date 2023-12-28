@@ -8,6 +8,7 @@ import Popup from "./Popup";
 import { MoneypinToken } from "../../api/BizWindStormAPI";
 import Step2 from "./Step2";
 import SectionWrap from "./SectionWrap";
+import ErrorMessage from "./ErrorMessage";
 
 const Step1 = () => {
   const [close, setClose] = useState(true);
@@ -34,13 +35,13 @@ const Step1 = () => {
 
   // 조회하기 버튼 클릭
   const onClickSearch = useCallback((e) => {
-    setValue('bizNo', watch('bizNo1') + watch('bizNo2') + watch('bizNo3'));
     if (bizNumValidate()) {
       clearErrors('bizNo')
       MoneypinToken().then((res) => {
         setBizToken(res.data.token)
       }).catch((error) => {
         console.log(error);
+        alert('네트워크 접속이 지연되고 있습니다. 잠시 후 다시 시도해주세요')
       });
     } else {
       setError('bizNo', {
@@ -51,6 +52,7 @@ const Step1 = () => {
 
   // 사업자번호 유효성 검사
   const bizNumValidate = () => {
+    setValue('bizNo', watch('bizNo1') + watch('bizNo2') + watch('bizNo3'));
     let number = watch('bizNo');
     let regsplitNum = number.replace(/ /gi,"").split('').map(function (d){
       return parseInt(d, 10);
@@ -124,10 +126,10 @@ const Step1 = () => {
                 />
               </div>
               {
-                errors.bizNo1 ? <ErrorMessage>{errors.bizNo1.message}</ErrorMessage> :  
-                errors.bizNo2 ? <ErrorMessage>{errors.bizNo2.message}</ErrorMessage> :
-                errors.bizNo3 ? <ErrorMessage>{errors.bizNo3.message}</ErrorMessage> :
-                errors.bizNo && <ErrorMessage>{errors.bizNo.message}</ErrorMessage>
+                errors.bizNo1 ? <ErrorMessage message={errors.bizNo1.message} /> :  
+                errors.bizNo2 ? <ErrorMessage message={errors.bizNo2.message} /> :
+                errors.bizNo3 ? <ErrorMessage message={errors.bizNo3.message} /> :
+                errors.bizNo && <ErrorMessage message={errors.bizNo.message} />
               }
             </InputGroup>
             {!close && (
@@ -174,11 +176,4 @@ const InputGroup = styled.div`
       color: #6262EF;
     }
   }
-`;
-
-const ErrorMessage = styled.div`
-  font-size: 12px;
-  color: #FF0000;
-  font-weight: 300;
-  padding-top: 10px;
 `;

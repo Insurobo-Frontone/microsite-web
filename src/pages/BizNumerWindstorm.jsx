@@ -71,5 +71,14 @@ const ApplyTitle = styled.div`
       line-height: 23px;
     }
   }
+
+  ${(props) => props.theme.window.mobile} {
+    > ul {
+      > li {
+        font-size: 11px;
+        line-height: 21px;
+      }
+    }
+  }
 `;
 

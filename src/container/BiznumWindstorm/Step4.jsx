@@ -7,9 +7,10 @@ import SelectInput from "./Input/SelectInput";
 import { useFormContext } from "react-hook-form";
 import Popup from "./Popup";
 import { getLoBzCdList } from "../../api/WindstormAPI";
+import ErrorMessage from "./ErrorMessage";
 
 const Step4 = () => {
-  const { watch } = useFormContext();
+  const { watch, formState: { errors } } = useFormContext();
   const [close, setClose] = useState(true);
   const [loBzCdList, setLoBzCdList] = useState([]);
   const check1 = [
@@ -62,8 +63,9 @@ const Step4 = () => {
           <TextInput 
             name='sBiz1YNum'
             type='number'
-            required={true}
+            required='상시 근로자 수를 입력해주세요'
           />
+          {errors.sBiz1YNum && <ErrorMessage message={errors.sBiz1YNum.message} />}
         </InputGroup>
         <InputGroup>
           <p>“중소기업기본법 시행령” 제 8조 1항 에서는 주요 업종별 연평균 매출액을 제한합니다. 피보험자의 연평균 매출액이 기준 미만입니까?</p>
@@ -75,7 +77,6 @@ const Step4 = () => {
             placeholder='선택하세요'
             name='sBiz2YSect'
             defaultValue=''
-            required={true}
           >
             {loBzCdList?.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
               return (
@@ -91,10 +92,11 @@ const Step4 = () => {
           <TextInput 
             name='sBiz2Ytake'
             type='number'
-            required={true}
+            required='연평균 매출액을 입력해주세요'
           />
+          {errors.sBiz2Ytake && <ErrorMessage message={errors.sBiz2Ytake.message} />}
         </InputGroup>
-        
+
       </SectionWrap>
       {close && (
         <Popup close={() => setClose(true)}>
