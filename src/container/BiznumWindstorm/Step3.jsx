@@ -7,13 +7,12 @@ import { StorageSetInsurance } from "../Storage/Insurance";
 import SelectInput from "./Input/SelectInput";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
-import ErrorMessage from "./ErrorMessage";
 
 const Step3 = ({ data }) => {
   const [bizData, setBizData] = useState();
   const [addrData, setAddrData] = useState();
   const [loBzCdList, setLoBzCdList] = useState([]);
-  const { watch, formState: { errors } } = useFormContext();
+  const { watch } = useFormContext();
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
 
@@ -86,27 +85,26 @@ const Step3 = ({ data }) => {
             {jehuCd === 'yogiyo' && (<p className="warning">*일반(상가) 외 공장이나 주택은 가입이 불가합니다</p>)}
           </InputGroup>
           <InputGroup>
-              <p>영위업종*</p>
-              <SelectInput
-                placeholder='선택해주세요.'
-                name='lobzCd'
-                defaultValue=''
-              >
-                {loBzCdList?.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
-                  return (
-                    <option value={cur.code} key={index}>
-                      {cur.name}
-                    </option>
-                  )
-                })}
-              </SelectInput>
-            </InputGroup>
+            <p>영위업종*</p>
+            <SelectInput
+              placeholder='선택해주세요.'
+              name='lobzCd'
+              defaultValue=''
+            >
+              {loBzCdList?.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
+                return (
+                  <option value={cur.code} key={index}>
+                    {cur.name}
+                  </option>
+                )
+              })}
+            </SelectInput>
+          </InputGroup>
           <InputGroup>
             <p>주소<b>*</b></p>
             <TextInput 
               name='objAddr1'
               value={addrData?.jibunAddr}
-              required={true}
               readOnly
             />
             <TextInput 
@@ -114,7 +112,6 @@ const Step3 = ({ data }) => {
               placeholder='상세주소 입력'
               required='상세주소를 입력해주세요'
             />
-            {errors.objAddr2 && <ErrorMessage message={errors.objAddr2.message} />}
           </InputGroup>
           <InputGroup>
             <p>실사용면적<b>*</b></p>
@@ -123,7 +120,6 @@ const Step3 = ({ data }) => {
               placeholder='면적을 입력하세요 (단위는 m2 입니다.)'
               required='면적을 입력해주세요'
             />
-            {errors.hsArea && <ErrorMessage message={errors.hsArea.message} />}
           </InputGroup>
           <InputGroup>
             <div>
@@ -150,18 +146,14 @@ const Step3 = ({ data }) => {
               <TextInput 
                 name='inputBldSt'
                 placeholder='시작 층'
-                required='가입하실 층수를 다시 입력해주세요.'
+                required='가입하실 시작 층수를 다시 입력해주세요.'
               />
               <TextInput 
                 name='inputBldEd'
                 placeholder='끝 층'
-                required='가입하실 층수를 다시 입력해주세요.'
+                required='가입하실 끝 층수를 다시 입력해주세요.'
               />
             </div>
-            {
-              errors.inputBldSt ? <ErrorMessage message={errors.inputBldSt.message} /> :  
-              errors.inputBldEd && <ErrorMessage message={errors.inputBldEd.message} />
-            }
           </InputGroup>
           <InputGroup>
             <p>건물 구조정보<b>*</b></p>
@@ -197,7 +189,7 @@ const InputGroup = styled.div`
   }
   .two-input {
     > input {
-      width: 175px;
+      width: 49.15730337078652%;
     }
   }
   p {
@@ -211,14 +203,6 @@ const InputGroup = styled.div`
       color: #FF0000;
       font-size: 12px;
       padding-top: 12px;
-    }
-  }
-
-  ${(props) => props.theme.window.mobile} {
-    .two-input {
-      > input {
-        width: 162px;
-      }
     }
   }
 `;

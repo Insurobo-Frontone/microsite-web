@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import RadioButton from "./Input/RadioButton";
@@ -8,84 +8,91 @@ import { useFormContext } from "react-hook-form";
 import { postHiLinkObj } from "../../api/WindstormAPI";
 import { StorageGetInsurance } from "../Storage/Insurance";
 import useWindowSize from "../../hooks/useWindowSize";
+import Popup from "./Popup";
 
 const Step5 = () => {
 	const { watch, setValue, setError, setFocus, handleSubmit, formState: { errors } } = useFormContext();
 	const { width } = useWindowSize();
 	const navigate = useNavigate();
+	const [close, setClose] = useState(false);
+	const [message, setMessage] = useState('');
 	
 	useEffect(() => {
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
-		setValue('bizNo', watch('bizNo1')+watch('bizNo2')+watch('bizNo3'));
-  }, []);
+	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')])
+	const onError = (e) => {
+		if (e) {
+			console.log(e)
+			setClose(true)
+		}
+	}
 	const onClickNext = () => {
-		if (watch('telNo') === '') {
-			setFocus('telNo1')
-		} else if (watch('inrBirth') === '') {
-			setFocus('inrBirth')
-		} else if (watch('lobzCd') === '') {
-			setError('lobzCd', {
-			 	message: '업종을 선택해주세요.'
-			})
-			setFocus('lobzCd')
-		} else if (watch('objAddr2') === '') {
-			setFocus('objAddr2')
-		} else if (watch('hsArea') === '') {
-			setFocus('hsArea')
-		} else if (watch('inputBldSt') === '') {
-			setFocus('inputBldSt')
-		} else if (watch('inputBldEd') === '') {
-			setFocus('inputBldEd')
-		} else if (watch('inputBldEd') === '') {
-			setFocus('inputBldEd')
-		} else if (watch('workerNum') === '') {
-			setFocus('workerNum')
-		} else if (watch('bizMainType') === '') {
-			setError('bizMainType', {
-				message: '업종을 선택해주세요.'
-		 	})
-			setFocus('bizMainType')
-		} else if (watch('sales') === '') {
-			setFocus('sales')
-		} else if (watch('termsA1') === 'N' || 
+		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/
+		if (watch('termsA1') === 'N' || 
 				watch('termsA2') === 'N' ||
 				watch('termsA3') === 'N' || 
 				watch('termsA4') === 'N' ||
-				watch('termsA6') === 'N' ||
-				watch('termsA7') === 'N'
+				watch('termsA6') === 'N'
 		) {
-			alert('필수체크 항목에 동의하셔야 가입이 가능합니다')
-		} else {
+			setClose(true);
+			setMessage('필수체크 항목에 동의하셔야 가입이 가능합니다');
+			return false;
+		} if (
+			watch('workerNumUnder') === 'N' ||
+			watch('charSalesUnder') === 'N'
+		) {
+			setClose(true);
+			setMessage('가입대상이 아닙니다.');
+			return false;
+		} if (watch('lobzCd') === '') {
+			setError('lobzCd', {
+				type: 'custom',
+				message: '영위업종을 선택해주세요.'
+			});
+			return false;
+		} if (watch('bizMainType') === '') {
+			setError('bizMainType', {
+				type: 'custom',
+				message: '주요업종을 선택해주세요.'
+			});
+			return false;
+		} if (phoneReg.test(watch('telNo')) === false) {
+			setError('telNo', {
+				type: 'custom',
+				message: '핸드폰번호를 확인해주세요.'
+			});
+		}
+		else {
 			const insurance = StorageGetInsurance();
-		const objZipValue = insurance.getAddr.zipNo+''
-		console.log({
-			inputBldSt: watch('inputBldSt'),
-			inputBldEd: watch('inputBldEd'),
-			bldTotLyrNum: insurance.getCover.bldTotLyrNum,
-			hsArea: watch('hsArea'),
-			poleStrc: insurance.getCover.poleStrc,
-			roofStrc: insurance.getCover.roofStrc,
-			otwlStrc: insurance.getCover.otwlStrc,
-			objCat: watch('objCat'),
-			lobzCd: watch('lobzCd'),
-			objZip1: objZipValue.substring(0, 3),
-			objZip2: objZipValue.substring(3, 5),
-			objAddr1: insurance.getAddr.jibunAddr,
-			objAddr2: watch('objAddr2'),
-			bizNo: watch('bizNo'),
-			inrBirth: watch('inrBirth'),
-			inrGender: watch('inrGender'),
-			telNo: watch('telNo'),
-			ptyBizNm: watch('ptyBizNm'),
-			ptyKorNm: watch('ptyKorNm'),
-			termsA1: watch('termsA1'),
-			termsA2: watch('termsA2'),
-			termsA3: watch('termsA3'),
-			termsA4: watch('termsA4'),
-			termsA6: watch('termsA6'),
-			termsA7: watch('termsA7'),
-		})
-	}
+			const objZipValue = insurance.getAddr.zipNo+''
+			console.log({
+				inputBldSt: watch('inputBldSt'),
+				inputBldEd: watch('inputBldEd'),
+				bldTotLyrNum: insurance.getCover.bldTotLyrNum,
+				hsArea: watch('hsArea'),
+				poleStrc: insurance.getCover.poleStrc,
+				roofStrc: insurance.getCover.roofStrc,
+				otwlStrc: insurance.getCover.otwlStrc,
+				objCat: watch('objCat'),
+				lobzCd: watch('lobzCd'),
+				objZip1: objZipValue.substring(0, 3),
+				objZip2: objZipValue.substring(3, 5),
+				objAddr1: insurance.getAddr.jibunAddr,
+				objAddr2: watch('objAddr2'),
+				bizNo: watch('bizNo'),
+				inrBirth: watch('inrBirth'),
+				inrGender: watch('inrGender'),
+				telNo: watch('telNo'),
+				ptyBizNm: watch('ptyBizNm'),
+				ptyKorNm: watch('ptyKorNm'),
+				termsA1: watch('termsA1'),
+				termsA2: watch('termsA2'),
+				termsA3: watch('termsA3'),
+				termsA4: watch('termsA4'),
+				termsA6: watch('termsA6'),
+				termsA7: watch('termsA7'),
+			})
+		}
 		
 		
     //우편번호
@@ -299,31 +306,52 @@ const Step5 = () => {
 	}
 
   return (
-    <SectionWrap 
-      title='개인(신용)정보 수집.조회.이용.제공 동의'
-      info='본인은 개인정보보호법, 신용정보의 이용 및 보호에 관한 법률 및 관련 규정에 의해, 풍수해보험과 관련된 피보험자 개인정보의 수집.이용.조회.제공 및 고유식별정보 처리에 동의합니다(미성년자는 가입이 불가합니다).'
-      hr='none'
-    >
-      <AllCheckButton>
-        <button onClick={() => onClickAllCheck()}>전체 동의하기</button>
-      </AllCheckButton>
-			{terms.map((dt) => (
-				<InputGroup>
-					<ScrollView dangerouslySetInnerHTML={{
-						 __html: dt.textArea
-					}} />
-					<RadioButton name={dt.id} data={[{ id: `select_${dt.id}_N`, value: 'N', title: '동의하지 않음'}, { id: `select_${dt.id}_Y`, value: 'Y', title: '동의'}]} />
-				</InputGroup>
-			))}
-			<CheckGroup>
-				<CheckInput name='bizConfirm' id='bizConfirm' />
-				<p>위 기재사실이 허위 또는 부실 작성일 경우 약관상 고의 및 중과실에 해당되어 <span>보험금 지급이 제한</span>될 수 있고, <span>보험 계약이 해지 또는 취소될 수 있음</span>을 확인하였습니다.</p>
-			</CheckGroup>
-			<ButtonGroup>
-				<button className="default">이전</button>
-				<button onClick={() => onClickNext()}>가입신청</button>
-			</ButtonGroup>
-    </SectionWrap>
+    <form onSubmit={handleSubmit(onClickNext, onError)}>
+			<SectionWrap 
+				title='개인(신용)정보 수집.조회.이용.제공 동의'
+				info='본인은 개인정보보호법, 신용정보의 이용 및 보호에 관한 법률 및 관련 규정에 의해, 풍수해보험과 관련된 피보험자 개인정보의 수집.이용.조회.제공 및 고유식별정보 처리에 동의합니다(미성년자는 가입이 불가합니다).'
+				hr='none'
+			>
+				<AllCheckButton>
+					<button type='button' onClick={() => onClickAllCheck()}>전체 동의하기</button>
+				</AllCheckButton>
+				{terms.map((dt) => (
+					<InputGroup>
+						<ScrollView dangerouslySetInnerHTML={{
+							__html: dt.textArea
+						}} />
+						<RadioButton name={dt.id} data={[{ id: `select_${dt.id}_N`, value: 'N', title: '동의하지 않음'}, { id: `select_${dt.id}_Y`, value: 'Y', title: '동의'}]} />
+					</InputGroup>
+				))}
+				<CheckGroup>
+					<CheckInput name='bizConfirm' id='bizConfirm' />
+					<p>위 기재사실이 허위 또는 부실 작성일 경우 약관상 고의 및 중과실에 해당되어 <span>보험금 지급이 제한</span>될 수 있고, <span>보험 계약이 해지 또는 취소될 수 있음</span>을 확인하였습니다.</p>
+				</CheckGroup>
+				<ButtonGroup>
+					<button className="default">이전</button>
+					<button type="submit">가입신청</button>
+				</ButtonGroup>
+			</SectionWrap>
+			{close && (
+				<Popup close={() => setClose(false)}>
+					{	errors.telNo1 ? <p>{errors.telNo1.message}</p> : 
+						errors.telNo2 ? <p>{errors.telNo2.message}</p> : 
+						errors.telNo3 ? <p>{errors.telNo3.message}</p> :
+						errors.telNo ? <p>{errors.telNo.message}</p> :
+						errors.inrBirth ? <p>{errors.inrBirth.message}</p> :
+						errors.lobzCd ? <p>{errors.lobzCd.message}</p> :
+						errors.objAddr2 ? <p>{errors.objAddr2.message}</p> :
+						errors.hsArea ? <p>{errors.hsArea.message}</p> :
+						errors.inputBldSt ? <p>{errors.inputBldSt.message}</p> :
+						errors.inputBldEd ? <p>{errors.inputBldEd.message}</p> :
+						errors.workerNum ? <p>{errors.workerNum.message}</p> :
+						errors.bizMainType ? <p>{errors.bizMainType.message}</p> :
+						errors.sales ? <p>{errors.sales.message}</p> :
+						message !== '' && <p>{message}</p>
+					}
+				</Popup>
+			)}
+		</form>
   )
 }
 
