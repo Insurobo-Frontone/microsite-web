@@ -15,8 +15,11 @@ let tokenConfig = {
   data : data
 };
 
-export const WindstormAPI = axios.create({
-  baseURL: 'http://localhost:3000'
+export const bizWindstormAPI = axios.create({
+  baseURL: 'http://localhost:3000',
+  headers: { 
+    "Content-Type": "application/json;charset=UTF-8",
+  },
 });
 
 // 머니핀 인증토큰 생성
@@ -38,4 +41,10 @@ export const MoneypinBizInfo = async (bizNoList, token) => {
       "bizNoList": [bizNoList]
     }
   })
+}
+
+export const postWindstormSave = async (params) => {
+  return await bizWindstormAPI.post('/public/stmFld/save', {
+    ...params
+  });
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { useFormContext, Controller } from 'react-hook-form';
+import checkedBg from '../../../assets/icon/checkedBg.png';
 
 const RadioButton = ({ name, data, onFocus }) => {
   const { control } = useFormContext();
@@ -72,21 +73,12 @@ const RadioBasic = styled.div`
     left: -1000%;
   }
   > input:checked + label::before {
-    border: 1px solid #6262EF;
-    
+    border: 1.5px solid #6262EF;
+    background-image: url(${checkedBg});
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px;
   }
-  > input:checked + label::after {
-    content: '';
-    display: block;
-    width: 14px;
-    height: 14px;
-    background-color: #6262EF;
-    border-radius: 50%;
-    position: absolute;
-    top: 3px;
-    left: 3px;
-  }
-  
 
   ${(props) => props.theme.window.mobile} {
     > label {

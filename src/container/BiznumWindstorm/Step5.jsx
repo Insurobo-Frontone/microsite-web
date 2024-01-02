@@ -10,7 +10,7 @@ import { StorageGetInsurance } from "../Storage/Insurance";
 import useWindowSize from "../../hooks/useWindowSize";
 
 const Step5 = () => {
-	const { watch, setValue, setError, setFocus, formState: { errors } } = useFormContext();
+	const { watch, setValue, setError, setFocus, handleSubmit, formState: { errors } } = useFormContext();
 	const { width } = useWindowSize();
 	const navigate = useNavigate();
 	
@@ -18,27 +18,43 @@ const Step5 = () => {
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
 		setValue('bizNo', watch('bizNo1')+watch('bizNo2')+watch('bizNo3'));
   }, []);
-
 	const onClickNext = () => {
-		console.log(errors)
-		if (errors) {
-			setFocus(errors)
-		}
-		
-		// if (watch('lobzCd') === '') {
-		// 	setFocus('lobzCd')
-		// 	setError('lobzCd', {
-		// 		message: '업종을 선택해주세요.'
-		// 	})
-		// }
-		if (watch('termsA1') === 'N' || 
+		if (watch('telNo') === '') {
+			setFocus('telNo1')
+		} else if (watch('inrBirth') === '') {
+			setFocus('inrBirth')
+		} else if (watch('lobzCd') === '') {
+			setError('lobzCd', {
+			 	message: '업종을 선택해주세요.'
+			})
+			setFocus('lobzCd')
+		} else if (watch('objAddr2') === '') {
+			setFocus('objAddr2')
+		} else if (watch('hsArea') === '') {
+			setFocus('hsArea')
+		} else if (watch('inputBldSt') === '') {
+			setFocus('inputBldSt')
+		} else if (watch('inputBldEd') === '') {
+			setFocus('inputBldEd')
+		} else if (watch('inputBldEd') === '') {
+			setFocus('inputBldEd')
+		} else if (watch('workerNum') === '') {
+			setFocus('workerNum')
+		} else if (watch('bizMainType') === '') {
+			setError('bizMainType', {
+				message: '업종을 선택해주세요.'
+		 	})
+			setFocus('bizMainType')
+		} else if (watch('sales') === '') {
+			setFocus('sales')
+		} else if (watch('termsA1') === 'N' || 
 				watch('termsA2') === 'N' ||
 				watch('termsA3') === 'N' || 
 				watch('termsA4') === 'N' ||
 				watch('termsA6') === 'N' ||
 				watch('termsA7') === 'N'
 		) {
-			alert('필수항목 동의')
+			alert('필수체크 항목에 동의하셔야 가입이 가능합니다')
 		} else {
 			const insurance = StorageGetInsurance();
 		const objZipValue = insurance.getAddr.zipNo+''

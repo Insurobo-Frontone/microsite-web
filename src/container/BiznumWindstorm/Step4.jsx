@@ -42,10 +42,10 @@ const Step4 = () => {
     .then((res) => {
       setLoBzCdList(res.data.results.codes)
     }).catch((e) => console.log(e)) 
-    if (watch('sBizCheck1') || watch('sBizCheck2') === 'N') {
+    if (watch('workerNumUnder') || watch('charSalesUnder') === 'N') {
       setClose(false);
     }
-  }, [watch('sBizCheck1'), watch('sBizCheck2')]);
+  }, [watch('workerNumUnder'), watch('charSalesUnder')]);
 
   return (
     <>
@@ -56,31 +56,31 @@ const Step4 = () => {
       >
         <InputGroup>
           <p>“소상공인 보호 및 지원에 관한 법률” 제 2조, “중소기업기본법" 제 2조 2항에서는 소상공인의 상시 근로자 수를 광업.제조업.건설업.운수업은 10명 미만, 그 밖의 업종은 5명 미만으로 제한합니다. 피보험자의 상시 근로자수(아르바이트 제외)가 기준 미만입니까?</p>
-          <RadioButton name='sBizCheck1' data={check1} />
+          <RadioButton name='workerNumUnder' data={check1} />
         </InputGroup>
         <InputGroup>
           <p>상시 근로자수(아르바이트 제외)가 기준 미만이라면, 상시 근로자 수는 몇 명입니까?* <span>(숫자로만 표기)</span></p>
           <TextInput 
-            name='sBiz1YNum'
+            name='workerNum'
             type='number'
             required='상시 근로자 수를 입력해주세요'
           />
-          {errors.sBiz1YNum && <ErrorMessage message={errors.sBiz1YNum.message} />}
+          {errors.workerNum && <ErrorMessage message={errors.workerNum.message} />}
         </InputGroup>
         <InputGroup>
           <p>“중소기업기본법 시행령” 제 8조 1항 에서는 주요 업종별 연평균 매출액을 제한합니다. 피보험자의 연평균 매출액이 기준 미만입니까?</p>
-          <RadioButton name='sBizCheck2' data={check2} />
+          <RadioButton name='charSalesUnder' data={check2} />
         </InputGroup>
         <InputGroup sub>
           <p>주요 업종은 무엇입니까?*</p>
           <SelectInput
             placeholder='선택하세요'
-            name='sBiz2YSect'
+            name='bizMainType'
             defaultValue=''
           >
             {loBzCdList?.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
               return (
-                <option value={cur.code} key={index}>
+                <option value={cur.name} key={index}>
                   {cur.name}
                 </option>
               )
@@ -90,13 +90,12 @@ const Step4 = () => {
         <InputGroup>
           <p>연평균 매출액은 얼마입니까?* <span>(숫자로만 표기)</span></p>
           <TextInput 
-            name='sBiz2Ytake'
+            name='sales'
             type='number'
             required='연평균 매출액을 입력해주세요'
           />
-          {errors.sBiz2Ytake && <ErrorMessage message={errors.sBiz2Ytake.message} />}
+          {errors.sales && <ErrorMessage message={errors.sales.message} />}
         </InputGroup>
-
       </SectionWrap>
       {close && (
         <Popup close={() => setClose(true)}>

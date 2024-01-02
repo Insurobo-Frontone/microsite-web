@@ -16,6 +16,7 @@ const Step3 = ({ data }) => {
   const { watch, formState: { errors } } = useFormContext();
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
+
   const yoStore = [
     {
       id: 'store',
@@ -102,18 +103,18 @@ const Step3 = ({ data }) => {
             </InputGroup>
           <InputGroup>
             <p>주소<b>*</b></p>
-              <TextInput 
-                name='objAddr1'
-                value={addrData?.jibunAddr}
-                required={true}
-                readOnly
-              />
-              <TextInput 
-                name='objAddr2'
-                placeholder='상세주소 입력'
-                required='상세주소를 입력해주세요'
-              />
-              {errors.objAddr2 && <ErrorMessage message={errors.objAddr2.message} />}
+            <TextInput 
+              name='objAddr1'
+              value={addrData?.jibunAddr}
+              required={true}
+              readOnly
+            />
+            <TextInput 
+              name='objAddr2'
+              placeholder='상세주소 입력'
+              required='상세주소를 입력해주세요'
+            />
+            {errors.objAddr2 && <ErrorMessage message={errors.objAddr2.message} />}
           </InputGroup>
           <InputGroup>
             <p>실사용면적<b>*</b></p>
