@@ -62,6 +62,11 @@ const Step5 = () => {
 				type: 'custom',
 				message: '핸드폰번호를 확인해주세요.'
 			});
+		} if (watch('bizConfirm') === false) {
+			setError('bizConfirm', {
+				type: 'custom',
+				message: '필수항목에 체크해주세요.'
+			});
 		}
 		else {
 			const insurance = StorageGetInsurance();
@@ -140,43 +145,6 @@ const Step5 = () => {
 			})
 			
 	}
-		
-		
-    //우편번호
-		
-		// postHiLinkObj({
-		// 	inputBldSt: watch('inputBldSt'),
-		// 	inputBldEd: watch('inputBldEd'),
-		// 	bldTotLyrNum: insurance.getCover.bldTotLyrNum,
-		// 	hsArea: watch('hsArea'),
-		// 	poleStrc: insurance.getCover.poleStrc,
-		// 	roofStrc: insurance.getCover.roofStrc,
-		// 	otwlStrc: insurance.getCover.otwlStrc,
-		// 	objCat: watch('objCat'),
-		// 	lobzCd: watch('lobzCd'),
-		// 	objZip1: objZipValue.substring(0, 3),
-		// 	objZip2: objZipValue.substring(3, 5),
-		// 	objAddr1: insurance.getAddr.jibunAddr,
-		// 	objAddr2: watch('objAddr2'),
-		// 	bizNo: watch('bizNo'),
-		// 	inrBirth: watch('inrBirth'),
-		// 	inrGender: watch('inrGender'),
-		// 	telNo: watch('telNo'),
-		// 	ptyBizNm: watch('ptyBizNm'),
-		// 	ptyKorNm: watch('ptyKorNm'),
-		// 	termsA1: watch('termsA1') ? 'Y' : 'N',
-		// 	termsA2: watch('termsA2') ? 'Y' : 'N',
-		// 	termsA3: watch('termsA3') ? 'Y' : 'N',
-		// 	termsA4: watch('termsA4') ? 'Y' : 'N',
-		// 	termsA6: watch('termsA6') ? 'Y' : 'N',
-		// 	termsA7: watch('termsA7') ? 'Y' : 'N',
-		// }).then((res) => {
-		// 	const userId = res.data.results.userID;
-		// 	console.log(res)
-		// 	const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='
-		// 	window.open(`${link}${userId}`);
-		// 	navigate('/');
-		// }).catch((e) => console.log(e));
   }
 
 	const terms = [
@@ -394,6 +362,7 @@ const Step5 = () => {
 						errors.workerNum ? <p>{errors.workerNum.message}</p> :
 						errors.bizMainType ? <p>{errors.bizMainType.message}</p> :
 						errors.sales ? <p>{errors.sales.message}</p> :
+						errors.bizConfirm ? <p>{errors.bizConfirm.message}</p> :
 						message !== '' && <p>{message}</p>
 					}
 				</Popup>
