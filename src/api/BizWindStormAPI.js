@@ -10,7 +10,8 @@ let tokenConfig = {
   url: 'https://api.moneypin.biz/bizno/v1/auth/token',
   headers: { 
     'Content-Type': 'application/json', 
-    'Accept': 'application/json'
+    'Accept': 'application/json',
+    withCredentials: true
   },
   data : data
 };
@@ -36,7 +37,8 @@ export const MoneypinBizInfo = async (bizNoList, token) => {
     headers: { 
       'Content-Type': 'application/json', 
       'Accept': 'application/json',
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      withCredentials: true
     },
     data: {
       "bizNoList": [bizNoList]
