@@ -16,10 +16,11 @@ let tokenConfig = {
 };
 
 export const bizWindstormAPI = axios.create({
-  baseURL: 'http://localhost:3000',
-  headers: { 
+  baseURL: 'https://insurobo.com',
+  headers: {
     "Content-Type": "application/json;charset=UTF-8",
-  },
+    withCredentials: true
+}
 });
 
 // 머니핀 인증토큰 생성
@@ -44,7 +45,5 @@ export const MoneypinBizInfo = async (bizNoList, token) => {
 }
 
 export const postWindstormSave = async (params) => {
-  return await bizWindstormAPI.post('/public/stmFld/save', {
-    ...params
-  });
+  return await bizWindstormAPI.post('/public/stmFld/save', params);
 }

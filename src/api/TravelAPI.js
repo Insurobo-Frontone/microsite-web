@@ -59,6 +59,6 @@ export const postPaymentCom = async (params) => {
 // 결제완료시간 불러오기
 export const getPaymentDate = async (params) => {
   return await TravelAPI.get('/api/public/payments/date', {
-    data: {...params}
+    ...params
   });
 }

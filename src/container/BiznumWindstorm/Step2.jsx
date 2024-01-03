@@ -75,6 +75,7 @@ const Step2 = ({ token }) => {
                   required='휴대폰번호를 입력해주세요'
                 />
               </div>
+             
             </InputGroup>
             <InputGroup>
               <p>생년월일<b>*</b></p>
@@ -87,6 +88,7 @@ const Step2 = ({ token }) => {
                   message: '생년월일을 확인해주세요'
                 }}
               />
+            
             </InputGroup>
             <InputGroup>
               <div>

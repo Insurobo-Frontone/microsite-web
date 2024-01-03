@@ -9,9 +9,10 @@ import { postHiLinkObj } from "../../api/WindstormAPI";
 import { StorageGetInsurance } from "../Storage/Insurance";
 import useWindowSize from "../../hooks/useWindowSize";
 import Popup from "./Popup";
+import { postWindstormSave } from "../../api/BizWindStormAPI";
 
 const Step5 = () => {
-	const { watch, setValue, setError, setFocus, handleSubmit, formState: { errors } } = useFormContext();
+	const { watch, setValue, setError, handleSubmit, formState: { errors } } = useFormContext();
 	const { width } = useWindowSize();
 	const navigate = useNavigate();
 	const [close, setClose] = useState(false);
@@ -65,34 +66,80 @@ const Step5 = () => {
 		else {
 			const insurance = StorageGetInsurance();
 			const objZipValue = insurance.getAddr.zipNo+''
-			console.log({
-				inputBldSt: watch('inputBldSt'),
-				inputBldEd: watch('inputBldEd'),
-				bldTotLyrNum: insurance.getCover.bldTotLyrNum,
-				hsArea: watch('hsArea'),
-				poleStrc: insurance.getCover.poleStrc,
-				roofStrc: insurance.getCover.roofStrc,
-				otwlStrc: insurance.getCover.otwlStrc,
-				objCat: watch('objCat'),
-				lobzCd: watch('lobzCd'),
-				objZip1: objZipValue.substring(0, 3),
-				objZip2: objZipValue.substring(3, 5),
-				objAddr1: insurance.getAddr.jibunAddr,
-				objAddr2: watch('objAddr2'),
-				bizNo: watch('bizNo'),
-				inrBirth: watch('inrBirth'),
-				inrGender: watch('inrGender'),
-				telNo: watch('telNo'),
-				ptyBizNm: watch('ptyBizNm'),
-				ptyKorNm: watch('ptyKorNm'),
+			const data = {
+				biz_no: watch('bizNo'),
+				biz_name: watch('ptyBizNm'),
+				ceo_name: watch('ptyKorNm'),
+				biz_type: watch('lobzCd'),
+				building_division: watch('objCat'),
+				address: insurance.getAddr.jibunAddr,
+				detail_address: watch('objAddr2'),
+				area: watch('hsArea'),
+				biz_site_lease_yn: watch('bizEstate'),
+				ugrnd_flr_cnt: insurance.getCover.ugrndFlrCnt,
+				bld_tot_lyr_num: insurance.getCover.grndFlrCnt,
+				input_bld_st: watch('inputBldSt'),
+				input_bld_ed: watch('inputBldEd'),
+				strct_cd_nm: insurance.getCover.strctCdNm,
+				roof_strc: insurance.getCover.roofNm,
+				otwl_strc: insurance.getCover.otwlStrc === '01' ? '콘크리트 외벽' :
+				insurance.getCover.otwlStrc === '08' ? '벽돌(조직) 외벽' :
+				insurance.getCover.otwlStrc === '12' ? '블록 외벽' :
+				insurance.getCover.otwlStrc === '13' ? '철판/판넬' :
+				insurance.getCover.otwlStrc === '18' ? '목조' :
+				insurance.getCover.otwlStrc === '15' && '유리벽',
+				worker_num_standard_under_yn: watch('workerNumUnder'),
+				worker_num: watch('workerNum'),
+				sales_standard_under_yn: watch('charSalesUnder'),
+				biz_main_type: watch('bizMainType'),
+				sales: watch('sales'),
+				imputation_reason_confirm_yn: watch('bizConfirm') ? 'Y' : 'N',
 				termsA1: watch('termsA1'),
 				termsA2: watch('termsA2'),
 				termsA3: watch('termsA3'),
 				termsA4: watch('termsA4'),
 				termsA6: watch('termsA6'),
 				termsA7: watch('termsA7'),
+			}
+			postWindstormSave(data).then(() => {
+				postHiLinkObj({
+					inputBldSt: watch('inputBldSt'),
+					inputBldEd: watch('inputBldEd'),
+					bldTotLyrNum: insurance.getCover.bldTotLyrNum,
+					hsArea: watch('hsArea'),
+					poleStrc: insurance.getCover.poleStrc,
+					roofStrc: insurance.getCover.roofStrc,
+					otwlStrc: insurance.getCover.otwlStrc,
+					objCat: watch('objCat'),
+					lobzCd: watch('lobzCd'),
+					objZip1: objZipValue.substring(0, 3),
+					objZip2: objZipValue.substring(3, 5),
+					objAddr1: insurance.getAddr.jibunAddr,
+					objAddr2: watch('objAddr2'),
+					bizNo: watch('bizNo'),
+					inrBirth: watch('inrBirth'),
+					inrGender: watch('inrGender'),
+					telNo: watch('telNo'),
+					ptyBizNm: watch('ptyBizNm'),
+					ptyKorNm: watch('ptyKorNm'),
+					termsA1: watch('termsA1'),
+					termsA2: watch('termsA2'),
+					termsA3: watch('termsA3'),
+					termsA4: watch('termsA4'),
+					termsA6: watch('termsA6'),
+					termsA7: watch('termsA7'),
+				}).then((res) => {
+					const userId = res.data.results.userID;
+					console.log(res)
+					const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='
+					window.open(`${link}${userId}`);
+					navigate('/');
+				}).catch((e) => console.log(e));
+			}).catch((e) => {
+				console.log(e)
 			})
-		}
+			
+	}
 		
 		
     //우편번호
@@ -307,31 +354,31 @@ const Step5 = () => {
 
   return (
     <form onSubmit={handleSubmit(onClickNext, onError)}>
-			<SectionWrap 
-				title='개인(신용)정보 수집.조회.이용.제공 동의'
-				info='본인은 개인정보보호법, 신용정보의 이용 및 보호에 관한 법률 및 관련 규정에 의해, 풍수해보험과 관련된 피보험자 개인정보의 수집.이용.조회.제공 및 고유식별정보 처리에 동의합니다(미성년자는 가입이 불가합니다).'
-				hr='none'
-			>
-				<AllCheckButton>
+    <SectionWrap 
+      title='개인(신용)정보 수집.조회.이용.제공 동의'
+      info='본인은 개인정보보호법, 신용정보의 이용 및 보호에 관한 법률 및 관련 규정에 의해, 풍수해보험과 관련된 피보험자 개인정보의 수집.이용.조회.제공 및 고유식별정보 처리에 동의합니다(미성년자는 가입이 불가합니다).'
+      hr='none'
+    >
+      <AllCheckButton>
 					<button type='button' onClick={() => onClickAllCheck()}>전체 동의하기</button>
-				</AllCheckButton>
-				{terms.map((dt) => (
-					<InputGroup>
-						<ScrollView dangerouslySetInnerHTML={{
-							__html: dt.textArea
-						}} />
-						<RadioButton name={dt.id} data={[{ id: `select_${dt.id}_N`, value: 'N', title: '동의하지 않음'}, { id: `select_${dt.id}_Y`, value: 'Y', title: '동의'}]} />
-					</InputGroup>
-				))}
-				<CheckGroup>
-					<CheckInput name='bizConfirm' id='bizConfirm' />
-					<p>위 기재사실이 허위 또는 부실 작성일 경우 약관상 고의 및 중과실에 해당되어 <span>보험금 지급이 제한</span>될 수 있고, <span>보험 계약이 해지 또는 취소될 수 있음</span>을 확인하였습니다.</p>
-				</CheckGroup>
-				<ButtonGroup>
-					<button className="default">이전</button>
+      </AllCheckButton>
+			{terms.map((dt) => (
+				<InputGroup>
+					<ScrollView dangerouslySetInnerHTML={{
+						 __html: dt.textArea
+					}} />
+					<RadioButton name={dt.id} data={[{ id: `select_${dt.id}_N`, value: 'N', title: '동의하지 않음'}, { id: `select_${dt.id}_Y`, value: 'Y', title: '동의'}]} />
+				</InputGroup>
+			))}
+			<CheckGroup>
+				<CheckInput name='bizConfirm' id='bizConfirm' />
+				<p>위 기재사실이 허위 또는 부실 작성일 경우 약관상 고의 및 중과실에 해당되어 <span>보험금 지급이 제한</span>될 수 있고, <span>보험 계약이 해지 또는 취소될 수 있음</span>을 확인하였습니다.</p>
+			</CheckGroup>
+			<ButtonGroup>
+				<button type="button" className="default" onClick={() => navigate(-1)}>이전</button>
 					<button type="submit">가입신청</button>
-				</ButtonGroup>
-			</SectionWrap>
+			</ButtonGroup>
+    </SectionWrap>
 			{close && (
 				<Popup close={() => setClose(false)}>
 					{	errors.telNo1 ? <p>{errors.telNo1.message}</p> : 
