@@ -325,7 +325,7 @@ function FreeApply() {
   console.log(jehuCd)
   const navigate = useNavigate();
   const checkLogin = () => {
-    navigate('/freeApply/insuroboWindstorm');
+    navigate('/freeApply/bizWindstorm');
   }
 
   return (

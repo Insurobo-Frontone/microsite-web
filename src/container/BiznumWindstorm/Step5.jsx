@@ -106,6 +106,7 @@ const Step5 = () => {
 				termsA6: watch('termsA6'),
 				termsA7: watch('termsA7'),
 			}
+			
 			postWindstormSave(data).then(() => {
 				postHiLinkObj({
 					inputBldSt: watch('inputBldSt'),

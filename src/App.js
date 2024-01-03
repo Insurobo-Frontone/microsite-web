@@ -20,7 +20,6 @@ import PrivateRoute from './pages/PrivateRoute';
 import PublicRoute from './pages/PublicRoute';
 import EditPassword from './pages/EditPassword';
 import Policy from './pages/Policy';
-import InsuroboWindstorm from './pages/InsuroboWindstorm';
 import InsuroboCard from './pages/InsuroboCard';
 import View from './components/Post/View';
 import InsuroboTravel from './pages/InsuroboTravel';
@@ -74,8 +73,8 @@ function App() {
                     <Route path='/insuranceInfo' element={<InsuranceInfo />} />
                     <Route path='/freeApply' element={<FreeApply />} />
                     <Route path='/freeApply?jehuCd=yogiyo' element={<FreeApply />} />
-                    <Route path='/freeApply/insuroboWindstorm' element={<BiznumWindstorm />} />
-                    <Route path='/freeApply/insuroboWindstorm?jehuCd=yogiyo' element={<BiznumWindstorm />} />
+                    <Route path='/freeApply/bizWindstorm' element={<BiznumWindstorm />} />
+                    <Route path='/freeApply/bizWindstorm?jehuCd=yogiyo' element={<BiznumWindstorm />} />
                     <Route path='/board' element={<View />} />
                     <Route path='/policy/:pagename' element={<Policy />} />
                     <Route path='/insuroboCard' element={<InsuroboCard />} />
