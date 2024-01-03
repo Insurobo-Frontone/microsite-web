@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Layout from '../layout';
 import bannerImg from '../assets/img/windstorm.png';
 import moreBtn from '../assets/icon/moreBtn.png';
@@ -10,6 +10,7 @@ import factory from '../assets/icon/factory.png';
 import facility from '../assets/icon/facility.png';
 import inventories from '../assets/icon/inventories.png';
 import equipment from '../assets/icon/equipment.png';
+import Guide from '../container/BiznumWindstorm/Guide';
 // import coin from '../assets/icon/coin.png';
 
 const list1 = [
@@ -38,7 +39,8 @@ const list1 = [
     title: '재고자산',
     icon: inventories
   },
-]
+];
+
 const Wrap = styled.div`
   max-width: 990px;
   margin: 103px auto 330px;
@@ -318,6 +320,9 @@ function FreeApply() {
   const [isOpen, setIsOpen] = useState(false);
   // const auth = localStorage.getItem("@access-Token");
   // const { pathname } = useLocation();
+  const [searchParams] = useSearchParams();
+  const jehuCd = searchParams.get('jehuCd');
+  console.log(jehuCd)
   const navigate = useNavigate();
   const checkLogin = () => {
     navigate('/freeApply/insuroboWindstorm');
@@ -325,67 +330,71 @@ function FreeApply() {
 
   return (
     <Layout color="BG_GRAY">
-      <Wrap>
-        <GradationBanner>
-          <TextBox>
-            <span>소상공인전용</span>
-            <p>
-              <span>인슈로보</span> 풍수해보험
-            </p>
-          </TextBox>
-          <ImageBox />
-        </GradationBanner>
-        <Discription>
-          <Bubble>
-            <p>소상공인전용</p>
-            <h2><span>풍수해보험</span>이 뭔가요?</h2>
-          </Bubble>
-          <p><b>풍수해보험은 태풍, 홍수, 호우, 강풍, 지진</b> 등 자연재해로 인한 사고발생시 <b>실손비용을 보상</b>하는 정부의 정책보험입니다.</p>
-          <Accordion>
-            <Title onClick={() => setIsOpen(!isOpen)}>
-              <p>가입대상</p>
-              <MoreButton isopen={isOpen} />
-            </Title>
-            <Content isopen={isOpen}>
-              <ul>
-                {list1.map((item) => (
-                   <li key={item.id}>
-                    <div className='img-wrap'><img src={item.icon} alt={item.title} /></div>
-                    <p>{item.title}</p>
+      {jehuCd === 'yogiyo' ? (
+        <Guide jehuCd={jehuCd} />
+      ) : (
+        <Wrap>
+          <GradationBanner>
+            <TextBox>
+              <span>소상공인전용</span>
+              <p>
+                <span>인슈로보</span> 풍수해보험
+              </p>
+            </TextBox>
+            <ImageBox />
+          </GradationBanner>
+          <Discription>
+            <Bubble>
+              <p>소상공인전용</p>
+              <h2><span>풍수해보험</span>이 뭔가요?</h2>
+            </Bubble>
+            <p><b>풍수해보험은 태풍, 홍수, 호우, 강풍, 지진</b> 등 자연재해로 인한 사고발생시 <b>실손비용을 보상</b>하는 정부의 정책보험입니다.</p>
+            <Accordion>
+              <Title onClick={() => setIsOpen(!isOpen)}>
+                <p>가입대상</p>
+                <MoreButton isopen={isOpen} />
+              </Title>
+              <Content isopen={isOpen}>
+                <ul>
+                  {list1.map((item) => (
+                    <li key={item.id}>
+                      <div className='img-wrap'><img src={item.icon} alt={item.title} /></div>
+                      <p>{item.title}</p>
+                    </li>
+                  ))}
+                </ul>
+                <ul>
+                  <li>
+                    소상공인이 운영하는 <b>상가, 공장, 시설, 집기비품, 재고자산</b>에 한해 가입 가능합니다.
                   </li>
-                ))}
-              </ul>
-              <ul>
-                <li>
-                  소상공인이 운영하는 <b>상가, 공장, 시설, 집기비품, 재고자산</b>에 한해 가입 가능합니다.
-                </li>
-              </ul>
-            </Content>
-          </Accordion>
-          {/* <Accordion>
-            <Title onClick={() => setIsOpen2(!isOpen2)}>
-              <Text color='BLACK5' size='16px' bold='700'>보험료 지원</Text>
-              <MoreButton isopen={isOpen2}/>
-            </Title>
-            <Content isopen={isOpen2}> 
-              <ul className='coin-wrap'>
-                <li><Coin /></li>
-                <li><span style={{color: '#444444'}}>인슈로보가</span><br />100%<br /><span style={{color: '#2EA5FF'}}>보험료 지원!</span></li>
-              </ul>
-            </Content>
-          </Accordion> */}
-        </Discription>
-        <ButtonWrap>
-          <button onClick={checkLogin}>
-            <p>가입 신청</p>
-          </button>
-        </ButtonWrap>
-        {/* <ButtonWrap>
-          <button onClick={checkLogin}>
-              <Text color='WHITE' size='16px' bold='700'>가입 신청</Text>
-          </button>
-        </ButtonWrap> */}
-      </Wrap>
+                </ul>
+              </Content>
+            </Accordion>
+            {/* <Accordion>
+              <Title onClick={() => setIsOpen2(!isOpen2)}>
+                <Text color='BLACK5' size='16px' bold='700'>보험료 지원</Text>
+                <MoreButton isopen={isOpen2}/>
+              </Title>
+              <Content isopen={isOpen2}> 
+                <ul className='coin-wrap'>
+                  <li><Coin /></li>
+                  <li><span style={{color: '#444444'}}>인슈로보가</span><br />100%<br /><span style={{color: '#2EA5FF'}}>보험료 지원!</span></li>
+                </ul>
+              </Content>
+            </Accordion> */}
+          </Discription>
+          <ButtonWrap>
+            <button onClick={checkLogin}>
+              <p>가입 신청</p>
+            </button>
+          </ButtonWrap>
+          {/* <ButtonWrap>
+            <button onClick={checkLogin}>
+                <Text color='WHITE' size='16px' bold='700'>가입 신청</Text>
+            </button>
+          </ButtonWrap> */}
+        </Wrap>
+      )}
     </Layout>
   )
 }

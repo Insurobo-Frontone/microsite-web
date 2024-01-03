@@ -60,7 +60,7 @@ const SelectItems = () => {
             </Form>
           );
         }}
-        />
+    />
   ) 
 }
 

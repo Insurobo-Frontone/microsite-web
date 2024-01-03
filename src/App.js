@@ -26,6 +26,7 @@ import View from './components/Post/View';
 import InsuroboTravel from './pages/InsuroboTravel';
 import { TravelPageProvider } from './context/travelPageContext';
 import MyViewer from './container/InsuroboTravel/Apply/Step3/MyViewer';
+import BiznumWindstorm from './pages/BizNumerWindstorm';
 
 // import InsuroboTravelLogin from './pages/InsuroboTravelLogin';
 // import { getUser } from './container/Storage/Auth';
@@ -38,6 +39,18 @@ function App() {
     mode: 'onBlur',
     defaultValues: {
       calcPlan: '1',
+      inrGender: '1',
+      overlap: 'N',
+      objCat: '2',
+      bizEstate: '임차인',
+      workerNumUnder: 'Y',
+      charSalesUnder: 'Y',
+      termsA1: 'N',
+      termsA2: 'N',
+      termsA3: 'N',
+      termsA4: 'N',
+      termsA6: 'N',
+      termsA7: 'N',
     }
   });
 
@@ -60,7 +73,9 @@ function App() {
                     <Route path='/bizsupport/:list' element={<List />} />
                     <Route path='/insuranceInfo' element={<InsuranceInfo />} />
                     <Route path='/freeApply' element={<FreeApply />} />
-                    <Route path='/freeApply/insuroboWindstorm' element={<InsuroboWindstorm />} />
+                    <Route path='/freeApply?jehuCd=yogiyo' element={<FreeApply />} />
+                    <Route path='/freeApply/insuroboWindstorm' element={<BiznumWindstorm />} />
+                    <Route path='/freeApply/insuroboWindstorm?jehuCd=yogiyo' element={<BiznumWindstorm />} />
                     <Route path='/board' element={<View />} />
                     <Route path='/policy/:pagename' element={<Policy />} />
                     <Route path='/insuroboCard' element={<InsuroboCard />} />
