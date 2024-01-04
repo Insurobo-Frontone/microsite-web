@@ -11,6 +11,7 @@ import SectionWrap from "./SectionWrap";
 import ErrorMessage from "./ErrorMessage";
 
 const Step1 = () => {
+  
   const [close, setClose] = useState(true);
   const [bizToken, setBizToken] = useState();
   const { watch, setValue, setError, clearErrors, formState: { errors } } = useFormContext();
@@ -39,6 +40,7 @@ const Step1 = () => {
       clearErrors('bizNo')
       MoneypinToken().then((res) => {
         setBizToken(res.data.token)
+        
       }).catch((error) => {
         console.log(error);
         alert('네트워크 접속이 지연되고 있습니다. 잠시 후 다시 시도해주세요')

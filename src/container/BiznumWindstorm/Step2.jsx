@@ -29,7 +29,6 @@ const Step2 = ({ token }) => {
     .then((res) => {
       console.log(res.data[0].info)
       setData(res.data[0].info)
-      
     }).catch((e) => console.log(e))
   }, [watch('bizNo')]);
 
@@ -40,7 +39,7 @@ const Step2 = ({ token }) => {
           <>
             <InputGroup>
               <p>상호명<b>*</b></p>
-              <TextInput 
+              <TextInput
                 name='ptyBizNm'
                 value={data.bizName}
                 readOnly

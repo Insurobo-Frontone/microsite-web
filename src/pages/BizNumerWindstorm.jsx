@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { StorageClearInsurance } from "../container/Storage/Insurance";
 import Layout from "../layout";
@@ -8,10 +7,13 @@ import Step1 from "../container/BiznumWindstorm/Step1";
 import SectionWrap from "../container/BiznumWindstorm/SectionWrap";
 
 const BiznumWindstorm = () => {
-  const { reset } = useFormContext();
+  const { reset, setValue } = useFormContext();
   useEffect(() => {
     reset();
-    StorageClearInsurance()
+    setValue('bizNo1', '')
+    setValue('bizNo2', '')
+    setValue('bizNo3', '')
+    StorageClearInsurance();
   }, [])
 
   return (
