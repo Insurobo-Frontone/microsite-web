@@ -11,7 +11,7 @@ let tokenConfig = {
   headers: { 
     "Content-Type": `application/json;charset=UTF-8`,
     'Accept': 'application/json',
-    "Access-Control-Allow-Origin": "https://insurobo.com",
+    "Access-Control-Allow-Origin": "*",
     'Access-Control-Allow-Credentials':"true",
     withCredentials: true
   },
@@ -23,7 +23,7 @@ export const bizWindstormAPI = axios.create({
   headers: {
     "Content-Type": `application/json;charset=UTF-8`,
     "Accept": "application/json",
-    "Access-Control-Allow-Origin": "https://insurobo.com",
+    "Access-Control-Allow-Origin": "*",
     'Access-Control-Allow-Credentials':"true",
     withCredentials: true
   }
@@ -43,7 +43,7 @@ export const MoneypinBizInfo = async (bizNoList, token) => {
       "Content-Type": `application/json;charset=UTF-8`, 
       'Accept': 'application/json',
       'Authorization': `Bearer ${token}`,
-      "Access-Control-Allow-Origin": "https://insurobo.com",
+      "Access-Control-Allow-Origin": "*",
       'Access-Control-Allow-Credentials':"true",
       withCredentials: true
     },
