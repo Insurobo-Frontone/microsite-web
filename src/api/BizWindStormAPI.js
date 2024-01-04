@@ -9,8 +9,10 @@ let tokenConfig = {
   maxBodyLength: Infinity,
   url: 'https://api.moneypin.biz/bizno/v1/auth/token',
   headers: { 
-    'Content-Type': 'application/json', 
+    "Content-Type": `application/json;charset=UTF-8`,
     'Accept': 'application/json',
+    "Access-Control-Allow-Origin": "https://insurobo.com",
+    'Access-Control-Allow-Credentials':"true",
     withCredentials: true
   },
   data : data
@@ -19,9 +21,12 @@ let tokenConfig = {
 export const bizWindstormAPI = axios.create({
   baseURL: 'https://insurobo.com',
   headers: {
-    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Type": `application/json;charset=UTF-8`,
+    "Accept": "application/json",
+    "Access-Control-Allow-Origin": "https://insurobo.com",
+    'Access-Control-Allow-Credentials':"true",
     withCredentials: true
-}
+  }
 });
 
 // 머니핀 인증토큰 생성
@@ -35,9 +40,11 @@ export const MoneypinBizInfo = async (bizNoList, token) => {
     maxBodyLength: Infinity,
     url: 'https://api.moneypin.biz/bizno/v1/biz/info/base',
     headers: { 
-      'Content-Type': 'application/json', 
+      "Content-Type": `application/json;charset=UTF-8`, 
       'Accept': 'application/json',
       'Authorization': `Bearer ${token}`,
+      "Access-Control-Allow-Origin": "https://insurobo.com",
+      'Access-Control-Allow-Credentials':"true",
       withCredentials: true
     },
     data: {
@@ -47,5 +54,5 @@ export const MoneypinBizInfo = async (bizNoList, token) => {
 }
 
 export const postWindstormSave = async (params) => {
-  return await bizWindstormAPI.post('/public/stmFld/save', params);
+  return await bizWindstormAPI.post('/public/stmFld/save', params)
 }
