@@ -17,7 +17,7 @@ const Step5 = () => {
 	const navigate = useNavigate();
 	const [close, setClose] = useState(false);
 	const [message, setMessage] = useState('');
-
+console.log(watch('bizConfirm'))
 	useEffect(() => {
 		
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
@@ -31,7 +31,15 @@ const Step5 = () => {
 		}
 	}
 	const onClickNext = () => {
-		
+		if (watch('bizConfirm') === false) {
+			setClose(true);
+			setError('bizConfirm', {
+				type: 'custom',
+				message: '필수항목에 체크해주세요.'
+			});
+			console.log(watch('bizConfirm'), 'dsdsd')
+			return false;
+		}
 		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/
 		if (watch('termsA1') === 'N' || 
 				watch('termsA2') === 'N' ||
@@ -50,6 +58,7 @@ const Step5 = () => {
 			setMessage('가입대상이 아닙니다.');
 			return false;
 		} if (watch('lobzCd') === '') {
+			setClose(true);
 			setError('lobzCd', {
 				type: 'custom',
 				message: '영위업종을 선택해주세요.'
@@ -62,19 +71,14 @@ const Step5 = () => {
 			});
 			return false;
 		} if (phoneReg.test(watch('telNo')) === false) {
+			setClose(true);
 			setError('telNo', {
 				type: 'custom',
 				message: '핸드폰번호를 확인해주세요.'
 			});
 			return false;
-		} if (watch('bizConfirm') === false) {
-			setError('bizConfirm', {
-				type: 'custom',
-				message: '필수항목에 체크해주세요.'
-			});
-			return false;
-		}
-		else {
+		} 
+		
 			const insurance = StorageGetInsurance();
 			const objZipValue = insurance.getAddr.zipNo+''
 			const data = {
@@ -151,7 +155,7 @@ const Step5 = () => {
 				console.log(e)
 			})
 			
-	}
+	
   }
 
 	const terms = [

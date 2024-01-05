@@ -17,6 +17,7 @@ const CheckInput = ({ name, id }) => {
             type="checkbox"
             onChange={(e) => onChange(e.target.checked)}
             checked={value}
+            
           />
         )}
       />

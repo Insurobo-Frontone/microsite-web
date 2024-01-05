@@ -7,7 +7,7 @@ let data = JSON.stringify({
 let tokenConfig = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: '/bizno/v1/auth/token',
+  url: 'https://api.moneypin.biz/bizno/v1/auth/token',
   headers: { 
     "Content-Type": `application/json;charset=UTF-8`,
     'Accept': 'application/json',
@@ -32,7 +32,7 @@ export const MoneypinBizInfo = async (bizNoList, token) => {
   return await axios({
     method: 'post',
     maxBodyLength: Infinity,
-    url: '/bizno/v1/biz/info/base',
+    url: 'https://api.moneypin.biz/bizno/v1/biz/info/base',
     headers: { 
       "Content-Type": `application/json;charset=UTF-8`, 
       'Accept': 'application/json',
