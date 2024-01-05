@@ -17,17 +17,21 @@ const Step5 = () => {
 	const navigate = useNavigate();
 	const [close, setClose] = useState(false);
 	const [message, setMessage] = useState('');
-	
+
 	useEffect(() => {
+		
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
 	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')])
 	const onError = (e) => {
+		
 		if (e) {
 			console.log(e)
+			
 			setClose(true)
 		}
 	}
 	const onClickNext = () => {
+		
 		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/
 		if (watch('termsA1') === 'N' || 
 				watch('termsA2') === 'N' ||
@@ -62,11 +66,13 @@ const Step5 = () => {
 				type: 'custom',
 				message: '핸드폰번호를 확인해주세요.'
 			});
+			return false;
 		} if (watch('bizConfirm') === false) {
 			setError('bizConfirm', {
 				type: 'custom',
 				message: '필수항목에 체크해주세요.'
 			});
+			return false;
 		}
 		else {
 			const insurance = StorageGetInsurance();
