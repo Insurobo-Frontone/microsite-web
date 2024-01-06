@@ -1,13 +1,9 @@
 import axios from "axios";
-//let data = JSON.stringify({
-//  "grantType": "ClientCredentials",
-//  "clientId": "372a1d0b-99c2-45f4-914c-a5ad5045bbfb",
-//  "clientSecret": "jIFmTlj/cIwWCJ+TazcG3OwixyLPRCdiAGDfIluP718="
-//});
+
 let tokenConfig = {
   method: 'post',
   maxBodyLength: Infinity,
-  url: 'http://localhost:5000/getTicket',
+  url: 'http://127.0.0.1:5000/getTicket',
   headers: {
     "Content-Type": `application/json;charset=UTF-8`,
     'Accept': 'application/json',
@@ -32,7 +28,7 @@ export const MoneypinBizInfo = async (bizNoList, token) => {
   return await axios({
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'https://api.moneypin.biz/bizno/v1/biz/info/base',
+    url: 'http://127.0.0.1:5000/getBizInfo',
     headers: { 
       "Content-Type": `application/json;charset=UTF-8`, 
       'Accept': 'application/json',
