@@ -28,11 +28,11 @@ export const MoneypinBizInfo = async (bizNoList, token) => {
   return await axios({
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://127.0.0.1:5000/getBizInfo',
+    url: 'http://127.0.0.1:5000/getBizInfoOnce',
     headers: { 
       "Content-Type": `application/json;charset=UTF-8`, 
       'Accept': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      // 'Authorization': `Bearer ${token}`,
     },
     data: {
       "bizNoList": [bizNoList]

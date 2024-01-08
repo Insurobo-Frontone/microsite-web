@@ -5,7 +5,7 @@ import TextInput from "./Input/TextInput";
 import Button from "./Button";
 import { useFormContext } from "react-hook-form";
 import Popup from "./Popup";
-import { MoneypinToken } from "../../api/BizWindStormAPI";
+//import { MoneypinToken } from "../../api/BizWindStormAPI";
 import Step2 from "./Step2";
 import SectionWrap from "./SectionWrap";
 import ErrorMessage from "./ErrorMessage";
@@ -38,13 +38,14 @@ const Step1 = () => {
   const onClickSearch = useCallback((e) => {
     if (bizNumValidate()) {
       clearErrors('bizNo')
-      MoneypinToken().then((res) => {
-        setBizToken(res.data.token)
+      setBizToken("fake Token")
+      // MoneypinToken().then((res) => {
+      //   setBizToken(res.data.token)
         
-      }).catch((error) => {
-        console.log(error);
-        alert('네트워크 접속이 지연되고 있습니다. 잠시 후 다시 시도해주세요')
-      });
+      // }).catch((error) => {
+      //   console.log(error);
+      //   alert('네트워크 접속이 지연되고 있습니다. 잠시 후 다시 시도해주세요')
+      // });
     } else {
       setError('bizNo', {
         message: '사업자번호를 다시 입력해주세요'
