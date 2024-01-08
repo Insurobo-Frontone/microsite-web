@@ -12,7 +12,7 @@ export const MoneypinBizInfo = async (bizNoList) => {
   return await axios({
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://127.0.0.1:5000/getBizInfoOnce',
+    url: 'http://210.179.175.149:5000/getBizInfoOnce',
     headers: { 
       "Content-Type": `application/json`, 
       'Accept': 'application/json',
