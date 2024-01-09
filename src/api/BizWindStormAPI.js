@@ -26,5 +26,5 @@ export const MoneypinBizInfo = async (bizNoList) => {
 }
 
 export const postWindstormSave = async (params) => {
-  return await bizWindstormAPI.post('/public/stmFld/save', params)
+  return await bizWindstormAPI.post('/api/public/stmFld/save', params)
 }
