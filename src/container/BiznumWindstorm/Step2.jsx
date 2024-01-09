@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useFormContext } from "react-hook-form";
 import TextInput from "./Input/TextInput";
-import { MoneypinBizInfo } from "../../api/BizWindStormAPI";
 import RadioButton from "./Input/RadioButton";
 import Step3 from "./Step3";
 import SectionWrap from "./SectionWrap";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
 
-const Step2 = ({ token }) => {
-  const [data, setData] = useState();
-  const { watch } = useFormContext();
+const Step2 = ({data}) => {
   const gender = [
     {
       id: 'men',
@@ -24,13 +20,6 @@ const Step2 = ({ token }) => {
       title: '여자'
     },
   ]
-  useEffect(() => {
-    MoneypinBizInfo(watch('bizNo'), token)
-    .then((res) => {
-      console.log(res.data[0].info)
-      setData(res.data[0].info)
-    }).catch((e) => console.log(e))
-  }, [watch('bizNo')]);
 
   return (
     <>
