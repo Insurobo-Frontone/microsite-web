@@ -12,7 +12,7 @@ export const MoneypinBizInfo = async (bizNoList) => {
   return await axios({
     method: 'post',
     maxBodyLength: Infinity,
-    url: 'http://210.179.175.149:5000/getBizInfoOnce',
+    url: 'https://insurobo.com/apiticket/getBizInfoOnce',
     headers: { 
       "Content-Type": `application/json`, 
       'Accept': 'application/json',
