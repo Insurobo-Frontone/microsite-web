@@ -50,6 +50,7 @@ function App() {
       termsA4: 'N',
       termsA6: 'N',
       termsA7: 'N',
+      bizConfirm: false
     }
   });
 

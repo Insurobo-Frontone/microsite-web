@@ -71,7 +71,7 @@ const Guide = ({ jehuCd }) => {
             </li>
           ))}
         </CardWrap>
-        <Button jehuCd={jehuCd} onClick={() => navigate('/freeApply/insuroboWindstorm?jehuCd=yogiyo')}>풍수해보험 무료 가입하기</Button>
+        <Button jehuCd={jehuCd} onClick={() => navigate('/freeApply/bizWindstorm?jehuCd=yogiyo')}>풍수해보험 무료 가입하기</Button>
       </Section>
       <Section gradient='gra2'>
         <Title>

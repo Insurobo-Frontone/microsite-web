@@ -17,21 +17,18 @@ const Step5 = () => {
 	const navigate = useNavigate();
 	const [close, setClose] = useState(false);
 	const [message, setMessage] = useState('');
-console.log(watch('bizConfirm'))
+
 	useEffect(() => {
-		
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
 	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')])
 	const onError = (e) => {
-		
 		if (e) {
 			console.log(e)
-			
 			setClose(true)
 		}
 	}
 	const onClickNext = () => {
-		if (watch('bizConfirm') === false) {
+		if (!watch('bizConfirm')) {
 			setClose(true);
 			setError('bizConfirm', {
 				type: 'custom',
@@ -58,17 +55,18 @@ console.log(watch('bizConfirm'))
 			setMessage('가입대상이 아닙니다.');
 			return false;
 		} if (watch('lobzCd') === '') {
-			setClose(true);
 			setError('lobzCd', {
 				type: 'custom',
 				message: '영위업종을 선택해주세요.'
 			});
+			setClose(true);
 			return false;
 		} if (watch('bizMainType') === '') {
 			setError('bizMainType', {
 				type: 'custom',
 				message: '주요업종을 선택해주세요.'
 			});
+			setClose(true);
 			return false;
 		} if (phoneReg.test(watch('telNo')) === false) {
 			setClose(true);
@@ -153,6 +151,7 @@ console.log(watch('bizConfirm'))
 				}).catch((e) => console.log(e));
 			}).catch((e) => {
 				console.log(e)
+				alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.')
 			})
 			
 	
