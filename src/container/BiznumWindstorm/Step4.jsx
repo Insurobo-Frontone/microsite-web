@@ -9,7 +9,7 @@ import Popup from "./Popup";
 import { getLoBzCdList } from "../../api/WindstormAPI";
 
 const Step4 = () => {
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
   const [close, setClose] = useState(true);
   const [loBzCdList, setLoBzCdList] = useState([]);
   const check1 = [
@@ -45,7 +45,10 @@ const Step4 = () => {
       setClose(false);
     }
   }, [watch('workerNumUnder'), watch('charSalesUnder')]);
-
+  const setNum = Number(watch('sales'))
+  // const onBlurSales = () => {
+  //   setValue('sales', setNum.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","))
+  // }
   return (
     <>
       <SectionWrap 
@@ -91,6 +94,7 @@ const Step4 = () => {
             name='sales'
             type='number'
             required='연평균 매출액을 입력해주세요'
+        
           />
         </InputGroup>
       </SectionWrap>

@@ -17,7 +17,7 @@ const Step5 = () => {
 	const navigate = useNavigate();
 	const [close, setClose] = useState(false);
 	const [message, setMessage] = useState('');
-
+	
 	useEffect(() => {
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
 	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')])
@@ -76,9 +76,10 @@ const Step5 = () => {
 			});
 			return false;
 		} 
-		
+
 			const insurance = StorageGetInsurance();
 			const objZipValue = insurance.getAddr.zipNo+''
+	
 			const data = {
 				biz_no: watch('bizNo'),
 				biz_name: watch('ptyBizNm'),
@@ -114,7 +115,7 @@ const Step5 = () => {
 				termsA6: watch('termsA6'),
 				termsA7: watch('termsA7'),
 			}
-			
+			console.log(data)
 			postWindstormSave(data).then(() => {
 				postHiLinkObj({
 					inputBldSt: watch('inputBldSt'),

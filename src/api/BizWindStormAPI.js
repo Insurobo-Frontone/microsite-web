@@ -5,7 +5,9 @@ export const bizWindstormAPI = axios.create({
   headers: {
     "Content-Type": `application/json`,
     "Accept": "application/json",
+    withCredentials: true
   }
+
 });
 
 export const MoneypinBizInfo = async (bizNoList) => {
