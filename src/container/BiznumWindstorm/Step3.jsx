@@ -15,7 +15,7 @@ const Step3 = ({ data }) => {
   const { watch } = useFormContext();
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
-
+  console.log(data?.address.split(",")[0])
   const yoStore = [
     {
       id: 'store',
@@ -54,7 +54,7 @@ const Step3 = ({ data }) => {
       setLoBzCdList(res.data.results.codes)
     }).catch((e) => console.log(e)) 
     // 건축물대장 api
-    getJuso(data?.address).then((res) => {
+    getJuso(data?.address.split(",")[0]).then((res) => {
       getCover({
         sigungucd: res.data.results.addrs[0].admCd.slice(0, 5),
         bjdongcd: res.data.results.addrs[0].admCd.slice(-5),
@@ -69,6 +69,7 @@ const Step3 = ({ data }) => {
         alert(
           '해당 지역은 건축물 대장에 데이터 존재하지 않습니다, 다시 선택해 주세요',
         );
+        
       })
     }).catch((e) => (console.log(e)))
   }, [data]);
@@ -105,7 +106,7 @@ const Step3 = ({ data }) => {
             <TextInput 
               name='objAddr1'
               value={addrData?.jibunAddr}
-              readOnly
+              readOnly={addrData?.jibunAddr}
             />
             <TextInput 
               name='objAddr2'
