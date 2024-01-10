@@ -32,8 +32,9 @@ const Section = styled.div`
     width: 356px;
     padding-bottom: 24px;
     :last-child {
-      padding-bottom: 44px;
+      padding-bottom: 30px;
     }
+    
   }
 
   ${(props) => props.theme.window.mobile} {

@@ -1,8 +1,9 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import yogiyoAppIcon from '../../assets/img/yogiyo_AppCi.png';
-import insuAppIcon from '../../assets/img/insuroboApp_icon.png';
+import yogiyoImg from '../../assets/img/yogiyo_sajangnim.png';
+import collabo from '../../assets/img/jehuCdyogiyoCollabo.png';
+import insuroboImg from '../../assets/img/jehuCdyogiyoInsurobo.png';
 import main1 from '../../assets/img/yogiyoWindstormMain.png';
 import manual1 from '../../assets/img/yogiyoWindstormSection2-1.png';
 import manual2 from '../../assets/img/yogiyoWindstormSection2-2.png';
@@ -38,8 +39,9 @@ const Guide = ({ jehuCd }) => {
       <Section gradient='gra1'>
         <div>
           <AppIconWrap>
-            <img src={yogiyoAppIcon} alt="요기요" />
-            <img src={insuAppIcon} alt="인슈로보" />
+            <img src={yogiyoImg} alt="요기요 사장님" />
+            <img src={collabo} alt="X" />
+            <img src={insuroboImg} alt="인슈로보" />
           </AppIconWrap>
           <TextWrap>
             <h2>
@@ -47,9 +49,14 @@ const Guide = ({ jehuCd }) => {
               <span>무료 가입</span> 하세요
             </h2>
             <p>
-              1월00일 ~2월00일<br />
-              <span>(요기요X인슈로보가 함께합니다)</span>
+              요기요와 인슈로보가<br />
+              지원하는 소상공인 풍수해보험
+              <span>
+                요기요 사장님께서는 간단한 내용 입력만으로<br />
+                풍수해보험을 신청하실 수 있고 무료 가입 혜택을 받으실 수 있습니다.
+              </span>
             </p>
+            <span className="underline">2024년 1월 15일 ~ 2월 29일</span>
           </TextWrap>
         </div>
         <div>
@@ -71,9 +78,9 @@ const Guide = ({ jehuCd }) => {
             </li>
           ))}
         </CardWrap>
-        <Button jehuCd={jehuCd} onClick={() => navigate('/freeApply/bizWindstorm?jehuCd=yogiyo')}>풍수해보험 무료 가입하기</Button>
+        <Button jehuCd={jehuCd} onClick={() => navigate('/freeApply/bizWindstorm?jehuCd=yogiyo')}>풍수해보험 신청하기</Button>
       </Section>
-      <Section gradient='gra2'>
+      {/* <Section gradient='gra2'>
         <Title>
           <Label>이벤트 유의사항</Label>
         </Title>
@@ -106,7 +113,7 @@ const Guide = ({ jehuCd }) => {
             <img src={insuChatIcon} alt="인슈로보" />
           </div>
         </ChatWrap>
-      </Section>
+      </Section> */}
       <Section>
         <Title>
           <Label>가입시 유의사항</Label>
@@ -115,8 +122,8 @@ const Guide = ({ jehuCd }) => {
         <ListWrap>
           <li>일반금융소비자는 금융상품판매업자로부터 충분한 설명을 받을 권리가 있으며 그 설명을 이해하신 후 가입하시기 바랍니다.</li>
           <li>이 자료는 요약된 것이므로 가입 전 해당 상품의 약관 및 상품설명서를 반드시 확인하세요.</li>
-          <li>본 보험은 비씨카드 회원을 대상으로 인슈로보가 보험료를 지불하고 현대해상화재보험에서 보장하는 “풍수해보험VI” 입니다.</li>
-          <li>보험개시는 가입일로부터 약월부터 개시됩니다.</li>
+          <li>본 보험은 요기요 회원을 대상으로 인슈로보가 보험료를 지불하고 DB손해보험에서 보장하는 풍수해보험 입니다.</li>
+          <li>보험개시는 가입신청 익월부터 개시됩니다.</li>
           <li>가입대상이 아닌 경우 보험가입 거절되거나 해지 시 보험 계약은 취소될 수 있습니다.</li>
           <li>해지 또는 취소 시에도 환급보험료는 발생하지 않습니다.</li>
         </ListWrap>
@@ -160,45 +167,49 @@ const Guide = ({ jehuCd }) => {
                   <p>1)풍수해</p>
                   <span>기성청 특보 발표 기준</span>
                   <table>
-                    <tr>
-                      <th>구분</th>
-                      <th>내용</th>
-                    </tr>
-                    <tr>
-                      <th>태풍</th>
-                      <td>태풍으로 인하여 강풍, 풍랑, 호우, 폭풍해일 현상 등이 주의보 기준에 도달할 것으로 예상될 때</td>
-                    </tr>
-                    <tr>
-                      <th>호우</th>
-                      <td>3시간 강우량 50mm이상 예상되거나 12시간 강우량이 110mm이상 예상될 때</td>
-                    </tr>
-                    <tr>
-                      <th>강풍</th>
-                      <td>육상에서 12m/s 이상 또는 순산풍속 20m/s 이상이 될 때. 단, 산지는 풍속이 17m/ 이상 또는 순간풍속 25m/s 이상이 예상될 때</td>
-                    </tr>
-                    <tr>
-                      <th>풍량</th>
-                      <td>해상에서 풍속 14m/s 이상이 3시간 이상 지속되거나 유의파고가 3m이상이 예상될 때</td>
-                    </tr>
-                    <tr>
-                      <th colSpan={2}>해일</th>
-                    </tr>
-                    <tr>
-                      <th>폭풍해일</th>
-                      <td>천문조, 폭풍, 저기압 등의 복합적인 영향으로 해수면이 상승하여 발효기준값 이상이 예상될 때. 다만, 발효기준값은 지역별로 별도 지정</td>
-                    </tr>
-                    <tr>
-                      <th>지진해일</th>
-                      <td>한반도 주변해역(21˚N ~ 45˚N, 110˚E ~ 145˚E)등에서 규모 6.0이상의 해저지진이 발생하여 우리나라 해안가에 해일파고 0.5m이상의 지진해일 내습이 예상될 때</td>
-                    </tr>
-                    <tr>
-                      <th>대설</th>
-                      <td>24시간 신적설이 5cm 이상이 예상될 때</td>
-                    </tr>
-                    <tr>
-                      <th>지진</th>
-                      <td>국내 내륙에서 규모 3.5이상 또는 국내 해역에서 규모 4.0 이상으로 추정되는 자연지진이 발생하거나, 국외에서 발행한 지연지진으로 인하여 피해가 예상되는 경우</td>
-                    </tr>
+                    <thead>
+                      <tr>
+                        <th>구분</th>
+                        <th>내용</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>태풍</th>
+                        <td>태풍으로 인하여 강풍, 풍랑, 호우, 폭풍해일 현상 등이 주의보 기준에 도달할 것으로 예상될 때</td>
+                      </tr>
+                      <tr>
+                        <th>호우</th>
+                        <td>3시간 강우량 50mm이상 예상되거나 12시간 강우량이 110mm이상 예상될 때</td>
+                      </tr>
+                      <tr>
+                        <th>강풍</th>
+                        <td>육상에서 12m/s 이상 또는 순산풍속 20m/s 이상이 될 때. 단, 산지는 풍속이 17m/ 이상 또는 순간풍속 25m/s 이상이 예상될 때</td>
+                      </tr>
+                      <tr>
+                        <th>풍량</th>
+                        <td>해상에서 풍속 14m/s 이상이 3시간 이상 지속되거나 유의파고가 3m이상이 예상될 때</td>
+                      </tr>
+                      <tr>
+                        <th colSpan={2}>해일</th>
+                      </tr>
+                      <tr>
+                        <th>폭풍해일</th>
+                        <td>천문조, 폭풍, 저기압 등의 복합적인 영향으로 해수면이 상승하여 발효기준값 이상이 예상될 때. 다만, 발효기준값은 지역별로 별도 지정</td>
+                      </tr>
+                      <tr>
+                        <th>지진해일</th>
+                        <td>한반도 주변해역(21˚N ~ 45˚N, 110˚E ~ 145˚E)등에서 규모 6.0이상의 해저지진이 발생하여 우리나라 해안가에 해일파고 0.5m이상의 지진해일 내습이 예상될 때</td>
+                      </tr>
+                      <tr>
+                        <th>대설</th>
+                        <td>24시간 신적설이 5cm 이상이 예상될 때</td>
+                      </tr>
+                      <tr>
+                        <th>지진</th>
+                        <td>국내 내륙에서 규모 3.5이상 또는 국내 해역에서 규모 4.0 이상으로 추정되는 자연지진이 발생하거나, 국외에서 발행한 지연지진으로 인하여 피해가 예상되는 경우</td>
+                      </tr>
+                    </tbody>
                   </table>
                   <span className="comment">※향후, 기상청 특보 발표기준 등이 변경되면 풍수해보험의 보상하는 재해기준도 동일하게 적용</span>
                   <span><p>보장내용</p></span>
@@ -377,18 +388,26 @@ const Wrap = styled.div`
 
 const Section = styled.div`
   background-color: #FFFFFF;
-  padding: 32px 206px;
+  padding: 32px 206px 0;
   display: flex;
   flex-direction: column;
-  > p {
+  :last-child {
+    padding-bottom: 62px;
+  }
+  > p { 
     font-size: 14px;
     color: #999999;
   }
   ${props => props.gradient === 'gra1' && css`
     flex-direction: row;
-    align-items: flex-end;
-    padding: 80px 0 80px 206px;
+    padding: 50px 0 42px 206px;
+    position: relative;
     background: linear-gradient(180deg, #6262EF 55.93%, rgba(52, 170, 196, 0.61) 99.99%, rgba(0, 0, 206, 0.32) 99.99%, rgba(1, 1, 213, 0.01) 100%, rgba(0, 0, 213, 0.00) 100%);
+    > div:nth-child(2) {
+      position: absolute;
+      top: 83px;
+      right: 123px;
+    }
   `}
 
   ${props => props.gradient === 'gra2' && css`
@@ -396,18 +415,14 @@ const Section = styled.div`
   `}
 
   ${(props) => props.theme.window.mobile} {
-    padding: 32px 10px;
-
+    padding: 32px 10px 0;
+    :last-child {
+      padding-bottom: 30px;
+    }
     ${props => props.gradient === 'gra1' && css`
-      padding: 80px 0 80px 30px;
-      position: relative;
+      padding: 50px 30px 42px;
       > div:nth-child(2) {
-        
-        > img {
-          position: absolute;
-          bottom: 80px;
-          transform: translateX(-20px);
-        }
+        right: -78px; 
       }
     `};
   }
@@ -415,9 +430,11 @@ const Section = styled.div`
 
 const AppIconWrap = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 74px;
+  align-items: center;
 
+  > img:nth-child(2) {
+    padding: 1px 8px 0;
+  }
 `;
 
 const TextWrap = styled.div`
@@ -461,10 +478,30 @@ const TextWrap = styled.div`
     color: #FFFFFF;
     padding-top: 24px;
     > span {
-      display: inline-block;
+      display: block;
+      font-size: 12px;
       color: #E2E2E2;
       font-weight: 100;
-      padding-top: 4px;
+      padding: 30px 0;
+    }
+  }
+  > span {
+    font-size: 10px;
+    color: #FFFFFF;
+    font-weight: 300;
+    
+    &.underline {
+      position: relative;
+      ::after {
+        content: '';
+        display: inline-block;
+        width: 100%;
+        height: 1px;
+        background-color: #FFFFFF;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
     }
   }
 `;
@@ -491,7 +528,7 @@ const Label = styled.div`
 const Title = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   > p {
     font-size: 18px;
     font-weight: 700;

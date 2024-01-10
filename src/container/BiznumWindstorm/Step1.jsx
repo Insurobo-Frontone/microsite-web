@@ -9,11 +9,14 @@ import { MoneypinBizInfo } from "../../api/BizWindStormAPI";
 import Step2 from "./Step2";
 import SectionWrap from "./SectionWrap";
 import ErrorMessage from "./ErrorMessage";
+import { useSearchParams } from "react-router-dom";
 
 const Step1 = () => {
   const [data, setData] = useState();
   const [close, setClose] = useState(true);
-  const { watch, setValue, setError, clearErrors, formState: { errors } } = useFormContext();
+  const [searchParams] = useSearchParams();
+  const jehuCd = searchParams.get('jehuCd');
+  const { watch, setValue, setError, clearErrors, setFocus, formState: { errors } } = useFormContext();
   const overlap = [
     {
       id: 1,
@@ -26,7 +29,13 @@ const Step1 = () => {
       title: '예(가입 불가)'
     },
   ];
+  const setMoveFocus = (value, lengthNum, next) => {
+    console.log(value, lengthNum, next)
+    if (value.length === lengthNum) {
 
+      setFocus(next);
+    }
+  }
   useEffect(() => {
     if (watch('overlap') === 'Y') {
       setClose(false);
@@ -76,13 +85,15 @@ const Step1 = () => {
         comment='필수항목'
       >
         <div>
-            <InputGroup>
+          <InputGroup>
+            <div>
+              <p>타 풍수해보험 가입 여부<b>*</b></p>
               <div>
-                <p>타 풍수해보험 가입 여부<b>*</b></p>
                 <RadioButton name='overlap' data={overlap} />
               </div>
-            </InputGroup>
-            <InputGroup>
+            </div>
+          </InputGroup>
+          <InputGroup>
               <p>사업자번호<b>*</b></p>
               <div>
                 <TextInput 
@@ -95,6 +106,9 @@ const Step1 = () => {
                   minLength={{
                     value: 3,
                     message: '사업자번호를 다시 입력해주세요'
+                  }}
+                  validate={{
+                    value: (value) => setMoveFocus(value, 3, 'bizNo2')
                   }}
                 />
                 <span>-</span>
@@ -130,25 +144,38 @@ const Step1 = () => {
                 errors.bizNo3 ? <ErrorMessage message={errors.bizNo3.message} /> :
                 errors.bizNo && <ErrorMessage message={errors.bizNo.message} />
               }
-            </InputGroup>
-            {!close && (
-              <Popup close={() => setClose(true)}>
-                <p>다른 소상공인 풍수해보험에<br />가입 시 중복 가입이 불가합니다.</p>
-              </Popup>
-            )}
-            <Button 
-              title='조회하기'
-              type='button'
-              onClick={() => onClickSearch()}
-              disabled={
-                !watch('bizNo1') || 
-                !watch('bizNo2') || 
-                !watch('bizNo3') || 
-                watch('overlap') === 'Y'
-              }
-            />
-          </div>
-        </SectionWrap>
+          </InputGroup>
+          {!close && (
+            <Popup close={() => setClose(true)}>
+              <p>다른 소상공인 풍수해보험에<br />가입 시 중복 가입이 불가합니다.</p>
+            </Popup>
+          )}
+          <Button 
+            title='조회하기'
+            type='button'
+            onClick={() => onClickSearch()}
+            disabled={
+              !watch('bizNo1') || 
+              !watch('bizNo2') || 
+              !watch('bizNo3') || 
+              watch('overlap') === 'Y'
+            }
+          />
+        </div>
+        <TextArea>
+          {jehuCd === 'yogiyo' && (
+            <div>
+              <p>*행정안전부 운영지침에 따른 지원 대상은 사업장이 <span>전통시장 소속</span>이거나,<span>일반 상가 지하층</span> 또는 <span>1층 소재</span> 건물입니다.</p>
+              <p>(세가지 조건 중 하나만 해당되면 지원대상)</p>
+            </div>
+          )}
+          <ul>
+            <li>*지원 대상이 아닌 경우 별도의 통지없이 반려될 수 있습니다.</li>
+            <li>*보험 기간은 보험개시일로부터 1년간 입니다. (1년 소멸성)</li>
+            <li>*사고보험금 지급 시 자기부담금은 제외한 후 보상됩니다.</li>
+          </ul>
+        </TextArea>
+      </SectionWrap>
       {data && <Step2 data={data} />}
     </>
   )
@@ -162,6 +189,11 @@ const InputGroup = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    > div {
+      display: flex;
+      justify-content: space-between;
+      width: 180px;
+    }
     > span {
       height: 20px;
       display: block;
@@ -173,6 +205,38 @@ const InputGroup = styled.div`
     font-size: 14px;
     > b {
       color: #6262EF;
+    }
+  }
+
+  ${(props) => props.theme.window.mobile} {
+    > div {
+      > div {
+        width: 170px;
+      }
+    }
+  }
+`;
+
+const TextArea = styled.div`
+  > ul {
+    padding: 10px 0;
+    > li {
+      font-size: 14px;
+      color: #333333;
+      font-weight: 300;
+      line-height: 23px;
+    }
+  }
+  > div {
+    padding-bottom: 20px;
+    > p {
+      color: #333333;
+      font-size: 12px;
+      font-weight: 300;
+      > span {
+        color: #FF0000;
+        font-weight: 300;
+      }
     }
   }
 `;

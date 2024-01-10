@@ -6,36 +6,32 @@ import checkedBg from '../../../assets/icon/checkedBg.png';
 const RadioButton = ({ name, data, onFocus }) => {
   const { control } = useFormContext();
   return (
-      <Controller
-        name={name}
-        control={control}
-        render={({ field: { value, onChange } }) => {
-          return (
-            <>
-              <RadioBasic>
-                {data.map((item) => {
-                  return (
-                    <>
-                      <input
-                        key={item.id}
-                        type="radio"
-                        id={item.id.toString()}
-                        value={item.value}
-                        checked={value === item.value}
-                        onChange={(e) => onChange(e.target.value)}
-                        onFocus={onFocus}
-                      />
-                      <label htmlFor={item.id.toString()}>{item.title}</label>
-                    </>
-                  );
-                }
-              )}
-            </RadioBasic>
+    <Controller
+      name={name}
+      control={control}
+      render={({ field: { value, onChange } }) => {
+        return (
+          <>
+            {data.map((item) => {
+              return (
+                <RadioBasic key={item.id}>
+                  <input 
+                    type="radio"
+                    id={item.id.toString()}
+                    value={item.value}
+                    checked={value === item.value}
+                    onChange={(e) => onChange(e.target.value)}
+                    onFocus={onFocus}
+                  />
+                  <label htmlFor={item.id.toString()}>{item.title}</label>
+                </RadioBasic>
+              );
+            })}
           </>
         );
       }}
     />
-  ) 
+  );
 }
 
 export default RadioButton;
@@ -50,12 +46,7 @@ const RadioBasic = styled.div`
     font-weight: 400;
     position: relative;
     display: flex;
-    :first-child {
-      margin-left: 0;
-    }
-    :last-child {
-      margin-left: 16px;
-    }
+    
     ::before {
       content: '';
       display: inline-block;
@@ -78,14 +69,6 @@ const RadioBasic = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     background-size: 12px;
-  }
-
-  ${(props) => props.theme.window.mobile} {
-    > label {
-      :last-child {
-        margin-left: 5px;
-      }
-    }
   }
     
 `;

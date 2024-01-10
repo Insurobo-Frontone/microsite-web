@@ -81,7 +81,7 @@ const Step2 = ({data}) => {
             <InputGroup>
               <div>
                 <p>성별<b>*</b></p>
-                <RadioButton name='inrGender' data={gender} />
+                <div><RadioButton name='inrGender' data={gender} /></div>
               </div>
             </InputGroup>
           </>
@@ -111,6 +111,13 @@ const InputGroup = styled.div`
       height: 20px;
       display: block;
       padding: 0 7px;
+    }
+    > div {
+      display: flex;
+      justify-content: space-between;
+      :last-child label {
+        margin-left: 16px;
+      }
     }
   }
   p {

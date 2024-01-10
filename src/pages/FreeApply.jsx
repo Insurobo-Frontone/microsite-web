@@ -322,7 +322,6 @@ function FreeApply() {
   // const { pathname } = useLocation();
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
-  console.log(jehuCd)
   const navigate = useNavigate();
   const checkLogin = () => {
     navigate('/freeApply/bizWindstorm');

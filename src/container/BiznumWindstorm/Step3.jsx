@@ -15,7 +15,6 @@ const Step3 = ({ data }) => {
   const { watch } = useFormContext();
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
-  console.log(data?.address.split(",")[0])
   const yoStore = [
     {
       id: 'store',
@@ -125,7 +124,9 @@ const Step3 = ({ data }) => {
           <InputGroup>
             <div>
               <p>사업장 임차 여부<b>*</b></p>
-              <RadioButton name='bizEstate' data={estate} />
+              <div className="radio-wrap">
+                <RadioButton name='bizEstate' data={estate} />
+              </div>
             </div>
           </InputGroup>
           <InputGroup>
@@ -186,6 +187,14 @@ const InputGroup = styled.div`
       height: 20px;
       display: block;
       padding: 0 7px;
+    }
+    > div {
+      display: flex;
+      justify-content: space-between;
+      &.radio-wrap {
+        width: 142px;
+      }
+      
     }
   }
   .two-input {

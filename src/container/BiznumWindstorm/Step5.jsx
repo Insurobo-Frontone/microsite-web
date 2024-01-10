@@ -10,14 +10,17 @@ import { StorageGetInsurance } from "../Storage/Insurance";
 import useWindowSize from "../../hooks/useWindowSize";
 import Popup from "./Popup";
 import { postWindstormSave } from "../../api/BizWindStormAPI";
+import { useSearchParams } from "react-router-dom";
 
 const Step5 = () => {
 	const { watch, setValue, setError, handleSubmit, formState: { errors } } = useFormContext();
 	const { width } = useWindowSize();
+	const [success, setSuccess] = useState(false);
 	const navigate = useNavigate();
 	const [close, setClose] = useState(false);
 	const [message, setMessage] = useState('');
-	
+	const [searchParams] = useSearchParams();
+	const jehuCd = searchParams.get('jehuCd');
 	useEffect(() => {
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
 	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')])
@@ -79,7 +82,6 @@ const Step5 = () => {
 
 			const insurance = StorageGetInsurance();
 			const objZipValue = insurance.getAddr.zipNo+''
-	
 			const data = {
 				biz_no: watch('bizNo'),
 				biz_name: watch('ptyBizNm'),
@@ -146,18 +148,27 @@ const Step5 = () => {
 				}).then((res) => {
 					const userId = res.data.results.userID;
 					console.log(res)
-					const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='
-					window.open(`${link}${userId}`);
-					navigate('/');
+					const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId=';
+					if (jehuCd === 'yogiyo') {
+						setClose(true);
+						setMessage('가입신청이 완료되었습니다.');
+						setSuccess(true);
+					} else {
+						window.open(`${link}${userId}`);
+						navigate('/');
+					}
+					
 				}).catch((e) => console.log(e));
 			}).catch((e) => {
 				console.log(e)
 				alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.')
 			})
-			
-	
-  }
+ 	 }
 
+	const yogiyoClose = () => {
+		setClose(false);
+		navigate('/');
+	}
 	const terms = [
 		{
 			id: 'termsA6',
@@ -346,7 +357,9 @@ const Step5 = () => {
 					<ScrollView dangerouslySetInnerHTML={{
 						 __html: dt.textArea
 					}} />
-					<RadioButton name={dt.id} data={[{ id: `select_${dt.id}_N`, value: 'N', title: '동의하지 않음'}, { id: `select_${dt.id}_Y`, value: 'Y', title: '동의'}]} />
+					<div>
+						<RadioButton name={dt.id} data={[{ id: `select_${dt.id}_N`, value: 'N', title: '동의하지 않음'}, { id: `select_${dt.id}_Y`, value: 'Y', title: '동의'}]} />
+					</div>
 				</InputGroup>
 			))}
 			<CheckGroup>
@@ -359,7 +372,7 @@ const Step5 = () => {
 			</ButtonGroup>
     </SectionWrap>
 			{close && (
-				<Popup close={() => setClose(false)}>
+				<Popup close={success ?  () => yogiyoClose() :  () => setClose(false)}>
 					{	errors.telNo1 ? <p>{errors.telNo1.message}</p> : 
 						errors.telNo2 ? <p>{errors.telNo2.message}</p> : 
 						errors.telNo3 ? <p>{errors.telNo3.message}</p> :
@@ -401,7 +414,11 @@ const AllCheckButton = styled.div`
 
 const InputGroup = styled.div`
   > div {
+		display: flex;
     justify-content: flex-start;
+		> div {
+			margin-right: 16px;
+		}
   }
   
   p {

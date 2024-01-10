@@ -23,11 +23,6 @@ const BiznumWindstorm = () => {
           <h2>풍수해보험<span>신청하기</span></h2>
           <p>‘소상공인 풍수해보험’ 인슈로보에서 아주 간단하게!</p>
           <div>사업자번호만 작성하여 간편하게 가입하세요.</div>
-          <ul>
-            <li>*지원 대상이 아닌 경우 별도의 통지없이 반려될 수 있습니다.</li>
-            <li>*보험 기간은 보험개시일로부터 1년간 입니다. (1년 소멸성)</li>
-            <li>*사고보험금 지급 시 자기부담금은 제외한 후 보상됩니다.</li>
-          </ul>
         </ApplyTitle>
       </SectionWrap>
       <Step1 />
@@ -64,15 +59,7 @@ const ApplyTitle = styled.div`
     text-align: center;
     border-radius: 5px;
   }
-  > ul {
-    padding-top: 30px;
-    > li {
-      font-size: 14px;
-      color: #333333;
-      font-weight: 300;
-      line-height: 23px;
-    }
-  }
+ 
 
   ${(props) => props.theme.window.mobile} {
     > ul {

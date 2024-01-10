@@ -58,7 +58,9 @@ const Step4 = () => {
       >
         <InputGroup>
           <p>“소상공인 보호 및 지원에 관한 법률” 제 2조, “중소기업기본법" 제 2조 2항에서는 소상공인의 상시 근로자 수를 광업.제조업.건설업.운수업은 10명 미만, 그 밖의 업종은 5명 미만으로 제한합니다. 피보험자의 상시 근로자수(아르바이트 제외)가 기준 미만입니까?</p>
-          <RadioButton name='workerNumUnder' data={check1} />
+          <div className="radio-wrap">
+            <RadioButton name='workerNumUnder' data={check1} />
+          </div>
         </InputGroup>
         <InputGroup>
           <p>상시 근로자수(아르바이트 제외)가 기준 미만이라면, 상시 근로자 수는 몇 명입니까?* <span>(숫자로만 표기)</span></p>
@@ -70,7 +72,9 @@ const Step4 = () => {
         </InputGroup>
         <InputGroup>
           <p>“중소기업기본법 시행령” 제 8조 1항 에서는 주요 업종별 연평균 매출액을 제한합니다. 피보험자의 연평균 매출액이 기준 미만입니까?</p>
-          <RadioButton name='charSalesUnder' data={check2} />
+          <div className="radio-wrap">
+            <RadioButton name='charSalesUnder' data={check2} />
+          </div>
         </InputGroup>
         <InputGroup sub>
           <p>주요 업종은 무엇입니까?*</p>
@@ -94,8 +98,9 @@ const Step4 = () => {
             name='sales'
             type='number'
             required='연평균 매출액을 입력해주세요'
-        
+            className='sales-input'
           />
+          <span>백만원</span>
         </InputGroup>
       </SectionWrap>
       {!close && (
@@ -110,11 +115,24 @@ const Step4 = () => {
 export default Step4;
 
 const InputGroup = styled.div`
+  position: relative;
   > div {
-    justify-content: flex-start;
+    display: flex;
+    justify-content: space-between;
     margin-top: 24px;
+    &.radio-wrap {
+      width: 116px;
+    }
   }
-  
+  > span {
+    position: absolute;
+    display: block;
+    top: 33px;
+    right: 16px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #666666;
+  }
   p {
     color: #666666;
     font-size: 14px;
@@ -122,6 +140,7 @@ const InputGroup = styled.div`
       font-size: 12px;
     }
   }
+  
   ${props => props.sub && css`
     > div {
       margin-top: 6px;
