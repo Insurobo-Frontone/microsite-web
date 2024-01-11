@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import TextInput from "./Input/TextInput";
 import RadioButton from "./Input/RadioButton";
@@ -7,7 +7,11 @@ import SectionWrap from "./SectionWrap";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
 
-const Step2 = ({data}) => {
+const Step2 = ({ data }) => {
+  useEffect(() => {
+
+  }, []);
+
   const gender = [
     {
       id: 'men',

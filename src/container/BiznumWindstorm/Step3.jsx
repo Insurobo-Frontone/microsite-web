@@ -22,6 +22,7 @@ const Step3 = ({ data }) => {
       title: '일반(상가)'
     },
   ];
+
   const store = [
     {
       id: 'store',
@@ -80,7 +81,9 @@ const Step3 = ({ data }) => {
           <InputGroup>
             <div>
               <p>건물 구분<b>*</b></p>
-              <RadioButton name='objCat' data={jehuCd === 'yogiyo' ? yoStore : store } />
+              <div className={jehuCd === 'yogiyo' ? 'yogiyo-radio-wrap' : "radio-wrap"}>
+                <RadioButton name='objCat' data={jehuCd === 'yogiyo' ? yoStore : store } />
+              </div>
             </div>
             {jehuCd === 'yogiyo' && (<p className="warning">*일반(상가) 외 공장이나 주택은 가입이 불가합니다</p>)}
           </InputGroup>
@@ -194,7 +197,9 @@ const InputGroup = styled.div`
       &.radio-wrap {
         width: 142px;
       }
-      
+      &.yogiyo-radio-wrap {
+        width: auto;
+      }
     }
   }
   .two-input {

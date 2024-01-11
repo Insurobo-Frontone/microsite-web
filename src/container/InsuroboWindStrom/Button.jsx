@@ -31,5 +31,9 @@ const ButtonWrap = styled.button`
 
   ${props => props.jehuCd === 'yogiyo' && css`
     background-color: #6262EF;
+    font-family: 'SCoreDream';
+    font-size: 23px;
+    height: 55px;
+    border-radius: 8px;
   `}
 `;

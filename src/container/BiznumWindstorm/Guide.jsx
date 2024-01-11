@@ -30,48 +30,49 @@ const manual = [
     title: `아래의 QR코드로\n바로 접속 가능합니다`,
     img: manual3
   },
+]; 
 
-]
 const Guide = ({ jehuCd }) => {
   const navigate = useNavigate();
   return (
     <Wrap>
       <Section gradient='gra1'>
-        <div>
-          <AppIconWrap>
-            <img src={yogiyoImg} alt="요기요 사장님" />
-            <img src={collabo} alt="X" />
-            <img src={insuroboImg} alt="인슈로보" />
-          </AppIconWrap>
-          <TextWrap>
-            <h2>
-              <b>풍수해보험</b><br />
-              <span>무료 가입</span> 하세요
-            </h2>
-            <p>
-              요기요와 인슈로보가<br />
-              지원하는 소상공인 풍수해보험
-              <span>
-                요기요 사장님께서는 간단한 내용 입력만으로<br />
-                풍수해보험을 신청하실 수 있고 무료 가입 혜택을 받으실 수 있습니다.
-              </span>
-            </p>
-            <span className="underline">2024년 1월 15일 ~ 2월 29일</span>
-          </TextWrap>
-        </div>
-        <div>
-          <img src={main1} alt='풍수해보험 이미지' />
-        </div>
+        <LogoWrap>
+          <img src={yogiyoImg} alt="요기요 사장님" />
+          <img src={collabo} alt="X" />
+          <img src={insuroboImg} alt="인슈로보" />
+        </LogoWrap>
+        <ContentWrap>
+          <h2>
+            풍수해보험<br />
+            무료 가입 하세요
+          </h2>
+          <div>
+            <img src={main1} alt='풍수해보험 이미지' />
+          </div>
+          <TextBox>
+            <h2><span className="yogiyo">요기요</span>와 <span className="insurobo">인슈로보</span>가 지원하는<br />소상공인 풍수해보험</h2>
+            <div>
+              <p>간단한 풍수해보험 신청</p>
+              <p>무료 가입 혜택</p>
+            </div>
+          </TextBox>
+        </ContentWrap>
       </Section>
       <Section>
+        <div className="comment">
+          요기요 사장님께서는 간단한 내용 입력만으로<br />
+          풍수해보험을 신청하실 수 있고<br />
+          무료 가입 혜택을 받으실 수 있습니다.
+        </div>
         <Title>
-          <Label>가입대상</Label>
-          <p>소상공인이라면 누구나 가능합니다</p>
+          <div>가입대상</div>
+          <p>소상공인이라면<br />누구나 가능합니다</p>
         </Title>
         <CardWrap>
           {manual.map((dt) => (
             <li key={dt.id}>
-              <Card >
+              <Card>
                 <img src={dt.img} alt="manual" />
               </Card>
               <p>{dt.title}</p>
@@ -79,45 +80,9 @@ const Guide = ({ jehuCd }) => {
           ))}
         </CardWrap>
         <Button jehuCd={jehuCd} onClick={() => navigate('/freeApply/bizWindstorm?jehuCd=yogiyo')}>풍수해보험 신청하기</Button>
-      </Section>
-      {/* <Section gradient='gra2'>
         <Title>
-          <Label>이벤트 유의사항</Label>
-        </Title>
-        <ChatWrap>
-          <div>
-            <MessageBox insurobo>
-              <p>풍수해보험이란?</p>
-              <p>
-                국가 및 지자체에서 보험료 일부 지원하는<br />
-                보험으로 행정안전부가 관장하고 민영보험사가<br />
-                판매하는 정책보험입니다.
-              </p>
-              <p>
-                지진, 태풍, 홍수, 호우, 강풍 등으로 인한 사고<br />
-                발생 시 실손비용을 보장하는 보험이예요.
-              </p>
-            </MessageBox>
-            <img src={insuChatIcon} alt="인슈로보" />
-          </div>
-          <div>
-            <img src={userChatIcon} alt="고객" />
-            <MessageBox user>
-              <p>그럼 나머지 일부 보험료는 제가 지불해야하나요?</p>
-            </MessageBox>
-          </div>
-          <div>
-            <MessageBox insurobo>
-              <p>아니요! 이벤트 주최사인 저희 인슈로보에서<br />보험료 전부를 지원합니다.</p>
-            </MessageBox>
-            <img src={insuChatIcon} alt="인슈로보" />
-          </div>
-        </ChatWrap>
-      </Section> */}
-      <Section>
-        <Title>
-          <Label>가입시 유의사항</Label>
-          <p>가입 전에 꼭 한 번 확인하세요!</p>
+          <div>가입시 유의사항</div>
+          <p>가입 전에<br />꼭 한 번 확인하세요!</p>
         </Title>
         <ListWrap>
           <li>일반금융소비자는 금융상품판매업자로부터 충분한 설명을 받을 권리가 있으며 그 설명을 이해하신 후 가입하시기 바랍니다.</li>
@@ -139,7 +104,7 @@ const Guide = ({ jehuCd }) => {
           <li>이 상품은 순수 보장성 상품으로 만기 시 환급금이 없습니다.</li>
         </ListWrap>
         <Title>
-          <Label><p>꼭 알아두어야하는 사항</p></Label>
+          <div>꼭 알아두어야하는 사항</div>
         </Title>
         <ScrollBox>
           <ul>
@@ -380,7 +345,11 @@ export default Guide
 const Wrap = styled.div`
   width: 768px;
   margin: 0 auto;
-
+  h2, p, span, div {
+    font-family: 'SCoreDream';
+    color: #000000;
+    line-height: 1.2;
+  }
   ${(props) => props.theme.window.mobile} {
     width: 100%;
   }
@@ -388,166 +357,148 @@ const Wrap = styled.div`
 
 const Section = styled.div`
   background-color: #FFFFFF;
-  padding: 32px 206px 0;
+  padding: 86px 206px 36px;
   display: flex;
   flex-direction: column;
-  :last-child {
-    padding-bottom: 62px;
+  justify-content: center;
+  .comment {
+    padding: 40px 0 10px;
+    font-size: 15px;
+    font-weight: 500;
+    align-self: center;
   }
   > p { 
     font-size: 14px;
     color: #999999;
   }
   ${props => props.gradient === 'gra1' && css`
-    flex-direction: row;
-    padding: 50px 0 42px 206px;
-    position: relative;
+    padding-top: 50px;
+    padding-bottom: 0;
     background: linear-gradient(180deg, #6262EF 55.93%, rgba(52, 170, 196, 0.61) 99.99%, rgba(0, 0, 206, 0.32) 99.99%, rgba(1, 1, 213, 0.01) 100%, rgba(0, 0, 213, 0.00) 100%);
-    > div:nth-child(2) {
-      position: absolute;
-      top: 83px;
-      right: 123px;
-    }
   `}
 
-  ${props => props.gradient === 'gra2' && css`
-    background: linear-gradient(180deg, rgba(52, 170, 196, 0.61) 0%, rgba(0, 0, 206, 0.32) 100%);
-  `}
 
   ${(props) => props.theme.window.mobile} {
-    padding: 32px 10px 0;
-    :last-child {
-      padding-bottom: 30px;
-    }
+    padding-left: 10px;
+    padding-right: 10px;
     ${props => props.gradient === 'gra1' && css`
-      padding: 50px 30px 42px;
-      > div:nth-child(2) {
-        right: -78px; 
-      }
+
     `};
   }
 `;
 
-const AppIconWrap = styled.div`
+const LogoWrap = styled.div`
   display: flex;
   align-items: center;
-
+  justify-content: center;
   > img:nth-child(2) {
-    padding: 1px 8px 0;
+    padding: 0 8px 2px;
   }
 `;
 
-const TextWrap = styled.div`
-  padding-top: 18px;
+const ContentWrap = styled.div`
+  padding-top: 30px;
+  padding-bottom: 81px;
+  text-align: center;
+  position: relative;
+  
   > h2 {
     color: #FFFFFF;
-    font-weight: 100;
-    font-size: 28px;
-    ::after {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 1px;
-      margin-top: 26px;
-      background-color: #FFFFFF;
-    }
-    > b {
-      color: #FFFFFF;
-      font-weight: 700;
-    }
-    > span {
-      color: #FFFFFF;
-      position: relative;
-      font-weight: 100;
-      z-index: 0;
-      ::before {
-        content: '';
-        position: absolute;
-        bottom: 3px;
-        height: 4px;
-        width: 100%;
-        border-radius: 5px;
-        background-color: #858FFC;
-        z-index: -1;
-      }
-    }
+    font-size: 30px;
   }
-  > p {
-    font-size: 14px;
-    font-weight: 100;
-    color: #FFFFFF;
-    padding-top: 24px;
-    > span {
+  > div {
+    > img {
       display: block;
-      font-size: 12px;
-      color: #E2E2E2;
-      font-weight: 100;
-      padding: 30px 0;
-    }
-  }
-  > span {
-    font-size: 10px;
-    color: #FFFFFF;
-    font-weight: 300;
-    
-    &.underline {
-      position: relative;
-      ::after {
-        content: '';
-        display: inline-block;
-        width: 100%;
-        height: 1px;
-        background-color: #FFFFFF;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-      }
+      margin: 0 auto;
+      transform: translateY(-29px);
     }
   }
 `;
 
-const Label = styled.div`
-  font-size: 14px;
-  line-height: 20px;
-  color: #6262EF;
+const TextBox = styled.div`
+  width: 100%;
+  position: absolute;
+  top: 230px;
   background-color: #FFFFFF;
-  border: 1.5px solid #6262EF;
-  border-radius: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 3px 14px;
-  > p {
-    color: #6262EF;
-    padding: 4px 0;
+  border-radius: 8px;
+  padding: 23px 34px;
+  > h2 {
+    font-size: 22px;
+    padding-bottom: 24px;
+    > span {
+      font-weight: 600;
+      &.yogiyo {
+        color: #FA0050;
+      }
+      &.insurobo {
+        color: #2EA5FF;
+      }
+    }
+  }
+  > div {
+    > p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #6262EF;
+      color: #FFFFFF;
+      padding: 11.5px 0;
+      font-size: 23px;
+      font-weight: 700;
+      border-radius: 8px;
+      :first-child {
+        margin-bottom: 8px;
+      }
+    }
   }
 `;
-
-
 
 const Title = styled.div`
+  padding-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  > div {
+    font-size: 16px;
+    font-family: 'Noto Sans KR';
+    padding: 8px 21px 6px;
+    color: #6262EF;
+    background-color: #FFFFFF;
+    border: 1.5px solid #6262EF;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   > p {
-    font-size: 18px;
+    font-size: 23px;
     font-weight: 700;
-    color: #333333;
-    padding-top: 16px;
+    padding-top: 20px;
+    text-align: center;
   }
 `;
 
 const CardWrap =  styled.ul`
   display: flex;
   justify-content: space-between;
-  padding: 32px 0 28px;
+  flex-flow: wrap;
+  padding: 32px 0 0;
   > li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+    :last-child {
+      width: 100%;
+      justify-content: center;
+    }
     > p {
-      font-size: 10px;
+      font-size: 18px;
       text-align: center;
       white-space: pre;
-      padding-top: 8px;
-      color: #333333;
+      padding-top: 11px;
+      font-weight: 700;
     }
   }
 
@@ -557,8 +508,8 @@ const CardWrap =  styled.ul`
 `;
 
 const Card = styled.div`
-  width: 110.88px;
-  height: 110.88px;
+  width: 156px;
+  height: 156px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
   display: flex;
@@ -567,82 +518,16 @@ const Card = styled.div`
   border: 1px solid #F4F4F4;
 `;
 
-const ChatWrap = styled.div`
-  padding-top: 32px;
-  > div {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding-bottom: 30px;
-    > img {
-      display: block;
-      width: 48px;
-      height: 48px;
-    }
-  }
-
-
-`;
-
-const MessageBox = styled.div`
-  border-radius: 10px;
-  position: relative;
-  > p {
-    font-weight: 300;
-    font-size: 13px;
-    color: #333333;
-    :nth-child(2) {
-      padding-top: 10px;
-    }
-    :nth-child(3) {
-      padding-top: 20px;
-    }
-  }
-  ${props => props.insurobo && css`
-    background-color: #6262EF;
-    padding: 16px 16px 18px;
-    margin-right: 13px;
-    > p {
-      color: #FFFFFF;
-    }
-    ::after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 18px;
-      right: -11px;
-      width: 11px;
-      height: 13px;
-      background-image: url(${insuMessageBox});
-    }
-  `}
-
-  ${props => props.user && css`
-    background-color: #FFFFFF;
-    padding: 16px;
-    margin-left: 12px;
-    ::before {
-      content: '';
-      display: block;
-      position: absolute;
-      left: -11px;
-      top: 17px;
-      width: 11px;
-      height: 13px;
-      background-image: url(${userMessageBox});
-    }
-  `}
-`;
-
 const ListWrap = styled.ul`
-  padding: 32px 0;
+  padding: 26px 0;
   > li {
-    font-size: 14px;
+    font-size: 18px;
     color: #666666;
     font-weight: 300;
     padding-left: 20px;
     margin-bottom: 20px;
     position: relative;
+    font-family: 'Noto Sans KR';
     :last-child {
       margin-bottom: 0;
     }
@@ -651,9 +536,9 @@ const ListWrap = styled.ul`
       display: block;
       position: absolute;
       top: 10px;
-      left: 10px;
-      width: 3px;
-      height: 3px;
+      left: 5px;
+      width: 4px;
+      height: 4px;
       background-color: #666666;
       border-radius: 50%;
     }
@@ -667,15 +552,17 @@ const HashTagWrap = styled.div`
     background-color: #6262EF;
     color: #FFFFFF;
     border-radius: 10px;
-    padding: 8px 12px;
+    padding: 8px;
     font-size: 13px;
     font-weight: 300;
+    font-family: 'Noto Sans KR';
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
   ${(props) => props.theme.window.mobile} {
-    > div {
+    /* > div {
       padding: 6px 8px;
-    }
+    } */
   }
 `;
 
@@ -688,6 +575,10 @@ const ScrollBox = styled.div`
   margin-bottom: 16px;
   border: 1px solid #E2E2E2;
   border-radius: 8px;
+  
+  span, p, div, h2 {
+    font-family: 'Noto Sans KR';
+  }
   ::-webkit-scrollbar, ::-webkit-scrollbar-track {
     width: 13px;
   }

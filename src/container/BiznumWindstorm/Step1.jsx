@@ -32,13 +32,13 @@ const Step1 = () => {
   const setMoveFocus = (value, lengthNum, next) => {
     console.log(value, lengthNum, next)
     if (value.length === lengthNum) {
-
       setFocus(next);
     }
   }
+
   useEffect(() => {
     if (watch('overlap') === 'Y') {
-      setClose(false);
+      setClose(false); 
     } 
   }, [watch('overlap')]);
 
@@ -94,56 +94,56 @@ const Step1 = () => {
             </div>
           </InputGroup>
           <InputGroup>
-              <p>사업자번호<b>*</b></p>
-              <div>
-                <TextInput 
-                  name='bizNo1'
-                  required='사업자번호를 다시 입력해주세요'
-                  maxLength={{
-                    value: 3,
-                    message: '사업자번호를 다시 입력해주세요'
-                  }}
-                  minLength={{
-                    value: 3,
-                    message: '사업자번호를 다시 입력해주세요'
-                  }}
-                  validate={{
-                    value: (value) => setMoveFocus(value, 3, 'bizNo2')
-                  }}
-                />
-                <span>-</span>
-                <TextInput 
-                  name='bizNo2'
-                  required='사업자번호를 다시 입력해주세요'
-                  maxLength={{
-                    value: 2,
-                    message: '사업자번호를 다시 입력해주세요'
-                  }}
-                  minLength={{
-                    value: 2,
-                    message: '사업자번호를 다시 입력해주세요'
-                  }}
-                />
-                <span> - </span>
-                <TextInput 
-                  name='bizNo3'
-                  required='사업자번호를 다시 입력해주세요'
-                  maxLength={{
-                    value: 5,
-                    message: '사업자번호를 다시 입력해주세요'
-                  }}
-                  minLength={{
-                    value: 5,
-                    message: '사업자번호를 다시 입력해주세요'
-                  }}
-                />
-              </div>
-              {
-                errors.bizNo1 ? <ErrorMessage message={errors.bizNo1.message} /> :  
-                errors.bizNo2 ? <ErrorMessage message={errors.bizNo2.message} /> :
-                errors.bizNo3 ? <ErrorMessage message={errors.bizNo3.message} /> :
-                errors.bizNo && <ErrorMessage message={errors.bizNo.message} />
-              }
+            <p>사업자번호<b>*</b></p>
+            <div>
+              <TextInput 
+                name='bizNo1'
+                required='사업자번호를 다시 입력해주세요'
+                maxLength={{
+                  value: 3,
+                  message: '사업자번호를 다시 입력해주세요'
+                }}
+                minLength={{
+                  value: 3,
+                  message: '사업자번호를 다시 입력해주세요'
+                }}
+                validate={{
+                  value: (value) => setMoveFocus(value, 3, 'bizNo2')
+                }}
+              />
+              <span>-</span>
+              <TextInput 
+                name='bizNo2'
+                required='사업자번호를 다시 입력해주세요'
+                maxLength={{
+                  value: 2,
+                  message: '사업자번호를 다시 입력해주세요'
+                }}
+                minLength={{
+                  value: 2,
+                  message: '사업자번호를 다시 입력해주세요'
+                }}
+              />
+              <span> - </span>
+              <TextInput 
+                name='bizNo3'
+                required='사업자번호를 다시 입력해주세요'
+                maxLength={{
+                  value: 5,
+                  message: '사업자번호를 다시 입력해주세요'
+                }}
+                minLength={{
+                  value: 5,
+                  message: '사업자번호를 다시 입력해주세요'
+                }}
+              />
+            </div>
+            {
+              errors.bizNo1 ? <ErrorMessage message={errors.bizNo1.message} /> :  
+              errors.bizNo2 ? <ErrorMessage message={errors.bizNo2.message} /> :
+              errors.bizNo3 ? <ErrorMessage message={errors.bizNo3.message} /> :
+              errors.bizNo && <ErrorMessage message={errors.bizNo.message} />
+            }
           </InputGroup>
           {!close && (
             <Popup close={() => setClose(true)}>
