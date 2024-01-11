@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
-const TextInput = ({ className, onBlur, defaultValue, value, type, name, required, validate, pattern, placeholder, disabled, readOnly, maxLength, minLength}) => {
+const TextInput = ({ className, onBlur, defaultValue, value, type, name, required, validate, pattern, placeholder, disabled, readOnly, maxLength, minLength, autoFocus}) => {
   const { register } = useFormContext();
   return (
     <>
@@ -14,6 +14,8 @@ const TextInput = ({ className, onBlur, defaultValue, value, type, name, require
         value={value}
         defaultValue={defaultValue}
         className={className}
+        autoFocus={autoFocus}
+       
         {...register(name, {
           required: required,
           validate: validate,

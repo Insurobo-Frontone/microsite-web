@@ -29,12 +29,12 @@ const Step1 = () => {
       title: '예(가입 불가)'
     },
   ];
-  const setMoveFocus = (value, lengthNum, next) => {
-    console.log(value, lengthNum, next)
-    if (value.length === lengthNum) {
-      setFocus(next);
-    }
-  }
+  // const setMoveFocus = (value, lengthNum) => {
+  //   console.log(value, lengthNum)
+  //   if (value.length === 3) {
+  //     return true
+  //   }
+  // }
 
   useEffect(() => {
     if (watch('overlap') === 'Y') {
@@ -107,9 +107,7 @@ const Step1 = () => {
                   value: 3,
                   message: '사업자번호를 다시 입력해주세요'
                 }}
-                validate={{
-                  value: (value) => setMoveFocus(value, 3, 'bizNo2')
-                }}
+                
               />
               <span>-</span>
               <TextInput 
