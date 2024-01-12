@@ -357,7 +357,7 @@ const Section = styled.div`
   flex-direction: column;
   justify-content: center;
   .comment {
-    padding: 40px 0 10px;
+    padding: 0 0 10px;
     font-size: 15px;
     font-weight: 500;
     align-self: center;
