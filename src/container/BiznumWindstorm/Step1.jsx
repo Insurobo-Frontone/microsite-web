@@ -149,8 +149,9 @@ const Step1 = () => {
             </Popup>
           )}
           <Button 
-            title='조회하기'
+            title={jehuCd === 'yogiyo' ? '풍수해보험 무료신청하기' : '조회하기'}
             type='button'
+            className={jehuCd}
             onClick={() => onClickSearch()}
             disabled={
               !watch('bizNo1') || 
@@ -219,10 +220,9 @@ const TextArea = styled.div`
   > ul {
     padding: 10px 0;
     > li {
-      font-size: 14px;
+      font-size: 18px;
       color: #333333;
       font-weight: 300;
-      line-height: 23px;
     }
   }
   > div {

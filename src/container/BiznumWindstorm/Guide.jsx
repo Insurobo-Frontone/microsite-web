@@ -8,10 +8,7 @@ import main1 from '../../assets/img/yogiyoWindstormMain.png';
 import manual1 from '../../assets/img/yogiyoWindstormSection2-1.png';
 import manual2 from '../../assets/img/yogiyoWindstormSection2-2.png';
 import manual3 from '../../assets/img/yogiyoWindstormSection2-3.png';
-import insuMessageBox from '../../assets/icon/insuroboWindstorm/messageBoxTail.svg';
-import userMessageBox from '../../assets/icon/insuroboWindstorm/userMessageBoxTail.svg';
-import insuChatIcon from '../../assets/img/insuroboChat_icon.png';
-import userChatIcon from '../../assets/img/userChat_icon.png';
+import pdf from '../../assets/pdf/실손보상+소상공인+풍수해보험(VI)_보험약관.pdf';
 import Button from "../InsuroboWindStrom/Button";
 
 const manual = [
@@ -53,8 +50,7 @@ const Guide = ({ jehuCd }) => {
           <TextBox>
             <h2><span className="yogiyo">요기요</span>와 <span className="insurobo">인슈로보</span>가 지원하는<br />소상공인 풍수해보험</h2>
             <div>
-              <p>간단한 풍수해보험 신청</p>
-              <p>무료 가입 혜택</p>
+              <Button jehuCd={jehuCd} onClick={() => navigate('/freeApply/bizWindstorm?jehuCd=yogiyo')}>풍수해보험 무료신청하기</Button>
             </div>
           </TextBox>
         </ContentWrap>
@@ -67,7 +63,7 @@ const Guide = ({ jehuCd }) => {
         </div>
         <Title>
           <div>가입대상</div>
-          <p>소상공인이라면<br />누구나 가능합니다</p>
+          <p>요기요 사장님이라면<br />누구나 가능합니다</p>
         </Title>
         <CardWrap>
           {manual.map((dt) => (
@@ -79,7 +75,7 @@ const Guide = ({ jehuCd }) => {
             </li>
           ))}
         </CardWrap>
-        <Button jehuCd={jehuCd} onClick={() => navigate('/freeApply/bizWindstorm?jehuCd=yogiyo')}>풍수해보험 신청하기</Button>
+        <Button jehuCd={jehuCd} onClick={() => navigate('/freeApply/bizWindstorm?jehuCd=yogiyo')}>풍수해보험 무료신청하기</Button>
         <Title>
           <div>가입시 유의사항</div>
           <p>가입 전에<br />꼭 한 번 확인하세요!</p>
@@ -95,14 +91,13 @@ const Guide = ({ jehuCd }) => {
         <HashTagWrap>
           <div># 보험기간 1년</div>
           <div># 완전 무료</div>
-          <div># 소상공인 상가 및 공장</div>
+          <div># 소상공인 상가</div>
         </HashTagWrap>
         <ListWrap>
-          <li>2021. 01월 기준 1년 보험료 / 건물급수 1급 / 6등지 / 일반건물</li>
-          <li>국가,지자체 지원 : 82% 기준<br />(지자체별 월별 지원비율 상이)</li>
           <li>지역별(시군구) / 건물주고 및 급수에 따라 보험료가 달라집니다.</li>
           <li>이 상품은 순수 보장성 상품으로 만기 시 환급금이 없습니다.</li>
         </ListWrap>
+        <Button jehuCd={jehuCd} className='reversal' onClick={() => window.open(pdf, '_blank')}>상품 약관보기</Button>
         <Title>
           <div>꼭 알아두어야하는 사항</div>
         </Title>
@@ -120,7 +115,7 @@ const Guide = ({ jehuCd }) => {
                 <li>
                   <p>2)일부 보험료를 정부에서 지원</p>
                   국가 및 지방자치단체에서 보험료의 일부를 지원<br />
-                  (최소 70% 지원, 지방자치단체별 추가 지원 다름)
+                  (지방자치단체별 추가 지원 다름)
                 </li>
                 <li><p>3)순수 보장성 상품으로 만기시 환급금 없음</p></li>
               </ul>
@@ -183,10 +178,10 @@ const Guide = ({ jehuCd }) => {
                       -일반건물
                       <p>보험가입금액 한도내 실손보상(건물/시설은 합계 1억원 한도, 재고자산은 5천만원 한도)</p>
                     </li>
-                    <li>
+                    {/* <li>
                       -공장건물
                       <p>보험가입금액 한도내 실손보상(건물/시설은 합계 1억원 한도, 재고자산은 5천만원 한도)</p>
-                    </li>
+                    </li> */}
                   </ul>
                   <span><p>보장내용</p></span>
                   <ul>
@@ -209,7 +204,7 @@ const Guide = ({ jehuCd }) => {
                   <p>4)자존물제거비용</p>
                   <span>풍수해로 인한 보험금과 잔존물 제거비용의 합계액은 보험증권에 기재된 보험가입금액한도. 단, 잔존물 제거비용은 손해액의 10%를 초과할 수 없음.</span>
                   <span>풍수해로 잔존물제거비용이 발생한 경우 보상</span>
-                  <p>( ㈜ 잔존물 제거비용 : 잔존물의 해체비용, 청소비용, 상차비용 )</p>
+                  <p>(잔존물 제거비용 : 잔존물의 해체비용, 청소비용, 상차비용 )</p>
                 </li>
                 <li>
                   <p>5)대위권 보전비용</p>
@@ -334,7 +329,7 @@ const Guide = ({ jehuCd }) => {
             </li>
           </ul>
         </ScrollBox>
-        <p>소상공인 풍수해보험 문의 : 담당자 010-2312-9868</p>
+        <p>소상공인 풍수해보험 문의 : 담당자 070-4126-3333</p>
       </Section>
     </Wrap>
   )

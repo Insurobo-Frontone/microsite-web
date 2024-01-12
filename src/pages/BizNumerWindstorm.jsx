@@ -49,15 +49,19 @@ const ApplyTitle = styled.div`
     font-size: 14px;
     font-weight: 300;
     color: #333333;
-    padding-bottom: 20px;
+    /* padding-bottom: 20px; */
   }
   > div {
-    border: 1px solid #6262EF;
-    padding: 13px 0 14px 0;
     color: #6262EF;
+    font-size: 14px;
+    font-weight: 300;
+    padding-bottom: 20px;
+    /* border: 1px solid #6262EF;
+    padding: 13px 0 14px 0;
+    
     font-weight: 500;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 5px; */
   }
  
 

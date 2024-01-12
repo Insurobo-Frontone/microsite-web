@@ -6,10 +6,11 @@ const Button = ({
   disabled,
   children,
   onClick,
-  jehuCd
+  jehuCd,
+  className
 }) => {
   return (
-    <ButtonWrap width={width} disabled={disabled} onClick={onClick} jehuCd={jehuCd}>
+    <ButtonWrap width={width} disabled={disabled} onClick={onClick} jehuCd={jehuCd} className={className}>
       {children}
     </ButtonWrap>
   )
@@ -35,5 +36,10 @@ const ButtonWrap = styled.button`
     font-size: 23px;
     height: 55px;
     border-radius: 8px;
+    &.reversal {
+      background-color: #FFFFFF;
+      border: 1px solid #6262EF;
+      color: #6262EF;
+    }
   `}
 `;

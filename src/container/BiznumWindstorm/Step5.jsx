@@ -37,7 +37,6 @@ const Step5 = () => {
 				type: 'custom',
 				message: '필수항목에 체크해주세요.'
 			});
-			console.log(watch('bizConfirm'), 'dsdsd')
 			return false;
 		}
 		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/
@@ -79,7 +78,6 @@ const Step5 = () => {
 			});
 			return false;
 		} 
-
 			const insurance = StorageGetInsurance();
 			const objZipValue = insurance.getAddr.zipNo+''
 			const data = {
@@ -116,8 +114,8 @@ const Step5 = () => {
 				termsA4: watch('termsA4'),
 				termsA6: watch('termsA6'),
 				termsA7: watch('termsA7'),
+				termsA8: watch('termsA8'),
 			}
-			console.log(data)
 			postWindstormSave(data).then(() => {
 				postHiLinkObj({
 					inputBldSt: watch('inputBldSt'),
@@ -145,9 +143,9 @@ const Step5 = () => {
 					termsA4: watch('termsA4'),
 					termsA6: watch('termsA6'),
 					termsA7: watch('termsA7'),
+					// termsA8: watch('termsA8'),
 				}).then((res) => {
 					const userId = res.data.results.userID;
-					console.log(res)
 					const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId=';
 					if (jehuCd === 'yogiyo') {
 						setClose(true);
@@ -178,6 +176,33 @@ const Step5 = () => {
 					<br /><br /><br />
 					본 동의를 거부하시는 경우에는 보험계약 상담 등 정상적인 서비스제공이 불가능하며 본 동의서에 의한 개인(신용) 정보 조회는 귀하의 신용등급에 영향을 주지 않습니다.<br /><br />또한, 동의하시더라도 인슈로보 고객센터(070-4126-3333) 또는 현대해상 홈페이지 및 고객콜 센터(1577-1001)를 통해 철회하거나 보험계약상담 목적의 연락에 대한 중단을 요청하실 수 있습니다.
 					를 거부하시는 경우에는 보험계약 상담 등 정상적인 서비스제공이 불가능하며 본 동의서에 의한 개인(신용) 정보 조회는 귀하의 신용등급에 영향을 주지 않습니다. 또한, 동의하시더라도 인슈로보 고객센터(070-4126-3333) 또는 현대해상 홈페이지 및 고객콜 센터(1577-1001)를 통해 철회하거나 보험계약상담 목적의 연락에 대한 중단을 요청하실 수 있습니다.
+				</div>
+			`
+		},
+		{
+			id: 'termsA8',
+			textArea: `
+				<div>
+					단체규약
+					<br /><br />
+					제1조 (목적)<br />
+					이 규약은 ㈜인슈로보(이하 “인슈로보”라 합니다)의 웹사이트 www.insurobo.com와 모바일어플리케이션(이를 합하여 “플랫폼”이라 합니다) 회원들을 위하여 제공하는 서비스 이용에 관하여 회원들간 협약사항을 규정함을 그 목적으로 합니다.
+					<br /><br />
+					제2조 (회원자격)<br />
+					•	1. 플랫폼상 서비스 이용약관에 동의한 회원은 이 협약의 당사자가 됩니다.<br />
+					•	2. 회원의 자격득실 등에 관하여는 각 이용약관에서 정하는 바에 따릅니다.<br />
+					<br /><br />
+					제3조 (단체보험가입 청약 등)<br />
+					•	1. 인슈로보는 회원을 위하여 계약자로서 보험사와 단체보험계약을 체결할 수 있습니다.<br />
+					•	2. 인슈로보가 계약자인 단체보험계약에 피보험자로 가입하기를 희망하는 회원은 소정의 절차에 따라 보험가입신청(보험청약)을 합니다.<br />
+					•	3. 보험청약을 하고자 하는 회원은 보험약관, Q&A 등을 충분히 읽고 이해한 후 청약을 하며, 보험사와 인슈로보가 고지를 요구하는 사항에 대하여 성실히 답합니다.<br />
+					•	4. 회원이 가입하는 보험의 수익자는 보험가입자(피보험자) 본인과 그 법정상속인이 됩니다.<br />
+					<br /><br />
+					제4조 (기타사항)<br />
+					•	1. 기존 서비스 변경, 새로운 서비스 출시, 법령의 개폐, 회원 요구 등의 사정이 있어 이 규약을 변경할 필요가 있는 경우, 인슈로보는 회원들을 위하여 규약을 즉시 변경합니다. 그리고 변경된 규약은 그 즉시 효력을 발합니다.<br />
+					•	2. 인슈로보는 규약변경을 위해 필요한 경우 회원들에게 의견을 구할 수 있으며, 회원들은 이에 성실히 응합니다.<br />
+					•	3. 규약변경을 희망하는 회원은 인슈로보에 그 구체적 변경안과 이유를 제시하여 규약변경을 제안할 수 있습니다. 이에 대하여는 인슈로보는 전항에 따라 처리합니다.<br />
+					•	4. 인슈로보는 단체보험가입 등 규약에 직접적으로 영향을 받는 서비스를 이용하는 회원에게는 개별적으로 규약적용에 부동의하는지 의견을 구합니다. 이 때 규약에 부동의하는 회원은 해당서비스를 이용하지 않거나, 회원 탈퇴를 할 수 있습니다.
 				</div>
 			`
 		},
@@ -340,6 +365,7 @@ const Step5 = () => {
 		setValue('termsA4', 'Y')
 		setValue('termsA6', 'Y')
 		setValue('termsA7', 'Y')
+		setValue('termsA8', 'Y')
 	}
 
   return (
