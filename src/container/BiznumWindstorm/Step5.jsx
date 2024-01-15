@@ -144,7 +144,7 @@ const Step5 = () => {
 					termsA4: watch('termsA4'),
 					termsA6: watch('termsA6'),
 					termsA7: watch('termsA7'),
-					termsA8: watch('termsA8'),
+					// termsA8: watch('termsA8'),
 					
 				}).then((res) => {
 					const userId = res.data.results.userID;
@@ -153,16 +153,14 @@ const Step5 = () => {
 						setClose(true);
 						setMessage('가입신청이 완료되었습니다.');
 						setSuccess(true);
-						
 					} else {
 						window.open(`${link}${userId}`);
 						navigate('/');
 					}
-					
 				}).catch((e) => console.log(e));
 			}).catch((e) => {
 				console.log(e)
-				alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.')
+				alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.');
 			})
  	 }
 
