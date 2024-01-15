@@ -99,6 +99,9 @@ const Step1 = () => {
               <TextInput 
                 name='bizNo1'
                 required='사업자번호를 다시 입력해주세요'
+                // maxLength={3}
+                // minLength={3}
+                autoFocus
                 maxLength={{
                   value: 3,
                   message: '사업자번호를 다시 입력해주세요'
@@ -113,6 +116,7 @@ const Step1 = () => {
               <TextInput 
                 name='bizNo2'
                 required='사업자번호를 다시 입력해주세요'
+                
                 maxLength={{
                   value: 2,
                   message: '사업자번호를 다시 입력해주세요'
@@ -121,11 +125,14 @@ const Step1 = () => {
                   value: 2,
                   message: '사업자번호를 다시 입력해주세요'
                 }}
+                // maxLength={2}
+                // minLength={2}
               />
               <span> - </span>
               <TextInput 
                 name='bizNo3'
                 required='사업자번호를 다시 입력해주세요'
+        
                 maxLength={{
                   value: 5,
                   message: '사업자번호를 다시 입력해주세요'
@@ -134,6 +141,8 @@ const Step1 = () => {
                   value: 5,
                   message: '사업자번호를 다시 입력해주세요'
                 }}
+                // maxLength={5}
+                // minLength={5}
               />
             </div>
             {

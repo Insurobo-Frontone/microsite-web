@@ -39,7 +39,8 @@ const Step5 = () => {
 			});
 			return false;
 		}
-		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/
+		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
+
 		if (watch('termsA1') === 'N' || 
 				watch('termsA2') === 'N' ||
 				watch('termsA3') === 'N' || 
@@ -143,7 +144,8 @@ const Step5 = () => {
 					termsA4: watch('termsA4'),
 					termsA6: watch('termsA6'),
 					termsA7: watch('termsA7'),
-					// termsA8: watch('termsA8'),
+					termsA8: watch('termsA8'),
+					
 				}).then((res) => {
 					const userId = res.data.results.userID;
 					const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId=';
@@ -151,6 +153,7 @@ const Step5 = () => {
 						setClose(true);
 						setMessage('가입신청이 완료되었습니다.');
 						setSuccess(true);
+						
 					} else {
 						window.open(`${link}${userId}`);
 						navigate('/');
@@ -397,7 +400,7 @@ const Step5 = () => {
 			</CheckGroup>
 			<ButtonGroup>
 				<button type="button" className="default" onClick={() => navigate(-1)}>이전</button>
-					<button type="submit">가입신청</button>
+				<button type="submit">가입신청</button>
 			</ButtonGroup>
     </SectionWrap>
 			{close && (
