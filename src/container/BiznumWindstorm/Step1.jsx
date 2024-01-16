@@ -29,12 +29,6 @@ const Step1 = () => {
       title: '예(가입 불가)'
     },
   ];
-  // const setMoveFocus = (value, lengthNum) => {
-  //   console.log(value, lengthNum)
-  //   if (value.length === 3) {
-  //     return true
-  //   }
-  // }
 
   useEffect(() => {
     if (watch('overlap') === 'Y') {
@@ -99,8 +93,6 @@ const Step1 = () => {
               <TextInput 
                 name='bizNo1'
                 required='사업자번호를 다시 입력해주세요'
-                // maxLength={3}
-                // minLength={3}
                 autoFocus
                 maxLength={{
                   value: 3,
@@ -110,13 +102,12 @@ const Step1 = () => {
                   value: 3,
                   message: '사업자번호를 다시 입력해주세요'
                 }}
-                
+                onKeyUp={() => watch('bizNo1').length === 3 && setFocus('bizNo2')}
               />
               <span>-</span>
               <TextInput 
                 name='bizNo2'
                 required='사업자번호를 다시 입력해주세요'
-                
                 maxLength={{
                   value: 2,
                   message: '사업자번호를 다시 입력해주세요'
@@ -125,8 +116,7 @@ const Step1 = () => {
                   value: 2,
                   message: '사업자번호를 다시 입력해주세요'
                 }}
-                // maxLength={2}
-                // minLength={2}
+                onKeyUp={() => watch('bizNo2').length === 2 && setFocus('bizNo3')}
               />
               <span> - </span>
               <TextInput 
@@ -141,8 +131,6 @@ const Step1 = () => {
                   value: 5,
                   message: '사업자번호를 다시 입력해주세요'
                 }}
-                // maxLength={5}
-                // minLength={5}
               />
             </div>
             {

@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
+import { useFormContext } from "react-hook-form";
 import TextInput from "./Input/TextInput";
 import RadioButton from "./Input/RadioButton";
 import Step3 from "./Step3";
@@ -8,9 +9,7 @@ import Step4 from "./Step4";
 import Step5 from "./Step5";
 
 const Step2 = ({ data }) => {
-  useEffect(() => {
-
-  }, []);
+  const { watch, setFocus } = useFormContext();
 
   const gender = [
     {
@@ -53,12 +52,15 @@ const Step2 = ({ data }) => {
                   type='number'
                   name='telNo1'
                   required='휴대폰번호를 입력해주세요'
+                  autoFocus
+                  onKeyUp={() => watch('telNo1').length === 3 && setFocus('telNo2')}
                 />
                 <span>-</span>
                 <TextInput 
                   type='number'
                   name='telNo2'
                   required='휴대폰번호를 입력해주세요'
+                  onKeyUp={() => watch('telNo2').length === 4 && setFocus('telNo3')}
                 />
                 <span> - </span>
                 <TextInput
