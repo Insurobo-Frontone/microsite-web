@@ -148,6 +148,7 @@ const Step5 = () => {
 					
 				}).then((res) => {
 					const userId = res.data.results.userID;
+					console.log(userId)
 					const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId=';
 					if (jehuCd === 'yogiyo') {
 						setClose(true);
@@ -328,7 +329,7 @@ const Step5 = () => {
 					<br /><br />
 					(2).(제휴사 상품.서비스 소개 및 판매) ; 당사와 제휴협약에서 정한 이용목적에 따른 서비스 제공자
 					<br /><br />
-					- 인카금융서비스㈜, 메트라이프금융서비스㈜, 신한금융플러스, ㈜에이플러스에셋어드바이저보험대리점
+					- 인카금융서비스㈜, 메트라이프금융서비스㈜, 신한금융플러스, ㈜에이플러스에셋어드바이저보험대리점, (주)어센틱금융그룹, 롯데손해보험, 한화금융서비스
 					<br /><br />
 					- 배달라이더공제조합, 지엔터프라이즈㈜
 					<br /><br />
