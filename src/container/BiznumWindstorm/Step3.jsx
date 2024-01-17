@@ -89,9 +89,17 @@ const Step3 = ({ data }) => {
 
   return (
     <>
+      
       {data && (
         <>
+        {errorPopup && (
+          <Popup close={() => window.location.reload()}>
+            {message}
+          </Popup>
+        )}
           <InputGroup>
+
+          
             <div>
               <p>건물 구분<b>*</b></p>
               <div className={jehuCd === 'yogiyo' ? 'yogiyo-radio-wrap' : "radio-wrap"}>
@@ -187,13 +195,12 @@ const Step3 = ({ data }) => {
               }`}
             />
           </InputGroup>
-          {errorPopup && (
-            <Popup close={() => window.location.reload()}>
-              {message}
-            </Popup>
-          )}
+          
         </>
       )}
+      
+   
+    
     </>
   )
 }

@@ -22,6 +22,7 @@ export default Popup;
 const Overay = styled.div`
   position: fixed;
   inset: 0;
+  width: 100% !important;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
   display: flex;
