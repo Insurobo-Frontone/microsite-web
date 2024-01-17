@@ -77,7 +77,7 @@ const Step4 = () => {
             <RadioButton name='charSalesUnder' data={check2} />
           </div>
         </InputGroup>
-        <InputGroup sub>
+        {/* <InputGroup sub>
           <p>주요 업종은 무엇입니까?*</p>
           <SelectInput
             placeholder='선택하세요'
@@ -92,7 +92,7 @@ const Step4 = () => {
               )
             })}
           </SelectInput>
-        </InputGroup>
+        </InputGroup> */}
         <InputGroup>
           <p>연평균 매출액은 얼마입니까?* <span>(숫자로만 표기)</span></p>
           <TextInput 

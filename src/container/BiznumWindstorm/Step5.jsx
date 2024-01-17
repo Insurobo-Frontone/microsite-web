@@ -67,13 +67,6 @@ const Step5 = () => {
 			});
 			setClose(true);
 			return false;
-		} if (watch('bizMainType') === '') {
-			setError('bizMainType', {
-				type: 'custom',
-				message: '주요업종을 선택해주세요.'
-			});
-			setClose(true);
-			return false;
 		} if (phoneReg.test(watch('telNo')) === false) {
 			setClose(true);
 			setError('telNo', {
@@ -82,6 +75,14 @@ const Step5 = () => {
 			});
 			return false;
 		} 
+		// if (watch('bizMainType') === '') {
+		// 	setError('bizMainType', {
+		// 		type: 'custom',
+		// 		message: '주요업종을 선택해주세요.'
+		// 	});
+		// 	setClose(true);
+		// 	return false;
+		// } 
 			const insurance = StorageGetInsurance();
 			const objZipValue = insurance.getAddr.zipNo+''
 			const data = {
@@ -109,7 +110,7 @@ const Step5 = () => {
 				worker_num_standard_under_yn: watch('workerNumUnder'),
 				worker_num: watch('workerNum'),
 				sales_standard_under_yn: watch('charSalesUnder'),
-				biz_main_type: watch('bizMainType'),
+				// biz_main_type: watch('bizMainType'),
 				sales: watch('sales'),
 				imputation_reason_confirm_yn: watch('bizConfirm') ? 'Y' : 'N',
 				termsA1: watch('termsA1'),
@@ -122,7 +123,8 @@ const Step5 = () => {
 				difStmFldJoinYn: watch('overlap'),
 				phoneNum: watch('telNo'),
 				birthDate: watch('inrBirth'),
-				sex: watch('inrGender') === '1' ? 'M' : 'F'
+				sex: watch('inrGender') === '1' ? 'M' : 'F',
+				jehuCd: jehuCd
 			}
 			console.log(data)
 			postWindstormSave(data).then((res) => {
@@ -184,6 +186,7 @@ const Step5 = () => {
 		setClose(false);
 		navigate('/');
 	}
+
 	const jehuText = jehuCd === 'yogiyo' ? 'DB손해보험주식회사' : '현대해상'
 	const jehuCsText = jehuCd === 'yogiyo' ? '홈페이지 및 고객콜 센터(1588-0100)' : '홈페이지 및 고객콜 센터(1577-1001)';
 	const terms = [
