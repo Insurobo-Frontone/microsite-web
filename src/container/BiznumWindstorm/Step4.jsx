@@ -3,16 +3,12 @@ import styled, { css } from "styled-components";
 import RadioButton from "./Input/RadioButton";
 import TextInput from "./Input/TextInput";
 import SectionWrap from "./SectionWrap";
-import SelectInput from "./Input/SelectInput";
 import { useFormContext } from "react-hook-form";
 import Popup from "./Popup";
-import { getLoBzCdList } from "../../api/WindstormAPI";
-import { errorLoBzCdList } from "./bizData";
 
 const Step4 = () => {
-  const { watch, setValue } = useFormContext();
+  const { watch } = useFormContext();
   const [close, setClose] = useState(true);
-  const [loBzCdList, setLoBzCdList] = useState([]);
   const check1 = [
     {
       id: 'check1_Y',
@@ -38,15 +34,12 @@ const Step4 = () => {
     },
   ]
   useEffect(() => {
-    // getLoBzCdList()
-    // .then((res) => {
-    //   setLoBzCdList(res.data.results.codes)
-    // }).catch((e) => console.log(e)) 
     if (watch('workerNumUnder') === 'N' || watch('charSalesUnder') === 'N') {
       setClose(false);
     }
   }, [watch('workerNumUnder'), watch('charSalesUnder')]);
-  const setNum = Number(watch('sales'))
+
+  // const setNum = Number(watch('sales'))
   // const onBlurSales = () => {
   //   setValue('sales', setNum.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","))
   // }
@@ -81,22 +74,6 @@ const Step4 = () => {
             <RadioButton name='charSalesUnder' data={check2} />
           </div>
         </InputGroup>
-        {/* <InputGroup sub>
-          <p>주요 업종은 무엇입니까?*</p>
-          <SelectInput
-            placeholder='선택하세요'
-            name='bizMainType'
-            defaultValue=''
-          >
-            {errorLoBzCdList.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
-              return (
-                <option value={cur.id} key={index}>
-                  {cur.name}
-                </option>
-              )
-            })}
-          </SelectInput>
-        </InputGroup> */}
         <InputGroup>
           <p>연평균 매출액은 얼마입니까?* <span>(숫자로만 표기)</span></p>
           <TextInput 

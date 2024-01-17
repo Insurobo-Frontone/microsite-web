@@ -24,7 +24,6 @@ const Step5 = () => {
 	
 	useEffect(() => {
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
-		console.log(watch('telNo'))
 	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')]);
 
 	const onError = (e) => {
@@ -35,7 +34,9 @@ const Step5 = () => {
 	}
 
 	const onClickNext = () => {
-		
+		const insurance = StorageGetInsurance();
+		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
+		const objZipValue = insurance.getAddr.zipNo+''
 		if (!watch('bizConfirm')) {
 			setClose(true);
 			setError('bizConfirm', {
@@ -44,7 +45,6 @@ const Step5 = () => {
 			});
 			return false;
 		}
-		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
 		if (phoneReg.test(watch('telNo')) === false) {
 			setClose(true);
 			setError('telNo', {
@@ -78,9 +78,8 @@ const Step5 = () => {
 			setFocus('lobzCd');
 			return false;
 		} 
-
-			const insurance = StorageGetInsurance();
-			const objZipValue = insurance.getAddr.zipNo+''
+		
+		if (jehuCd === 'yogiyo') {
 			const data = {
 				biz_no: watch('bizNo'),
 				biz_name: watch('ptyBizNm'),
@@ -106,7 +105,6 @@ const Step5 = () => {
 				worker_num_standard_under_yn: watch('workerNumUnder'),
 				worker_num: watch('workerNum'),
 				sales_standard_under_yn: watch('charSalesUnder'),
-				// biz_main_type: watch('bizMainType'),
 				sales: watch('sales'),
 				imputation_reason_confirm_yn: watch('bizConfirm') ? 'Y' : 'N',
 				termsA1: watch('termsA1'),
@@ -122,60 +120,55 @@ const Step5 = () => {
 				sex: watch('inrGender') === '1' ? 'M' : 'F',
 				jehuCd: jehuCd
 			}
-			console.log(data)
+
 			postWindstormSave(data).then((res) => {
 				if (res.status === 200) {
 					setClose(true);
 					setMessage('가입신청이 완료되었습니다.');
 				  setSuccess(true);
-					
 				}
-				console.log(res)
-				// postHiLinkObj({
-				// 	inputBldSt: watch('inputBldSt'),
-				// 	inputBldEd: watch('inputBldEd'),
-				// 	bldTotLyrNum: insurance.getCover.bldTotLyrNum,
-				// 	hsArea: watch('hsArea'),
-				// 	poleStrc: insurance.getCover.poleStrc,
-				// 	roofStrc: insurance.getCover.roofStrc,
-				// 	otwlStrc: insurance.getCover.otwlStrc,
-				// 	objCat: watch('objCat'),
-				// 	lobzCd: watch('lobzCd'),
-				// 	objZip1: objZipValue.substring(0, 3),
-				// 	objZip2: objZipValue.substring(3, 5),
-				// 	objAddr1: insurance.getAddr.jibunAddr,
-				// 	objAddr2: watch('objAddr2'),
-				// 	bizNo: watch('bizNo'),
-				// 	inrBirth: watch('inrBirth'),
-				// 	inrGender: watch('inrGender'),
-				// 	telNo: watch('telNo'),
-				// 	ptyBizNm: watch('ptyBizNm'),
-				// 	ptyKorNm: watch('ptyKorNm'),
-				// 	termsA1: watch('termsA1'),
-				// 	termsA2: watch('termsA2'),
-				// 	termsA3: watch('termsA3'),
-				// 	termsA4: watch('termsA4'),
-				// 	termsA6: watch('termsA6'),
-				// 	termsA7: watch('termsA7'),
-				// 	// termsA8: watch('termsA8'),
-					
-				// }).then((res) => {
-				// 	const userId = res.data.results.userID;
-				// 	console.log(userId)
-				// 	const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId=';
-				// 	if (jehuCd === 'yogiyo') {
-				// 		setClose(true);
-				// 		setMessage('가입신청이 완료되었습니다.');
-				// 		setSuccess(true);
-				// 	} else {
-				// 		window.open(`${link}${userId}`);
-				// 		navigate('/');
-				// 	}
-				// }).catch((e) => console.log(e));
 			}).catch((e) => {
 				console.log(e)
 				alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.');
-			})
+			});
+		}
+		if (!jehuCd) {
+			postHiLinkObj({
+				inputBldSt: watch('inputBldSt'),
+				inputBldEd: watch('inputBldEd'),
+				bldTotLyrNum: insurance.getCover.bldTotLyrNum,
+				hsArea: watch('hsArea'),
+				poleStrc: insurance.getCover.poleStrc,
+				roofStrc: insurance.getCover.roofStrc,
+				otwlStrc: insurance.getCover.otwlStrc,
+				objCat: watch('objCat'),
+				lobzCd: watch('lobzCd'),
+				objZip1: objZipValue.substring(0, 3),
+				objZip2: objZipValue.substring(3, 5),
+				objAddr1: insurance.getAddr.jibunAddr,
+				objAddr2: watch('objAddr2'),
+				bizNo: watch('bizNo'),
+				inrBirth: watch('inrBirth'),
+				inrGender: watch('inrGender'),
+				telNo: watch('telNo'),
+				ptyBizNm: watch('ptyBizNm'),
+				ptyKorNm: watch('ptyKorNm'),
+				termsA1: watch('termsA1'),
+				termsA2: watch('termsA2'),
+				termsA3: watch('termsA3'),
+				termsA4: watch('termsA4'),
+				termsA6: watch('termsA6'),
+				termsA7: watch('termsA7'),
+				}).then((res) => {
+					const userId = res.data.results.userID;
+					const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId=';
+					window.open(`${link}${userId}`);
+					navigate('/');
+				}).catch((e) => {
+					console.log(e);
+					alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.');
+				});
+		}
  	 }
 
 	const yogiyoClose = () => {
@@ -376,6 +369,7 @@ const Step5 = () => {
 			`
 		}
 	];
+
 	const onClickAllCheck = () => {
 		setValue('termsA1', 'Y')
 		setValue('termsA2', 'Y')
@@ -396,17 +390,36 @@ const Step5 = () => {
       <AllCheckButton>
 					<button type='button' onClick={() => onClickAllCheck()}>전체 동의하기</button>
       </AllCheckButton>
-			{terms.map((dt) => (
-				<InputGroup>
-					<ScrollView
-						dangerouslySetInnerHTML={{
-						 __html: dt.textArea
-					}} />
-					<div>
-						<RadioButton name={dt.id} data={[{ id: `select_${dt.id}_N`, value: 'N', title: '동의하지 않음'}, { id: `select_${dt.id}_Y`, value: 'Y', title: '동의'}]} />
-					</div>
-				</InputGroup>
-			))}
+			{!jehuCd ? (
+				<>
+				{terms.filter((db) => db.id !== 'termsA8').map((dt) => (
+					<InputGroup>
+						<ScrollView
+							dangerouslySetInnerHTML={{
+							__html: dt.textArea
+						}} />
+						<div>
+							<RadioButton name={dt.id} data={[{ id: `select_${dt.id}_N`, value: 'N', title: '동의하지 않음'}, { id: `select_${dt.id}_Y`, value: 'Y', title: '동의'}]} />
+						</div>
+					</InputGroup>
+				))}
+				</>
+			) : (
+				<>
+				{terms.map((dt) => (
+					<InputGroup>
+						<ScrollView
+							dangerouslySetInnerHTML={{
+							__html: dt.textArea
+						}} />
+						<div>
+							<RadioButton name={dt.id} data={[{ id: `select_${dt.id}_N`, value: 'N', title: '동의하지 않음'}, { id: `select_${dt.id}_Y`, value: 'Y', title: '동의'}]} />
+						</div>
+					</InputGroup>
+				))}
+				</>
+			)}
+			
 			<CheckGroup>
 				<CheckInput name='bizConfirm' id='bizConfirm' />
 				<p>위 기재사실이 허위 또는 부실 작성일 경우 약관상 고의 및 중과실에 해당되어 <span>보험금 지급이 제한</span>될 수 있고, <span>보험 계약이 해지 또는 취소될 수 있음</span>을 확인하였습니다.</p>

@@ -12,15 +12,12 @@ import { errorLoBzCdList } from "./bizData";
 
 const Step3 = ({ data }) => {
   const [bizData, setBizData] = useState();
-  const [addrData, setAddrData] = useState();
   const [errorPopup, setErrorPopup] = useState(false);
-  const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
   const [loBzCdList, setLoBzCdList] = useState([]);
   const { watch } = useFormContext();
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
-
 
   const yoStore = [
     {
@@ -58,50 +55,49 @@ const Step3 = ({ data }) => {
 
   
   useEffect(() => {
-    // getLoBzCdList()
-    // .then((res) => {
-    //   setLoBzCdList(res.data.results.codes)
-    // }).catch((e) => {
-    //     console.log(e.response.status)
-    //     if (e.response.status === 429) {
-    //       setErrorPopup(true)
-    //       // setMessage('지금 접속량이 많아, 10분후에 다시 신청해 주십시오. 불편을 드려 죄송합니다.');
-    //       setError(true);
-    //     }
-    //   }
+    if (!jehuCd) {
+      getLoBzCdList()
+        .then((res) => {
+          setLoBzCdList(res.data.results.codes)
+        }).catch((e) => {
+          console.log(e.response.status)
+            if (e.response.status === 429) {
+              setErrorPopup(true)
+              setMessage('지금 접속량이 많아, 10분후에 다시 신청해 주십시오. 불편을 드려 죄송합니다.');
+            }
+        }
+      );
 
-    // ) 
-
-    // 건축물대장 api
-    // getJuso(data?.address.split(",")[0]).then((res) => {
-    //   getCover({
-    //     sigungucd: res.data.results.addrs[0].admCd.slice(0, 5),
-    //     bjdongcd: res.data.results.addrs[0].admCd.slice(-5),
-    //     bun: res.data.results.addrs[0].lnbrMnnm,
-    //     ji: res.data.results.addrs[0].lnbrSlno,
-    //     zip: res.data.results.addrs[0].zipNo,
-    //   }).then((res2) => {
-    //     setAddrData(res.data.results.addrs[0])
-    //     setBizData(res2.data.results)
-    //     StorageSetInsurance(res2.data.results, res.data.results.addrs[0]);
-    //   }).catch(() => {
-    //     alert(
-    //       '해당 지역은 건축물 대장에 데이터 존재하지 않습니다, 다시 선택해 주세요',
-    //     );
-        
-    //   })
-    // }).catch((e) => (console.log(e)))
-  }, []);
+      //건축물대장 api
+      getJuso(data?.address.split(",")[0]).then((res) => {
+        getCover({
+          sigungucd: res.data.results.addrs[0].admCd.slice(0, 5),
+          bjdongcd: res.data.results.addrs[0].admCd.slice(-5),
+          bun: res.data.results.addrs[0].lnbrMnnm,
+          ji: res.data.results.addrs[0].lnbrSlno,
+          zip: res.data.results.addrs[0].zipNo,
+        }).then((res2) => {
+          setBizData(res2.data.results)
+          StorageSetInsurance(res2.data.results, res.data.results.addrs[0]);
+        }).catch(() => {
+          alert(
+            '해당 지역은 건축물 대장에 데이터 존재하지 않습니다, 다시 선택해 주세요',
+          );
+        });
+      }).catch((e) => console.log(e))
+    }
+    
+  }, [data, jehuCd]);
 
   return (
     <>
       {data && (
         <>
-        {/* {errorPopup && (
+        {errorPopup && (
           <Popup close={() => window.location.reload()}>
             {message}
           </Popup>
-        )} */}
+        )}
           <InputGroup>
             <div>
               <p>건물 구분<b>*</b></p>
@@ -118,13 +114,27 @@ const Step3 = ({ data }) => {
               name='lobzCd'
               defaultValue=''
             >
-              {errorLoBzCdList.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
-                return (
-                  <option value={cur.id} key={index}>
-                    {cur.name}
-                  </option>
-                )
-              })}
+              {jehuCd === 'yogiyo' ? (
+                <>
+                  {errorLoBzCdList.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
+                    return (
+                      <option value={cur.id} key={index}>
+                        {cur.name}
+                      </option>
+                    )
+                  })}
+                </>
+              ) : (
+                <>
+                  {loBzCdList?.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
+                    return (
+                      <option value={cur.code} key={index}>
+                        {cur.name}
+                      </option>
+                    )
+                  })}
+                </>
+              )}
             </SelectInput>
           </InputGroup>
           <InputGroup>
@@ -157,7 +167,7 @@ const Step3 = ({ data }) => {
               </div>
             </div>
           </InputGroup>
-          {/* {!error && (
+          {!jehuCd && (
             <InputGroup>
               <p>건물 전체 층수<b>*</b></p>
               <div className="two-input">
@@ -171,7 +181,7 @@ const Step3 = ({ data }) => {
                 />
               </div>
             </InputGroup>
-          )} */}
+          )}
           <InputGroup>
             <p>내 사업장 위치<b>*</b></p>
             <div className="two-input">
@@ -197,7 +207,7 @@ const Step3 = ({ data }) => {
               />
             </div>
           </InputGroup>
-          {/* {!error && (
+          {!jehuCd && (
             <InputGroup>
               <p>건물 구조정보<b>*</b></p>
               <TextInput 
@@ -211,7 +221,7 @@ const Step3 = ({ data }) => {
                 }`}
               />
             </InputGroup>
-          )} */}
+          )}
         </>
       )}
     </>
