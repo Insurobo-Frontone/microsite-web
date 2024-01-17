@@ -122,7 +122,7 @@ const Step5 = () => {
 				difStmFldJoinYn: watch('overlap'),
 				phoneNum: watch('telNo'),
 				birthDate: watch('inrBirth'),
-				sex: watch('inrGender')
+				sex: watch('inrGender') === '1' ? 'M' : 'F'
 			}
 			console.log(data)
 			postWindstormSave(data).then((res) => {
