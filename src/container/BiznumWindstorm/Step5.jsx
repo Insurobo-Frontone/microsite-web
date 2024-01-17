@@ -24,13 +24,15 @@ const Step5 = () => {
 	
 	useEffect(() => {
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
-	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')])
+	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')]);
+
 	const onError = (e) => {
 		if (e) {
 			console.log(e)
 			setClose(true)
 		}
 	}
+
 	const onClickNext = () => {
 		if (!watch('bizConfirm')) {
 			setClose(true);
@@ -88,7 +90,7 @@ const Step5 = () => {
 				ceo_name: watch('ptyKorNm'),
 				biz_type: watch('lobzCd'),
 				building_division: watch('objCat'),
-				address: insurance.getAddr.jibunAddr,
+				address: watch('objAddr1'),
 				detail_address: watch('objAddr2'),
 				area: watch('hsArea'),
 				biz_site_lease_yn: watch('bizEstate'),
@@ -123,48 +125,55 @@ const Step5 = () => {
 				sex: watch('inrGender')
 			}
 			console.log(data)
-			postWindstormSave(data).then(() => {
-				postHiLinkObj({
-					inputBldSt: watch('inputBldSt'),
-					inputBldEd: watch('inputBldEd'),
-					bldTotLyrNum: insurance.getCover.bldTotLyrNum,
-					hsArea: watch('hsArea'),
-					poleStrc: insurance.getCover.poleStrc,
-					roofStrc: insurance.getCover.roofStrc,
-					otwlStrc: insurance.getCover.otwlStrc,
-					objCat: watch('objCat'),
-					lobzCd: watch('lobzCd'),
-					objZip1: objZipValue.substring(0, 3),
-					objZip2: objZipValue.substring(3, 5),
-					objAddr1: insurance.getAddr.jibunAddr,
-					objAddr2: watch('objAddr2'),
-					bizNo: watch('bizNo'),
-					inrBirth: watch('inrBirth'),
-					inrGender: watch('inrGender'),
-					telNo: watch('telNo'),
-					ptyBizNm: watch('ptyBizNm'),
-					ptyKorNm: watch('ptyKorNm'),
-					termsA1: watch('termsA1'),
-					termsA2: watch('termsA2'),
-					termsA3: watch('termsA3'),
-					termsA4: watch('termsA4'),
-					termsA6: watch('termsA6'),
-					termsA7: watch('termsA7'),
-					// termsA8: watch('termsA8'),
+			postWindstormSave(data).then((res) => {
+				if (res.status === 200) {
+					setClose(true);
+					setMessage('가입신청이 완료되었습니다.');
+				  setSuccess(true);
 					
-				}).then((res) => {
-					const userId = res.data.results.userID;
-					console.log(userId)
-					const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId=';
-					if (jehuCd === 'yogiyo') {
-						setClose(true);
-						setMessage('가입신청이 완료되었습니다.');
-						setSuccess(true);
-					} else {
-						window.open(`${link}${userId}`);
-						navigate('/');
-					}
-				}).catch((e) => console.log(e));
+				}
+				console.log(res)
+				// postHiLinkObj({
+				// 	inputBldSt: watch('inputBldSt'),
+				// 	inputBldEd: watch('inputBldEd'),
+				// 	bldTotLyrNum: insurance.getCover.bldTotLyrNum,
+				// 	hsArea: watch('hsArea'),
+				// 	poleStrc: insurance.getCover.poleStrc,
+				// 	roofStrc: insurance.getCover.roofStrc,
+				// 	otwlStrc: insurance.getCover.otwlStrc,
+				// 	objCat: watch('objCat'),
+				// 	lobzCd: watch('lobzCd'),
+				// 	objZip1: objZipValue.substring(0, 3),
+				// 	objZip2: objZipValue.substring(3, 5),
+				// 	objAddr1: insurance.getAddr.jibunAddr,
+				// 	objAddr2: watch('objAddr2'),
+				// 	bizNo: watch('bizNo'),
+				// 	inrBirth: watch('inrBirth'),
+				// 	inrGender: watch('inrGender'),
+				// 	telNo: watch('telNo'),
+				// 	ptyBizNm: watch('ptyBizNm'),
+				// 	ptyKorNm: watch('ptyKorNm'),
+				// 	termsA1: watch('termsA1'),
+				// 	termsA2: watch('termsA2'),
+				// 	termsA3: watch('termsA3'),
+				// 	termsA4: watch('termsA4'),
+				// 	termsA6: watch('termsA6'),
+				// 	termsA7: watch('termsA7'),
+				// 	// termsA8: watch('termsA8'),
+					
+				// }).then((res) => {
+				// 	const userId = res.data.results.userID;
+				// 	console.log(userId)
+				// 	const link = width > 767.98 ? 'https://platform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId='  : 'https://mplatform.hi.co.kr/service.do?m=pipis1000&jehuCd=insurobo&userId=';
+				// 	if (jehuCd === 'yogiyo') {
+				// 		setClose(true);
+				// 		setMessage('가입신청이 완료되었습니다.');
+				// 		setSuccess(true);
+				// 	} else {
+				// 		window.open(`${link}${userId}`);
+				// 		navigate('/');
+				// 	}
+				// }).catch((e) => console.log(e));
 			}).catch((e) => {
 				console.log(e)
 				alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.');

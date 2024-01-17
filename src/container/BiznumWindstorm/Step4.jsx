@@ -7,6 +7,7 @@ import SelectInput from "./Input/SelectInput";
 import { useFormContext } from "react-hook-form";
 import Popup from "./Popup";
 import { getLoBzCdList } from "../../api/WindstormAPI";
+import { errorLoBzCdList } from "./bizData";
 
 const Step4 = () => {
   const { watch, setValue } = useFormContext();
@@ -37,10 +38,10 @@ const Step4 = () => {
     },
   ]
   useEffect(() => {
-    getLoBzCdList()
-    .then((res) => {
-      setLoBzCdList(res.data.results.codes)
-    }).catch((e) => console.log(e)) 
+    // getLoBzCdList()
+    // .then((res) => {
+    //   setLoBzCdList(res.data.results.codes)
+    // }).catch((e) => console.log(e)) 
     if (watch('workerNumUnder') === 'N' || watch('charSalesUnder') === 'N') {
       setClose(false);
     }
@@ -83,9 +84,9 @@ const Step4 = () => {
             name='bizMainType'
             defaultValue=''
           >
-            {loBzCdList?.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
+            {errorLoBzCdList.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
               return (
-                <option value={cur.name} key={index}>
+                <option value={cur.id} key={index}>
                   {cur.name}
                 </option>
               )
