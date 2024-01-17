@@ -13,7 +13,7 @@ import { postWindstormSave } from "../../api/BizWindStormAPI";
 import { useSearchParams } from "react-router-dom";
 
 const Step5 = () => {
-	const { watch, setValue, setError, handleSubmit, formState: { errors } } = useFormContext();
+	const { watch, setFocus, setValue, setError, handleSubmit, formState: { errors } } = useFormContext();
 	const { width } = useWindowSize();
 	const [success, setSuccess] = useState(false);
 	const navigate = useNavigate();
@@ -24,6 +24,7 @@ const Step5 = () => {
 	
 	useEffect(() => {
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
+		console.log(watch('telNo'))
 	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')]);
 
 	const onError = (e) => {
@@ -34,6 +35,7 @@ const Step5 = () => {
 	}
 
 	const onClickNext = () => {
+		
 		if (!watch('bizConfirm')) {
 			setClose(true);
 			setError('bizConfirm', {
@@ -43,7 +45,14 @@ const Step5 = () => {
 			return false;
 		}
 		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
-
+		if (phoneReg.test(watch('telNo')) === false) {
+			setClose(true);
+			setError('telNo', {
+				type: 'custom',
+				message: '핸드폰번호를 확인해주세요.'
+			});
+			return false;
+		} 
 		if (watch('termsA1') === 'N' || 
 				watch('termsA2') === 'N' ||
 				watch('termsA3') === 'N' || 
@@ -66,23 +75,10 @@ const Step5 = () => {
 				message: '영위업종을 선택해주세요.'
 			});
 			setClose(true);
-			return false;
-		} if (phoneReg.test(watch('telNo')) === false) {
-			setClose(true);
-			setError('telNo', {
-				type: 'custom',
-				message: '핸드폰번호를 확인해주세요.'
-			});
+			setFocus('lobzCd');
 			return false;
 		} 
-		// if (watch('bizMainType') === '') {
-		// 	setError('bizMainType', {
-		// 		type: 'custom',
-		// 		message: '주요업종을 선택해주세요.'
-		// 	});
-		// 	setClose(true);
-		// 	return false;
-		// } 
+
 			const insurance = StorageGetInsurance();
 			const objZipValue = insurance.getAddr.zipNo+''
 			const data = {

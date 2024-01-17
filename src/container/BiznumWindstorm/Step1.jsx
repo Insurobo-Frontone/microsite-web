@@ -122,7 +122,6 @@ const Step1 = () => {
               <TextInput 
                 name='bizNo3'
                 required='사업자번호를 다시 입력해주세요'
-        
                 maxLength={{
                   value: 5,
                   message: '사업자번호를 다시 입력해주세요'

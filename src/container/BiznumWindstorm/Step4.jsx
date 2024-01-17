@@ -69,6 +69,10 @@ const Step4 = () => {
             name='workerNum'
             type='number'
             required='상시 근로자 수를 입력해주세요'
+            pattern={{
+              value: /^[0-9]+$/,
+              message: '상시 근로자 수를 확인해주세요'
+            }}
           />
         </InputGroup>
         <InputGroup>
@@ -100,6 +104,10 @@ const Step4 = () => {
             type='number'
             required='연평균 매출액을 입력해주세요'
             className='sales-input'
+            pattern={{
+              value: /^[0-9]+$/,
+              message: '연평균 매출액을 확인해주세요'
+            }}
           />
           <span>백만원</span>
         </InputGroup>

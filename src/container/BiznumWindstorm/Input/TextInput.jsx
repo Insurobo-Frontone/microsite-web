@@ -15,16 +15,14 @@ const TextInput = ({ onKeyUp, className, onBlur, defaultValue, value, type, name
         defaultValue={defaultValue}
         className={className}
         autoFocus={autoFocus}
-        maxLength={maxLength}
-        minLength={minLength}
         onKeyUp={onKeyUp}
         {...register(name, {
           required: required,
           validate: validate,
           pattern: pattern,
           onBlur: onBlur,
-          // maxLength: maxLength,
-          // minLength: minLength
+          maxLength: maxLength,
+          minLength: minLength
         })}
       />
     </>

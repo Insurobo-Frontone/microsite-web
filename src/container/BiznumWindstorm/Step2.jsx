@@ -76,14 +76,22 @@ const Step2 = ({ data }) => {
               <p>생년월일<b>*</b></p>
               <TextInput 
                 name='inrBirth'
+                type='number'
                 placeholder='ex) 880321'
                 required='생년월일을 입력해주세요'
                 pattern={{
-                  value: /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/,
+                  value:  /^([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))$/,
                   message: '생년월일을 확인해주세요'
                 }}
+                maxLength={{
+                  value: 6,
+                  message: '생년월일을 다시 입력해주세요'
+                }}
+                minLength={{
+                  value: 6,
+                  message: '생년월일을 다시 입력해주세요'
+                }}
               />
-            
             </InputGroup>
             <InputGroup>
               <div>

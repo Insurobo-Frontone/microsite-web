@@ -175,15 +175,25 @@ const Step3 = ({ data }) => {
           <InputGroup>
             <p>내 사업장 위치<b>*</b></p>
             <div className="two-input">
-              <TextInput 
+              <TextInput
+                type='number'
                 name='inputBldSt'
                 placeholder='시작 층'
                 required='가입하실 시작 층수를 다시 입력해주세요.'
+                pattern={{
+                  value: /^[0-9]+$/,
+                  message: '가입하실 시작 층수를 확인해주세요'
+                }}
               />
-              <TextInput 
+              <TextInput
+                type='number'
                 name='inputBldEd'
                 placeholder='끝 층'
                 required='가입하실 끝 층수를 다시 입력해주세요.'
+                pattern={{
+                  value: /^[0-9]+$/,
+                  message: '가입하실 시작 층수를 확인해주세요'
+                }}
               />
             </div>
           </InputGroup>
