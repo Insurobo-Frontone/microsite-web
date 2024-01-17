@@ -21,6 +21,7 @@ const Step5 = () => {
 	const [message, setMessage] = useState('');
 	const [searchParams] = useSearchParams();
 	const jehuCd = searchParams.get('jehuCd');
+	
 	useEffect(() => {
 		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
 	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')])
@@ -116,7 +117,12 @@ const Step5 = () => {
 				termsA6: watch('termsA6'),
 				termsA7: watch('termsA7'),
 				termsA8: watch('termsA8'),
+				difStmFldJoinYn: watch('overlap'),
+				phoneNum: watch('telNo'),
+				birthDate: watch('inrBirth'),
+				sex: watch('inrGender')
 			}
+			console.log(data)
 			postWindstormSave(data).then(() => {
 				postHiLinkObj({
 					inputBldSt: watch('inputBldSt'),

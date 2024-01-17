@@ -35,6 +35,7 @@ const Step2 = ({ data }) => {
                 name='ptyBizNm'
                 value={data.bizName}
                 readOnly
+                required={true}
               />
             </InputGroup>
             <InputGroup>

@@ -7,14 +7,18 @@ import { StorageSetInsurance } from "../Storage/Insurance";
 import SelectInput from "./Input/SelectInput";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import Popup from "./Popup";
 
 const Step3 = ({ data }) => {
   const [bizData, setBizData] = useState();
   const [addrData, setAddrData] = useState();
+  const [errorPopup, setErrorPopup] = useState(false);
+  const [message, setMessage] = useState('');
   const [loBzCdList, setLoBzCdList] = useState([]);
   const { watch } = useFormContext();
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
+
   const yoStore = [
     {
       id: 'store',
@@ -52,7 +56,16 @@ const Step3 = ({ data }) => {
     getLoBzCdList()
     .then((res) => {
       setLoBzCdList(res.data.results.codes)
-    }).catch((e) => console.log(e)) 
+    }).catch((e) => {
+        console.log(e.response.status)
+        if (e.response.status === 429) {
+          setErrorPopup(true)
+          setMessage('지금 접속량이 많아, 10분후에 다시 신청해 주십시오. 불편을 드려 죄송합니다.')
+        }
+      }
+
+    ) 
+
     // 건축물대장 api
     getJuso(data?.address.split(",")[0]).then((res) => {
       getCover({
@@ -109,6 +122,7 @@ const Step3 = ({ data }) => {
               name='objAddr1'
               value={addrData?.jibunAddr}
               readOnly={addrData?.jibunAddr}
+              required={true}
             />
             <TextInput 
               name='objAddr2'
@@ -173,6 +187,11 @@ const Step3 = ({ data }) => {
               }`}
             />
           </InputGroup>
+          {errorPopup && (
+            <Popup close={() => window.location.reload()}>
+              {message}
+            </Popup>
+          )}
         </>
       )}
     </>
