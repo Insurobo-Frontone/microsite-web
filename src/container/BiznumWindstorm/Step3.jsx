@@ -15,7 +15,7 @@ const Step3 = ({ data }) => {
   const [errorPopup, setErrorPopup] = useState(false);
   const [message, setMessage] = useState('');
   const [loBzCdList, setLoBzCdList] = useState([]);
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
 
@@ -67,7 +67,6 @@ const Step3 = ({ data }) => {
             }
         }
       );
-
       //건축물대장 api
       getJuso(data?.address.split(",")[0]).then((res) => {
         getCover({
@@ -85,8 +84,9 @@ const Step3 = ({ data }) => {
           );
         });
       }).catch((e) => console.log(e))
+    } else {
+      setValue('zipcode', data?.zipCode)
     }
-    
   }, [data, jehuCd]);
 
   return (

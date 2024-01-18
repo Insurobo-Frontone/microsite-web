@@ -52,7 +52,8 @@ function App() {
       termsA6: 'N',
       termsA7: 'N',
       termsA8: 'N',
-      bizConfirm: false
+      bizConfirm: false,
+      zipCode: ''
     }
   });
 

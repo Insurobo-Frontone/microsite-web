@@ -70,7 +70,6 @@ const Step2 = ({ data }) => {
                   required='휴대폰번호를 입력해주세요'
                 />
               </div>
-             
             </InputGroup>
             <InputGroup>
               <p>생년월일<b>*</b></p>
