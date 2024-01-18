@@ -70,17 +70,17 @@ const Step5 = () => {
 			setMessage('가입대상이 아닙니다.');
 			return false;
 		} if (watch('lobzCd') === '') {
+			setClose(true);
 			setError('lobzCd', {
 				type: 'custom',
 				message: '영위업종을 선택해주세요.'
 			});
-			setClose(true);
 			setFocus('lobzCd');
 			return false;
 		} 
 		
 		if (jehuCd === 'yogiyo') {
-			const data = {
+			postWindstormSave({
 				biz_no: watch('bizNo'),
 				biz_name: watch('ptyBizNm'),
 				ceo_name: watch('ptyKorNm'),
@@ -90,18 +90,13 @@ const Step5 = () => {
 				detail_address: watch('objAddr2'),
 				area: watch('hsArea'),
 				biz_site_lease_yn: watch('bizEstate'),
-				ugrnd_flr_cnt: insurance.getCover.ugrndFlrCnt,
-				bld_tot_lyr_num: insurance.getCover.grndFlrCnt,
+				ugrnd_flr_cnt: '',
+				bld_tot_lyr_num: '',
 				input_bld_st: watch('inputBldSt'),
 				input_bld_ed: watch('inputBldEd'),
-				strct_cd_nm: insurance.getCover.strctCdNm,
-				roof_strc: insurance.getCover.roofNm,
-				otwl_strc: insurance.getCover.otwlStrc === '01' ? '콘크리트 외벽' :
-				insurance.getCover.otwlStrc === '08' ? '벽돌(조직) 외벽' :
-				insurance.getCover.otwlStrc === '12' ? '블록 외벽' :
-				insurance.getCover.otwlStrc === '13' ? '철판/판넬' :
-				insurance.getCover.otwlStrc === '18' ? '목조' :
-				insurance.getCover.otwlStrc === '15' && '유리벽',
+				strct_cd_nm: '',
+				roof_strc: '',
+				otwl_strc: '',
 				worker_num_standard_under_yn: watch('workerNumUnder'),
 				worker_num: watch('workerNum'),
 				sales_standard_under_yn: watch('charSalesUnder'),
@@ -118,20 +113,21 @@ const Step5 = () => {
 				phoneNum: watch('telNo'),
 				birthDate: watch('inrBirth'),
 				sex: watch('inrGender') === '1' ? 'M' : 'F',
-				jehuCd: jehuCd
-			}
-
-			postWindstormSave(data).then((res) => {
+				jehuCd: jehuCd,
+				zipCode: watch('zipcode')
+			}).then((res) => {
 				if (res.status === 200) {
 					setClose(true);
 					setMessage('가입신청이 완료되었습니다.');
 				  setSuccess(true);
+					return false;
 				}
 			}).catch((e) => {
 				console.log(e)
 				alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.');
 			});
 		}
+		
 		if (!jehuCd) {
 			postHiLinkObj({
 				inputBldSt: watch('inputBldSt'),

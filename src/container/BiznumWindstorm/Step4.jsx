@@ -9,6 +9,40 @@ import Popup from "./Popup";
 const Step4 = () => {
   const { watch } = useFormContext();
   const [close, setClose] = useState(true);
+  // const [korUnit, setKorUnit] = useState();
+
+  // function getKoreanNumber(number) {
+  //   const num = ['', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구'];
+  //   const unit4 = ['', '만', '억', '조', '경'];
+  //   const unit1 = ['', '십', '백', '천'];
+
+  //   const result = [];
+    
+  //   number = number.toString().replace(',', '');
+    
+  //   const split4 = number.split('').reverse().join('').match(/.{1,4}/g);
+  //   console.log(number, split4)
+  //   for (let i = 0; i < split4.length; i++) {
+  //     const temp = [];
+  //     const split1 = split4[i].split('');
+  //     for (let j = 0; j < split1.length; j++) {
+  //       const u = parseInt(split1[j]);
+  //       if (u > 0) {
+  //         temp.push(num[u] + unit1[j]);
+  //       }
+  //       if (temp.length > 0) {
+  //         result.push(temp.reverse().join('') + unit4[i]);
+  //       }
+  //     }
+  //     return result.reverse().join('');
+  //   }
+  // }
+  useEffect(() => {
+    // console.log(
+    //   getKoreanNumber('10000')
+    // )
+  }, [])
+ 
   const check1 = [
     {
       id: 'check1_Y',
@@ -39,10 +73,7 @@ const Step4 = () => {
     }
   }, [watch('workerNumUnder'), watch('charSalesUnder')]);
 
-  // const setNum = Number(watch('sales'))
-  // const onBlurSales = () => {
-  //   setValue('sales', setNum.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","))
-  // }
+
   return (
     <>
       <SectionWrap 
@@ -85,9 +116,11 @@ const Step4 = () => {
               value: /^[0-9]+$/,
               message: '연평균 매출액을 확인해주세요'
             }}
+            // onKeyUp={() => setKorUnit(getKoreanNumber(watch('sales')))}
           />
           <span>백만원</span>
         </InputGroup>
+        
       </SectionWrap>
       {!close && (
         <Popup close={() => setClose(true)}>
