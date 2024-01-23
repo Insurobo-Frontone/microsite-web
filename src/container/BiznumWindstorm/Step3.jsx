@@ -86,7 +86,7 @@ const Step3 = ({ data }) => {
       }).catch((e) => console.log(e))
     } else {
       setValue('zipcode', data?.zipCode)
-      console.log(watch('zipcode'))
+      // console.log(watch('zipcode'))
     }
   }, [data, jehuCd]);
 
