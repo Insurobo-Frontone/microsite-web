@@ -41,7 +41,7 @@ const Step1 = () => {
     if (bizNumValidate()) {
       clearErrors('bizNo')
       MoneypinBizInfo(watch('bizNo')).then((res) => {
-        console.log(res.data[0].info)
+        // console.log(res.data[0].info)
         setData(res.data[0].info)
       }).catch((e) => console.log(e))
      
@@ -67,7 +67,7 @@ const Step1 = () => {
       }
       regNumSum += parseInt((regkey[8] * regsplitNum[8]) / 10, 10);
       const regCheck = (Math.floor(regsplitNum[9])) === ((10 - (regNumSum % 10) ) % 10);
-      console.log(regCheck)
+      // console.log(regCheck)
       return regCheck
     } 
   }

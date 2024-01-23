@@ -135,7 +135,7 @@ const Step4 = () => {
             }}
             onKeyUp={() => onKeyUpEvent()}
           />
-          
+          <span>원</span>
         </InputGroup>
         <KorUnitWrap>
           <span>{korUnit}</span><span>원</span>
