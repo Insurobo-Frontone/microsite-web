@@ -7,41 +7,61 @@ import { useFormContext } from "react-hook-form";
 import Popup from "./Popup";
 
 const Step4 = () => {
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
   const [close, setClose] = useState(true);
-  // const [korUnit, setKorUnit] = useState();
-
-  // function getKoreanNumber(number) {
-  //   const num = ['', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구'];
-  //   const unit4 = ['', '만', '억', '조', '경'];
-  //   const unit1 = ['', '십', '백', '천'];
-
-  //   const result = [];
-    
-  //   number = number.toString().replace(',', '');
-    
-  //   const split4 = number.split('').reverse().join('').match(/.{1,4}/g);
-  //   console.log(number, split4)
-  //   for (let i = 0; i < split4.length; i++) {
-  //     const temp = [];
-  //     const split1 = split4[i].split('');
-  //     for (let j = 0; j < split1.length; j++) {
-  //       const u = parseInt(split1[j]);
-  //       if (u > 0) {
-  //         temp.push(num[u] + unit1[j]);
-  //       }
-  //       if (temp.length > 0) {
-  //         result.push(temp.reverse().join('') + unit4[i]);
-  //       }
-  //     }
-  //     return result.reverse().join('');
-  //   }
-  // }
+  const [korUnit, setKorUnit] = useState();
+  const numberUnits = ['', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구'];
+  const thousandUnits = ['', '만', '억', '조', '경'];
+  const tenUnits = ['', '십', '백', '천'];
   useEffect(() => {
-    // console.log(
-    //   getKoreanNumber('10000')
-    // )
-  }, [])
+    if (watch('workerNumUnder') === 'N' || watch('charSalesUnder') === 'N') {
+      setClose(false);
+    }
+  }, [watch('workerNumUnder'), watch('charSalesUnder')]);
+
+  function chunkAtEnd(value = "", n = 1) {
+    const result = [];
+
+    for (let end = value.length; end > 0; end -= n) {
+      result.push(value.substring(Math.max(0, end - n), end));
+    }
+    return result;
+  }
+
+  // 모든 숫자 바꾸기
+  function formatNumberAll(number) {
+    return chunkAtEnd(String(number), 4)
+      .reduce((acc, item, index) => {
+        if (!Number(item)) {
+          return acc;
+        } 
+      
+        let numberUnit = "";
+
+        const zeroNum = item.padStart(4, "0");
+
+        for (let i = 0; i < 4; i++) {
+          const number = Number(zeroNum[i]);
+
+          if (number) {
+            const unit = tenUnits[3 - i];
+
+            numberUnit += `${
+              unit && number === 1 ? "" : numberUnits[number]
+            }${unit}`;
+          }
+        }
+      
+        const thousandUnit = thousandUnits[index] ?? "";
+
+        return `${numberUnit + thousandUnit} ${acc}`;
+      }, "")
+      .trim();
+  }
+
+  const onKeyUpEvent = () => {
+    setKorUnit(formatNumberAll(watch('sales')))
+  }
  
   const check1 = [
     {
@@ -67,11 +87,8 @@ const Step4 = () => {
       title: '아니요'
     },
   ]
-  useEffect(() => {
-    if (watch('workerNumUnder') === 'N' || watch('charSalesUnder') === 'N') {
-      setClose(false);
-    }
-  }, [watch('workerNumUnder'), watch('charSalesUnder')]);
+  
+
 
 
   return (
@@ -116,11 +133,13 @@ const Step4 = () => {
               value: /^[0-9]+$/,
               message: '연평균 매출액을 확인해주세요'
             }}
-            // onKeyUp={() => setKorUnit(getKoreanNumber(watch('sales')))}
+            onKeyUp={() => onKeyUpEvent()}
           />
-          <span>백만원</span>
+          
         </InputGroup>
-        
+        <KorUnitWrap>
+          <span>{korUnit}</span><span>원</span>
+        </KorUnitWrap>
       </SectionWrap>
       {!close && (
         <Popup close={() => setClose(true)}>
@@ -165,4 +184,13 @@ const InputGroup = styled.div`
       margin-top: 6px;
     }
   `}
+`;
+
+const KorUnitWrap = styled.div`
+  display: flex;
+  transform: translateY(-20px);
+  > span {
+    font-size: 12px;
+    color: #6262EF;
+  }
 `;
