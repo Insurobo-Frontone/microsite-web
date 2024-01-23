@@ -159,13 +159,21 @@ function Login() {
 
   
   const onError = (error) => { 
-    console.log(error)
+    // console.log(error)
   }
 
   const onSubmit = async (data) => {
-    const req = JSON.stringify(data)
+    const loginData = 
+      {
+        userId: data.userId,
+        userPw: data.userPw
+      }
+ 
+    const req = JSON.stringify(loginData)
+    // console.log(JSON.stringify(loginData))
     try {
       const res = await CommonAPI.post('/api/public/login', req)
+
       if(res.status === 200){
         setAccessToken(res.data.data.accessToken);
         if (path) {
@@ -175,7 +183,7 @@ function Login() {
         }
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       setFocus('userPw')
       setError('userPw', {
         type: 'custom',

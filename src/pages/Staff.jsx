@@ -5,11 +5,13 @@ import styled from 'styled-components';
 import Button from "../container/BiznumWindstorm/Button";
 import logo from '../assets/img/insurobo.png';
 import { useFormContext } from 'react-hook-form';
+import { getWindStormSave } from '../api/BizWindStormAPI';
 
 function Staff() {
   const [login, setLogin] = useState(false);
   const [success, setSuccess] = useState(false);
   const { watch, setError } = useFormContext();
+  const [data, setData] = useState();
   const userPw = 'insurobo1!';
   const onClickLogin = () => {
     if (userPw !== watch('staff_pwd')) {
@@ -25,7 +27,14 @@ function Staff() {
   }
 
   const onClickSearch = () => {
-    setSuccess(true)
+    console.log(watch('search_biznum'))
+     getWindStormSave(watch('search_biznum'))
+     .then((res) => {
+        console.log(res)
+        setSuccess(true)
+        setData(res.data)
+     })
+     .catch((e) => console.log(e))
   }
   return (
     <Wrap>
