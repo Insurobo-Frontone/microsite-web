@@ -121,8 +121,8 @@ const data = [
     id: 11,
     title: '(무)챌린지 미니저축보험',
     mobileTitle: '(무)챌린지 미니저축',
-    link: 'https://direct.kdblife.co.kr/p/p.do?ev=0718801',
-    mobile: 'https://direct.kdblife.co.kr/p/p.do?ev=0718802',
+    link: '/kdbLife?insuType=mini',
+    mobile: '/kdbLife?insuType=mini',
     img: icon11,
     tag: '개인보험'
   },
@@ -130,8 +130,8 @@ const data = [
     id: 12,
     title: '암보험',
     mobileTitle: '암보험',
-    link: 'https://direct.kdblife.co.kr/p/p.do?ev=0718803',
-    mobile: 'https://direct.kdblife.co.kr/p/p.do?ev=0718804',
+    link: '/kdbLife?insuType=cancer',
+    mobile: '/kdbLife?insuType=cancer',
     img: icon12,
     tag: '개인보험'
   },
@@ -303,7 +303,16 @@ function InsuProducts() {
   const onClickLink = (id, link) => {
     if (link) {
       switch(id) {
-        case 1 || 13 :
+        case 1 :
+          navigate(link);
+          break;
+        case 11 : 
+          navigate(link);
+          break;
+        case 12 : 
+          navigate(link);
+          break;
+        case 13 : 
           navigate(link);
           break;
       default: window.open(link);

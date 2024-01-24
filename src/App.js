@@ -77,7 +77,7 @@ function App() {
                     <Route path='/bizsupport/:list' element={<List />} />
                     <Route path='/insuranceInfo' element={<InsuranceInfo />} />
                     <Route path='/kdbLife' element={<KdbLife />} />
-                    <Route path='/kdbLife?insuType=rsp' element={<KdbLife />} />
+                    <Route path='/kdbLife?insuType=:name' element={<KdbLife />} />
                     <Route path='/freeApply' element={<FreeApply />} />
                     <Route path='/freeApply?jehuCd=yogiyo' element={<FreeApply />} />
                     <Route path='/freeApply/bizWindstorm' element={<BiznumWindstorm />} />
