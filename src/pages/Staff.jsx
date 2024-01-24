@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-
 import TextInput from '../container/BiznumWindstorm/Input/TextInput';
 import styled from 'styled-components';
 import Button from "../container/BiznumWindstorm/Button";
 import logo from '../assets/img/insurobo.png';
 import { useFormContext } from 'react-hook-form';
 import { getWindStormSave } from '../api/BizWindStormAPI';
-import ErrorMessage from '../container/BiznumWindstorm/ErrorMessage';
-
 
 function Staff() {
   const [login, setLogin] = useState(false);
@@ -33,6 +30,7 @@ function Staff() {
      .then((res) => {
         setSuccess(true)
         setData(res.data)
+        console.log(res.data)
         if (res.data === '') {
           setError('search_biznum', {
             type: 'custom',
@@ -100,7 +98,7 @@ function Staff() {
               </tr>
               <tr>
                 <th>휴대폰번호</th>
-                <td>{data?.phoneNum.replace(/[^0-9]/g, '').replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3")}</td>
+                <td>{data.phoneNum?.replace(/[^0-9]/g, '').replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3")}</td>
               </tr>
               <tr>
                 <th>생년월일</th>
