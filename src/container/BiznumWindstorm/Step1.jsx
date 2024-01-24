@@ -37,12 +37,13 @@ const Step1 = () => {
   }, [watch('overlap')]);
 
   // 조회하기 버튼 클릭
-  const onClickSearch = useCallback((e) => {
+  const onClickSearch = () => {
     if (bizNumValidate()) {
       clearErrors('bizNo')
       MoneypinBizInfo(watch('bizNo')).then((res) => {
         // console.log(res.data[0].info)
         setData(res.data[0].info)
+
       }).catch((e) => console.log(e))
      
     } else {
@@ -50,7 +51,7 @@ const Step1 = () => {
         message: '사업자번호를 다시 입력해주세요'
       })
     }
-  }, [watch('bizNo')]);
+  };
 
   // 사업자번호 유효성 검사
   const bizNumValidate = () => {

@@ -37,7 +37,15 @@ const Step5 = () => {
 		const insurance = StorageGetInsurance();
 		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
 		const objZipValue = insurance.getAddr.zipNo+''
-		if (!watch('bizConfirm')) {
+		if (watch('bizNo') === '') {
+			setClose(true);
+			setError('bizNo', {
+				type: 'custom',
+				message: '사업자번호를 확인해주세요.'
+			});
+			return false;
+		}
+ 		if (!watch('bizConfirm')) {
 			setClose(true);
 			setError('bizConfirm', {
 				type: 'custom',
@@ -80,6 +88,42 @@ const Step5 = () => {
 		} 
 		
 		if (jehuCd === 'yogiyo') {
+			console.log({
+				biz_no: watch('bizNo'),
+				biz_name: watch('ptyBizNm'),
+				ceo_name: watch('ptyKorNm'),
+				biz_type: watch('lobzCd'),
+				building_division: watch('objCat'),
+				address: watch('objAddr1'),
+				detail_address: watch('objAddr2'),
+				area: watch('hsArea'),
+				biz_site_lease_yn: watch('bizEstate'),
+				ugrnd_flr_cnt: '',
+				bld_tot_lyr_num: '',
+				input_bld_st: watch('inputBldSt'),
+				input_bld_ed: watch('inputBldEd'),
+				strct_cd_nm: '',
+				roof_strc: '',
+				otwl_strc: '',
+				worker_num_standard_under_yn: watch('workerNumUnder'),
+				worker_num: watch('workerNum'),
+				sales_standard_under_yn: watch('charSalesUnder'),
+				sales: watch('sales'),
+				imputation_reason_confirm_yn: watch('bizConfirm') ? 'Y' : 'N',
+				termsA1: watch('termsA1'),
+				termsA2: watch('termsA2'),
+				termsA3: watch('termsA3'),
+				termsA4: watch('termsA4'),
+				termsA6: watch('termsA6'),
+				termsA7: watch('termsA7'),
+				termsA8: watch('termsA8'),
+				difStmFldJoinYn: watch('overlap'),
+				phoneNum: watch('telNo'),
+				birthDate: watch('inrBirth'),
+				sex: watch('inrGender') === '1' ? 'M' : 'F',
+				jehuCd: jehuCd,
+				zipCode: watch('zipcode')
+			})
 			postWindstormSave({
 				biz_no: watch('bizNo'),
 				biz_name: watch('ptyBizNm'),
@@ -427,7 +471,12 @@ const Step5 = () => {
     </SectionWrap>
 			{close && (
 				<Popup close={success ?  () => yogiyoClose() :  () => setClose(false)}>
-					{	errors.telNo1 ? <p>{errors.telNo1.message}</p> : 
+					
+					{	errors.bizNo1 ? <p>{errors.bizNo1.message}</p> : 
+						errors.bizNo2 ? <p>{errors.bizNo2.message}</p> : 
+						errors.bizNo3 ? <p>{errors.bizNo3.message}</p> :
+						errors.bizNo ? <p>{errors.bizNo.message}</p> :
+						errors.telNo1 ? <p>{errors.telNo1.message}</p> : 
 						errors.telNo2 ? <p>{errors.telNo2.message}</p> : 
 						errors.telNo3 ? <p>{errors.telNo3.message}</p> :
 						errors.telNo ? <p>{errors.telNo.message}</p> :
