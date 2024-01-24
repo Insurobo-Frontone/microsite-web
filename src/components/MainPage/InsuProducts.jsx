@@ -139,8 +139,8 @@ const data = [
     id: 13,
     title: '연금저축보험',
     mobileTitle: '연금저축보험',
-    link: 'https://direct.kdblife.co.kr/p/p.do?ev=0718805',
-    mobile: 'https://direct.kdblife.co.kr/p/p.do?ev=0718806',
+    link: '/kdbLife?insuType=rsp',
+    mobile: '/kdbLife?insuType=rsp',
     img: icon13,
     tag: '개인보험'
   },
@@ -303,7 +303,7 @@ function InsuProducts() {
   const onClickLink = (id, link) => {
     if (link) {
       switch(id) {
-        case 1 :
+        case 1 || 13 :
           navigate(link);
           break;
       default: window.open(link);

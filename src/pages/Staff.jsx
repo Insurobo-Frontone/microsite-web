@@ -6,11 +6,13 @@ import Button from "../container/BiznumWindstorm/Button";
 import logo from '../assets/img/insurobo.png';
 import { useFormContext } from 'react-hook-form';
 import { getWindStormSave } from '../api/BizWindStormAPI';
+import ErrorMessage from '../container/BiznumWindstorm/ErrorMessage';
+
 
 function Staff() {
   const [login, setLogin] = useState(false);
   const [success, setSuccess] = useState(false);
-  const { watch, setError } = useFormContext();
+  const { watch, setError,  formState: { errors } } = useFormContext();
   const [data, setData] = useState();
   const userPw = 'insurobo1!';
   const onClickLogin = () => {
@@ -27,14 +29,20 @@ function Staff() {
   }
 
   const onClickSearch = () => {
-    console.log(watch('search_biznum'))
      getWindStormSave(watch('search_biznum'))
      .then((res) => {
-        console.log(res)
         setSuccess(true)
         setData(res.data)
+        if (res.data === '') {
+          setError('search_biznum', {
+            type: 'custom',
+            message: '존재하지 않는 사업자번호입니다'
+          })
+        }
      })
-     .catch((e) => console.log(e))
+     .catch((e) => {
+       alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.')
+     })
   }
   return (
     <Wrap>
@@ -42,86 +50,93 @@ function Staff() {
         <LoginWrap>
           <img src={logo} alt='인슈로보' />
           <InputGroup>
-            <TextInput name='staff_pwd' placeholder='비밀번호' type='password' />
+            <TextInput 
+              name='staff_pwd' 
+              placeholder='비밀번호' 
+              type='password'
+              onKeyUp={(e) => e.key === 'Enter' && onClickLogin()}
+            />
+            
           </InputGroup>
-          <Button title='로그인' onClick={() => onClickLogin()}/>
+          {errors.staff_pwd && <ErrorText>{errors.staff_pwd.message}</ErrorText>}
+          <Button 
+            title='로그인' 
+            onClick={() => onClickLogin()}
+          />
         </LoginWrap>
       ) : (
         <SearchFormWrap>
           <h2>풍수해보험 신청자 조회</h2>
           <InputGroup>
-            <TextInput name='search_biznum' placeholder='사업자번호' />
+            <TextInput 
+              name='search_biznum' 
+              placeholder='사업자번호'
+              onKeyUp={(e) => e.key === 'Enter' && onClickSearch()}
+            />
           </InputGroup>
+          {errors.search_biznum && <ErrorText>{errors.search_biznum.message}</ErrorText>}
           <Button title='조회' onClick={() => onClickSearch()}/>
         </SearchFormWrap>
       )}
-      {login && success && (
+      {login && success && data && (
         <ResultWrap>
           <Table>
             <thead>
               <tr>
                 <th>제휴코드</th>
-                <td>yogiyo</td>
+                <td>{data?.jehuCd}</td>
               </tr>
               <tr>
                 <th>상호명</th>
-                <td>인슈로보</td>
+                <td>{data?.biz_name}</td>
               </tr>
               <tr>
                 <th>사업자번호</th>
-                <td>690-87-01268</td>
+                <td>{data?.biz_no.replace(/(\d{3})(\d{2})(\d{5})/, '$1-$2-$3')}</td>
               </tr>
               <tr>
                 <th>대표자명</th>
-                <td>서민</td>
-              </tr>
-              <tr>
-                <th>영위업종</th>
-                <td>휴계음식점</td>
+                <td>{data?.ceo_name}</td>
               </tr>
               <tr>
                 <th>휴대폰번호</th>
-                <td>010-5678-2707</td>
+                <td>{data?.phoneNum.replace(/[^0-9]/g, '').replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3")}</td>
               </tr>
               <tr>
                 <th>생년월일</th>
-                <td>930508</td>
+                <td>{data?.birthDate}</td>
               </tr>
               <tr>
                 <th>성별</th>
-                <td>여</td>
+                <td>{data?.sex === 'M' ? '남자' : '여자'}</td>
               </tr>
               <tr>
                 <th>건물구분</th>
-                <td>일반(상가)</td>
+                <td>{data?.building_division === '2' ? '일반(상가)' : '공장'}</td>
               </tr>
               <tr>
                 <th>주소</th>
-                <td>서울특별시 강남구 논현로 75길 10, 영창빌딩 4층</td>
+                <td>{data?.address} {data?.detail_address}</td>
               </tr>
               <tr>
                 <th>실사용면적</th>
-                <td>77</td>
+                <td>{data?.area}</td>
               </tr>
               <tr>
                 <th>임차여부</th>
-                <td>임차인</td>
+                <td>{data?.biz_site_lease_yn}</td>
               </tr>
               <tr>
                 <th>사업장 위치</th>
-                <td>1/1</td>
-              </tr>
-              <tr>
-                <th>건물 구조정보</th>
-                <td>콘크리트/콘크리트/콘크리트</td>
+                <td>{data?.input_bld_st}/{data?.input_bld_ed}</td>
               </tr>
               <tr>
                 <th>상시 근로자수</th>
-                <td>12명</td>
+                <td>{data?.worker_num}</td>
               </tr>
               <tr>
                 <th>연평균 매출액</th>
-                <td>1,000,000</td>
+                <td>{data?.sales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
               </tr>
             </thead>
           </Table>
@@ -142,6 +157,13 @@ const Wrap = styled.div`
   justify-content: center;
 `;
 
+const ErrorText = styled.p`
+  font-size: 12px;
+  color: #FF0000;
+  font-weight: 300;
+  padding-bottom: 10px;
+  align-self: flex-start;
+`;
 
 const LoginWrap = styled.div`
   display: flex;
@@ -150,6 +172,9 @@ const LoginWrap = styled.div`
   align-items: center;
   > img {
     margin-bottom: 30px;
+  }
+  > p {
+
   }
 `;
 
@@ -181,6 +206,7 @@ const Table = styled.table`
     border-right: 1px solid #E2E2E2;
     background-color: #CEDAEF;
     font-weight: 500;
+    vertical-align: middle;
   }
   td {
     padding: 10px;

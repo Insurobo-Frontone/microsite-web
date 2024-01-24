@@ -23,7 +23,7 @@ const Step5 = () => {
 	const jehuCd = searchParams.get('jehuCd');
 	
 	useEffect(() => {
-		setValue('telNo', watch('telNo1')+watch('telNo2')+watch('telNo3'));
+		setValue('telNo', watch('telNo1') + watch('telNo2') + watch('telNo3'));
 	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')]);
 
 	const onError = (e) => {

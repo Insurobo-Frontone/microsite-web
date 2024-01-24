@@ -27,6 +27,7 @@ import { TravelPageProvider } from './context/travelPageContext';
 import MyViewer from './container/InsuroboTravel/Apply/Step3/MyViewer';
 import BiznumWindstorm from './pages/BizNumerWindstorm';
 import Staff from './pages/Staff';
+import KdbLife from './pages/KdbLife';
 
 // import InsuroboTravelLogin from './pages/InsuroboTravelLogin';
 // import { getUser } from './container/Storage/Auth';
@@ -75,6 +76,8 @@ function App() {
                     <Route path='/bizsupport/*' element={<BizSupport />} />
                     <Route path='/bizsupport/:list' element={<List />} />
                     <Route path='/insuranceInfo' element={<InsuranceInfo />} />
+                    <Route path='/kdbLife' element={<KdbLife />} />
+                    <Route path='/kdbLife?insuType=rsp' element={<KdbLife />} />
                     <Route path='/freeApply' element={<FreeApply />} />
                     <Route path='/freeApply?jehuCd=yogiyo' element={<FreeApply />} />
                     <Route path='/freeApply/bizWindstorm' element={<BiznumWindstorm />} />
