@@ -7,10 +7,15 @@ import Step3 from "./Step3";
 import SectionWrap from "./SectionWrap";
 import Step4 from "./Step4";
 import Step5 from "./Step5";
+import { useEffect } from "react";
+
 
 const Step2 = ({ data }) => {
-  const { watch, setFocus } = useFormContext();
-
+  const { watch, setFocus, setValue } = useFormContext();
+  useEffect(() => {
+    setValue('ptyBizNm', data?.bizName)
+    setValue('ptyKorNm', data?.ceoName)
+  }, [data])
   const gender = [
     {
       id: 'men',
@@ -33,7 +38,6 @@ const Step2 = ({ data }) => {
               <p>상호명<b>*</b></p>
               <TextInput
                 name='ptyBizNm'
-                value={data.bizName}
                 readOnly
                 required={true}
               />
@@ -42,7 +46,6 @@ const Step2 = ({ data }) => {
               <p>대표자명*</p>
               <TextInput 
                 name='ptyKorNm'
-                value={data.ceoName}
                 readOnly
               />
             </InputGroup>

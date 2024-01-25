@@ -13,6 +13,7 @@ import { useSearchParams } from "react-router-dom";
 
 const Step1 = () => {
   const [data, setData] = useState();
+  const [open, setOpen] = useState(false);
   const [close, setClose] = useState(true);
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
@@ -37,21 +38,23 @@ const Step1 = () => {
   }, [watch('overlap')]);
 
   // 조회하기 버튼 클릭
-  const onClickSearch = () => {
+  const onClickSearch = useCallback(() => {
+    setOpen(false);
     if (bizNumValidate()) {
       clearErrors('bizNo')
       MoneypinBizInfo(watch('bizNo')).then((res) => {
         // console.log(res.data[0].info)
         setData(res.data[0].info)
-
+        setOpen(true)
       }).catch((e) => console.log(e))
      
     } else {
       setError('bizNo', {
         message: '사업자번호를 다시 입력해주세요'
       })
+      
     }
-  };
+  }, [watch('bizNo')]);
 
   // 사업자번호 유효성 검사
   const bizNumValidate = () => {
@@ -172,7 +175,7 @@ const Step1 = () => {
           </ul>
         </TextArea>
       </SectionWrap>
-      {data && <Step2 data={data} />}
+      {open && <Step2 data={data} />}
     </>
   )
 }

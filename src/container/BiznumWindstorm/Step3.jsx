@@ -53,18 +53,19 @@ const Step3 = ({ data }) => {
     },
   ];
 
-  
   useEffect(() => {
+    setValue('objAddr1', data?.address)
+
     if (!jehuCd) {
       getLoBzCdList()
         .then((res) => {
           setLoBzCdList(res.data.results.codes)
         }).catch((e) => {
           console.log(e.response.status)
-            if (e.response.status === 429) {
-              setErrorPopup(true)
-              setMessage('지금 접속량이 많아, 10분후에 다시 신청해 주십시오. 불편을 드려 죄송합니다.');
-            }
+          if (e.response.status === 429) {
+            setErrorPopup(true)
+            setMessage('지금 접속량이 많아, 10분후에 다시 신청해 주십시오. 불편을 드려 죄송합니다.');
+          }
         }
       );
       //건축물대장 api
@@ -94,11 +95,11 @@ const Step3 = ({ data }) => {
     <>
       {data && (
         <>
-        {errorPopup && (
-          <Popup close={() => window.location.reload()}>
-            {message}
-          </Popup>
-        )}
+          {errorPopup && (
+            <Popup close={() => window.location.reload()}>
+              {message}
+            </Popup>
+          )}
           <InputGroup>
             <div>
               <p>건물 구분<b>*</b></p>
@@ -142,7 +143,6 @@ const Step3 = ({ data }) => {
             <p>주소<b>*</b></p>
             <TextInput 
               name='objAddr1'
-              value={data?.address}
               readOnly={data?.address}
               required={true}
             />
