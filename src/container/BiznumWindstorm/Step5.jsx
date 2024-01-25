@@ -97,7 +97,7 @@ const Step5 = () => {
 			// 	address: watch('objAddr1'),
 			// 	detail_address: watch('objAddr2'),
 			// 	area: watch('hsArea'),
-			// 	biz_site_lease_yn: watch('bizEstate'),
+			// 	biz_site_lease: watch('bizEstate'),
 			// 	ugrnd_flr_cnt: '',
 			// 	bld_tot_lyr_num: '',
 			// 	input_bld_st: watch('inputBldSt'),
@@ -133,7 +133,7 @@ const Step5 = () => {
 				address: watch('objAddr1'),
 				detail_address: watch('objAddr2'),
 				area: watch('hsArea'),
-				biz_site_lease_yn: watch('bizEstate'),
+				biz_site_lease: watch('bizEstate'),
 				ugrnd_flr_cnt: '',
 				bld_tot_lyr_num: '',
 				input_bld_st: watch('inputBldSt'),
@@ -166,9 +166,16 @@ const Step5 = () => {
 				  setSuccess(true);
 					return false;
 				}
+				
 			}).catch((e) => {
-				console.log(e)
-				alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.');
+				// console.log(e)
+				if (e.response.status === 409) {
+					setClose(true);
+					setMessage('이미 가입된 신청자입니다.');
+				} else {
+					alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.');
+				}
+				return false;
 			});
 		}
 		
@@ -471,7 +478,6 @@ const Step5 = () => {
     </SectionWrap>
 			{close && (
 				<Popup close={success ?  () => yogiyoClose() :  () => setClose(false)}>
-					
 					{	errors.bizNo1 ? <p>{errors.bizNo1.message}</p> : 
 						errors.bizNo2 ? <p>{errors.bizNo2.message}</p> : 
 						errors.bizNo3 ? <p>{errors.bizNo3.message}</p> :
