@@ -96,7 +96,9 @@ const Step5 = () => {
 			// 	building_division: watch('objCat'),
 			// 	address: watch('objAddr1'),
 			// 	detail_address: watch('objAddr2'),
-			// 	area: watch('hsArea'),
+			// 	area: watch('hsFeet'), //원래는 면적인데 평수를 보내야함
+			// 	squareMeter: Number.isInteger(Number(watch('hsArea'))) ? watch('hsArea') :
+			// 	Number.parseFloat(watch('hsArea')).toFixed(2), //새로 추가된 필드는 면적을 보냄
 			// 	biz_site_lease: watch('bizEstate'),
 			// 	ugrnd_flr_cnt: '',
 			// 	bld_tot_lyr_num: '',
@@ -132,7 +134,9 @@ const Step5 = () => {
 				building_division: watch('objCat'),
 				address: watch('objAddr1'),
 				detail_address: watch('objAddr2'),
-				area: watch('hsArea'),
+				area: watch('hsFeet'), //원래는 면적인데 평수를 보내야함
+				squareMeter: Number.isInteger(Number(watch('hsArea'))) ? watch('hsArea') :
+				Number.parseFloat(watch('hsArea')).toFixed(2), //새로 추가된 필드는 면적을 보냄
 				biz_site_lease: watch('bizEstate'),
 				ugrnd_flr_cnt: '',
 				bld_tot_lyr_num: '',
@@ -166,7 +170,6 @@ const Step5 = () => {
 				  setSuccess(true);
 					return false;
 				}
-				
 			}).catch((e) => {
 				// console.log(e)
 				if (e.response.status === 409) {

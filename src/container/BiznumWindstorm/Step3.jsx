@@ -14,6 +14,7 @@ const Step3 = ({ data }) => {
   const [bizData, setBizData] = useState();
   const [errorPopup, setErrorPopup] = useState(false);
   const [message, setMessage] = useState('');
+  const [korFeet, setKorFeet] = useState();
   const [loBzCdList, setLoBzCdList] = useState([]);
   const { watch, setValue } = useFormContext();
   const [searchParams] = useSearchParams();
@@ -90,6 +91,13 @@ const Step3 = ({ data }) => {
       // console.log(watch('zipcode'))
     }
   }, [data, jehuCd]);
+  function converFeet(m2) {
+    return Math.round(m2 / 3.306) 
+  }
+  const onKeyUpEvent = () => {
+    setKorFeet(converFeet(watch('hsArea')));
+    setValue('hsFeet', `${korFeet}평`);
+  }
 
   return (
     <>
@@ -156,10 +164,19 @@ const Step3 = ({ data }) => {
             <p>실사용면적<b>*</b></p>
             <TextInput 
               name='hsArea'
+              type='number'
               placeholder='면적을 입력하세요 (단위는 m2 입니다.)'
               required='면적을 입력해주세요'
+              pattern={{
+                value: /^[0-9.]+$/,
+                message: '숫자와 소수점만 입력해주세요'
+              }}
+              onKeyUp={() => onKeyUpEvent()}
             />
           </InputGroup>
+          <KorFeetWrap>
+          <span>{korFeet}</span><span>평</span>
+          </KorFeetWrap>
           <InputGroup>
             <div>
               <p>사업장 임차 여부<b>*</b></p>
@@ -269,5 +286,14 @@ const InputGroup = styled.div`
       font-size: 12px;
       padding-top: 12px;
     }
+  }
+`;
+
+const KorFeetWrap = styled.div`
+  display: flex;
+  transform: translateY(-20px);
+  > span {
+    font-size: 12px;
+    color: #FF0000;
   }
 `;

@@ -54,7 +54,8 @@ function App() {
       termsA7: 'N',
       termsA8: 'N',
       bizConfirm: false,
-      zipCode: ''
+      zipCode: '',
+      hsFeet: ''
     }
   });
 

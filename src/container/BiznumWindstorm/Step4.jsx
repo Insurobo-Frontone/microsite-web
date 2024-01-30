@@ -7,7 +7,7 @@ import { useFormContext } from "react-hook-form";
 import Popup from "./Popup";
 
 const Step4 = () => {
-  const { watch, setValue } = useFormContext();
+  const { watch } = useFormContext();
   const [close, setClose] = useState(true);
   const [korUnit, setKorUnit] = useState();
   const numberUnits = ['', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구'];
