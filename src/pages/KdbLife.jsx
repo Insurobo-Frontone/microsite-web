@@ -49,7 +49,7 @@ const Wrap = styled.div`
   align-items: center;
   justify-content: center;
   > img {
-
+    cursor: pointer;
   }
   .rsp {
     width: 500px;
