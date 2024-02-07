@@ -622,7 +622,7 @@ function WindStormModal({ onClick }) {
                         <td className='size1 top'>실손보상 소상공인 풍수해보험(VI)</td>
                         <th className='top'>납입보험료</th>
                         <td className='top'>WON</td>
-                        <td className='right top'>{data.OPAYMENT.split('.')[0].replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td className='right top'>{data.PREMIUM.split('.')[0].replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")}</td>
                       </tr>
                       <tr>
                         <th>보험기간</th>
