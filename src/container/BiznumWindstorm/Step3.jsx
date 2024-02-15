@@ -124,7 +124,7 @@ const Step3 = ({ data }) => {
               name='lobzCd'
               defaultValue=''
             >
-              {jehuCd === 'yogiyo' ? (
+              {jehuCd ? (
                 <>
                   {errorLoBzCdList.filter((obj) => obj.type === watch('objCat')).map((cur, index) => {
                     return (

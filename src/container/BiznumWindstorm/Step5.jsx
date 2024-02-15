@@ -73,7 +73,7 @@ const Step5 = () => {
 			return false;
 		} 
 		
-		if (jehuCd === 'yogiyo') {
+		if (jehuCd) {
 			// console.log({
 			// 	biz_no: watch('bizNo'),
 			// 	biz_name: watch('ptyBizNm'),

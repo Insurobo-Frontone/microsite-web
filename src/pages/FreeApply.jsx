@@ -329,7 +329,7 @@ function FreeApply() {
 
   return (
     <Layout color="BG_GRAY">
-      {jehuCd === 'yogiyo' ? (
+      {jehuCd  ? (
         <Guide jehuCd={jehuCd} />
       ) : (
         <Wrap>

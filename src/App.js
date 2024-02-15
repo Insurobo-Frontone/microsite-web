@@ -65,8 +65,10 @@ function App() {
                     <Route path='/kdbLife?insuType=:name' element={<KdbLife />} />
                     <Route path='/freeApply' element={<FreeApply />} />
                     <Route path='/freeApply?jehuCd=yogiyo' element={<FreeApply />} />
+                    <Route path='/freeApply?jehuCd=payco' element={<FreeApply />} />
                     <Route path='/freeApply/bizWindstorm' element={<BiznumWindstorm />} />
                     <Route path='/freeApply/bizWindstorm?jehuCd=yogiyo' element={<BiznumWindstorm />} />
+                    <Route path='/freeApply/bizWindstorm?jehuCd=payco' element={<BiznumWindstorm />} />
                     <Route path='/board' element={<View />} />
                     <Route path='/staff' element={<Staff />} />
                     <Route path='/policy/:pagename' element={<Policy />} />
