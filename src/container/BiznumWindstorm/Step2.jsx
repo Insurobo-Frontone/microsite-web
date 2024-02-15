@@ -11,7 +11,7 @@ import { useEffect } from "react";
 
 
 const Step2 = ({ data }) => {
-  const { watch, setFocus, setValue } = useFormContext();
+  const { watch, setValue } = useFormContext();
   useEffect(() => {
     setValue('ptyBizNm', data?.bizName)
     setValue('ptyKorNm', data?.ceoName)
@@ -47,11 +47,22 @@ const Step2 = ({ data }) => {
               <TextInput 
                 name='ptyKorNm'
                 readOnly
+                required={true}
               />
             </InputGroup>
             <InputGroup>
               <p>휴대폰 번호*</p>
-              <div>
+              <TextInput
+                name='telNo'
+                required='휴대폰번호를 다시 입력해주세요'
+                autoFocus
+                pattern={{
+                  value: /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/,
+                  message: '휴대폰 번호를 확인해주세요'
+                }}
+                onKeyUp={() => setValue('telNo', watch('telNo').replace(/[^0-9]/g, ""))}
+              />
+              {/* <div>
                 <TextInput
                   type='number'
                   name='telNo1'
@@ -72,7 +83,7 @@ const Step2 = ({ data }) => {
                   name='telNo3'
                   required='휴대폰번호를 입력해주세요'
                 />
-              </div>
+              </div> */}
             </InputGroup>
             <InputGroup>
               <p>생년월일<b>*</b></p>

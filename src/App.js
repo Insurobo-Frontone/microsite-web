@@ -40,22 +40,6 @@ function App() {
     mode: 'onBlur',
     defaultValues: {
       calcPlan: '1',
-      inrGender: '1',
-      overlap: 'N',
-      objCat: '2',
-      bizEstate: '임차인',
-      workerNumUnder: 'Y',
-      charSalesUnder: 'Y',
-      termsA1: 'N',
-      termsA2: 'N',
-      termsA3: 'N',
-      termsA4: 'N',
-      termsA6: 'N',
-      termsA7: 'N',
-      termsA8: 'N',
-      bizConfirm: false,
-      zipCode: '',
-      hsFeet: ''
     }
   });
 

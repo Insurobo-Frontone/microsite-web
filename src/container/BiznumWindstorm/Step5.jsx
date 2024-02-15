@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import RadioButton from "./Input/RadioButton";
@@ -13,7 +13,7 @@ import { postWindstormSave } from "../../api/BizWindStormAPI";
 import { useSearchParams } from "react-router-dom";
 
 const Step5 = () => {
-	const { watch, setFocus, setValue, setError, handleSubmit, formState: { errors } } = useFormContext();
+	const { watch, reset, setFocus, setValue, setError, handleSubmit, formState: { errors } } = useFormContext();
 	const { width } = useWindowSize();
 	const [success, setSuccess] = useState(false);
 	const navigate = useNavigate();
@@ -22,10 +22,6 @@ const Step5 = () => {
 	const [searchParams] = useSearchParams();
 	const jehuCd = searchParams.get('jehuCd');
 	
-	useEffect(() => {
-		setValue('telNo', watch('telNo1') + watch('telNo2') + watch('telNo3'));
-	}, [watch('telNo1'), watch('telNo2'), watch('telNo3')]);
-
 	const onError = (e) => {
 		if (e) {
 			console.log(e)
@@ -33,17 +29,15 @@ const Step5 = () => {
 		}
 	}
 
+	// 최종 가입신청 버튼 클릭시 호출
 	const onClickNext = () => {
 		const insurance = StorageGetInsurance();
-		const phoneReg = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
 		const objZipValue = insurance.getAddr.zipNo+''
-		if (watch('bizNo') === '') {
-			setClose(true);
-			setError('bizNo', {
+		if (watch('overlap') === 'Y') {
+			setError('overlap', {
 				type: 'custom',
-				message: '사업자번호를 확인해주세요.'
+				message: '다른 소상공인 풍수해보험 가입 시 중복 가입이 불가합니다.'
 			});
-			return false;
 		}
  		if (!watch('bizConfirm')) {
 			setClose(true);
@@ -53,14 +47,6 @@ const Step5 = () => {
 			});
 			return false;
 		}
-		if (phoneReg.test(watch('telNo')) === false) {
-			setClose(true);
-			setError('telNo', {
-				type: 'custom',
-				message: '핸드폰번호를 확인해주세요.'
-			});
-			return false;
-		} 
 		if (watch('termsA1') === 'N' || 
 				watch('termsA2') === 'N' ||
 				watch('termsA3') === 'N' || 
@@ -171,8 +157,11 @@ const Step5 = () => {
 					return false;
 				}
 			}).catch((e) => {
-				// console.log(e)
-				if (e.response.status === 409) {
+				console.log(e)
+				 if (e.response.status === 400) {
+					alert('잘못된 요청으로 처음부터 다시 작성해주시길 바랍니다.');
+					reset()
+				} else if (e.response.status === 409) {
 					setClose(true);
 					setMessage('이미 가입된 신청자입니다.');
 				} else {
@@ -221,7 +210,7 @@ const Step5 = () => {
 		}
  	 }
 
-	const yogiyoClose = () => {
+	const jehuCdClose = () => {
 		setClose(false);
 		navigate('/');
 	}
@@ -438,7 +427,7 @@ const Step5 = () => {
       hr='none'
     >
       <AllCheckButton>
-					<button type='button' onClick={() => onClickAllCheck()}>전체 동의하기</button>
+				<button type='button' onClick={() => onClickAllCheck()}>전체 동의하기</button>
       </AllCheckButton>
 			{!jehuCd ? (
 				<>
@@ -480,14 +469,9 @@ const Step5 = () => {
 			</ButtonGroup>
     </SectionWrap>
 			{close && (
-				<Popup close={success ?  () => yogiyoClose() :  () => setClose(false)}>
-					{	errors.bizNo1 ? <p>{errors.bizNo1.message}</p> : 
-						errors.bizNo2 ? <p>{errors.bizNo2.message}</p> : 
-						errors.bizNo3 ? <p>{errors.bizNo3.message}</p> :
+				<Popup close={success ?  () => jehuCdClose() :  () => setClose(false)}>
+					{	
 						errors.bizNo ? <p>{errors.bizNo.message}</p> :
-						errors.telNo1 ? <p>{errors.telNo1.message}</p> : 
-						errors.telNo2 ? <p>{errors.telNo2.message}</p> : 
-						errors.telNo3 ? <p>{errors.telNo3.message}</p> :
 						errors.telNo ? <p>{errors.telNo.message}</p> :
 						errors.inrBirth ? <p>{errors.inrBirth.message}</p> :
 						errors.lobzCd ? <p>{errors.lobzCd.message}</p> :
@@ -499,6 +483,7 @@ const Step5 = () => {
 						errors.bizMainType ? <p>{errors.bizMainType.message}</p> :
 						errors.sales ? <p>{errors.sales.message}</p> :
 						errors.bizConfirm ? <p>{errors.bizConfirm.message}</p> :
+						errors.overlap ? <p>{errors.overlap.message}</p> :
 						message !== '' && <p>{message}</p>
 					}
 				</Popup>

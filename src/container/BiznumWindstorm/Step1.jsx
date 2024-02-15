@@ -14,10 +14,10 @@ import { useSearchParams } from "react-router-dom";
 const Step1 = () => {
   const [data, setData] = useState();
   const [open, setOpen] = useState(false);
-  const [close, setClose] = useState(true);
+  const [popUpClose, setPopupClose] = useState(true);
   const [searchParams] = useSearchParams();
   const jehuCd = searchParams.get('jehuCd');
-  const { watch, setValue, setError, clearErrors, setFocus, formState: { errors } } = useFormContext();
+  const { watch, setValue, setError, formState: { errors } } = useFormContext();
   const overlap = [
     {
       id: 1,
@@ -32,16 +32,18 @@ const Step1 = () => {
   ];
 
   useEffect(() => {
+    setOpen(false);
     if (watch('overlap') === 'Y') {
-      setClose(false); 
+      setPopupClose(false); 
     } 
-  }, [watch('overlap')]);
+
+  }, [watch('overlap'), watch('bizNo')]);
 
   // 조회하기 버튼 클릭
   const onClickSearch = useCallback(() => {
-    setOpen(false);
+    
     if (bizNumValidate()) {
-      clearErrors('bizNo')
+      // clearErrors('bizNo')
       MoneypinBizInfo(watch('bizNo')).then((res) => {
         // console.log(res.data[0].info)
         setData(res.data[0].info)
@@ -58,7 +60,6 @@ const Step1 = () => {
 
   // 사업자번호 유효성 검사
   const bizNumValidate = () => {
-    setValue('bizNo', watch('bizNo1') + watch('bizNo2') + watch('bizNo3'));
     let number = watch('bizNo');
     let regsplitNum = number.replace(/ /gi,"").split('').map(function (d){
       return parseInt(d, 10);
@@ -93,7 +94,13 @@ const Step1 = () => {
           </InputGroup>
           <InputGroup>
             <p>사업자번호<b>*</b></p>
-            <div>
+            <TextInput
+              name='bizNo'
+              required='사업자번호를 다시 입력해주세요'
+              autoFocus
+              onKeyUp={() => setValue('bizNo', watch('bizNo').replace(/[^0-9]/g, ""))}
+            />
+            {/* <div>
               <TextInput 
                 name='bizNo1'
                 required='사업자번호를 다시 입력해주세요'
@@ -135,16 +142,11 @@ const Step1 = () => {
                   message: '사업자번호를 다시 입력해주세요'
                 }}
               />
-            </div>
-            {
-              errors.bizNo1 ? <ErrorMessage message={errors.bizNo1.message} /> :  
-              errors.bizNo2 ? <ErrorMessage message={errors.bizNo2.message} /> :
-              errors.bizNo3 ? <ErrorMessage message={errors.bizNo3.message} /> :
-              errors.bizNo && <ErrorMessage message={errors.bizNo.message} />
-            }
+            </div> */}
+            {errors.bizNo && <ErrorMessage message={errors.bizNo.message} />}
           </InputGroup>
-          {!close && (
-            <Popup close={() => setClose(true)}>
+          {!popUpClose && (
+            <Popup close={() => setPopupClose(true)}>
               <p>다른 소상공인 풍수해보험에<br />가입 시 중복 가입이 불가합니다.</p>
             </Popup>
           )}
@@ -154,9 +156,7 @@ const Step1 = () => {
             className={jehuCd}
             onClick={() => onClickSearch()}
             disabled={
-              !watch('bizNo1') || 
-              !watch('bizNo2') || 
-              !watch('bizNo3') || 
+              !watch('bizNo') || 
               watch('overlap') === 'Y'
             }
           />

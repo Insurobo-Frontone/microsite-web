@@ -7,12 +7,36 @@ import Step1 from "../container/BiznumWindstorm/Step1";
 import SectionWrap from "../container/BiznumWindstorm/SectionWrap";
 
 const BiznumWindstorm = () => {
-  const { reset, setValue } = useFormContext();
+  const { reset } = useFormContext();
   useEffect(() => {
-    reset();
-    setValue('bizNo1', '')
-    setValue('bizNo2', '')
-    setValue('bizNo3', '')
+    reset({
+      overlap: 'N', //풍수해보험 중복가입여부
+      bizNo: '', //사업자번호 biz_no
+      telNo: '', //휴대폰번호 phoneNum
+      inrBirth: '', //생년월일 birthDate
+      inrGender: '1', //성별 sex
+      objCat: '2',    //건물구분 building_division
+      lobzCd: '', //영위업종 biz_type
+      objAddr2: '', //상세주소 detail_address
+      hsArea: '', //면적 squareMeter, area
+      hsFeet: '', //평수 squareMeter, area
+      bizEstate: '임차인', //사업장 임차 여부 biz_site_lease
+      inputBldSt: '', //내 사업장 위치 시작 층 input_bld_st
+      inputBldEd: '', //내 사업장 위치 끝층 input_bld_ed,
+      workerNumUnder: 'Y', //소상공인 여부 확인 (근로자 수 기준 미만 여부),
+      workerNum: '',  //소상공인 여부 확인 (근로자 수)
+      charSalesUnder: 'Y', //소상공인 여부 확인 (연평균 매출액 기준 미만 여부)
+      sales: '', //소상공인 여부 확인 (연평균 매출액)
+      termsA1: 'N', 
+      termsA2: 'N',
+      termsA3: 'N',
+      termsA4: 'N',
+      termsA6: 'N',
+      termsA7: 'N',
+      termsA8: 'N',
+      zipcode: '', //우편번호 zipCode
+      bizConfirm: false, // 보험금 지금 제한 확인 체크 imputation_reason_confirm_yn
+    });
     StorageClearInsurance();
   }, [])
 
