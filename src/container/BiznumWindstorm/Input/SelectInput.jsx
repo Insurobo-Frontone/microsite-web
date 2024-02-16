@@ -1,19 +1,20 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import selectIcon from '../../../assets/icon/bizSelectArrow.png';
 import { ErrorMessage } from "@hookform/error-message";
-const SelectInput = ({name, defaultValue, placeholder, children, ...rest}) => {
+const SelectInput = ({name, defaultValue, required, placeholder, field, children, ...rest}) => {
   const { register, formState: { errors }} = useFormContext({
 		mode: 'onBlur',
 	});
 
   return (
     <>
-      <SelectContainer>
+      <SelectContainer field={field}>
         <SelectBase
           name={name}
           key={defaultValue}
+          required={required}
           defaultValue={defaultValue}
           {...register(name)}
           {...rest}
@@ -46,6 +47,10 @@ const SelectContainer = styled.div`
   justify-content: space-between;
   position: relative;
   overflow: hidden;
+
+  ${props => props.field && css`
+    width: 49%;
+  `}
 `;
 
 const SelectBase = styled.select`
@@ -73,4 +78,6 @@ const ErrorTextMessage = styled.div`
   font-size: 12px;
   color: #FF0000;
   line-height: 22px;
+  position: absolute;
+  bottom: -21px;
 `;

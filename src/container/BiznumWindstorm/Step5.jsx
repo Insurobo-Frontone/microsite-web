@@ -56,7 +56,13 @@ const Step5 = () => {
 			setClose(true);
 			setMessage('필수체크 항목에 동의하셔야 가입이 가능합니다');
 			return false;
-		} if (
+		} 
+		if (jehuCd === 'yogiyo' ? watch('termsA8') === 'N' : '') {
+			setClose(true);
+			setMessage('필수체크 항목에 동의하셔야 가입이 가능합니다');
+			return false;
+		}
+		if (
 			watch('workerNumUnder') === 'N' ||
 			watch('charSalesUnder') === 'N'
 		) {
@@ -72,6 +78,22 @@ const Step5 = () => {
 			setFocus('lobzCd');
 			return false;
 		} 
+		if (jehuCd === 'payco' ? watch('inputBldSt') === '' : '') {
+			setClose(true);
+			setError('inputBldSt', {
+				type: 'custom',
+				message: '시작층을 선택해주세요.'
+			});
+			return false;
+		}
+		if (jehuCd === 'payco' ? watch('inputBldEd') === '' : '') {
+			setClose(true);
+			setError('inputBldEd', {
+				type: 'custom',
+				message: '끝층을 선택해주세요.'
+			});
+			return false;
+		}
 		
 		if (jehuCd) {
 			// console.log({
@@ -205,7 +227,7 @@ const Step5 = () => {
 					navigate('/');
 				}).catch((e) => {
 					console.log(e);
-					alert('네트워크 에러가 발생했습니다 잠시후 다시 시도해주세요.');
+					alert(e.response.data.message);
 				});
 		}
  	 }
@@ -215,8 +237,8 @@ const Step5 = () => {
 		navigate('/');
 	}
 
-	const jehuText = jehuCd === 'yogiyo' ? 'DB손해보험주식회사' : '현대해상'
-	const jehuCsText = jehuCd === 'yogiyo' ? '홈페이지 및 고객콜 센터(1588-0100)' : '홈페이지 및 고객콜 센터(1577-1001)';
+	const jehuText = jehuCd === 'yogiyo' ? 'DB손해보험주식회사' : '현대해상화재보험주식회사'
+	const jehuCsText = jehuCd === 'yogiyo' ? '홈페이지 및 고객콜 센터(1588-0100)' : '홈페이지 및 고객콜 센터(1588-5656)';
 	const terms = [
 		{
 			id: 'termsA6',
@@ -262,7 +284,7 @@ const Step5 = () => {
 				<div>
 					민감정보 및 고유식별정보의 처리에 관한 사항
 					<br /><br />
-					${jehuText} 및 ${jehuText} 업무수탁자는 「개인정보보호법」 및 「신용정보의 이용 및 보호에 관한 법률」에 따라 상기의 개인(신용)정보에<br /><br />대한 개별 동의사항에 대하여 다음과 같이 귀하의 민감정보(질병·상해정보) 및 고유식별정보(주민등록번호·외국인등록번호·운전면허번호)<br /><br />를 처리(수집·이용, 조회, 제공)하고자 합니다. 이에 동의하십니까?  
+					${jehuText} 및 ${jehuText} 업무수탁자는 「개인정보보호법」 및 「신용정보의 이용 및 보호에 관한 법률」에 따라 상기의 개인(신용)정보에<br /><br />대한 개별 동의사항에 대하여 다음과 같이 귀하의 민감정보(질병·상해정보) 및 고유식별정보(주민등록번호·외국인등록번호·운전면허번호)<br /><br />를 처리(수집·이용, 조회, 제공)하고자 합니다. 이에 동의하십니까?
 				</div>
 			`
 		},
@@ -429,7 +451,7 @@ const Step5 = () => {
       <AllCheckButton>
 				<button type='button' onClick={() => onClickAllCheck()}>전체 동의하기</button>
       </AllCheckButton>
-			{!jehuCd ? (
+			{jehuCd === 'payco' || !jehuCd ? (
 				<>
 				{terms.filter((db) => db.id !== 'termsA8').map((dt) => (
 					<InputGroup>

@@ -8,7 +8,7 @@ import SelectInput from "./Input/SelectInput";
 import { useFormContext } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import Popup from "./Popup";
-import { errorLoBzCdList } from "./bizData";
+import { errorLoBzCdList, hiBizPlace } from "./bizData";
 
 const Step3 = ({ data }) => {
   const [bizData, setBizData] = useState();
@@ -202,28 +202,62 @@ const Step3 = ({ data }) => {
           )}
           <InputGroup>
             <p>내 사업장 위치<b>*</b></p>
-            <div className="two-input">
-              <TextInput
-                type='number'
-                name='inputBldSt'
-                placeholder='시작 층'
-                required='가입하실 시작 층수를 다시 입력해주세요.'
-                pattern={{
-                  value: /^[0-9]+$/,
-                  message: '가입하실 시작 층수를 확인해주세요'
-                }}
-              />
-              <TextInput
-                type='number'
-                name='inputBldEd'
-                placeholder='끝 층'
-                required='가입하실 끝 층수를 다시 입력해주세요.'
-                pattern={{
-                  value: /^[0-9]+$/,
-                  message: '가입하실 시작 층수를 확인해주세요'
-                }}
-              />
-            </div>
+            {jehuCd === 'payco' ? (
+              <div style={{ position: "relative"}}>
+                <SelectInput
+                  field
+                  name='inputBldSt'
+                  required='가입하실 시작 층수를 선택해주세요.'
+                  placeholder='시작층'
+                >
+                  {hiBizPlace?.map((dt) => {
+                    return (
+                      <option value={dt.value} key={dt.id}>
+                        {dt.value}
+                      </option> 
+                    )
+                  })}
+                </SelectInput>
+                <SelectInput
+                  field
+                  name='inputBldEd'
+                  required='가입하실 끝 층수를 선택해주세요.'
+                  placeholder='끝층'
+                >
+                  {hiBizPlace?.map((dt) => {
+                    return (
+                      <option value={dt.value} key={dt.id}>
+                        {dt.value}
+                      </option> 
+                    )
+                  })}
+                </SelectInput>
+              </div>
+            ) : (
+              <div className="two-input">
+                <TextInput
+                  type='number'
+                  name='inputBldSt'
+                  placeholder='시작 층'
+                  required='가입하실 시작 층수를 다시 입력해주세요.'
+                  pattern={{
+                    value: /^[0-9]+$/,
+                    message: '가입하실 시작 층수를 확인해주세요'
+                  }}
+                />
+                <TextInput
+                  type='number'
+                  name='inputBldEd'
+                  placeholder='끝 층'
+                  required='가입하실 끝 층수를 다시 입력해주세요.'
+                  pattern={{
+                    value: /^[0-9]+$/,
+                    message: '가입하실 시작 층수를 확인해주세요'
+                  }}
+                />
+              </div>
+            )}
+            
           </InputGroup>
           {!jehuCd && (
             <InputGroup>
@@ -270,7 +304,7 @@ const InputGroup = styled.div`
     }
   }
   .two-input {
-    > input {
+    input {
       width: 49.15730337078652%;
     }
   }

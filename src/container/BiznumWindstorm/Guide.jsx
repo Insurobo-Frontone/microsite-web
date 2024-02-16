@@ -12,6 +12,9 @@ import payco1 from '../../assets/img/windstormPaycoBanner1.png';
 import payco2 from '../../assets/img/windstormPaycoBanner2.png';
 import payco3 from '../../assets/img/windstormPaycoBanner3.png';
 import payco4 from '../../assets/img/windstormPaycoBanner4.png';
+import payco5 from '../../assets/img/windstormPaycoBanner5.png';
+import payco6 from '../../assets/img/windstormPaycoBanner6.png';
+import payco7 from '../../assets/img/windstormPaycoBanner7.png';
 import pdf from '../../assets/pdf/실손보상+소상공인+풍수해보험(VI)_보험약관.pdf';
 import Button from "../InsuroboWindStrom/Button";
 
@@ -340,22 +343,27 @@ const Guide = ({ jehuCd }) => {
         </>
       ) : (
         <>
-          <ImageBox>
+          <ImageBox className="position2">
             <img src={payco1} alt='풍수해보험 소상공인 무료지원' />
             <button onClick={() =>  navigate('/freeApply/bizWindstorm?jehuCd=payco')}>풍수해보험 무료신청하기</button>
           </ImageBox>
-          <ImageBox className="position2">
-            <img src={payco2} alt='가입대상' />
+          <ImageBox>
+            <img src={payco2} alt='페이코와 인슈로보가 지원하는 소상공인 풍수해 보험' />
+            <img src={payco3} alt='가입대상' />
+            <img src={payco4} alt='지원내용' />
+          </ImageBox>
+          <ImageBox>
+            <img src={payco5} alt='가입방법' />
             <button onClick={() =>  navigate('/freeApply/bizWindstorm?jehuCd=payco')}>풍수해보험 무료신청하기</button>
           </ImageBox>
-          <ImageBox className="position3">
-            <img src={payco3} alt='가입시유의사항' />
+          <ImageBox>
+            <img src={payco6} alt='가입시 유의사항' />
             <button className="style2" onClick={() => window.open(pdf, '_blank')}>상품 약관보기</button>
           </ImageBox>
           <ImageBox>
+            <img src={payco7} alt='꼭! 알아두어야하는 사항' />
             <div>
-              <img src={payco4} alt='꼭! 알아두어야하는 사항' />
-              <ScrollBox>
+            <ScrollBox> 
                 <ul>
                   <li>
                     상품안내
@@ -609,13 +617,15 @@ const Wrap = styled.div`
 
 const ImageBox = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   position: relative;
   > button {
     position: absolute;
     bottom: 41px;
-    width: 336px;
-    height: 70px;
+    width: 288px;
+    height: 60px;
     font-weight: 700;
     background-color: #6262EF;
     border-radius: 8px;
@@ -631,24 +641,18 @@ const ImageBox = styled.div`
 
   &.position2 {
     > button {
-      bottom: 49px;
+      bottom: 31px;
     }
   }
-  &.position3 {
-    > button {
-      bottom: 55px;
-    }
-    .style2 {
-      background-color: #FFFFFF;
-      color: #6262EF;
-      border: 1px solid #6262EF;
-    }
+  .style2 {
+    background-color: #FFFFFF;
+    color: #6262EF;
+    border: 1px solid #6262EF;
   }
-
   > div {
-    width: 362px;
+    width: 288px;
     > p {
-      font-size: 14px;
+      font-size: 12px;
       padding-bottom: 20px;
       color: #999999;
     }

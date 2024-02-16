@@ -175,3 +175,18 @@ export const errorLoBzCdList = [
       name: '종자선별'
     },
   ];
+
+  export const hiBizPlace = [
+    {
+      id: '1',
+      value: '지상1층',
+    },
+    {
+      id: '2',
+      value: '지하층',
+    },
+    {
+      id: '3',
+      value: '전통시장',
+    },
+  ]
