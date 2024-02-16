@@ -438,7 +438,9 @@ const Step5 = () => {
 		setValue('termsA4', 'Y')
 		setValue('termsA6', 'Y')
 		setValue('termsA7', 'Y')
-		setValue('termsA8', 'Y')
+		if (jehuCd === 'yogiyo') {
+			setValue('termsA8', 'Y')
+		}
 	}
 
   return (
