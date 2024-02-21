@@ -14,7 +14,6 @@ const Step3 = ({ data }) => {
   const [bizData, setBizData] = useState();
   const [errorPopup, setErrorPopup] = useState(false);
   const [message, setMessage] = useState('');
-  const [korFeet, setKorFeet] = useState();
   const [loBzCdList, setLoBzCdList] = useState([]);
   const { watch, setValue } = useFormContext();
   const [searchParams] = useSearchParams();
@@ -91,12 +90,9 @@ const Step3 = ({ data }) => {
       // console.log(watch('zipcode'))
     }
   }, [data, jehuCd]);
-  function converFeet(m2) {
-    return Math.round(m2 / 3.306) 
-  }
+
   const onKeyUpEvent = () => {
-    setKorFeet(converFeet(watch('hsArea')));
-    setValue('hsFeet', `${korFeet}평`);
+    setValue('hsFeet', Math.round(watch('hsArea') / 3.306)+"평");
   }
 
   return (
@@ -175,7 +171,7 @@ const Step3 = ({ data }) => {
             />
           </InputGroup>
           <KorFeetWrap>
-          <span>{korFeet}</span><span>평</span>
+          <span>{watch('hsFeet')}</span>
           </KorFeetWrap>
           <InputGroup>
             <div>
