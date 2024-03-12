@@ -171,7 +171,7 @@ const Step3 = ({ data }) => {
             />
           </InputGroup>
           <KorFeetWrap>
-          <span>{watch('hsFeet')}</span>
+            <span>{watch('hsFeet')}</span>
           </KorFeetWrap>
           <InputGroup>
             <div>

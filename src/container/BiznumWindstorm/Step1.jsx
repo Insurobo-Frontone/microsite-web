@@ -41,7 +41,6 @@ const Step1 = () => {
 
   // 조회하기 버튼 클릭
   const onClickSearch = useCallback(() => {
-    
     if (bizNumValidate()) {
       // clearErrors('bizNo')
       MoneypinBizInfo(watch('bizNo')).then((res) => {
