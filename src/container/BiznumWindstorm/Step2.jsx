@@ -15,7 +15,8 @@ const Step2 = ({ data }) => {
   useEffect(() => {
     setValue('ptyBizNm', data?.bizName)
     setValue('ptyKorNm', data?.ceoName)
-  }, [data])
+  }, [data]);
+
   const gender = [
     {
       id: 'men',
@@ -47,7 +48,7 @@ const Step2 = ({ data }) => {
               <TextInput 
                 name='ptyKorNm'
                 readOnly
-                required={true}
+                
               />
             </InputGroup>
             <InputGroup>
@@ -62,28 +63,6 @@ const Step2 = ({ data }) => {
                 }}
                 onKeyUp={() => setValue('telNo', watch('telNo').replace(/[^0-9]/g, ""))}
               />
-              {/* <div>
-                <TextInput
-                  type='number'
-                  name='telNo1'
-                  required='휴대폰번호를 입력해주세요'
-                  autoFocus
-                  onKeyUp={() => watch('telNo1').length === 3 && setFocus('telNo2')}
-                />
-                <span>-</span>
-                <TextInput 
-                  type='number'
-                  name='telNo2'
-                  required='휴대폰번호를 입력해주세요'
-                  onKeyUp={() => watch('telNo2').length === 4 && setFocus('telNo3')}
-                />
-                <span> - </span>
-                <TextInput
-                  type='number'
-                  name='telNo3'
-                  required='휴대폰번호를 입력해주세요'
-                />
-              </div> */}
             </InputGroup>
             <InputGroup>
               <p>생년월일<b>*</b></p>
